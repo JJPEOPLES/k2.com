@@ -1843,6 +1843,73 @@ footer {
     border-color: var(--primary-color);
 }
 
+.runner-info {
+    max-width: 1200px;
+    margin: 4rem auto 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.info-card {
+    flex: 1;
+    min-width: 300px;
+    max-width: 350px;
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--card-bg);
+    border-radius: 1rem;
+    box-shadow: 
+        0 10px 25px -5px var(--shadow-color),
+        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 30px -5px var(--shadow-color),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
+
+.info-icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 8px 15px -3px rgba(37, 99, 235, 0.2);
+}
+
+.info-content {
+    flex: 1;
+}
+
+.info-content h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+}
+
+.info-content p {
+    color: var(--gray-color);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media screen and (max-width: 768px) {
+    .info-card {
+        max-width: 100%;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .runner-container {
         flex-direction: column;
