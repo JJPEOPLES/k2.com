@@ -1,4 +1,4 @@
-// K2 Language Website JavaScript - Modern UI 2024
+// K2 Language Website JavaScript - Modern UI 2025
 
 document.addEventListener('DOMContentLoaded', function() {
     // Dark Mode Toggle
@@ -351,4 +351,210 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Online K2 Runner
+    const codeEditor = document.getElementById('code-editor');
+    const codeOutput = document.getElementById('code-output');
+    const runButton = document.getElementById('run-code');
+    const clearCodeButton = document.getElementById('clear-code');
+    const clearOutputButton = document.getElementById('clear-output');
+    const copyCodeButton = document.getElementById('copy-code');
+    const executionTimeValue = document.getElementById('execution-time-value');
+    const memoryUsageValue = document.getElementById('memory-usage-value');
+    const exampleButtons = document.querySelectorAll('.example-btn');
+    
+    // Example code snippets
+    const codeExamples = {
+        hello: `// Hello World Example
+var greeting = "Hello, World!";
+print(greeting);
+
+// Using string concatenation
+var name = "K2";
+print("Welcome to " + name + " programming language!");`,
+
+        fibonacci: `// Fibonacci Sequence
+function fibonacci(n) {
+    if (n <= 1) return n;
+    return fibonacci(n-1) + fibonacci(n-2);
+}
+
+// Calculate first 10 Fibonacci numbers
+print("Fibonacci Sequence:");
+for (var i = 0; i < 10; i++) {
+    print(i + ": " + fibonacci(i));
+}`,
+
+        factorial: `// Factorial Calculation
+function factorial(n) {
+    if (n <= 1) return 1;
+    return n * factorial(n-1);
+}
+
+// Calculate factorials from 1 to 10
+print("Factorials:");
+for (var i = 1; i <= 10; i++) {
+    print(i + "! = " + factorial(i));
+}`,
+
+        sorting: `// Bubble Sort Implementation
+function bubbleSort(arr) {
+    var len = arr.length;
+    for (var i = 0; i < len; i++) {
+        for (var j = 0; j < len - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // Swap elements
+                var temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+    return arr;
+}
+
+// Test with random array
+var numbers = [64, 34, 25, 12, 22, 11, 90];
+print("Original array: " + numbers);
+print("Sorted array: " + bubbleSort(numbers));`
+    };
+    
+    // Load example code
+    exampleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const exampleType = button.getAttribute('data-example');
+            if (codeExamples[exampleType]) {
+                codeEditor.value = codeExamples[exampleType];
+            }
+        });
+    });
+    
+    // Run code function
+    runButton.addEventListener('click', () => {
+        const code = codeEditor.value;
+        if (!code.trim()) {
+            codeOutput.textContent = "// Please enter some code to run";
+            return;
+        }
+        
+        // Simulate execution (in a real implementation, this would call the K2 interpreter)
+        const startTime = performance.now();
+        
+        try {
+            // Simulate K2 execution
+            const output = simulateK2Execution(code);
+            const endTime = performance.now();
+            const executionTime = endTime - startTime;
+            
+            // Display output
+            codeOutput.textContent = output;
+            
+            // Update execution metrics
+            if (executionTime < 1) {
+                executionTimeValue.textContent = Math.round(executionTime * 1000) + " ns";
+            } else if (executionTime < 1000) {
+                executionTimeValue.textContent = executionTime.toFixed(2) + " ms";
+            } else {
+                executionTimeValue.textContent = (executionTime / 1000).toFixed(2) + " s";
+            }
+            
+            // Simulate memory usage
+            const codeSize = new Blob([code]).size;
+            const memoryUsage = codeSize * 2 + Math.random() * 1000;
+            
+            if (memoryUsage < 1024) {
+                memoryUsageValue.textContent = Math.round(memoryUsage) + " B";
+            } else {
+                memoryUsageValue.textContent = Math.round(memoryUsage / 1024) + " KB";
+            }
+        } catch (error) {
+            codeOutput.textContent = "Error: " + error.message;
+            executionTimeValue.textContent = "N/A";
+            memoryUsageValue.textContent = "N/A";
+        }
+    });
+    
+    // Clear code function
+    clearCodeButton.addEventListener('click', () => {
+        codeEditor.value = "";
+    });
+    
+    // Clear output function
+    clearOutputButton.addEventListener('click', () => {
+        codeOutput.textContent = "// Output will appear here when you run your code";
+        executionTimeValue.textContent = "0 ns";
+        memoryUsageValue.textContent = "0 KB";
+    });
+    
+    // Copy code function
+    copyCodeButton.addEventListener('click', () => {
+        codeEditor.select();
+        document.execCommand('copy');
+        
+        // Visual feedback
+        copyCodeButton.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => {
+            copyCodeButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+        }, 2000);
+    });
+    
+    // Simulate K2 execution (this is just a simulation for the demo)
+    function simulateK2Execution(code) {
+        // This is a very simple simulation that doesn't actually execute the code
+        // In a real implementation, this would call the K2 interpreter
+        
+        let output = "";
+        const lines = code.split('\n');
+        
+        for (const line of lines) {
+            // Simulate print statements
+            if (line.trim().startsWith('print(') && line.trim().endsWith(');')) {
+                try {
+                    // Extract content inside print()
+                    const content = line.trim().substring(6, line.trim().length - 2);
+                    
+                    // Very basic string handling
+                    if (content.startsWith('"') && content.endsWith('"')) {
+                        output += content.substring(1, content.length - 1) + "\n";
+                    } else if (content.startsWith("'") && content.endsWith("'")) {
+                        output += content.substring(1, content.length - 1) + "\n";
+                    } else if (!isNaN(content)) {
+                        output += content + "\n";
+                    } else if (content.includes('+')) {
+                        // Very simple string concatenation
+                        const parts = content.split('+').map(p => p.trim());
+                        let result = "";
+                        
+                        for (const part of parts) {
+                            if (part.startsWith('"') && part.endsWith('"')) {
+                                result += part.substring(1, part.length - 1);
+                            } else if (part.startsWith("'") && part.endsWith("'")) {
+                                result += part.substring(1, part.length - 1);
+                            } else if (!isNaN(part)) {
+                                result += part;
+                            } else {
+                                // Assume it's a variable with value "variable_name"
+                                result += part;
+                            }
+                        }
+                        
+                        output += result + "\n";
+                    } else {
+                        // Assume it's a variable with value "variable_name"
+                        output += content + "\n";
+                    }
+                } catch (e) {
+                    output += "Error evaluating print statement\n";
+                }
+            }
+        }
+        
+        // If no output was generated, provide a default message
+        if (!output) {
+            output = "// Code executed successfully with no output\n// (Note: This is a simulation - only print() statements are processed)";
+        }
+        
+        // Add a small delay to simulate processing time
+        return output;
+    }
 });

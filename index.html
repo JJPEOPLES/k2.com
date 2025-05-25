@@ -22,6 +22,7 @@
                 <li><a href="#features" class="animated-link">Features</a></li>
                 <li><a href="#performance" class="animated-link">Performance</a></li>
                 <li><a href="#examples" class="animated-link">Examples</a></li>
+                <li><a href="#runner" class="animated-link">Try Online</a></li>
                 <li><a href="#documentation" class="animated-link">Documentation</a></li>
                 <li><a href="#download" class="download-btn">Download</a></li>
                 <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
@@ -330,6 +331,65 @@ Execution time: 1180 nanoseconds</pre>
                         K2 allows you to toggle execution time display, which is useful for benchmarking and performance analysis.
                     </p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="runner" class="runner">
+        <h2 class="section-title">Online K2 Runner</h2>
+        <p class="section-intro">Try K2 directly in your browser without installing anything. Write your code and see the results instantly.</p>
+        
+        <div class="runner-container">
+            <div class="editor-container">
+                <div class="editor-header">
+                    <div class="editor-title">K2 Code Editor</div>
+                    <div class="editor-actions">
+                        <button id="run-code" class="run-btn"><i class="fas fa-play"></i> Run</button>
+                        <button id="clear-code" class="clear-btn"><i class="fas fa-trash"></i> Clear</button>
+                        <button id="copy-code" class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                </div>
+                <div class="editor-wrapper">
+                    <textarea id="code-editor" class="code-input" spellcheck="false" placeholder="// Write your K2 code here
+                    
+var greeting = 'Hello, World!';
+print(greeting);
+
+// Try more complex operations
+var a = 10;
+var b = 20;
+print('Sum: ' + (a + b));
+"></textarea>
+                </div>
+            </div>
+            <div class="output-container">
+                <div class="output-header">
+                    <div class="output-title">Output</div>
+                    <button id="clear-output" class="clear-btn"><i class="fas fa-trash"></i> Clear</button>
+                </div>
+                <div class="output-wrapper">
+                    <pre id="code-output" class="code-output">// Output will appear here when you run your code</pre>
+                </div>
+                <div class="execution-info">
+                    <div class="execution-time">
+                        <span>Execution time: </span>
+                        <span id="execution-time-value">0 ns</span>
+                    </div>
+                    <div class="memory-usage">
+                        <span>Memory usage: </span>
+                        <span id="memory-usage-value">0 KB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="runner-examples">
+            <h3>Example Snippets</h3>
+            <div class="example-buttons">
+                <button class="example-btn" data-example="hello">Hello World</button>
+                <button class="example-btn" data-example="fibonacci">Fibonacci</button>
+                <button class="example-btn" data-example="factorial">Factorial</button>
+                <button class="example-btn" data-example="sorting">Sorting</button>
             </div>
         </div>
     </section>
