@@ -1,41 +1,63 @@
 // K2 Account System - Netlify Serverless Function
-const { MongoClient } = require('mongodb');
+const Database = require('better-sqlite3');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
+const path = require('path');
 
-// MongoDB connection string - use environment variable in production
-const MONGODB_URI = process.env.MONGODB_URI || '';
+// SQLite database path
+const DB_PATH = process.env.DB_PATH || path.join('/tmp', 'k2accounts.db');
 const JWT_SECRET = process.env.JWT_SECRET || 'k2_jwt_secret_key_change_in_production';
 
 // Flag to indicate if we should use localStorage fallback
-const USE_LOCALSTORAGE_FALLBACK = true; // Set to true to enable fallback
+const USE_LOCALSTORAGE_FALLBACK = false; // Set to false since we're using SQLite
 
-// Connect to MongoDB
+// Connect to SQLite database
 let cachedDb = null;
-async function connectToDatabase() {
+function connectToDatabase() {
   if (cachedDb) {
     return cachedDb;
   }
   
-  // If no MongoDB URI is provided or we're using localStorage fallback, return null
-  if (!MONGODB_URI || MONGODB_URI === '') {
-    console.log('No MongoDB URI provided, using localStorage fallback');
-    return null;
-  }
-  
   try {
-    const client = await MongoClient.connect(MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    // Ensure the directory exists
+    const dbDir = path.dirname(DB_PATH);
+    if (!fs.existsSync(dbDir)) {
+      fs.mkdirSync(dbDir, { recursive: true });
+    }
     
-    const db = client.db('k2accounts');
+    // Connect to SQLite database
+    const db = new Database(DB_PATH);
+    
+    // Create tables if they don't exist
+    db.exec(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        tier TEXT DEFAULT 'free',
+        joinDate TEXT NOT NULL,
+        lastLogin TEXT NOT NULL
+      );
+      
+      CREATE TABLE IF NOT EXISTS programs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        userId INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        code TEXT NOT NULL,
+        created TEXT NOT NULL,
+        lastModified TEXT NOT NULL,
+        FOREIGN KEY (userId) REFERENCES users(id)
+      );
+    `);
+    
     cachedDb = db;
     return db;
   } catch (error) {
-    console.error('MongoDB connection error:', error);
+    console.error('SQLite connection error:', error);
     if (USE_LOCALSTORAGE_FALLBACK) {
-      console.log('Using localStorage fallback due to MongoDB connection error');
+      console.log('Using localStorage fallback due to SQLite connection error');
       return null;
     }
     throw error;
@@ -117,7 +139,7 @@ async function registerUser(data) {
   }
   
   try {
-    const db = await connectToDatabase();
+    const db = connectToDatabase();
     
     // If db is null, use localStorage fallback
     if (!db && USE_LOCALSTORAGE_FALLBACK) {
@@ -152,11 +174,9 @@ async function registerUser(data) {
       return returnSuccess(userData);
     }
     
-    // Normal MongoDB flow
     // Check if username or email already exists
-    const existingUser = await db.collection('users').findOne({
-      $or: [{ username }, { email }]
-    });
+    const checkStmt = db.prepare('SELECT id FROM users WHERE username = ? OR email = ?');
+    const existingUser = checkStmt.get(username, email);
     
     if (existingUser) {
       return returnError('Username or email already exists', 409);
@@ -166,27 +186,30 @@ async function registerUser(data) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     
-    // Create new user
-    const newUser = {
-      username,
-      email,
-      password: hashedPassword,
-      tier: 'free',
-      joinDate: new Date(),
-      lastLogin: new Date()
-    };
+    const now = new Date().toISOString();
     
-    const result = await db.collection('users').insertOne(newUser);
-    const userId = result.insertedId.toString();
+    // Create new user
+    const insertStmt = db.prepare(
+      'INSERT INTO users (username, email, password, tier, joinDate, lastLogin) VALUES (?, ?, ?, ?, ?, ?)'
+    );
+    
+    const result = insertStmt.run(username, email, hashedPassword, 'free', now, now);
+    const userId = result.lastInsertRowid.toString();
     
     // Generate token
     const token = generateToken(userId);
     
-    // Return user data (without password)
-    const { password: _, ...userData } = newUser;
-    userData.id = userId;
-    userData.token = token;
-    userData.saved_programs = [];
+    // Return user data
+    const userData = {
+      id: userId,
+      username,
+      email,
+      tier: 'free',
+      joinDate: now,
+      lastLogin: now,
+      token,
+      saved_programs: []
+    };
     
     return returnSuccess(userData);
   } catch (error) {
@@ -205,7 +228,7 @@ async function registerUser(data) {
         username,
         email,
         tier: 'free',
-        joinDate: new Date(),
+        joinDate: new Date().toISOString(),
         token: generateToken(userId),
         saved_programs: []
       };
@@ -226,7 +249,7 @@ async function loginUser(data) {
   const { username, password } = data;
   
   try {
-    const db = await connectToDatabase();
+    const db = connectToDatabase();
     
     // If db is null, use localStorage fallback
     if (!db && USE_LOCALSTORAGE_FALLBACK) {
@@ -245,8 +268,8 @@ async function loginUser(data) {
         username,
         email: username + '@example.com', // Simulated email
         tier: 'free',
-        joinDate: new Date(),
-        lastLogin: new Date(),
+        joinDate: new Date().toISOString(),
+        lastLogin: new Date().toISOString(),
         token: generateToken(userId),
         saved_programs: []
       };
@@ -254,9 +277,9 @@ async function loginUser(data) {
       return returnSuccess(userData);
     }
     
-    // Normal MongoDB flow
     // Find user by username
-    const user = await db.collection('users').findOne({ username });
+    const getUserStmt = db.prepare('SELECT * FROM users WHERE username = ?');
+    const user = getUserStmt.get(username);
     
     if (!user) {
       return returnError('Invalid username or password', 401);
@@ -270,28 +293,28 @@ async function loginUser(data) {
     }
     
     // Update last login
-    await db.collection('users').updateOne(
-      { _id: user._id },
-      { $set: { lastLogin: new Date() } }
-    );
+    const now = new Date().toISOString();
+    const updateLoginStmt = db.prepare('UPDATE users SET lastLogin = ? WHERE id = ?');
+    updateLoginStmt.run(now, user.id);
     
     // Generate token
-    const token = generateToken(user._id.toString());
+    const token = generateToken(user.id.toString());
     
     // Get user's saved programs
-    const programs = await db.collection('programs')
-      .find({ userId: user._id.toString() })
-      .project({ name: 1, created: 1, lastModified: 1 })
-      .toArray();
+    const getProgramsStmt = db.prepare('SELECT id, name, created, lastModified FROM programs WHERE userId = ? ORDER BY lastModified DESC');
+    const programs = getProgramsStmt.all(user.id);
     
     // Return user data (without password)
-    const { password: _, ...userData } = user;
-    userData.id = user._id.toString();
-    userData.token = token;
-    userData.saved_programs = programs.map(p => ({
-      ...p,
-      id: p._id.toString()
-    }));
+    const userData = {
+      id: user.id.toString(),
+      username: user.username,
+      email: user.email,
+      tier: user.tier,
+      joinDate: user.joinDate,
+      lastLogin: now,
+      token,
+      saved_programs: programs
+    };
     
     return returnSuccess(userData);
   } catch (error) {
@@ -310,8 +333,8 @@ async function loginUser(data) {
         username,
         email: username + '@example.com', // Simulated email
         tier: 'free',
-        joinDate: new Date(),
-        lastLogin: new Date(),
+        joinDate: new Date().toISOString(),
+        lastLogin: new Date().toISOString(),
         token: generateToken(userId),
         saved_programs: []
       };
@@ -338,13 +361,13 @@ async function saveProgram(data) {
   }
   
   try {
-    const db = await connectToDatabase();
+    const db = connectToDatabase();
     
     // If db is null, use localStorage fallback
     if (!db && USE_LOCALSTORAGE_FALLBACK) {
       console.log('Using localStorage fallback for saving program');
       
-      const now = new Date();
+      const now = new Date().toISOString();
       const programId = program_id || Date.now().toString();
       
       return returnSuccess({
@@ -355,9 +378,9 @@ async function saveProgram(data) {
       });
     }
     
-    // Normal MongoDB flow
     // Get user
-    const user = await db.collection('users').findOne({ _id: user_id });
+    const getUserStmt = db.prepare('SELECT * FROM users WHERE id = ?');
+    const user = getUserStmt.get(user_id);
     
     if (!user) {
       return returnError('User not found', 404);
@@ -365,7 +388,8 @@ async function saveProgram(data) {
     
     // Check program count limit for new programs
     if (!program_id) {
-      const count = await db.collection('programs').countDocuments({ userId: user_id });
+      const countStmt = db.prepare('SELECT COUNT(*) as count FROM programs WHERE userId = ?');
+      const { count } = countStmt.get(user_id);
       
       let limit = 5; // Default for free tier
       
@@ -380,45 +404,38 @@ async function saveProgram(data) {
       }
     }
     
-    const now = new Date();
+    const now = new Date().toISOString();
     
     if (program_id) {
       // Update existing program
-      const result = await db.collection('programs').updateOne(
-        { _id: program_id, userId: user_id },
-        {
-          $set: {
-            name,
-            code,
-            lastModified: now
-          }
-        }
+      const updateStmt = db.prepare(
+        'UPDATE programs SET name = ?, code = ?, lastModified = ? WHERE id = ? AND userId = ?'
       );
+      const result = updateStmt.run(name, code, now, program_id, user_id);
       
-      if (result.matchedCount === 0) {
+      if (result.changes === 0) {
         return returnError('Program not found or you don\'t have permission to update it', 404);
       }
+      
+      // Get created date
+      const getCreatedStmt = db.prepare('SELECT created FROM programs WHERE id = ?');
+      const { created } = getCreatedStmt.get(program_id);
       
       return returnSuccess({
         id: program_id,
         name,
-        created: now,
+        created,
         lastModified: now
       });
     } else {
       // Create new program
-      const newProgram = {
-        userId: user_id,
-        name,
-        code,
-        created: now,
-        lastModified: now
-      };
-      
-      const result = await db.collection('programs').insertOne(newProgram);
+      const insertStmt = db.prepare(
+        'INSERT INTO programs (userId, name, code, created, lastModified) VALUES (?, ?, ?, ?, ?)'
+      );
+      const result = insertStmt.run(user_id, name, code, now, now);
       
       return returnSuccess({
-        id: result.insertedId.toString(),
+        id: result.lastInsertRowid.toString(),
         name,
         created: now,
         lastModified: now
@@ -431,7 +448,7 @@ async function saveProgram(data) {
     if (USE_LOCALSTORAGE_FALLBACK) {
       console.log('Using localStorage fallback due to save program error');
       
-      const now = new Date();
+      const now = new Date().toISOString();
       const programId = program_id || Date.now().toString();
       
       return returnSuccess({
@@ -461,7 +478,7 @@ async function getPrograms(data) {
   }
   
   try {
-    const db = await connectToDatabase();
+    const db = connectToDatabase();
     
     // If db is null, use localStorage fallback
     if (!db && USE_LOCALSTORAGE_FALLBACK) {
@@ -472,20 +489,16 @@ async function getPrograms(data) {
       return returnSuccess({ programs: [] });
     }
     
-    // Normal MongoDB flow
     // Get programs
-    const programs = await db.collection('programs')
-      .find({ userId: user_id })
-      .sort({ lastModified: -1 })
-      .toArray();
+    const getProgramsStmt = db.prepare(
+      'SELECT id, name, code, created, lastModified FROM programs WHERE userId = ? ORDER BY lastModified DESC'
+    );
+    const programs = getProgramsStmt.all(user_id);
     
-    // Format programs
+    // Format programs (ensure id is a string)
     const formattedPrograms = programs.map(p => ({
-      id: p._id.toString(),
-      name: p.name,
-      code: p.code,
-      created: p.created,
-      lastModified: p.lastModified
+      ...p,
+      id: p.id.toString()
     }));
     
     return returnSuccess({ programs: formattedPrograms });
@@ -519,7 +532,7 @@ async function deleteProgram(data) {
   }
   
   try {
-    const db = await connectToDatabase();
+    const db = connectToDatabase();
     
     // If db is null, use localStorage fallback
     if (!db && USE_LOCALSTORAGE_FALLBACK) {
@@ -530,14 +543,11 @@ async function deleteProgram(data) {
       return returnSuccess({ message: 'Program deleted successfully' });
     }
     
-    // Normal MongoDB flow
     // Delete program
-    const result = await db.collection('programs').deleteOne({
-      _id: program_id,
-      userId: user_id
-    });
+    const deleteStmt = db.prepare('DELETE FROM programs WHERE id = ? AND userId = ?');
+    const result = deleteStmt.run(program_id, user_id);
     
-    if (result.deletedCount === 0) {
+    if (result.changes === 0) {
       return returnError('Program not found or you don\'t have permission to delete it', 404);
     }
     
@@ -577,7 +587,7 @@ async function upgradeTier(data) {
   }
   
   try {
-    const db = await connectToDatabase();
+    const db = connectToDatabase();
     
     // If db is null, use localStorage fallback
     if (!db && USE_LOCALSTORAGE_FALLBACK) {
@@ -591,14 +601,11 @@ async function upgradeTier(data) {
       });
     }
     
-    // Normal MongoDB flow
     // In a real implementation, handle payment processing here
     
     // Update user tier
-    await db.collection('users').updateOne(
-      { _id: user_id },
-      { $set: { tier } }
-    );
+    const updateTierStmt = db.prepare('UPDATE users SET tier = ? WHERE id = ?');
+    updateTierStmt.run(tier, user_id);
     
     return returnSuccess({
       message: 'Tier upgraded successfully',
