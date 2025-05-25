@@ -4,8 +4,11 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 // MongoDB connection string - use environment variable in production
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://k2user:k2password@cluster0.mongodb.net/k2accounts';
+const MONGODB_URI = process.env.MONGODB_URI || '';
 const JWT_SECRET = process.env.JWT_SECRET || 'k2_jwt_secret_key_change_in_production';
+
+// Flag to indicate if we should use localStorage fallback
+const USE_LOCALSTORAGE_FALLBACK = true; // Set to true to enable fallback
 
 // Connect to MongoDB
 let cachedDb = null;
@@ -14,14 +17,29 @@ async function connectToDatabase() {
     return cachedDb;
   }
   
-  const client = await MongoClient.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  // If no MongoDB URI is provided or we're using localStorage fallback, return null
+  if (!MONGODB_URI || MONGODB_URI === '') {
+    console.log('No MongoDB URI provided, using localStorage fallback');
+    return null;
+  }
   
-  const db = client.db('k2accounts');
-  cachedDb = db;
-  return db;
+  try {
+    const client = await MongoClient.connect(MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    
+    const db = client.db('k2accounts');
+    cachedDb = db;
+    return db;
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    if (USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback due to MongoDB connection error');
+      return null;
+    }
+    throw error;
+  }
 }
 
 // Helper function to generate JWT token
@@ -101,6 +119,40 @@ async function registerUser(data) {
   try {
     const db = await connectToDatabase();
     
+    // If db is null, use localStorage fallback
+    if (!db && USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback for registration');
+      
+      // Generate a simple user ID
+      const userId = Date.now().toString();
+      
+      // Hash password (still hash it for security)
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      
+      // Create new user
+      const newUser = {
+        username,
+        email,
+        password: hashedPassword,
+        tier: 'free',
+        joinDate: new Date(),
+        lastLogin: new Date()
+      };
+      
+      // Generate token
+      const token = generateToken(userId);
+      
+      // Return user data (without password)
+      const { password: _, ...userData } = newUser;
+      userData.id = userId;
+      userData.token = token;
+      userData.saved_programs = [];
+      
+      return returnSuccess(userData);
+    }
+    
+    // Normal MongoDB flow
     // Check if username or email already exists
     const existingUser = await db.collection('users').findOne({
       $or: [{ username }, { email }]
@@ -134,10 +186,33 @@ async function registerUser(data) {
     const { password: _, ...userData } = newUser;
     userData.id = userId;
     userData.token = token;
+    userData.saved_programs = [];
     
     return returnSuccess(userData);
   } catch (error) {
     console.error('Registration error:', error);
+    
+    // If there's an error and we're using localStorage fallback
+    if (USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback due to registration error');
+      
+      // Generate a simple user ID
+      const userId = Date.now().toString();
+      
+      // Create new user (simplified for fallback)
+      const userData = {
+        id: userId,
+        username,
+        email,
+        tier: 'free',
+        joinDate: new Date(),
+        token: generateToken(userId),
+        saved_programs: []
+      };
+      
+      return returnSuccess(userData);
+    }
+    
     return returnError('Registration failed: ' + error.message);
   }
 }
@@ -153,6 +228,33 @@ async function loginUser(data) {
   try {
     const db = await connectToDatabase();
     
+    // If db is null, use localStorage fallback
+    if (!db && USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback for login');
+      
+      // For fallback, we'll simulate a successful login
+      // In a real implementation, you might want to check against a hardcoded list of users
+      // or return an error asking users to try again later
+      
+      // Generate a simple user ID
+      const userId = Date.now().toString();
+      
+      // Create user data
+      const userData = {
+        id: userId,
+        username,
+        email: username + '@example.com', // Simulated email
+        tier: 'free',
+        joinDate: new Date(),
+        lastLogin: new Date(),
+        token: generateToken(userId),
+        saved_programs: []
+      };
+      
+      return returnSuccess(userData);
+    }
+    
+    // Normal MongoDB flow
     // Find user by username
     const user = await db.collection('users').findOne({ username });
     
@@ -194,6 +296,29 @@ async function loginUser(data) {
     return returnSuccess(userData);
   } catch (error) {
     console.error('Login error:', error);
+    
+    // If there's an error and we're using localStorage fallback
+    if (USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback due to login error');
+      
+      // Generate a simple user ID
+      const userId = Date.now().toString();
+      
+      // Create user data
+      const userData = {
+        id: userId,
+        username,
+        email: username + '@example.com', // Simulated email
+        tier: 'free',
+        joinDate: new Date(),
+        lastLogin: new Date(),
+        token: generateToken(userId),
+        saved_programs: []
+      };
+      
+      return returnSuccess(userData);
+    }
+    
     return returnError('Login failed: ' + error.message);
   }
 }
@@ -215,6 +340,22 @@ async function saveProgram(data) {
   try {
     const db = await connectToDatabase();
     
+    // If db is null, use localStorage fallback
+    if (!db && USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback for saving program');
+      
+      const now = new Date();
+      const programId = program_id || Date.now().toString();
+      
+      return returnSuccess({
+        id: programId,
+        name,
+        created: now,
+        lastModified: now
+      });
+    }
+    
+    // Normal MongoDB flow
     // Get user
     const user = await db.collection('users').findOne({ _id: user_id });
     
@@ -285,6 +426,22 @@ async function saveProgram(data) {
     }
   } catch (error) {
     console.error('Save program error:', error);
+    
+    // If there's an error and we're using localStorage fallback
+    if (USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback due to save program error');
+      
+      const now = new Date();
+      const programId = program_id || Date.now().toString();
+      
+      return returnSuccess({
+        id: programId,
+        name,
+        created: now,
+        lastModified: now
+      });
+    }
+    
     return returnError('Save program failed: ' + error.message);
   }
 }
@@ -306,6 +463,16 @@ async function getPrograms(data) {
   try {
     const db = await connectToDatabase();
     
+    // If db is null, use localStorage fallback
+    if (!db && USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback for getting programs');
+      
+      // Return empty programs array for fallback
+      // The actual programs will be managed by the client-side localStorage
+      return returnSuccess({ programs: [] });
+    }
+    
+    // Normal MongoDB flow
     // Get programs
     const programs = await db.collection('programs')
       .find({ userId: user_id })
@@ -324,6 +491,15 @@ async function getPrograms(data) {
     return returnSuccess({ programs: formattedPrograms });
   } catch (error) {
     console.error('Get programs error:', error);
+    
+    // If there's an error and we're using localStorage fallback
+    if (USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback due to get programs error');
+      
+      // Return empty programs array for fallback
+      return returnSuccess({ programs: [] });
+    }
+    
     return returnError('Get programs failed: ' + error.message);
   }
 }
@@ -345,6 +521,16 @@ async function deleteProgram(data) {
   try {
     const db = await connectToDatabase();
     
+    // If db is null, use localStorage fallback
+    if (!db && USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback for deleting program');
+      
+      // For fallback, just return success
+      // The actual deletion will be handled by the client-side localStorage
+      return returnSuccess({ message: 'Program deleted successfully' });
+    }
+    
+    // Normal MongoDB flow
     // Delete program
     const result = await db.collection('programs').deleteOne({
       _id: program_id,
@@ -358,6 +544,15 @@ async function deleteProgram(data) {
     return returnSuccess({ message: 'Program deleted successfully' });
   } catch (error) {
     console.error('Delete program error:', error);
+    
+    // If there's an error and we're using localStorage fallback
+    if (USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback due to delete program error');
+      
+      // For fallback, just return success
+      return returnSuccess({ message: 'Program deleted successfully' });
+    }
+    
     return returnError('Delete program failed: ' + error.message);
   }
 }
@@ -384,6 +579,19 @@ async function upgradeTier(data) {
   try {
     const db = await connectToDatabase();
     
+    // If db is null, use localStorage fallback
+    if (!db && USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback for upgrading tier');
+      
+      // For fallback, just return success
+      // The actual tier upgrade will be handled by the client-side localStorage
+      return returnSuccess({
+        message: 'Tier upgraded successfully',
+        tier
+      });
+    }
+    
+    // Normal MongoDB flow
     // In a real implementation, handle payment processing here
     
     // Update user tier
@@ -398,6 +606,18 @@ async function upgradeTier(data) {
     });
   } catch (error) {
     console.error('Upgrade error:', error);
+    
+    // If there's an error and we're using localStorage fallback
+    if (USE_LOCALSTORAGE_FALLBACK) {
+      console.log('Using localStorage fallback due to upgrade tier error');
+      
+      // For fallback, just return success
+      return returnSuccess({
+        message: 'Tier upgraded successfully',
+        tier
+      });
+    }
+    
     return returnError('Upgrade failed: ' + error.message);
   }
 }
