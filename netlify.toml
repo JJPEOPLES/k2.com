@@ -1,0 +1,9 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/execute.php"
+  to = "/.netlify/functions/execute"
+  status = 200
+  force = true

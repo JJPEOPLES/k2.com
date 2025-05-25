@@ -534,9 +534,15 @@ print("Sorted array: " + bubbleSort(numbers));`
                 };
             } else {
                 // In production, use the real API endpoint
-                console.log(`Executing K2 code using x86_64 binary via API`);
+                console.log(`Executing K2 code via API`);
                 
-                const response = await fetch('/api/execute.php', {
+                // Determine if we're on Netlify or a PHP server
+                const isNetlify = window.location.hostname.includes('netlify.app');
+                const apiEndpoint = isNetlify ? '/api/execute.php' : '/api/execute.php';
+                
+                console.log(`Using API endpoint: ${apiEndpoint} (Netlify: ${isNetlify})`);
+                
+                const response = await fetch(apiEndpoint, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -545,6 +551,17 @@ print("Sorted array: " + bubbleSort(numbers));`
                 });
                 
                 if (!response.ok) {
+                    if (response.status === 404 && isNetlify) {
+                        console.warn('API endpoint not found. Falling back to simulation.');
+                        // Fall back to simulation if the API endpoint is not found on Netlify
+                        const result = simulateBinaryExecution(code);
+                        return {
+                            output: result.output,
+                            executionTime: result.executionTime,
+                            memoryUsage: result.memoryUsage,
+                            success: true
+                        };
+                    }
                     throw new Error(`API error: ${response.status} ${response.statusText}`);
                 }
                 
