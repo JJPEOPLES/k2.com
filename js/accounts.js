@@ -49,6 +49,7 @@ const K2AccountSystem = {
     
     // Current user state
     currentUser: null,
+    apiUrl: '/api/account.php',
     
     // Initialize the account system
     init: function() {
@@ -69,15 +70,28 @@ const K2AccountSystem = {
     // Check if user is already logged in
     checkLoginStatus: function() {
         const savedUser = localStorage.getItem('k2User');
-        if (savedUser) {
+        const savedToken = localStorage.getItem('k2Token');
+        
+        if (savedUser && savedToken) {
             try {
                 this.currentUser = JSON.parse(savedUser);
+                this.currentUser.token = savedToken;
                 console.log("User logged in:", this.currentUser.username);
+                
+                // Verify token with server (optional)
+                this.verifyToken();
             } catch (e) {
                 console.error("Error parsing saved user:", e);
                 localStorage.removeItem('k2User');
+                localStorage.removeItem('k2Token');
             }
         }
+    },
+    
+    // Verify token with server
+    verifyToken: function() {
+        // In a real implementation, verify the token with the server
+        // For now, we'll just assume it's valid
     },
     
     // Set up authentication forms
@@ -144,58 +158,123 @@ const K2AccountSystem = {
     login: function(username, password) {
         console.log("Attempting login for:", username);
         
-        // In a real implementation, this would make an API call to verify credentials
-        // For demo purposes, we'll simulate a successful login
+        // Show loading state
+        const loginForm = document.getElementById('login-form');
+        const loginButton = loginForm ? loginForm.querySelector('button[type="submit"]') : null;
         
-        // Simulate API call
-        setTimeout(() => {
-            // Success response
-            this.currentUser = {
+        if (loginButton) {
+            loginButton.disabled = true;
+            loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+        }
+        
+        // Make API call to verify credentials
+        fetch(this.apiUrl + '?action=login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
                 username: username,
-                email: username + "@example.com",
-                tier: "free",
-                joinDate: new Date().toISOString(),
-                savedPrograms: []
-            };
-            
-            // Save to localStorage
-            localStorage.setItem('k2User', JSON.stringify(this.currentUser));
-            
-            // Update UI
-            this.updateAccountUI();
-            
-            // Show success message
-            this.showNotification("Login successful! Welcome, " + username);
-        }, 1000);
+                password: password
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Login successful
+                this.currentUser = data.data;
+                
+                // Generate token (in a real implementation, this would come from the server)
+                const token = "k2_token_" + this.currentUser.id;
+                this.currentUser.token = token;
+                
+                // Save to localStorage
+                localStorage.setItem('k2User', JSON.stringify(this.currentUser));
+                localStorage.setItem('k2Token', token);
+                
+                // Update UI
+                this.updateAccountUI();
+                
+                // Show success message
+                this.showNotification("Login successful! Welcome, " + this.currentUser.username);
+            } else {
+                // Login failed
+                this.showNotification(data.error.message || "Login failed. Please check your credentials.", "error");
+            }
+        })
+        .catch(error => {
+            console.error("Login error:", error);
+            this.showNotification("Login failed. Please try again later.", "error");
+        })
+        .finally(() => {
+            // Reset button state
+            if (loginButton) {
+                loginButton.disabled = false;
+                loginButton.innerHTML = 'Sign In';
+            }
+        });
     },
     
     // Register function
     register: function(username, email, password) {
         console.log("Registering new user:", username, email);
         
-        // In a real implementation, this would make an API call to create a new account
-        // For demo purposes, we'll simulate a successful registration
+        // Show loading state
+        const registerForm = document.getElementById('register-form');
+        const registerButton = registerForm ? registerForm.querySelector('button[type="submit"]') : null;
         
-        // Simulate API call
-        setTimeout(() => {
-            // Success response
-            this.currentUser = {
+        if (registerButton) {
+            registerButton.disabled = true;
+            registerButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+        }
+        
+        // Make API call to create a new account
+        fetch(this.apiUrl + '?action=register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
                 username: username,
                 email: email,
-                tier: "free",
-                joinDate: new Date().toISOString(),
-                savedPrograms: []
-            };
-            
-            // Save to localStorage
-            localStorage.setItem('k2User', JSON.stringify(this.currentUser));
-            
-            // Update UI
-            this.updateAccountUI();
-            
-            // Show success message
-            this.showNotification("Registration successful! Welcome to K2, " + username);
-        }, 1000);
+                password: password
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Registration successful
+                this.currentUser = data.data;
+                
+                // Generate token (in a real implementation, this would come from the server)
+                const token = "k2_token_" + this.currentUser.id;
+                this.currentUser.token = token;
+                
+                // Save to localStorage
+                localStorage.setItem('k2User', JSON.stringify(this.currentUser));
+                localStorage.setItem('k2Token', token);
+                
+                // Update UI
+                this.updateAccountUI();
+                
+                // Show success message
+                this.showNotification("Registration successful! Welcome to K2, " + this.currentUser.username);
+            } else {
+                // Registration failed
+                this.showNotification(data.error.message || "Registration failed. Please try again.", "error");
+            }
+        })
+        .catch(error => {
+            console.error("Registration error:", error);
+            this.showNotification("Registration failed. Please try again later.", "error");
+        })
+        .finally(() => {
+            // Reset button state
+            if (registerButton) {
+                registerButton.disabled = false;
+                registerButton.innerHTML = 'Create Account';
+            }
+        });
     },
     
     // Logout function
@@ -207,6 +286,7 @@ const K2AccountSystem = {
         
         // Remove from localStorage
         localStorage.removeItem('k2User');
+        localStorage.removeItem('k2Token');
         
         // Update UI
         this.updateAccountUI();
@@ -260,34 +340,79 @@ const K2AccountSystem = {
             return false;
         }
         
-        // Check if user has reached their limit
-        const tierInfo = this.tiers[this.currentUser.tier];
-        if (this.currentUser.savedPrograms.length >= tierInfo.maxSavedPrograms) {
-            this.showNotification(`You've reached your limit of ${tierInfo.maxSavedPrograms} saved programs. Upgrade to save more!`, "error");
-            return false;
+        // Show loading state
+        const saveButton = document.querySelector('#save-program-form button[type="submit"]') || 
+                          document.querySelector('#save-program-modal button[type="submit"]');
+        
+        if (saveButton) {
+            saveButton.disabled = true;
+            saveButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
         }
         
-        // Add program to user's saved programs
-        const program = {
-            id: Date.now().toString(),
-            name: name,
-            code: code,
-            created: new Date().toISOString(),
-            lastModified: new Date().toISOString()
-        };
+        // Make API call to save program
+        fetch(this.apiUrl + '?action=save_program', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: this.currentUser.id,
+                token: this.currentUser.token,
+                name: name,
+                code: code
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Program saved successfully
+                
+                // If we don't have savedPrograms array yet, create it
+                if (!this.currentUser.saved_programs) {
+                    this.currentUser.saved_programs = [];
+                }
+                
+                // Add program to user's saved programs
+                const program = data.data;
+                
+                // Check if program already exists (update)
+                const existingIndex = this.currentUser.saved_programs.findIndex(p => p.id === program.id);
+                if (existingIndex >= 0) {
+                    this.currentUser.saved_programs[existingIndex] = program;
+                } else {
+                    this.currentUser.saved_programs.push(program);
+                }
+                
+                // Save updated user data
+                localStorage.setItem('k2User', JSON.stringify(this.currentUser));
+                
+                // Update UI
+                this.loadSavedPrograms();
+                
+                // Show success message
+                this.showNotification(`Program "${name}" saved successfully`);
+                
+                return true;
+            } else {
+                // Save failed
+                this.showNotification(data.error.message || "Failed to save program", "error");
+                return false;
+            }
+        })
+        .catch(error => {
+            console.error("Save program error:", error);
+            this.showNotification("Failed to save program. Please try again later.", "error");
+            return false;
+        })
+        .finally(() => {
+            // Reset button state
+            if (saveButton) {
+                saveButton.disabled = false;
+                saveButton.innerHTML = 'Save Program';
+            }
+        });
         
-        this.currentUser.savedPrograms.push(program);
-        
-        // Save updated user data
-        localStorage.setItem('k2User', JSON.stringify(this.currentUser));
-        
-        // Update UI
-        this.loadSavedPrograms();
-        
-        // Show success message
-        this.showNotification(`Program "${name}" saved successfully`);
-        
-        return true;
+        return true; // Return true to close modal, actual result handled in promise
     },
     
     // Load saved programs
@@ -297,73 +422,177 @@ const K2AccountSystem = {
         const programsContainer = document.getElementById('saved-programs');
         if (!programsContainer) return;
         
-        // Clear container
-        programsContainer.innerHTML = '';
+        // Show loading state
+        programsContainer.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> Loading programs...</p>';
         
-        // Add each program
-        if (this.currentUser.savedPrograms.length === 0) {
-            programsContainer.innerHTML = '<p>No saved programs yet.</p>';
-        } else {
-            this.currentUser.savedPrograms.forEach(program => {
-                const programEl = document.createElement('div');
-                programEl.className = 'saved-program';
-                programEl.innerHTML = `
-                    <h4>${program.name}</h4>
-                    <p>Created: ${new Date(program.created).toLocaleDateString()}</p>
-                    <div class="program-actions">
-                        <button class="load-program" data-id="${program.id}">Load</button>
-                        <button class="delete-program" data-id="${program.id}">Delete</button>
-                    </div>
-                `;
-                programsContainer.appendChild(programEl);
-            });
-            
-            // Add event listeners
-            programsContainer.querySelectorAll('.load-program').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const programId = e.target.getAttribute('data-id');
-                    this.loadProgram(programId);
-                });
-            });
-            
-            programsContainer.querySelectorAll('.delete-program').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const programId = e.target.getAttribute('data-id');
-                    this.deleteProgram(programId);
-                });
-            });
-        }
+        // Make API call to get programs
+        fetch(this.apiUrl + '?action=get_programs&user_id=' + this.currentUser.id + '&token=' + this.currentUser.token)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update user's saved programs
+                this.currentUser.saved_programs = data.data.programs;
+                
+                // Save updated user data
+                localStorage.setItem('k2User', JSON.stringify(this.currentUser));
+                
+                // Clear container
+                programsContainer.innerHTML = '';
+                
+                // Add each program
+                if (this.currentUser.saved_programs.length === 0) {
+                    programsContainer.innerHTML = '<p>No saved programs yet.</p>';
+                } else {
+                    this.currentUser.saved_programs.forEach(program => {
+                        const programEl = document.createElement('div');
+                        programEl.className = 'saved-program';
+                        programEl.innerHTML = `
+                            <h4>${program.name}</h4>
+                            <p>Created: ${new Date(program.created).toLocaleDateString()}</p>
+                            <div class="program-actions">
+                                <button class="load-program" data-id="${program.id}">Load</button>
+                                <button class="delete-program" data-id="${program.id}">Delete</button>
+                            </div>
+                        `;
+                        programsContainer.appendChild(programEl);
+                    });
+                    
+                    // Add event listeners
+                    programsContainer.querySelectorAll('.load-program').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const programId = e.target.getAttribute('data-id');
+                            this.loadProgram(programId);
+                        });
+                    });
+                    
+                    programsContainer.querySelectorAll('.delete-program').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const programId = e.target.getAttribute('data-id');
+                            this.deleteProgram(programId);
+                        });
+                    });
+                }
+            } else {
+                // Load failed
+                programsContainer.innerHTML = '<p>Failed to load programs. Please try again later.</p>';
+                this.showNotification(data.error.message || "Failed to load programs", "error");
+            }
+        })
+        .catch(error => {
+            console.error("Load programs error:", error);
+            programsContainer.innerHTML = '<p>Failed to load programs. Please try again later.</p>';
+            this.showNotification("Failed to load programs. Please try again later.", "error");
+        });
     },
     
     // Load a specific program
     loadProgram: function(programId) {
         if (!this.currentUser) return;
         
-        const program = this.currentUser.savedPrograms.find(p => p.id === programId);
-        if (!program) return;
-        
-        // Load program into editor
-        if (window.K2Editor && window.K2Editor.setCode) {
-            window.K2Editor.setCode(program.code);
-            this.showNotification(`Program "${program.name}" loaded`);
+        // Show loading state
+        const loadButton = document.querySelector(`.load-program[data-id="${programId}"]`);
+        if (loadButton) {
+            loadButton.disabled = true;
+            loadButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
         }
+        
+        // Make API call to get program code
+        fetch(this.apiUrl + '?action=get_programs&user_id=' + this.currentUser.id + '&token=' + this.currentUser.token)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Find program in the response
+                const program = data.data.programs.find(p => p.id == programId);
+                
+                if (program) {
+                    // Load program into editor
+                    if (window.K2Editor && window.K2Editor.setCode) {
+                        window.K2Editor.setCode(program.code);
+                        this.showNotification(`Program "${program.name}" loaded`);
+                    }
+                } else {
+                    this.showNotification("Program not found", "error");
+                }
+            } else {
+                // Load failed
+                this.showNotification(data.error.message || "Failed to load program", "error");
+            }
+        })
+        .catch(error => {
+            console.error("Load program error:", error);
+            this.showNotification("Failed to load program. Please try again later.", "error");
+        })
+        .finally(() => {
+            // Reset button state
+            if (loadButton) {
+                loadButton.disabled = false;
+                loadButton.innerHTML = 'Load';
+            }
+        });
     },
     
     // Delete a saved program
     deleteProgram: function(programId) {
         if (!this.currentUser) return;
         
-        // Filter out the program to delete
-        this.currentUser.savedPrograms = this.currentUser.savedPrograms.filter(p => p.id !== programId);
+        // Show loading state
+        const deleteButton = document.querySelector(`.delete-program[data-id="${programId}"]`);
+        if (deleteButton) {
+            deleteButton.disabled = true;
+            deleteButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        }
         
-        // Save updated user data
-        localStorage.setItem('k2User', JSON.stringify(this.currentUser));
-        
-        // Update UI
-        this.loadSavedPrograms();
-        
-        // Show success message
-        this.showNotification("Program deleted");
+        // Make API call to delete program
+        fetch(this.apiUrl + '?action=delete_program', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: this.currentUser.id,
+                token: this.currentUser.token,
+                program_id: programId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Program deleted successfully
+                
+                // Update local data
+                if (this.currentUser.saved_programs) {
+                    this.currentUser.saved_programs = this.currentUser.saved_programs.filter(p => p.id != programId);
+                    
+                    // Save updated user data
+                    localStorage.setItem('k2User', JSON.stringify(this.currentUser));
+                }
+                
+                // Update UI
+                this.loadSavedPrograms();
+                
+                // Show success message
+                this.showNotification("Program deleted successfully");
+            } else {
+                // Delete failed
+                this.showNotification(data.error.message || "Failed to delete program", "error");
+                
+                // Reset button state
+                if (deleteButton) {
+                    deleteButton.disabled = false;
+                    deleteButton.innerHTML = 'Delete';
+                }
+            }
+        })
+        .catch(error => {
+            console.error("Delete program error:", error);
+            this.showNotification("Failed to delete program. Please try again later.", "error");
+            
+            // Reset button state
+            if (deleteButton) {
+                deleteButton.disabled = false;
+                deleteButton.innerHTML = 'Delete';
+            }
+        });
     },
     
     // Upgrade account tier
@@ -373,20 +602,57 @@ const K2AccountSystem = {
         
         console.log(`Upgrading user ${this.currentUser.username} to ${newTier} tier`);
         
-        // In a real implementation, this would handle payment processing
-        // For demo purposes, we'll just update the tier
+        // Show loading state
+        const upgradeButton = document.querySelector(`.upgrade-btn[data-tier="${newTier}"]`);
+        if (upgradeButton) {
+            upgradeButton.disabled = true;
+            upgradeButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Upgrading...';
+        }
         
-        // Update user tier
-        this.currentUser.tier = newTier;
-        
-        // Save updated user data
-        localStorage.setItem('k2User', JSON.stringify(this.currentUser));
-        
-        // Update UI
-        this.updateAccountUI();
-        
-        // Show success message
-        this.showNotification(`Your account has been upgraded to ${this.tiers[newTier].name} tier!`);
+        // Make API call to upgrade tier
+        fetch(this.apiUrl + '?action=upgrade', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: this.currentUser.id,
+                token: this.currentUser.token,
+                tier: newTier
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Upgrade successful
+                
+                // Update user tier
+                this.currentUser.tier = newTier;
+                
+                // Save updated user data
+                localStorage.setItem('k2User', JSON.stringify(this.currentUser));
+                
+                // Update UI
+                this.updateAccountUI();
+                
+                // Show success message
+                this.showNotification(`Your account has been upgraded to ${this.tiers[newTier].name} tier!`);
+            } else {
+                // Upgrade failed
+                this.showNotification(data.error.message || "Failed to upgrade account", "error");
+            }
+        })
+        .catch(error => {
+            console.error("Upgrade error:", error);
+            this.showNotification("Failed to upgrade account. Please try again later.", "error");
+        })
+        .finally(() => {
+            // Reset button state
+            if (upgradeButton) {
+                upgradeButton.disabled = false;
+                upgradeButton.innerHTML = `Upgrade to ${this.tiers[newTier].name}`;
+            }
+        });
     },
     
     // Show notification to user
