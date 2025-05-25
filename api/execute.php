@@ -56,6 +56,9 @@ if (!is_executable($k2Binary)) {
     chmod($k2Binary, 0755);
 }
 
+// Log the execution for debugging
+error_log("Executing K2 binary: $k2Binary $tempFileK2");
+
 // Execute the K2 binary
 $startTime = microtime(true);
 $output = [];

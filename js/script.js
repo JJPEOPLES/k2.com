@@ -515,7 +515,7 @@ print("Sorted array: " + bubbleSort(numbers));`
     async function executeK2Code(code) {
         try {
             // In development/demo mode, use the simulation
-            const isDevelopment = true; // Set to false in production
+            const isDevelopment = false; // Set to false in production
             
             if (isDevelopment) {
                 // Simulate network latency

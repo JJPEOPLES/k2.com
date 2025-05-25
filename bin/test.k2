@@ -1,0 +1,11 @@
+// Test K2 program
+print("Hello from K2!");
+print("This is running on a real x86_64 binary");
+print("Ultra-fast execution in nanoseconds");
+
+// Variables
+var greeting = "Welcome to K2";
+print(greeting);
+
+// Math operations
+print("2 + 2 = 4");
