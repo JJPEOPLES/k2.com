@@ -1,6 +1,73 @@
-// K2 Language Website JavaScript
+// K2 Language Website JavaScript - Modern UI 2024
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle.querySelector('i');
+    
+    // Check for saved theme preference or use device preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+    }
+    
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        
+        if (currentTheme === 'dark') {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        // Update chart colors if chart exists
+        if (window.performanceChart) {
+            updateChartColors();
+        }
+    });
+    
+    // Function to update chart colors based on theme
+    function updateChartColors() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        
+        const textColor = isDark ? '#f8fafc' : '#1e293b';
+        const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+        
+        window.performanceChart.options.scales.y.grid.color = gridColor;
+        window.performanceChart.options.scales.x.grid.color = gridColor;
+        window.performanceChart.options.scales.y.ticks.color = textColor;
+        window.performanceChart.options.scales.x.ticks.color = textColor;
+        window.performanceChart.options.scales.y.title.color = textColor;
+        window.performanceChart.options.scales.x.title.color = textColor;
+        window.performanceChart.options.plugins.title.color = textColor;
+        window.performanceChart.options.plugins.legend.labels.color = textColor;
+        
+        window.performanceChart.update();
+    }
+    
+    // Add animations to elements when they come into view
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.feature-card, .stat-card, .download-card');
+        
+        elements.forEach(element => {
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementTop < window.innerHeight - elementVisible) {
+                element.classList.add('animate');
+            }
+        });
+    };
+    
+    window.addEventListener('scroll', animateOnScroll);
     // Mobile Navigation
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.nav-links');
@@ -78,7 +145,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Performance Chart
     const ctx = document.getElementById('performanceChart').getContext('2d');
     
-    const performanceChart = new Chart(ctx, {
+    // Determine if dark mode is active
+    const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+    const textColor = isDarkMode ? '#f8fafc' : '#1e293b';
+    const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+    
+    // Chart gradient for K2 bar
+    const k2Gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    k2Gradient.addColorStop(0, '#2563eb');
+    k2Gradient.addColorStop(1, '#10b981');
+    
+    window.performanceChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['Variable Assignment', 'Integer Addition', 'Print Operation', 'Complex Expression'],
@@ -86,61 +163,126 @@ document.addEventListener('DOMContentLoaded', function() {
                 {
                     label: 'K2 (nanoseconds)',
                     data: [250, 135, 1500, 2500],
-                    backgroundColor: '#2563eb',
+                    backgroundColor: k2Gradient,
                     borderColor: '#1d4ed8',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    borderSkipped: false,
                 },
                 {
                     label: 'Python (nanoseconds)',
                     data: [10000, 8000, 50000, 100000],
                     backgroundColor: '#3b82f6',
                     borderColor: '#2563eb',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    borderSkipped: false,
                 },
                 {
                     label: 'JavaScript (nanoseconds)',
                     data: [5000, 3000, 30000, 80000],
                     backgroundColor: '#60a5fa',
                     borderColor: '#3b82f6',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    borderSkipped: false,
                 },
                 {
                     label: 'Ruby (nanoseconds)',
                     data: [15000, 12000, 60000, 150000],
                     backgroundColor: '#93c5fd',
                     borderColor: '#60a5fa',
-                    borderWidth: 1
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    borderSkipped: false,
                 }
             ]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            animation: {
+                duration: 2000,
+                easing: 'easeOutQuart'
+            },
             scales: {
                 y: {
                     type: 'logarithmic',
                     beginAtZero: true,
+                    grid: {
+                        color: gridColor,
+                        borderColor: gridColor
+                    },
+                    ticks: {
+                        color: textColor,
+                        font: {
+                            size: 12
+                        }
+                    },
                     title: {
                         display: true,
-                        text: 'Execution Time (nanoseconds, log scale)'
+                        text: 'Execution Time (nanoseconds, log scale)',
+                        color: textColor,
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
                     }
                 },
                 x: {
+                    grid: {
+                        color: gridColor,
+                        borderColor: gridColor
+                    },
+                    ticks: {
+                        color: textColor,
+                        font: {
+                            size: 12
+                        }
+                    },
                     title: {
                         display: true,
-                        text: 'Operation Type'
+                        text: 'Operation Type',
+                        color: textColor,
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
                     }
                 }
             },
             plugins: {
                 legend: {
                     position: 'top',
+                    labels: {
+                        color: textColor,
+                        font: {
+                            size: 13
+                        },
+                        padding: 20
+                    }
                 },
                 title: {
                     display: true,
-                    text: 'Performance Comparison (lower is better)'
+                    text: 'Performance Comparison (lower is better)',
+                    color: textColor,
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        bottom: 30
+                    }
                 },
                 tooltip: {
+                    backgroundColor: isDarkMode ? '#1e293b' : 'rgba(255, 255, 255, 0.9)',
+                    titleColor: isDarkMode ? '#f8fafc' : '#1e293b',
+                    bodyColor: isDarkMode ? '#f8fafc' : '#1e293b',
+                    borderColor: isDarkMode ? '#334155' : '#e2e8f0',
+                    borderWidth: 1,
+                    cornerRadius: 8,
+                    padding: 12,
+                    boxPadding: 6,
                     callbacks: {
                         label: function(context) {
                             let label = context.dataset.label || '';
