@@ -142,20 +142,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Performance Chart
-    const ctx = document.getElementById('performanceChart').getContext('2d');
+    // Performance Chart - Only initialize if the element exists
+    const performanceChartElement = document.getElementById('performanceChart');
     
-    // Determine if dark mode is active
-    const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-    const textColor = isDarkMode ? '#f8fafc' : '#1e293b';
-    const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-    
-    // Chart gradient for K2 bar
-    const k2Gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    k2Gradient.addColorStop(0, '#2563eb');
-    k2Gradient.addColorStop(1, '#10b981');
-    
-    window.performanceChart = new Chart(ctx, {
+    if (performanceChartElement) {
+        const ctx = performanceChartElement.getContext('2d');
+        
+        // Determine if dark mode is active
+        const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+        const textColor = isDarkMode ? '#f8fafc' : '#1e293b';
+        const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+        
+        // Chart gradient for K2 bar
+        const k2Gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        k2Gradient.addColorStop(0, '#2563eb');
+        k2Gradient.addColorStop(1, '#10b981');
+        
+        window.performanceChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['Variable Assignment', 'Integer Addition', 'Print Operation', 'Complex Expression'],
@@ -299,6 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+    } // End of performanceChart initialization
     
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -261,31 +261,31 @@ Execution time: 78 nanoseconds\`;
                     },
                     'lsb_release': (args) => {
                         if (args[0] === '-a') {
-                            return `No LSB modules are available.
-Distributor ID: Ubuntu
-Description:    Ubuntu 22.04.3 LTS
-Release:        22.04
-Codename:       jammy`;
+                            return 'No LSB modules are available.\n' +
+                                'Distributor ID: Ubuntu\n' +
+                                'Description:    Ubuntu 22.04.3 LTS\n' +
+                                'Release:        22.04\n' +
+                                'Codename:       jammy';
                         }
                         return 'Usage: lsb_release [options]';
                     },
                     sudo: (args) => {
                         if (args[0] === 'apt' && args[1] === 'update') {
-                            return `Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease
-Get:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
-Get:3 http://archive.ubuntu.com/ubuntu jammy-security InRelease [110 kB]
-Fetched 229 kB in 0.5s (458 kB/s)
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-All packages are up to date.`;
+                            return 'Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease\n' +
+                                'Get:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]\n' +
+                                'Get:3 http://archive.ubuntu.com/ubuntu jammy-security InRelease [110 kB]\n' +
+                                'Fetched 229 kB in 0.5s (458 kB/s)\n' +
+                                'Reading package lists... Done\n' +
+                                'Building dependency tree... Done\n' +
+                                'Reading state information... Done\n' +
+                                'All packages are up to date.';
                         }
                         if (args[0] === 'apt' && args[1] === 'install') {
-                            return `Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-${args[2]} is already the newest version.
-0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.`;
+                            return 'Reading package lists... Done\n' +
+                                'Building dependency tree... Done\n' +
+                                'Reading state information... Done\n' +
+                                (args[2] || 'package') + ' is already the newest version.\n' +
+                                '0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.';
                         }
                         return '[sudo] password for ubuntu: ';
                     },
