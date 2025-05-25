@@ -49,7 +49,7 @@ const K2AccountSystem = {
     
     // Current user state
     currentUser: null,
-    apiUrl: '/api/account.php',
+    apiUrl: '/api/account',
     
     // Initialize the account system
     init: function() {
@@ -184,9 +184,13 @@ const K2AccountSystem = {
                 // Login successful
                 this.currentUser = data.data;
                 
-                // Generate token (in a real implementation, this would come from the server)
-                const token = "k2_token_" + this.currentUser.id;
-                this.currentUser.token = token;
+                // Token is provided by the server
+                const token = this.currentUser.token;
+                if (!token) {
+                    console.error("No token received from server");
+                    this.showNotification("Authentication error. Please try again.", "error");
+                    return;
+                }
                 
                 // Save to localStorage
                 localStorage.setItem('k2User', JSON.stringify(this.currentUser));
@@ -246,9 +250,13 @@ const K2AccountSystem = {
                 // Registration successful
                 this.currentUser = data.data;
                 
-                // Generate token (in a real implementation, this would come from the server)
-                const token = "k2_token_" + this.currentUser.id;
-                this.currentUser.token = token;
+                // Token is provided by the server
+                const token = this.currentUser.token;
+                if (!token) {
+                    console.error("No token received from server");
+                    this.showNotification("Authentication error. Please try again.", "error");
+                    return;
+                }
                 
                 // Save to localStorage
                 localStorage.setItem('k2User', JSON.stringify(this.currentUser));
