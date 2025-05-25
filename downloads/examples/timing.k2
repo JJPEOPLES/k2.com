@@ -1,0 +1,14 @@
+# Execution time control
+x = 100
+y = 200
+
+# Show execution time
+print x + y
+
+# Disable execution time display
+show_exec_time off
+print x * y
+
+# Enable execution time display
+show_exec_time on
+print x - y

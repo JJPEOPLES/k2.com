@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | K2 Language</title>
+    <meta name="description" content="Page not found - K2 programming language">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+        .error-message {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        .error-description {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: #64748b;
+        }
+        .home-link {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #2563eb;
+            color: white;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .home-link:hover {
+            background-color: #1d4ed8;
+        }
+        .code-window {
+            margin: 2rem auto;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/#features">Features</a></li>
+                <li><a href="/#performance">Performance</a></li>
+                <li><a href="/#examples">Examples</a></li>
+                <li><a href="/#documentation">Documentation</a></li>
+                <li><a href="/#download" class="download-btn">Download</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="error-container">
+        <div class="error-code">404</div>
+        <div class="error-message">Page Not Found</div>
+        
+        <p class="error-description">The page you're looking for doesn't exist or has been moved. Even with K2's ultra-fast execution speed, we couldn't find this page.</p>
+        
+        <div class="code-window">
+            <div class="code-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="filename">error.k2</span>
+            </div>
+            <pre><code># K2 Error Handling
+page = "404"
+message = "Page Not Found"
+print page
+print message
+
+# Execution time: 70 nanoseconds</code></pre>
+        </div>
+        
+        <a href="/" class="home-link">Go to Homepage</a>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K2</h2>
+                <p>Ultra-Fast Programming Language</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="/#documentation">Documentation</a></li>
+                        <li><a href="/#examples">Examples</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k2-language/k2" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k2-language" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k2_language" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k2-language" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/downloads/LICENSE.txt" target="_blank">License</a></li>
+                        <li><a href="/legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="/legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K2 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+# K2 Language Benchmark
+
+# Simple operations
+a = 1
+b = 2
+c = 3
+d = 4
+e = 5
+
+# Addition
+sum1 = a + b
+sum2 = c + d
+sum3 = e + a
+sum4 = b + c
+sum5 = d + e
+
+# Multiplication
+prod1 = a * b
+prod2 = c * d
+prod3 = e * a
+prod4 = b * c
+prod5 = d * e
+
+# Complex expressions
+expr1 = a + b * c
+# Note: K2 doesn't support parentheses yet, so we'll use a temporary variable
+temp = a + b
+expr2 = temp * c
+expr3 = a * b + c * d
+expr4 = a + b + c + d + e
+expr5 = a * b * c * d * e
+
+# Print results
+print sum1
+print prod1
+print expr1
+print expr5
