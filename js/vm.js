@@ -157,6 +157,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     font-family: inherit;
                     font-size: inherit;
                     outline: none;
+                    caret-color: #ffffff; /* Make cursor more visible */
+                    padding: 0;
+                    margin: 0;
+                    width: 100%;
                 }
                 .cursor {
                     display: inline-block;
@@ -370,9 +374,16 @@ Execution time: 78 nanoseconds\`;
                 function setupInputListeners(input) {
                     input.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter') {
-                            const cmd = input.value;
-                            input.disabled = true;
-                            processCommand(cmd);
+                            e.preventDefault(); // Prevent default Enter behavior
+                            const cmd = input.value.trim();
+                            if (cmd) { // Only process if command is not empty
+                                input.disabled = true;
+                                processCommand(cmd);
+                            } else {
+                                // If empty command, just add a new prompt
+                                addOutput('', true);
+                                addPrompt();
+                            }
                         } else if (e.key === 'ArrowUp') {
                             e.preventDefault();
                             if (historyIndex < commandHistory.length - 1) {
@@ -395,6 +406,19 @@ Execution time: 78 nanoseconds\`;
                 // Initial setup
                 setupInputListeners(commandInput);
                 commandInput.focus();
+                
+                // Ensure the terminal always captures focus when clicked
+                document.addEventListener('click', function() {
+                    commandInput.focus();
+                });
+                
+                // Make sure Enter key is captured properly
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && document.activeElement !== commandInput) {
+                        e.preventDefault();
+                        commandInput.focus();
+                    }
+                });
             </script>
         `;
         
@@ -402,6 +426,15 @@ Execution time: 78 nanoseconds\`;
         vmIframe.contentDocument.open();
         vmIframe.contentDocument.write(terminalHtml);
         vmIframe.contentDocument.close();
+        
+        // Add event listener to the iframe to ensure it captures focus
+        vmIframe.addEventListener('load', function() {
+            const iframeDoc = vmIframe.contentDocument || vmIframe.contentWindow.document;
+            const inputElement = iframeDoc.getElementById('command-input');
+            if (inputElement) {
+                inputElement.focus();
+            }
+        });
     }
 
     // Simulate resource usage changes
