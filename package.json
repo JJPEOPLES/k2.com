@@ -1,0 +1,14 @@
+{
+  "name": "k2-website",
+  "version": "1.0.0",
+  "description": "K2 Programming Language Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "mongodb": "^4.13.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0"
+  }
+}

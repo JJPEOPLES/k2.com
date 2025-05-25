@@ -2,10 +2,5 @@
   "name": "k2-account-functions",
   "version": "1.0.0",
   "description": "Netlify functions for K2 account system",
-  "main": "account.js",
-  "dependencies": {
-    "mongodb": "^4.13.0",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.0"
-  }
+  "main": "account.js"
 }
