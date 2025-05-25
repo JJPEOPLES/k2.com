@@ -27,10 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const VM_CONFIG = {
         // In a real implementation, this would be the URL to your VM service
         // For this example, we'll use a placeholder
-        baseUrl: 'https://vm.k2lang.org/terminal',
+        baseUrl: 'https://vm.k2lang.org/ubuntu-terminal',
         defaultMemory: 512, // MB
         defaultCpu: 1,      // cores
-        timeout: 300        // seconds
+        timeout: 300,       // seconds
+        osName: 'Ubuntu 22.04 LTS',
+        osVersion: '22.04.3',
+        osCodename: 'Jammy Jellyfish'
     };
 
     // Update VM status display
@@ -115,9 +118,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     margin: 0;
                     padding: 0;
                     height: 100%;
-                    background-color: #0d1117;
-                    color: #e6edf3;
-                    font-family: 'JetBrains Mono', monospace;
+                    background-color: #300a24;
+                    color: #ffffff;
+                    font-family: 'Ubuntu Mono', 'JetBrains Mono', monospace;
                     font-size: 14px;
                     line-height: 1.5;
                     overflow: hidden;
@@ -129,11 +132,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     box-sizing: border-box;
                 }
                 .prompt {
-                    color: #50fa7b;
+                    color: #26a269;
                     margin-right: 8px;
+                    font-weight: bold;
                 }
                 .command {
-                    color: #f8f8f2;
+                    color: #ffffff;
                 }
                 .output {
                     color: #f8f8f2;
@@ -167,10 +171,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             </style>
             <div class="terminal" id="terminal">
-                <div class="output">Welcome to K2 Linux VM v1.0</div>
+                <div class="output">Ubuntu 22.04.3 LTS (K2 Virtual Machine)</div>
+                <div class="output">Welcome to the K2 Ubuntu VM! This environment is optimized for K2 development.</div>
                 <div class="output">Type 'help' for a list of available commands.</div>
                 <div class="input-line">
-                    <span class="prompt">user@k2vm:~$</span>
+                    <span class="prompt">ubuntu@k2vm:~$</span>
                     <input type="text" id="command-input" autofocus>
                 </div>
             </div>
@@ -192,6 +197,8 @@ document.addEventListener('DOMContentLoaded', function() {
   cd [dir]      - Change directory
   cat [file]    - Display file contents
   wget [url]    - Download a file
+  sudo apt      - Package management commands
+  lsb_release   - Show Ubuntu version information
   k2 [file]     - Run a K2 program
   k2 --version  - Show K2 version
   uname -a      - Show system information
@@ -248,9 +255,42 @@ Execution time: 78 nanoseconds\`;
                     },
                     uname: (args) => {
                         if (args[0] === '-a') {
-                            return 'Linux k2vm 5.15.0-k2 #1 SMP K2 Linux 5.15.0 x86_64 GNU/Linux';
+                            return 'Linux k2vm 5.15.0-76-generic #83-Ubuntu SMP Tue May 14 14:03:52 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux';
                         }
                         return 'Linux';
+                    },
+                    'lsb_release': (args) => {
+                        if (args[0] === '-a') {
+                            return `No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 22.04.3 LTS
+Release:        22.04
+Codename:       jammy`;
+                        }
+                        return 'Usage: lsb_release [options]';
+                    },
+                    sudo: (args) => {
+                        if (args[0] === 'apt' && args[1] === 'update') {
+                            return `Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-security InRelease [110 kB]
+Fetched 229 kB in 0.5s (458 kB/s)
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+All packages are up to date.`;
+                        }
+                        if (args[0] === 'apt' && args[1] === 'install') {
+                            return `Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+${args[2]} is already the newest version.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.`;
+                        }
+                        return '[sudo] password for ubuntu: ';
+                    },
+                    apt: (args) => {
+                        return 'E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)\nE: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?';
                     },
                     exit: () => {
                         return 'Exiting terminal...';
@@ -261,7 +301,7 @@ Execution time: 78 nanoseconds\`;
                 function addPrompt() {
                     const inputLine = document.createElement('div');
                     inputLine.className = 'input-line';
-                    inputLine.innerHTML = '<span class="prompt">user@k2vm:~$</span>';
+                    inputLine.innerHTML = '<span class="prompt">ubuntu@k2vm:~$</span>';
                     
                     const input = document.createElement('input');
                     input.type = 'text';
@@ -286,7 +326,7 @@ Execution time: 78 nanoseconds\`;
                     output.className = isCommand ? 'input-line' : 'output';
                     
                     if (isCommand) {
-                        output.innerHTML = \`<span class="prompt">user@k2vm:~$</span><span class="command">\${text}</span>\`;
+                        output.innerHTML = \`<span class="prompt">ubuntu@k2vm:~$</span><span class="command">\${text}</span>\`;
                     } else {
                         output.textContent = text;
                     }

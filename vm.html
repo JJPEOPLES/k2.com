@@ -73,12 +73,37 @@
                                     <div class="terminal-dot terminal-dot-yellow"></div>
                                     <div class="terminal-dot terminal-dot-green"></div>
                                 </div>
-                                <div class="terminal-title">K2 on Linux</div>
+                                <div class="terminal-title">K2 on Ubuntu 22.04 LTS</div>
                                 <div></div>
                             </div>
-                            <div class="terminal-content">
+                            <div class="terminal-content ubuntu-terminal">
                                 <div class="terminal-line">
-                                    <span class="terminal-prompt">user@k2vm:~$</span>
+                                    <span class="terminal-prompt">ubuntu@k2vm:~$</span>
+                                    <span class="terminal-command">lsb_release -a</span>
+                                </div>
+                                <div class="terminal-line terminal-output">
+                                    No LSB modules are available.
+                                    Distributor ID: Ubuntu
+                                    Description:    Ubuntu 22.04.3 LTS
+                                    Release:        22.04
+                                    Codename:       jammy
+                                </div>
+                                <div class="terminal-line">
+                                    <span class="terminal-prompt">ubuntu@k2vm:~$</span>
+                                    <span class="terminal-command">sudo apt update</span>
+                                </div>
+                                <div class="terminal-line terminal-output">
+                                    Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease
+                                    Get:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [119 kB]
+                                    Get:3 http://archive.ubuntu.com/ubuntu jammy-security InRelease [110 kB]
+                                    Fetched 229 kB in 0.5s (458 kB/s)
+                                    Reading package lists... Done
+                                    Building dependency tree... Done
+                                    Reading state information... Done
+                                    All packages are up to date.
+                                </div>
+                                <div class="terminal-line">
+                                    <span class="terminal-prompt">ubuntu@k2vm:~$</span>
                                     <span class="terminal-command">wget https://k2lang.org/download/k2-latest.tar.gz</span>
                                 </div>
                                 <div class="terminal-line terminal-output">
@@ -90,23 +115,25 @@
                                     
                                     k2-latest.tar.gz    100%[===================>]   1.00M  5.32MB/s    in 0.2s    
                                     
-                                    2023-05-10 12:34:56 (5.32 MB/s) - 'k2-latest.tar.gz' saved [1048576/1048576]
+                                    2024-05-25 15:34:56 (5.32 MB/s) - 'k2-latest.tar.gz' saved [1048576/1048576]
                                 </div>
                                 <div class="terminal-line">
-                                    <span class="terminal-prompt">user@k2vm:~$</span>
+                                    <span class="terminal-prompt">ubuntu@k2vm:~$</span>
                                     <span class="terminal-command">tar -xzf k2-latest.tar.gz</span>
                                 </div>
                                 <div class="terminal-line">
-                                    <span class="terminal-prompt">user@k2vm:~$</span>
+                                    <span class="terminal-prompt">ubuntu@k2vm:~$</span>
                                     <span class="terminal-command">cd k2</span>
                                 </div>
                                 <div class="terminal-line">
-                                    <span class="terminal-prompt">user@k2vm:~/k2$</span>
-                                    <span class="terminal-command">./install.sh</span>
+                                    <span class="terminal-prompt">ubuntu@k2vm:~/k2$</span>
+                                    <span class="terminal-command">sudo ./install.sh</span>
                                 </div>
                                 <div class="terminal-line terminal-output">
+                                    [sudo] password for ubuntu: 
                                     Installing K2 Programming Language...
                                     Checking dependencies... OK
+                                    Installing required packages... Done
                                     Copying files... OK
                                     Setting up environment... OK
                                     
@@ -114,26 +141,26 @@
                                     You can now run K2 by typing 'k2' in your terminal.
                                 </div>
                                 <div class="terminal-line">
-                                    <span class="terminal-prompt">user@k2vm:~/k2$</span>
+                                    <span class="terminal-prompt">ubuntu@k2vm:~/k2$</span>
                                     <span class="terminal-command">k2 --version</span>
                                 </div>
                                 <div class="terminal-line terminal-output">
                                     K2 Programming Language v1.2.0
                                 </div>
                                 <div class="terminal-line">
-                                    <span class="terminal-prompt">user@k2vm:~/k2$</span>
-                                    <span class="terminal-command">echo 'print("Hello from K2!")' > hello.k2</span>
+                                    <span class="terminal-prompt">ubuntu@k2vm:~/k2$</span>
+                                    <span class="terminal-command">echo 'print("Hello from K2 on Ubuntu!")' > hello.k2</span>
                                 </div>
                                 <div class="terminal-line">
-                                    <span class="terminal-prompt">user@k2vm:~/k2$</span>
+                                    <span class="terminal-prompt">ubuntu@k2vm:~/k2$</span>
                                     <span class="terminal-command">k2 hello.k2</span>
                                 </div>
                                 <div class="terminal-line terminal-output">
-                                    Hello from K2!
+                                    Hello from K2 on Ubuntu!
                                     Execution time: 78 nanoseconds
                                 </div>
                                 <div class="terminal-line">
-                                    <span class="terminal-prompt">user@k2vm:~/k2$</span>
+                                    <span class="terminal-prompt">ubuntu@k2vm:~/k2$</span>
                                     <span class="terminal-command blink">_</span>
                                 </div>
                             </div>
@@ -153,8 +180,8 @@
                 <div class="vm-container">
                     <div class="vm-header">
                         <div class="vm-title">
-                            <i class="fas fa-server"></i>
-                            <span>K2 Linux Environment</span>
+                            <i class="fab fa-ubuntu"></i>
+                            <span>K2 on Ubuntu 22.04 LTS</span>
                         </div>
                         <div class="vm-controls">
                             <button id="restart-vm" class="btn btn-sm btn-ghost" title="Restart VM">
@@ -185,10 +212,28 @@
                 </div>
 
                 <div class="vm-instructions mt-8">
-                    <h3>Getting Started with K2 on Linux</h3>
+                    <h3>Getting Started with K2 on Ubuntu</h3>
                     <div class="card">
                         <div class="card-body">
                             <ol class="instruction-steps">
+                                <li>
+                                    <h4>Update Package Lists</h4>
+                                    <div class="code-block">
+                                        <pre><code>sudo apt update</code></pre>
+                                        <button class="copy-btn" data-clipboard-text="sudo apt update">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h4>Install Required Dependencies</h4>
+                                    <div class="code-block">
+                                        <pre><code>sudo apt install build-essential libssl-dev</code></pre>
+                                        <button class="copy-btn" data-clipboard-text="sudo apt install build-essential libssl-dev">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </li>
                                 <li>
                                     <h4>Download K2</h4>
                                     <div class="code-block">
@@ -212,8 +257,8 @@ cd k2">
                                 <li>
                                     <h4>Install K2</h4>
                                     <div class="code-block">
-                                        <pre><code>./install.sh</code></pre>
-                                        <button class="copy-btn" data-clipboard-text="./install.sh">
+                                        <pre><code>sudo ./install.sh</code></pre>
+                                        <button class="copy-btn" data-clipboard-text="sudo ./install.sh">
                                             <i class="fas fa-copy"></i>
                                         </button>
                                     </div>
@@ -230,9 +275,9 @@ cd k2">
                                 <li>
                                     <h4>Create Your First K2 Program</h4>
                                     <div class="code-block">
-                                        <pre><code>echo 'print("Hello, K2!")' > hello.k2
+                                        <pre><code>echo 'print("Hello from K2 on Ubuntu!")' > hello.k2
 k2 hello.k2</code></pre>
-                                        <button class="copy-btn" data-clipboard-text="echo 'print(\"Hello, K2!\")' > hello.k2
+                                        <button class="copy-btn" data-clipboard-text="echo 'print(\"Hello from K2 on Ubuntu!\")' > hello.k2
 k2 hello.k2">
                                             <i class="fas fa-copy"></i>
                                         </button>
@@ -304,7 +349,7 @@ k2 hello.k2">
                         <div class="card-body">
                             <ul class="tech-specs">
                                 <li>
-                                    <strong>OS:</strong> Lightweight Linux distribution optimized for browser execution
+                                    <strong>OS:</strong> Ubuntu 22.04 LTS (Jammy Jellyfish) optimized for browser execution
                                 </li>
                                 <li>
                                     <strong>Memory:</strong> 512MB RAM allocated to the virtual environment
@@ -316,7 +361,7 @@ k2 hello.k2">
                                     <strong>Persistence:</strong> Your changes are saved for the duration of your session
                                 </li>
                                 <li>
-                                    <strong>Pre-installed Tools:</strong> gcc, make, python, vim, nano, and other essential development tools
+                                    <strong>Pre-installed Tools:</strong> gcc, make, python, vim, nano, apt, and other Ubuntu development tools
                                 </li>
                             </ul>
                         </div>
