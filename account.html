@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - K2 Programming Language</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/account.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/k2-logo.png" alt="K2 Logo">
+                    <span>K2 Programming Language</span>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="docs.html">Documentation</a></li>
+                    <li><a href="try.html">Try K2</a></li>
+                    <li><a href="download.html">Download</a></li>
+                    <li><a href="forum.html">Forum</a></li>
+                    <li class="active"><a href="account.html">My Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="notifications"></div>
+
+            <section id="login-section">
+                <h2>Sign In or Create Account</h2>
+                
+                <div class="auth-container">
+                    <div class="auth-box">
+                        <h3>Sign In</h3>
+                        <form id="login-form">
+                            <div class="form-group">
+                                <label for="login-username">Username</label>
+                                <input type="text" id="login-username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">Password</label>
+                                <input type="password" id="login-password" required>
+                            </div>
+                            <button type="submit" class="btn">Sign In</button>
+                        </form>
+                    </div>
+                    
+                    <div class="auth-box">
+                        <h3>Create Account</h3>
+                        <form id="register-form">
+                            <div class="form-group">
+                                <label for="register-username">Username</label>
+                                <input type="text" id="register-username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-email">Email</label>
+                                <input type="email" id="register-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-password">Password</label>
+                                <input type="password" id="register-password" required>
+                            </div>
+                            <button type="submit" class="btn">Create Account</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section id="account-section" style="display: none;">
+                <h2>My Account</h2>
+                
+                <div class="account-info">
+                    <div class="account-header">
+                        <div class="account-avatar">
+                            <img src="img/default-avatar.png" alt="User Avatar">
+                        </div>
+                        <div class="account-details">
+                            <h3>Welcome, <span id="username-display">Username</span>!</h3>
+                            <p>Account Tier: <span id="tier-display">Free</span></p>
+                            <button id="logout-btn" class="btn btn-small">Sign Out</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="account-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="programs">My Programs</button>
+                        <button class="tab-btn" data-tab="account">Account Settings</button>
+                        <button class="tab-btn" data-tab="subscription">Subscription</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="programs-tab">
+                            <h3>My Saved Programs</h3>
+                            
+                            <div class="saved-programs-container">
+                                <div id="saved-programs">
+                                    <p>No saved programs yet.</p>
+                                </div>
+                                
+                                <div class="save-program-form">
+                                    <h4>Save Current Program</h4>
+                                    <form id="save-program-form">
+                                        <div class="form-group">
+                                            <label for="program-name">Program Name</label>
+                                            <input type="text" id="program-name" required>
+                                        </div>
+                                        <button type="submit" class="btn">Save Program</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane" id="account-tab">
+                            <h3>Account Settings</h3>
+                            
+                            <form id="account-settings-form">
+                                <div class="form-group">
+                                    <label for="account-username">Username</label>
+                                    <input type="text" id="account-username" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="account-email">Email</label>
+                                    <input type="email" id="account-email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="account-password">New Password</label>
+                                    <input type="password" id="account-password" placeholder="Leave blank to keep current password">
+                                </div>
+                                <button type="submit" class="btn">Update Account</button>
+                            </form>
+                        </div>
+                        
+                        <div class="tab-pane" id="subscription-tab">
+                            <h3>Subscription</h3>
+                            
+                            <div class="current-plan">
+                                <h4>Current Plan: <span id="current-plan-display">Free</span></h4>
+                                <div id="account-features">
+                                    <li>Access to K2 online runner</li>
+                                    <li>Save up to 5 programs</li>
+                                    <li>Basic forum access</li>
+                                </div>
+                            </div>
+                            
+                            <div class="upgrade-options">
+                                <h4>Upgrade Your Account</h4>
+                                
+                                <div class="plan-cards">
+                                    <div class="plan-card">
+                                        <h5>Basic</h5>
+                                        <p class="plan-price">$5/month</p>
+                                        <ul>
+                                            <li>Access to K2 online runner</li>
+                                            <li>Save up to 20 programs</li>
+                                            <li>Full forum access</li>
+                                            <li>Code snippets library</li>
+                                            <li>Basic debugging tools</li>
+                                        </ul>
+                                        <button class="btn upgrade-btn" data-tier="basic">Upgrade to Basic</button>
+                                    </div>
+                                    
+                                    <div class="plan-card featured">
+                                        <h5>Professional</h5>
+                                        <p class="plan-price">$15/month</p>
+                                        <ul>
+                                            <li>Access to K2 online runner</li>
+                                            <li>Unlimited saved programs</li>
+                                            <li>Full forum access with priority support</li>
+                                            <li>Advanced debugging tools</li>
+                                            <li>Performance analytics</li>
+                                            <li>Custom themes</li>
+                                            <li>API access</li>
+                                        </ul>
+                                        <button class="btn upgrade-btn" data-tier="pro">Upgrade to Pro</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 K2 Programming Language. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/accounts.js"></script>
+    <script>
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and panes
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Show corresponding tab pane
+                    const tabId = button.getAttribute('data-tab');
+                    document.getElementById(tabId + '-tab').classList.add('active');
+                });
+            });
+            
+            // Save program form submission
+            const saveForm = document.getElementById('save-program-form');
+            if (saveForm) {
+                saveForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('program-name').value;
+                    
+                    // Get code from editor (if available)
+                    let code = '';
+                    if (window.localStorage.getItem('k2_current_code')) {
+                        code = window.localStorage.getItem('k2_current_code');
+                    }
+                    
+                    // Save program
+                    if (window.K2AccountSystem) {
+                        const success = window.K2AccountSystem.saveCurrentProgram(name, code);
+                        if (success) {
+                            document.getElementById('program-name').value = '';
+                        }
+                    }
+                });
+            }
+            
+            // Account settings form submission
+            const accountForm = document.getElementById('account-settings-form');
+            if (accountForm) {
+                accountForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('account-email').value;
+                    const password = document.getElementById('account-password').value;
+                    
+                    // Update account (in a real implementation, this would make an API call)
+                    if (window.K2AccountSystem && window.K2AccountSystem.currentUser) {
+                        window.K2AccountSystem.currentUser.email = email;
+                        localStorage.setItem('k2User', JSON.stringify(window.K2AccountSystem.currentUser));
+                        window.K2AccountSystem.showNotification("Account updated successfully");
+                    }
+                });
+            }
+            
+            // Upgrade buttons
+            const upgradeButtons = document.querySelectorAll('.upgrade-btn');
+            if (upgradeButtons) {
+                upgradeButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const tier = button.getAttribute('data-tier');
+                        if (window.K2AccountSystem) {
+                            window.K2AccountSystem.upgradeTier(tier);
+                        }
+                    });
+                });
+            }
+            
+            // Populate account settings if user is logged in
+            if (window.K2AccountSystem && window.K2AccountSystem.currentUser) {
+                const usernameField = document.getElementById('account-username');
+                const emailField = document.getElementById('account-email');
+                const currentPlan = document.getElementById('current-plan-display');
+                
+                if (usernameField) usernameField.value = window.K2AccountSystem.currentUser.username;
+                if (emailField) emailField.value = window.K2AccountSystem.currentUser.email;
+                if (currentPlan) {
+                    const tierName = window.K2AccountSystem.tiers[window.K2AccountSystem.currentUser.tier].name;
+                    currentPlan.textContent = tierName;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

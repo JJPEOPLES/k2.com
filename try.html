@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try K2 Online - K2 Programming Language</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/account.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/k2-logo.png" alt="K2 Logo">
+                    <span>K2 Programming Language</span>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="docs.html">Documentation</a></li>
+                    <li class="active"><a href="try.html">Try K2</a></li>
+                    <li><a href="download.html">Download</a></li>
+                    <li><a href="forum.html">Forum</a></li>
+                    <li><a href="account.html">My Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="notifications"></div>
+
+            <section id="try-k2-section">
+                <h2>Try K2 Online</h2>
+                
+                <div class="account-status">
+                    <div id="not-logged-in" style="display: none;">
+                        <p>Sign in to save your programs and access more features.</p>
+                        <a href="account.html" class="btn btn-small">Sign In</a>
+                    </div>
+                    <div id="logged-in" style="display: none;">
+                        <p>Welcome, <span id="username-display-try">User</span>! <span id="tier-display-try">Free</span> account</p>
+                        <div class="account-actions">
+                            <button id="save-program-btn" class="btn btn-small"><i class="fas fa-save"></i> Save Program</button>
+                            <a href="account.html" class="btn btn-small">My Account</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="code-runner">
+                    <div class="editor-section">
+                        <div class="editor-header">
+                            <h3>K2 Code Editor</h3>
+                            <div class="editor-controls">
+                                <button id="run-code" class="run-btn"><i class="fas fa-play"></i> Run</button>
+                                <button id="clear-code" class="clear-btn"><i class="fas fa-trash"></i> Clear</button>
+                                <button id="copy-code" class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                        </div>
+                        <div class="editor-wrapper">
+                            <textarea id="code-editor" class="code-input" spellcheck="false" placeholder="// Write your K2 code here
+
+var greeting = 'Hello, World!';
+print(greeting);
+
+// Try more complex operations
+var a = 10;
+var b = 20;
+print('Sum: ' + (a + b));"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="output-section">
+                        <div class="output-header">
+                            <h3>Output</h3>
+                            <div class="output-controls">
+                                <button id="clear-output" class="clear-btn"><i class="fas fa-trash"></i> Clear</button>
+                            </div>
+                        </div>
+                        <div class="output-wrapper">
+                            <pre id="code-output" class="code-output">// Output will appear here when you run your code</pre>
+                        </div>
+                        <div class="execution-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Execution Time:</span>
+                                <span id="execution-time-value" class="metric-value">0 ns</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Memory Usage:</span>
+                                <span id="memory-usage-value" class="metric-value">0 KB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="examples-section">
+                    <h3>Example Programs</h3>
+                    <div class="example-buttons">
+                        <button class="example-btn" data-example="hello">Hello World</button>
+                        <button class="example-btn" data-example="fibonacci">Fibonacci</button>
+                        <button class="example-btn" data-example="factorial">Factorial</button>
+                        <button class="example-btn" data-example="sorting">Sorting</button>
+                    </div>
+                </div>
+                
+                <div class="upgrade-banner" id="upgrade-banner" style="display: none;">
+                    <h3>Unlock More Features</h3>
+                    <p>Upgrade your account to access advanced features:</p>
+                    <ul>
+                        <li>Save unlimited programs</li>
+                        <li>Write longer programs (up to 50,000 lines)</li>
+                        <li>Access advanced debugging tools</li>
+                        <li>Get performance analytics</li>
+                    </ul>
+                    <a href="account.html" class="btn">Upgrade Now</a>
+                </div>
+            </section>
+            
+            <!-- Save Program Modal -->
+            <div id="save-program-modal" class="modal">
+                <div class="modal-content">
+                    <h3>Save Program</h3>
+                    <form id="save-program-form">
+                        <div class="form-group">
+                            <label for="program-name-modal">Program Name</label>
+                            <input type="text" id="program-name-modal" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-cancel" onclick="document.getElementById('save-program-modal').style.display='none'">Cancel</button>
+                            <button type="submit" class="btn">Save Program</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 K2 Programming Language. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/accounts.js"></script>
+    <script src="js/k2editor.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Additional Try page specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update account status display
+            function updateAccountStatus() {
+                const notLoggedIn = document.getElementById('not-logged-in');
+                const loggedIn = document.getElementById('logged-in');
+                const upgradeBanner = document.getElementById('upgrade-banner');
+                const usernameDisplay = document.getElementById('username-display-try');
+                const tierDisplay = document.getElementById('tier-display-try');
+                
+                if (window.K2AccountSystem && window.K2AccountSystem.currentUser) {
+                    // User is logged in
+                    notLoggedIn.style.display = 'none';
+                    loggedIn.style.display = 'block';
+                    
+                    // Update user info
+                    usernameDisplay.textContent = window.K2AccountSystem.currentUser.username;
+                    
+                    const tierName = window.K2AccountSystem.tiers[window.K2AccountSystem.currentUser.tier].name;
+                    tierDisplay.textContent = tierName;
+                    
+                    // Show upgrade banner for free users
+                    if (window.K2AccountSystem.currentUser.tier === 'free') {
+                        upgradeBanner.style.display = 'block';
+                    } else {
+                        upgradeBanner.style.display = 'none';
+                    }
+                } else {
+                    // User is not logged in
+                    notLoggedIn.style.display = 'block';
+                    loggedIn.style.display = 'none';
+                    upgradeBanner.style.display = 'block';
+                }
+            }
+            
+            // Call initially
+            updateAccountStatus();
+            
+            // Set up save program button
+            const saveBtn = document.getElementById('save-program-btn');
+            if (saveBtn) {
+                saveBtn.addEventListener('click', () => {
+                    if (!window.K2AccountSystem || !window.K2AccountSystem.currentUser) {
+                        if (window.K2AccountSystem) {
+                            window.K2AccountSystem.showNotification("Please log in to save programs", "error");
+                        }
+                        return;
+                    }
+                    
+                    // Show save program modal
+                    document.getElementById('save-program-modal').style.display = 'block';
+                });
+            }
+            
+            // Set up save program form
+            const saveForm = document.getElementById('save-program-form');
+            if (saveForm) {
+                saveForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('program-name-modal').value;
+                    let code = '';
+                    
+                    // Get code from editor
+                    if (window.K2Editor && window.K2Editor.getCode) {
+                        code = window.K2Editor.getCode();
+                    } else if (document.getElementById('code-editor')) {
+                        code = document.getElementById('code-editor').value;
+                    }
+                    
+                    // Save program
+                    if (window.K2AccountSystem) {
+                        const success = window.K2AccountSystem.saveCurrentProgram(name, code);
+                        if (success) {
+                            document.getElementById('program-name-modal').value = '';
+                            document.getElementById('save-program-modal').style.display = 'none';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

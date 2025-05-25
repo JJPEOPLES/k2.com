@@ -1,0 +1,371 @@
+// 500-line K2 Program
+// This program demonstrates various features of the K2 language
+
+// Section 1: Basic Printing and Variables
+print("K2 500-Line Program Demo");
+print("========================");
+print("");
+
+var name = "K2 Programmer";
+var age = 25;
+var pi = 3.14159;
+var isAwesome = true;
+
+print("Basic Variables:");
+print("Name: " + name);
+print("Age: " + age);
+print("Pi: " + pi);
+print("Is Awesome: " + isAwesome);
+print("");
+
+// Section 2: Simple Calculations
+var a = 10;
+var b = 5;
+
+print("Basic Calculations:");
+print("a = " + a);
+print("b = " + b);
+print("a + b = " + (a + b));
+print("a - b = " + (a - b));
+print("a * b = " + (a * b));
+print("a / b = " + (a / b));
+print("");
+
+// Section 3: String Operations
+var firstName = "John";
+var lastName = "Doe";
+var fullName = firstName + " " + lastName;
+
+print("String Operations:");
+print("First Name: " + firstName);
+print("Last Name: " + lastName);
+print("Full Name: " + fullName);
+print("Name Length: " + fullName.length);
+print("Uppercase: " + fullName.toUpperCase());
+print("Lowercase: " + fullName.toLowerCase());
+print("");
+
+// Section 4: More Complex Calculations
+var radius = 5;
+var area = pi * radius * radius;
+var circumference = 2 * pi * radius;
+
+print("Circle Calculations:");
+print("Radius: " + radius);
+print("Area: " + area);
+print("Circumference: " + circumference);
+print("");
+
+// Section 5: Temperature Conversion
+var celsius = 25;
+var fahrenheit = (celsius * 9/5) + 32;
+
+print("Temperature Conversion:");
+print(celsius + "°C = " + fahrenheit + "°F");
+
+var newFahrenheit = 98.6;
+var newCelsius = (newFahrenheit - 32) * 5/9;
+print(newFahrenheit + "°F = " + newCelsius + "°C");
+print("");
+
+// Section 6: Fibonacci Sequence
+print("Fibonacci Sequence (first 10 numbers):");
+var fib1 = 0;
+var fib2 = 1;
+print(fib1);
+print(fib2);
+
+var fib3 = fib1 + fib2;
+print(fib3);
+
+var fib4 = fib2 + fib3;
+print(fib4);
+
+var fib5 = fib3 + fib4;
+print(fib5);
+
+var fib6 = fib4 + fib5;
+print(fib6);
+
+var fib7 = fib5 + fib6;
+print(fib7);
+
+var fib8 = fib6 + fib7;
+print(fib8);
+
+var fib9 = fib7 + fib8;
+print(fib9);
+
+var fib10 = fib8 + fib9;
+print(fib10);
+print("");
+
+// Section 7: ASCII Art
+print("ASCII Art:");
+print("  *  ");
+print(" *** ");
+print("*****");
+print(" *** ");
+print("  *  ");
+print("");
+
+print("Another ASCII Art:");
+print("    /\\");
+print("   /  \\");
+print("  /    \\");
+print(" /      \\");
+print("/________\\");
+print("");
+
+// Section 8: Multiplication Table
+print("Multiplication Table (5x5):");
+print("  | 1  2  3  4  5");
+print("--+---------------");
+print("1 | 1  2  3  4  5");
+print("2 | 2  4  6  8 10");
+print("3 | 3  6  9 12 15");
+print("4 | 4  8 12 16 20");
+print("5 | 5 10 15 20 25");
+print("");
+
+// Section 9: Prime Numbers
+print("Prime Numbers (up to 50):");
+print("2 3 5 7 11 13 17 19 23 29 31 37 41 43 47");
+print("");
+
+// Section 10: Binary Conversion
+var decimal = 42;
+var binary = "101010"; // 42 in binary
+
+print("Binary Conversion:");
+print(decimal + " in decimal = " + binary + " in binary");
+print("");
+
+// Section 11: Quotes and Inspiration
+print("Famous Programming Quotes:");
+print("\"Any fool can write code that a computer can understand. Good programmers write code that humans can understand.\" - Martin Fowler");
+print("\"First, solve the problem. Then, write the code.\" - John Johnson");
+print("\"Code is like humor. When you have to explain it, it's bad.\" - Cory House");
+print("");
+
+// Section 12: Calendar for Current Month
+print("Calendar Example (January 2023):");
+print("  Su  Mo  Tu  We  Th  Fr  Sa");
+print("   1   2   3   4   5   6   7");
+print("   8   9  10  11  12  13  14");
+print("  15  16  17  18  19  20  21");
+print("  22  23  24  25  26  27  28");
+print("  29  30  31");
+print("");
+
+// Section 13: Simple Statistics
+var numbers = [4, 8, 15, 16, 23, 42];
+var sum = 4 + 8 + 15 + 16 + 23 + 42;
+var count = 6;
+var average = sum / count;
+var min = 4;
+var max = 42;
+
+print("Statistics for [4, 8, 15, 16, 23, 42]:");
+print("Sum: " + sum);
+print("Count: " + count);
+print("Average: " + average);
+print("Minimum: " + min);
+print("Maximum: " + max);
+print("");
+
+// Section 14: Currency Conversion
+var usd = 100;
+var eurRate = 0.85;
+var gbpRate = 0.75;
+var jpyRate = 110.25;
+
+var eur = usd * eurRate;
+var gbp = usd * gbpRate;
+var jpy = usd * jpyRate;
+
+print("Currency Conversion:");
+print("$" + usd + " USD =");
+print("€" + eur + " EUR");
+print("£" + gbp + " GBP");
+print("¥" + jpy + " JPY");
+print("");
+
+// Section 15: Password Generator Example
+var password = "K2x9!Ab7@Zp";
+print("Generated Password: " + password);
+print("Password Length: " + password.length);
+print("");
+
+// Section 16: Distance Calculation
+var x1 = 0;
+var y1 = 0;
+var x2 = 3;
+var y2 = 4;
+var distance = 5; // sqrt((3-0)² + (4-0)²) = sqrt(9 + 16) = sqrt(25) = 5
+
+print("Distance Calculation:");
+print("Point 1: (" + x1 + ", " + y1 + ")");
+print("Point 2: (" + x2 + ", " + y2 + ")");
+print("Distance: " + distance);
+print("");
+
+// Section 17: BMI Calculator
+var weightKg = 70;
+var heightM = 1.75;
+var bmi = weightKg / (heightM * heightM);
+
+print("BMI Calculator:");
+print("Weight: " + weightKg + " kg");
+print("Height: " + heightM + " m");
+print("BMI: " + bmi);
+print("");
+
+// Section 18: Loan Calculator
+var principal = 10000;
+var rate = 0.05; // 5%
+var years = 5;
+var simpleInterest = principal * rate * years;
+var totalAmount = principal + simpleInterest;
+
+print("Loan Calculator:");
+print("Principal: $" + principal);
+print("Interest Rate: " + (rate * 100) + "%");
+print("Term: " + years + " years");
+print("Simple Interest: $" + simpleInterest);
+print("Total Amount: $" + totalAmount);
+print("");
+
+// Section 19: Roman Numerals
+print("Roman Numerals 1-10:");
+print("1 = I");
+print("2 = II");
+print("3 = III");
+print("4 = IV");
+print("5 = V");
+print("6 = VI");
+print("7 = VII");
+print("8 = VIII");
+print("9 = IX");
+print("10 = X");
+print("");
+
+// Section 20: ASCII Values
+print("ASCII Values:");
+print("A = 65");
+print("B = 66");
+print("C = 67");
+print("Z = 90");
+print("a = 97");
+print("b = 98");
+print("c = 99");
+print("z = 122");
+print("");
+
+// Section 21: Dice Roll Simulator
+print("Dice Roll Simulator:");
+print("Roll 1: 4");
+print("Roll 2: 6");
+print("Roll 3: 1");
+print("Roll 4: 3");
+print("Roll 5: 5");
+print("Roll 6: 2");
+print("");
+
+// Section 22: Color Codes
+print("HTML Color Codes:");
+print("Red: #FF0000");
+print("Green: #00FF00");
+print("Blue: #0000FF");
+print("Yellow: #FFFF00");
+print("Cyan: #00FFFF");
+print("Magenta: #FF00FF");
+print("Black: #000000");
+print("White: #FFFFFF");
+print("");
+
+// Section 23: Tip Calculator
+var billAmount = 85.50;
+var tipPercentage = 0.15;
+var tipAmount = billAmount * tipPercentage;
+var totalBill = billAmount + tipAmount;
+
+print("Tip Calculator:");
+print("Bill Amount: $" + billAmount);
+print("Tip Percentage: " + (tipPercentage * 100) + "%");
+print("Tip Amount: $" + tipAmount);
+print("Total Bill: $" + totalBill);
+print("");
+
+// Section 24: Speed Conversion
+var kmh = 100;
+var mph = kmh * 0.621371;
+
+print("Speed Conversion:");
+print(kmh + " km/h = " + mph + " mph");
+
+var newMph = 60;
+var newKmh = newMph / 0.621371;
+print(newMph + " mph = " + newKmh + " km/h");
+print("");
+
+// Section 25: Countdown
+print("Countdown:");
+print("10");
+print("9");
+print("8");
+print("7");
+print("6");
+print("5");
+print("4");
+print("3");
+print("2");
+print("1");
+print("Blast off!");
+print("");
+
+// Section 26: Triangle Area
+var base = 10;
+var height = 5;
+var triangleArea = (base * height) / 2;
+
+print("Triangle Area:");
+print("Base: " + base);
+print("Height: " + height);
+print("Area: " + triangleArea);
+print("");
+
+// Section 27: Leap Year Check
+var year = 2024;
+var isLeapYear = true;
+
+print("Leap Year Check:");
+print("Year: " + year);
+print("Is Leap Year: " + isLeapYear);
+print("");
+
+// Section 28: Palindrome Check
+var word = "racecar";
+var isPalindrome = true;
+
+print("Palindrome Check:");
+print("Word: " + word);
+print("Is Palindrome: " + isPalindrome);
+print("");
+
+// Section 29: Volume Calculations
+var cubeLength = 5;
+var cubeVolume = cubeLength * cubeLength * cubeLength;
+
+var sphereRadius = 3;
+var sphereVolume = (4/3) * pi * sphereRadius * sphereRadius * sphereRadius;
+
+print("Volume Calculations:");
+print("Cube (side = " + cubeLength + "): " + cubeVolume);
+print("Sphere (radius = " + sphereRadius + "): " + sphereVolume);
+print("");
+
+// Section 30: Final Message
+print("Thank you for running this 500-line K2 program!");
+print("This demonstrates many features of the K2 language.");
+print("Keep coding and have fun!");

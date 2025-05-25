@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum - K2 Programming Language</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forum.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/k2-logo.png" alt="K2 Logo">
+                    <span>K2 Programming Language</span>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="docs.html">Documentation</a></li>
+                    <li><a href="try.html">Try K2</a></li>
+                    <li><a href="download.html">Download</a></li>
+                    <li class="active"><a href="forum.html">Forum</a></li>
+                    <li><a href="account.html">My Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="notifications"></div>
+
+            <section id="forum-section">
+                <h2>K2 Community Forum</h2>
+                
+                <div id="forum-categories-section">
+                    <div class="forum-header">
+                        <h3>Categories</h3>
+                        <div class="forum-actions">
+                            <a href="account.html" class="btn btn-small">Sign In to Participate</a>
+                        </div>
+                    </div>
+                    
+                    <div id="forum-categories">
+                        <!-- Categories will be loaded here by JavaScript -->
+                    </div>
+                </div>
+                
+                <div id="forum-threads-section" style="display: none;">
+                    <div class="forum-header">
+                        <h3>Threads in <span id="category-title">Category</span></h3>
+                        <div class="forum-actions">
+                            <button id="back-to-categories-btn" class="btn btn-small" onclick="K2ForumSystem.backToCategories()">Back to Categories</button>
+                            <button id="new-thread-btn" class="btn btn-small">New Thread</button>
+                        </div>
+                    </div>
+                    
+                    <div id="forum-threads">
+                        <!-- Threads will be loaded here by JavaScript -->
+                    </div>
+                </div>
+                
+                <div id="forum-thread-section" style="display: none;">
+                    <div class="forum-header">
+                        <h3 id="thread-title-display">Thread Title</h3>
+                        <div class="forum-actions">
+                            <button class="btn btn-small" onclick="K2ForumSystem.backToThreads()">Back to Threads</button>
+                        </div>
+                    </div>
+                    
+                    <div id="thread-content-container">
+                        <!-- Thread content will be loaded here by JavaScript -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- New Thread Modal -->
+            <div id="new-thread-modal" class="modal">
+                <div class="modal-content">
+                    <h3>Create New Thread</h3>
+                    <form id="new-thread-form">
+                        <div class="form-group">
+                            <label for="thread-title">Title</label>
+                            <input type="text" id="thread-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="thread-content">Content</label>
+                            <textarea id="thread-content" rows="10" required></textarea>
+                            <p class="form-help">You can use markdown-style code blocks with triple backticks.</p>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-cancel" onclick="document.getElementById('new-thread-modal').style.display='none'">Cancel</button>
+                            <button type="submit" class="btn">Create Thread</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 K2 Programming Language. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/accounts.js"></script>
+    <script src="js/forum.js"></script>
+</body>
+</html>

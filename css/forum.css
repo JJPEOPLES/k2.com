@@ -1,0 +1,252 @@
+/* Forum System Styles */
+
+/* Forum Section */
+#forum-section {
+    margin-bottom: 50px;
+}
+
+.forum-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.forum-header h3 {
+    margin: 0;
+}
+
+.forum-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Categories */
+.forum-category {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.forum-category:hover {
+    transform: translateY(-3px);
+}
+
+.forum-category h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.forum-category p {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.category-stats {
+    color: #888;
+    font-size: 14px;
+}
+
+.forum-category-link {
+    color: #2c3e50;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.forum-category-link:hover {
+    color: #1a252f;
+}
+
+.pro-tag {
+    display: inline-block;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Threads */
+.forum-thread-item {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s;
+}
+
+.forum-thread-item:hover {
+    background-color: #f0f0f0;
+}
+
+.forum-thread-item h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.thread-link {
+    color: #2c3e50;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.thread-link:hover {
+    color: #1a252f;
+}
+
+.thread-meta {
+    display: flex;
+    gap: 20px;
+    color: #888;
+    font-size: 14px;
+}
+
+/* Thread Content */
+.thread-post {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.original-post {
+    border-left: 4px solid #2c3e50;
+}
+
+.reply-post {
+    border-left: 4px solid #3498db;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    color: #666;
+    font-size: 14px;
+}
+
+.post-author {
+    font-weight: 500;
+}
+
+.post-content {
+    line-height: 1.6;
+}
+
+.post-content pre {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+.post-content code {
+    font-family: monospace;
+    white-space: pre;
+}
+
+/* Reply Form */
+.reply-form-container {
+    margin-top: 30px;
+}
+
+.reply-form-container h4 {
+    margin-bottom: 15px;
+}
+
+#reply-content {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 16px;
+    margin-bottom: 15px;
+    resize: vertical;
+}
+
+/* New Thread Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+#thread-content {
+    width: 100%;
+    min-height: 200px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 16px;
+    margin-bottom: 5px;
+    resize: vertical;
+}
+
+.form-help {
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-cancel {
+    background-color: #ccc;
+}
+
+.btn-cancel:hover {
+    background-color: #bbb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .thread-meta {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 20px auto;
+        padding: 20px;
+    }
+}

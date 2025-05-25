@@ -1,0 +1,317 @@
+/* Account System Styles */
+
+/* Notifications */
+#notifications {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 300px;
+}
+
+.notification {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease-out;
+}
+
+.notification.success {
+    border-left: 4px solid #4CAF50;
+}
+
+.notification.error {
+    border-left: 4px solid #F44336;
+}
+
+.notification.fade-out {
+    animation: fadeOut 0.5s ease-out forwards;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Authentication Forms */
+.auth-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.auth-box {
+    flex: 1;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.auth-box h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.btn {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #1a252f;
+}
+
+.btn-small {
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+/* Account Section */
+.account-info {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.account-header {
+    display: flex;
+    align-items: center;
+}
+
+.account-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.account-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.account-details h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.account-details p {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+/* Tabs */
+.account-tabs {
+    margin-top: 30px;
+}
+
+.tab-buttons {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: #333;
+}
+
+.tab-btn.active {
+    color: #2c3e50;
+    border-bottom-color: #2c3e50;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Saved Programs */
+.saved-programs-container {
+    display: flex;
+    gap: 30px;
+}
+
+#saved-programs {
+    flex: 2;
+}
+
+.save-program-form {
+    flex: 1;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.saved-program {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.saved-program h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.saved-program p {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+.program-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Subscription Plans */
+.plan-cards {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.plan-card {
+    flex: 1;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+}
+
+.plan-card.featured {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.plan-card h5 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.plan-card.featured h5 {
+    color: white;
+}
+
+.plan-price {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.plan-card ul {
+    margin-bottom: 30px;
+    padding-left: 20px;
+}
+
+.plan-card li {
+    margin-bottom: 10px;
+}
+
+.plan-card .btn {
+    width: 100%;
+}
+
+.plan-card.featured .btn {
+    background-color: white;
+    color: #2c3e50;
+}
+
+.plan-card.featured .btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* Current Plan */
+.current-plan {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+#account-features {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-top: 15px;
+}
+
+#account-features li {
+    margin-bottom: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .auth-container {
+        flex-direction: column;
+    }
+    
+    .saved-programs-container {
+        flex-direction: column;
+    }
+    
+    .plan-cards {
+        flex-direction: column;
+    }
+}
