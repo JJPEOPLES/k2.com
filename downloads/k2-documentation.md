@@ -45,7 +45,7 @@ sudo cp k2 /usr/local/bin/
 
 ```bash
 # Download the installation script
-wget https://k2-language.org/downloads/install.sh
+wget https://k2lang.org/downloads/install.sh
 
 # Make it executable
 chmod +x install.sh
@@ -58,7 +58,7 @@ sudo ./install.sh
 
 ```bash
 # Download the Debian package
-wget https://k2-language.org/downloads/k2-language_1.0.0-1_amd64.deb
+wget https://k2lang.org/downloads/k2-language_1.0.0-1_amd64.deb
 
 # Install the package
 sudo dpkg -i k2-language_1.0.0-1_amd64.deb
@@ -344,7 +344,7 @@ This error occurs when you try to divide by zero. Check your divisor to ensure i
 
 If you encounter issues with K2, you can:
 
-1. Check the documentation at https://k2-language.org/documentation
+1. Check the documentation at https://k2lang.org/documentation
 2. Report bugs on GitHub at https://github.com/k2-language/k2/issues
 3. Join the K2 community on Discord at https://discord.gg/k2-language
 

@@ -22,7 +22,7 @@ mkdir -p /usr/local/share/man/man1
 # Download K2 binary if not provided
 if [ ! -f "k2" ]; then
     echo "Downloading K2 binary..."
-    wget -q https://k2-language.org/downloads/k2 -O k2
+    wget -q https://k2lang.org/downloads/k2 -O k2
     if [ $? -ne 0 ]; then
         echo "Failed to download K2 binary. Please check your internet connection."
         exit 1
@@ -40,7 +40,7 @@ cp k2 /usr/local/lib/k2/
 # Download and install example programs
 echo "Installing example programs..."
 if [ ! -f "k2-examples.zip" ]; then
-    wget -q https://k2-language.org/downloads/k2-examples.zip -O k2-examples.zip
+    wget -q https://k2lang.org/downloads/k2-examples.zip -O k2-examples.zip
     if [ $? -ne 0 ]; then
         echo "Failed to download example programs. Continuing without examples."
     else
