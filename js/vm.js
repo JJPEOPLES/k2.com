@@ -23,17 +23,44 @@ document.addEventListener('DOMContentLoaded', function() {
         isFullscreen: false
     };
 
-    // VM Configuration
+    // VM Configuration for real Ubuntu system
     const VM_CONFIG = {
-        // In a real implementation, this would be the URL to your VM service
-        // For this example, we'll use a placeholder
-        baseUrl: 'https://vm.k2lang.org/ubuntu-terminal',
-        defaultMemory: 512, // MB
-        defaultCpu: 1,      // cores
-        timeout: 300,       // seconds
+        // Use v86 to run a real Ubuntu system in the browser via WebAssembly
+        useRealVM: true,
+        vmProvider: 'v86',
         osName: 'Ubuntu 22.04 LTS',
         osVersion: '22.04.3',
-        osCodename: 'Jammy Jellyfish'
+        osCodename: 'Jammy Jellyfish',
+        // v86 configuration
+        v86Config: {
+            memory_size: 512 * 1024 * 1024, // 512 MB
+            vga_memory_size: 8 * 1024 * 1024, // 8 MB
+            screen_container: null, // Will be set during initialization
+            bios: {
+                url: "https://cdn.jsdelivr.net/npm/v86@latest/bios/seabios.bin"
+            },
+            vga_bios: {
+                url: "https://cdn.jsdelivr.net/npm/v86@latest/bios/vgabios.bin"
+            },
+            cdrom: {
+                url: "https://archive.org/download/ubuntu-22.04-mini-iso/ubuntu-22.04-mini.iso"
+            },
+            hda: {
+                url: "https://k2lang.org/vm/ubuntu-hda.img",
+                size: 4 * 1024 * 1024 * 1024, // 4 GB
+                async: true
+            },
+            autostart: true,
+            disable_speaker: true,
+            disable_mouse: false,
+            network_relay_url: "wss://relay.widgetry.org/",
+            filesystem: {
+                basefs: {
+                    url: "https://k2lang.org/vm/k2-filesystem.json"
+                },
+                baseurl: "https://k2lang.org/vm/"
+            }
+        }
     };
 
     // Update VM status display
@@ -78,15 +105,187 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show loading indicator
         vmLoading.style.display = 'flex';
         
-        // In a real implementation, this would load the actual VM
-        // For this example, we'll simulate loading with a timeout
-        setTimeout(() => {
-            // Load VM iframe
-            vmIframe.src = `${VM_CONFIG.baseUrl}?memory=${VM_CONFIG.defaultMemory}&cpu=${VM_CONFIG.defaultCpu}&timeout=${VM_CONFIG.timeout}`;
+        if (VM_CONFIG.useRealVM && VM_CONFIG.vmProvider === 'v86') {
+            // Load the v86 emulator to run a real Ubuntu system
+            loadV86Emulator().then(() => {
+                // Initialize the v86 emulator with Ubuntu
+                initRealUbuntuVM();
+            }).catch(error => {
+                console.error('Failed to load v86 emulator:', error);
+                // Fall back to demo terminal if real VM fails
+                simulateVmLoaded();
+            });
+        } else {
+            // For demo purposes, we'll simulate loading with a timeout
+            setTimeout(() => {
+                simulateVmLoaded();
+            }, 2000);
+        }
+    }
+    
+    // Load the v86 emulator
+    function loadV86Emulator() {
+        return new Promise((resolve, reject) => {
+            // Load v86 CSS
+            const v86Css = document.createElement('link');
+            v86Css.rel = 'stylesheet';
+            v86Css.href = 'https://cdn.jsdelivr.net/npm/v86@latest/lib/v86.css';
+            document.head.appendChild(v86Css);
             
-            // For demo purposes, we'll use a placeholder iframe content
-            // In a real implementation, this would be handled by the iframe load event
-            simulateVmLoaded();
+            // Load v86 JavaScript
+            const v86Js = document.createElement('script');
+            v86Js.src = 'https://cdn.jsdelivr.net/npm/v86@latest/build/libv86.js';
+            v86Js.onload = resolve;
+            v86Js.onerror = reject;
+            document.head.appendChild(v86Js);
+        });
+    }
+    
+    // Initialize a real Ubuntu VM using v86
+    function initRealUbuntuVM() {
+        // Prepare the iframe for v86
+        vmIframe.contentDocument.open();
+        vmIframe.contentDocument.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Ubuntu 22.04 LTS</title>
+                <style>
+                    body, html {
+                        margin: 0;
+                        padding: 0;
+                        height: 100%;
+                        width: 100%;
+                        overflow: hidden;
+                        background-color: #2c001e;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    #screen_container {
+                        flex: 1;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    #boot_message {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        color: white;
+                        font-family: Ubuntu, sans-serif;
+                        text-align: center;
+                    }
+                    .ubuntu-boot-dots {
+                        display: flex;
+                        justify-content: center;
+                        margin-top: 20px;
+                    }
+                    .ubuntu-boot-dots span {
+                        width: 10px;
+                        height: 10px;
+                        margin: 0 5px;
+                        background-color: #E95420;
+                        border-radius: 50%;
+                        animation: ubuntu-boot 1s infinite ease-in-out;
+                    }
+                    .ubuntu-boot-dots span:nth-child(2) {
+                        animation-delay: 0.2s;
+                    }
+                    .ubuntu-boot-dots span:nth-child(3) {
+                        animation-delay: 0.4s;
+                    }
+                    .ubuntu-boot-dots span:nth-child(4) {
+                        animation-delay: 0.6s;
+                    }
+                    .ubuntu-boot-dots span:nth-child(5) {
+                        animation-delay: 0.8s;
+                    }
+                    @keyframes ubuntu-boot {
+                        0%, 100% { opacity: 0.3; }
+                        50% { opacity: 1; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div id="screen_container">
+                    <div id="boot_message">
+                        <h2>Booting Ubuntu 22.04 LTS...</h2>
+                        <div class="ubuntu-boot-dots">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <p>This may take a minute or two</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `);
+        vmIframe.contentDocument.close();
+        
+        // Hide loading indicator and show iframe
+        vmLoading.style.display = 'none';
+        vmIframe.style.display = 'block';
+        
+        // Wait for iframe to load
+        vmIframe.addEventListener('load', function() {
+            // Get the screen container from the iframe
+            const screenContainer = vmIframe.contentDocument.getElementById('screen_container');
+            
+            // Update v86 config with the screen container
+            VM_CONFIG.v86Config.screen_container = screenContainer;
+            
+            // Create the emulator
+            const emulator = new window.V86Emulator(VM_CONFIG.v86Config);
+            
+            // Store emulator reference
+            window.ubuntuEmulator = emulator;
+            
+            // Hide boot message when emulator is running
+            emulator.add_listener("emulator-ready", function() {
+                const bootMessage = vmIframe.contentDocument.getElementById('boot_message');
+                if (bootMessage) {
+                    bootMessage.style.display = 'none';
+                }
+                
+                // Update VM state
+                vmState.status = 'running';
+                updateVmStatus();
+                
+                // Start monitoring resource usage
+                monitorRealVMResources(emulator);
+            });
+            
+            // Handle emulator errors
+            emulator.add_listener("error", function(error) {
+                console.error('V86 emulator error:', error);
+                vmState.status = 'error';
+                updateVmStatus();
+            });
+        });
+    }
+    
+    // Monitor resource usage of the real VM
+    function monitorRealVMResources(emulator) {
+        setInterval(() => {
+            if (emulator && emulator.v86) {
+                try {
+                    // Get CPU usage (approximate based on emulator performance)
+                    const stats = emulator.v86.cpu.get_stats();
+                    vmState.cpuUsage = Math.min(100, Math.floor(stats.ops_per_second / 1000000 * 10));
+                    
+                    // Get memory usage
+                    vmState.memoryUsage = Math.floor(emulator.v86.cpu.memory_size / (1024 * 1024));
+                    
+                    // Update status display
+                    updateVmStatus();
+                } catch (e) {
+                    console.warn('Failed to get VM stats:', e);
+                }
+            }
         }, 2000);
     }
 
@@ -459,16 +658,48 @@ Execution time: 78 nanoseconds\`;
         vmState.status = 'loading';
         updateVmStatus();
         
-        // Show loading indicator
-        vmLoading.style.display = 'flex';
-        
-        // Clear iframe
-        vmIframe.src = 'about:blank';
-        
-        // Simulate restart
-        setTimeout(() => {
-            startVm();
-        }, 2000);
+        if (window.ubuntuEmulator && VM_CONFIG.useRealVM) {
+            // For real VM, restart the emulator
+            if (confirm('Are you sure you want to restart the virtual machine? Any unsaved work will be lost.')) {
+                try {
+                    window.ubuntuEmulator.restart();
+                    
+                    // Show loading indicator
+                    vmLoading.style.display = 'flex';
+                    vmIframe.style.display = 'none';
+                    
+                    setTimeout(() => {
+                        vmLoading.style.display = 'none';
+                        vmIframe.style.display = 'block';
+                    }, 1000);
+                } catch (e) {
+                    console.error('Failed to restart VM:', e);
+                    alert('Failed to restart the virtual machine. Please refresh the page and try again.');
+                    
+                    // Fall back to complete restart
+                    vmIframe.src = 'about:blank';
+                    setTimeout(() => {
+                        startVm();
+                    }, 2000);
+                }
+            } else {
+                // User cancelled restart
+                vmState.status = 'running';
+                updateVmStatus();
+            }
+        } else {
+            // For demo VM, just simulate restart
+            // Show loading indicator
+            vmLoading.style.display = 'flex';
+            
+            // Clear iframe
+            vmIframe.src = 'about:blank';
+            
+            // Simulate restart
+            setTimeout(() => {
+                startVm();
+            }, 2000);
+        }
     }
 
     // Toggle fullscreen
@@ -536,6 +767,128 @@ Execution time: 78 nanoseconds\`;
     
     if (fullscreenVmBtn) {
         fullscreenVmBtn.addEventListener('click', toggleFullscreen);
+    }
+    
+    // Save VM state button
+    const saveVmBtn = document.getElementById('save-vm');
+    if (saveVmBtn) {
+        saveVmBtn.addEventListener('click', () => {
+            if (window.ubuntuEmulator && VM_CONFIG.useRealVM) {
+                try {
+                    // Save the VM state
+                    const state = window.ubuntuEmulator.save_state();
+                    
+                    // Convert to a Blob and create a download link
+                    const blob = new Blob([state], { type: 'application/octet-stream' });
+                    const url = URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'ubuntu-vm-state.bin';
+                    a.click();
+                    
+                    URL.revokeObjectURL(url);
+                    
+                    alert('VM state saved successfully. You can restore this state later.');
+                } catch (e) {
+                    console.error('Failed to save VM state:', e);
+                    alert('Failed to save VM state. Please try again.');
+                }
+            } else {
+                alert('This feature is only available with the real VM.');
+            }
+        });
+    }
+    
+    // Keyboard button (send Ctrl+Alt+Del)
+    const keyboardVmBtn = document.getElementById('keyboard-vm');
+    if (keyboardVmBtn) {
+        keyboardVmBtn.addEventListener('click', () => {
+            if (window.ubuntuEmulator && VM_CONFIG.useRealVM) {
+                try {
+                    // Send Ctrl+Alt+Del to the VM
+                    window.ubuntuEmulator.keyboard_send_scancodes([
+                        0x1D, // Ctrl
+                        0x38, // Alt
+                        0x53, // Delete
+                        
+                        // Key up events
+                        0x1D | 0x80,
+                        0x38 | 0x80,
+                        0x53 | 0x80
+                    ]);
+                } catch (e) {
+                    console.error('Failed to send keyboard command:', e);
+                }
+            } else {
+                alert('This feature is only available with the real VM.');
+            }
+        });
+    }
+    
+    // Ctrl+Alt+Del button
+    const ctrlAltDelBtn = document.getElementById('ctrl-alt-del');
+    if (ctrlAltDelBtn) {
+        ctrlAltDelBtn.addEventListener('click', () => {
+            if (window.ubuntuEmulator && VM_CONFIG.useRealVM) {
+                try {
+                    // Send Ctrl+Alt+Del to the VM
+                    window.ubuntuEmulator.keyboard_send_scancodes([
+                        0x1D, // Ctrl
+                        0x38, // Alt
+                        0x53, // Delete
+                        
+                        // Key up events
+                        0x1D | 0x80,
+                        0x38 | 0x80,
+                        0x53 | 0x80
+                    ]);
+                } catch (e) {
+                    console.error('Failed to send keyboard command:', e);
+                }
+            } else {
+                alert('This feature is only available with the real VM.');
+            }
+        });
+    }
+    
+    // Power button
+    const powerBtn = document.getElementById('power-btn');
+    if (powerBtn) {
+        powerBtn.addEventListener('click', () => {
+            if (window.ubuntuEmulator && VM_CONFIG.useRealVM) {
+                if (confirm('Do you want to power off the virtual machine? Any unsaved work will be lost.')) {
+                    try {
+                        window.ubuntuEmulator.stop();
+                        vmState.status = 'idle';
+                        updateVmStatus();
+                        
+                        // Show start button again
+                        vmLoading.style.display = 'flex';
+                        vmLoading.innerHTML = `
+                            <div class="ubuntu-logo">
+                                <img src="https://assets.ubuntu.com/v1/8dd99b80-ubuntu-logo14.png" alt="Ubuntu Logo" class="ubuntu-boot-logo">
+                            </div>
+                            <p>Ubuntu VM is powered off</p>
+                            <button id="power-on-btn" class="btn btn-primary mt-4">
+                                <i class="fas fa-power-off"></i> Power On
+                            </button>
+                        `;
+                        vmIframe.style.display = 'none';
+                        
+                        // Add event listener to power on button
+                        const powerOnBtn = vmLoading.querySelector('#power-on-btn');
+                        if (powerOnBtn) {
+                            powerOnBtn.addEventListener('click', startVm);
+                        }
+                    } catch (e) {
+                        console.error('Failed to power off VM:', e);
+                    }
+                }
+            } else {
+                alert('This feature is only available with the real VM.');
+            }
+        });
     }
 
     // Initialize
