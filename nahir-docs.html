@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nahir UI Documentation - K2 Language</title>
+    <meta name="description" content="Documentation for the Nahir UI framework for K2 language, providing ultra-fast UI components with ramdisk caching.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/modern-ui.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- JavaScript -->
+    <script src="js/nahir-ui.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="animated-link">Home</a></li>
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="index.html#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="docs-hero">
+        <div class="container">
+            <h1>Nahir UI Documentation</h1>
+            <p>Build ultra-fast user interfaces with K2's component system and ramdisk caching</p>
+        </div>
+    </section>
+
+    <section class="docs-content">
+        <div class="container">
+            <div class="docs-grid">
+                <aside class="docs-sidebar">
+                    <div class="docs-nav">
+                        <h3>Getting Started</h3>
+                        <ul>
+                            <li><a href="#introduction" class="active">Introduction</a></li>
+                            <li><a href="#installation">Installation</a></li>
+                            <li><a href="#ramdisk-setup">Ramdisk Setup</a></li>
+                        </ul>
+                        
+                        <h3>Core Concepts</h3>
+                        <ul>
+                            <li><a href="#components">Components</a></li>
+                            <li><a href="#props">Props & State</a></li>
+                            <li><a href="#events">Event Handling</a></li>
+                            <li><a href="#caching">Ramdisk Caching</a></li>
+                        </ul>
+                        
+                        <h3>Components</h3>
+                        <ul>
+                            <li><a href="#button">Button</a></li>
+                            <li><a href="#input">Input</a></li>
+                            <li><a href="#container">Container</a></li>
+                            <li><a href="#list">List</a></li>
+                        </ul>
+                        
+                        <h3>Advanced</h3>
+                        <ul>
+                            <li><a href="#custom-components">Custom Components</a></li>
+                            <li><a href="#performance">Performance Optimization</a></li>
+                            <li><a href="#styling">Styling</a></li>
+                        </ul>
+                    </div>
+                </aside>
+                
+                <main class="docs-main">
+                    <section id="introduction">
+                        <h2>Introduction to Nahir UI</h2>
+                        <p>
+                            Nahir UI is a component-based UI framework for the K2 programming language, designed to provide ultra-fast rendering and state management through ramdisk caching. With Nahir UI, you can build complex user interfaces that maintain K2's performance benefits.
+                        </p>
+                        
+                        <div class="info-box">
+                            <div class="info-icon"><i class="fas fa-info-circle"></i></div>
+                            <div class="info-content">
+                                <p>Nahir UI components render in microseconds, providing instant visual feedback and smooth animations, even on resource-constrained devices.</p>
+                            </div>
+                        </div>
+                        
+                        <h3>Key Features</h3>
+                        <ul class="feature-list">
+                            <li><strong>Accelerated Rendering:</strong> Components render in microseconds</li>
+                            <li><strong>Ramdisk Caching:</strong> Ultra-fast state management using K2's ramdisk cache</li>
+                            <li><strong>Component System:</strong> Build UIs with reusable, composable components</li>
+                            <li><strong>Responsive Design:</strong> Automatically adapts to any screen size</li>
+                            <li><strong>Minimal Footprint:</strong> Entire framework is under 50KB</li>
+                        </ul>
+                    </section>
+                    
+                    <section id="installation">
+                        <h2>Installation</h2>
+                        <p>
+                            To use Nahir UI in your K2 project, you need to install the Nahir UI package:
+                        </p>
+                        
+                        <div class="code-window">
+                            <div class="code-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="filename">terminal</span>
+                            </div>
+                            <pre><code># Install Nahir UI using the K2 package manager
+k2 install nahir-ui</code></pre>
+                        </div>
+                        
+                        <p>
+                            Then, import Nahir UI in your K2 code:
+                        </p>
+                        
+                        <div class="code-window">
+                            <div class="code-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="filename">app.k2</span>
+                            </div>
+                            <pre><code># Import Nahir UI
+import NahirUI
+
+# Create a simple UI
+app = NahirUI.App.new()
+button = NahirUI.Button.new({
+  text: "Click Me",
+  onClick: function() {
+    print "Button clicked!"
+  }
+})
+
+app.render(button)</code></pre>
+                        </div>
+                    </section>
+                    
+                    <section id="ramdisk-setup">
+                        <h2>Ramdisk Setup</h2>
+                        <p>
+                            Nahir UI uses K2's ramdisk cache system for ultra-fast component state management and rendering. To set up the ramdisk cache:
+                        </p>
+                        
+                        <div class="code-window">
+                            <div class="code-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="filename">terminal</span>
+                            </div>
+                            <pre><code># Create the ramdisk mount unit file
+sudo cp /home/jjshandy6161/Desktop/K2/usr-local-k2c.mount /etc/systemd/system/
+
+# Enable and start the ramdisk
+sudo systemctl enable usr-local-k2c.mount
+sudo systemctl start usr-local-k2c.mount
+
+# Verify the ramdisk is mounted
+df -h /usr/local/k2c</code></pre>
+                        </div>
+                        
+                        <p>
+                            The ramdisk will be automatically used by Nahir UI for caching component states and rendered templates.
+                        </p>
+                    </section>
+                    
+                    <section id="components">
+                        <h2>Components</h2>
+                        <p>
+                            Nahir UI is built around the concept of components. A component is a reusable piece of UI that can be composed to build complex interfaces.
+                        </p>
+                        
+                        <div class="code-window">
+                            <div class="code-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="filename">component-example.k2</span>
+                            </div>
+                            <pre><code># Define a custom component
+component UserCard {
+  props = {
+    name: "",
+    avatar: "",
+    role: ""
+  }
+  
+  render {
+    element = "div"
+    className = "user-card"
+    children = [
+      {
+        element: "img",
+        src: props.avatar,
+        className: "user-avatar"
+      },
+      {
+        element: "div",
+        className: "user-info",
+        children: [
+          {
+            element: "h3",
+            content: props.name
+          },
+          {
+            element: "p",
+            content: props.role
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+                        </div>
+                    </section>
+                    
+                    <!-- More sections would go here -->
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>K2</h2>
+                    <p>Ultra-Fast Programming Language</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Product</h3>
+                        <ul>
+                            <li><a href="index.html#features">Features</a></li>
+                            <li><a href="index.html#performance">Performance</a></li>
+                            <li><a href="index.html#examples">Examples</a></li>
+                            <li><a href="index.html#download">Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="docs.html">Documentation</a></li>
+                            <li><a href="nahir-docs.html">Nahir UI</a></li>
+                            <li><a href="forum.html">Community Forum</a></li>
+                            <li><a href="try.html">Try Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="legal/terms-of-use.html">Terms of Use</a></li>
+                            <li><a href="legal/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="legal/licenses.html">Licenses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 K2 Language. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

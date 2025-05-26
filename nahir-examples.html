@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nahir UI Examples - K2 Language</title>
+    <meta name="description" content="Example applications built with the Nahir UI framework for K2 language, showcasing ultra-fast UI components with ramdisk caching.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/modern-ui.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- JavaScript -->
+    <script src="js/nahir-ui.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <style>
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .example-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+        
+        .example-image {
+            width: 100%;
+            height: 180px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .example-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .example-content {
+            padding: 20px;
+        }
+        
+        .example-content h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .example-content p {
+            color: var(--gray-color);
+            margin-bottom: 20px;
+        }
+        
+        .example-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .example-tag {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .example-links {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .example-link {
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .demo-link {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .code-link {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="animated-link">Home</a></li>
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="index.html#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="examples-hero">
+        <div class="container">
+            <h1>Nahir UI Examples</h1>
+            <p>Explore real-world applications built with Nahir UI and K2</p>
+        </div>
+    </section>
+
+    <section class="examples-showcase">
+        <div class="container">
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-image">
+                        <div class="nahir-button">Todo App</div>
+                    </div>
+                    <div class="example-content">
+                        <h3>Todo Application</h3>
+                        <p>A simple todo list application with add, edit, and delete functionality.</p>
+                        <div class="example-tags">
+                            <span class="example-tag">Components</span>
+                            <span class="example-tag">State Management</span>
+                            <span class="example-tag">Events</span>
+                        </div>
+                        <div class="example-links">
+                            <a href="examples/todo-app.html" class="example-link demo-link">View Demo</a>
+                            <a href="examples/todo-app-code.html" class="example-link code-link">View Code</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-image">
+                        <div class="nahir-button">Weather App</div>
+                    </div>
+                    <div class="example-content">
+                        <h3>Weather Dashboard</h3>
+                        <p>A weather dashboard that displays current weather and forecasts.</p>
+                        <div class="example-tags">
+                            <span class="example-tag">API Integration</span>
+                            <span class="example-tag">Data Visualization</span>
+                            <span class="example-tag">Ramdisk Cache</span>
+                        </div>
+                        <div class="example-links">
+                            <a href="examples/weather-app.html" class="example-link demo-link">View Demo</a>
+                            <a href="examples/weather-app-code.html" class="example-link code-link">View Code</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-image">
+                        <div class="nahir-button">Chat App</div>
+                    </div>
+                    <div class="example-content">
+                        <h3>Real-time Chat</h3>
+                        <p>A real-time chat application with multiple channels and direct messaging.</p>
+                        <div class="example-tags">
+                            <span class="example-tag">WebSockets</span>
+                            <span class="example-tag">Real-time Updates</span>
+                            <span class="example-tag">User Authentication</span>
+                        </div>
+                        <div class="example-links">
+                            <a href="examples/chat-app.html" class="example-link demo-link">View Demo</a>
+                            <a href="examples/chat-app-code.html" class="example-link code-link">View Code</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-image">
+                        <div class="nahir-button">Dashboard</div>
+                    </div>
+                    <div class="example-content">
+                        <h3>Admin Dashboard</h3>
+                        <p>A comprehensive admin dashboard with data tables, charts, and forms.</p>
+                        <div class="example-tags">
+                            <span class="example-tag">Complex UI</span>
+                            <span class="example-tag">Data Tables</span>
+                            <span class="example-tag">Charts</span>
+                        </div>
+                        <div class="example-links">
+                            <a href="examples/admin-dashboard.html" class="example-link demo-link">View Demo</a>
+                            <a href="examples/admin-dashboard-code.html" class="example-link code-link">View Code</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-image">
+                        <div class="nahir-button">E-commerce</div>
+                    </div>
+                    <div class="example-content">
+                        <h3>E-commerce Store</h3>
+                        <p>A complete e-commerce store with product listings, cart, and checkout.</p>
+                        <div class="example-tags">
+                            <span class="example-tag">Shopping Cart</span>
+                            <span class="example-tag">Product Catalog</span>
+                            <span class="example-tag">Payment Integration</span>
+                        </div>
+                        <div class="example-links">
+                            <a href="examples/ecommerce.html" class="example-link demo-link">View Demo</a>
+                            <a href="examples/ecommerce-code.html" class="example-link code-link">View Code</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-image">
+                        <div class="nahir-button">Form Builder</div>
+                    </div>
+                    <div class="example-content">
+                        <h3>Form Builder</h3>
+                        <p>A drag-and-drop form builder with validation and submission handling.</p>
+                        <div class="example-tags">
+                            <span class="example-tag">Drag and Drop</span>
+                            <span class="example-tag">Form Validation</span>
+                            <span class="example-tag">Dynamic Components</span>
+                        </div>
+                        <div class="example-links">
+                            <a href="examples/form-builder.html" class="example-link demo-link">View Demo</a>
+                            <a href="examples/form-builder-code.html" class="example-link code-link">View Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Build with Nahir UI?</h2>
+            <p>Get started with Nahir UI and build ultra-fast user interfaces for your K2 applications.</p>
+            <div class="cta-buttons">
+                <a href="nahir-docs.html" class="btn primary-btn">Read the Docs</a>
+                <a href="index.html#download" class="btn secondary-btn">Download K2</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>K2</h2>
+                    <p>Ultra-Fast Programming Language</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Product</h3>
+                        <ul>
+                            <li><a href="index.html#features">Features</a></li>
+                            <li><a href="index.html#performance">Performance</a></li>
+                            <li><a href="index.html#examples">Examples</a></li>
+                            <li><a href="index.html#download">Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="docs.html">Documentation</a></li>
+                            <li><a href="nahir-docs.html">Nahir UI</a></li>
+                            <li><a href="forum.html">Community Forum</a></li>
+                            <li><a href="try.html">Try Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="legal/terms-of-use.html">Terms of Use</a></li>
+                            <li><a href="legal/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="legal/licenses.html">Licenses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 K2 Language. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
