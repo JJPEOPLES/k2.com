@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talanolius GUI Components - K2 Language</title>
+    <meta name="description" content="Explore the rich set of UI components available in Talanolius GUI for K2 language.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/modern-ui.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- JavaScript -->
+    <script src="js/nahir-ui.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <style>
+        .components-header {
+            background: linear-gradient(135deg, #3a0ca3 0%, #4361ee 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .components-header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .components-header p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .component-categories {
+            padding: 40px 0;
+            background-color: var(--bg-light);
+        }
+        
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .category-tab {
+            padding: 10px 20px;
+            background-color: var(--card-bg);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .category-tab:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: #4361ee;
+        }
+        
+        .category-tab.active {
+            background-color: #4361ee;
+            color: white;
+        }
+        
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px 0;
+        }
+        
+        .component-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .component-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .component-preview {
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 150px;
+            background-color: var(--bg-light);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .component-preview img {
+            max-width: 100%;
+            max-height: 120px;
+        }
+        
+        .component-info {
+            padding: 20px;
+        }
+        
+        .component-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #4361ee;
+        }
+        
+        .component-description {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .component-usage {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--code-color);
+            overflow-x: auto;
+        }
+        
+        .component-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 15px;
+        }
+        
+        .component-tag {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: #4361ee;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .component-details-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #4361ee;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .component-details-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="animated-link">Home</a></li>
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="index.html#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="talanolius-docs.html" class="animated-link active">Talanolius GUI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="components-header">
+        <div class="container">
+            <h1>Talanolius GUI Components</h1>
+            <p>Explore the rich set of UI components available in Talanolius GUI for building beautiful desktop applications</p>
+        </div>
+    </section>
+
+    <section class="component-categories">
+        <div class="container">
+            <div class="category-tabs">
+                <div class="category-tab active">All Components</div>
+                <div class="category-tab">Basic Controls</div>
+                <div class="category-tab">Layout</div>
+                <div class="category-tab">Data Display</div>
+                <div class="category-tab">Input</div>
+                <div class="category-tab">Navigation</div>
+                <div class="category-tab">Feedback</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="components-list">
+        <div class="container">
+            <div class="components-grid">
+                <!-- Button Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/button.png" alt="Button component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">Button</h3>
+                        <p class="component-description">Interactive button with various styles and states. Supports icons, loading states, and different sizes.</p>
+                        <div class="component-usage">Talanolius.Button.new({
+  text: "Click Me",
+  primary: true,
+  onClick: function() { ... }
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Basic Controls</span>
+                            <span class="component-tag">Input</span>
+                        </div>
+                        <a href="talanolius-api.html#button" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+                
+                <!-- TextInput Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/text-input.png" alt="TextInput component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">TextInput</h3>
+                        <p class="component-description">Single-line text input field with validation support, placeholder text, and various input types.</p>
+                        <div class="component-usage">Talanolius.TextInput.new({
+  placeholder: "Enter text",
+  onChange: function(value) { ... }
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Input</span>
+                            <span class="component-tag">Form</span>
+                        </div>
+                        <a href="talanolius-api.html#textinput" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+                
+                <!-- Checkbox Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/checkbox.png" alt="Checkbox component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">Checkbox</h3>
+                        <p class="component-description">Toggle control for boolean values with customizable appearance and label positioning.</p>
+                        <div class="component-usage">Talanolius.Checkbox.new({
+  label: "Enable feature",
+  checked: true,
+  onChange: function(checked) { ... }
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Input</span>
+                            <span class="component-tag">Form</span>
+                        </div>
+                        <a href="talanolius-api.html#checkbox" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+                
+                <!-- Dropdown Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/dropdown.png" alt="Dropdown component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">Dropdown</h3>
+                        <p class="component-description">Selection control for choosing from a list of options with search and multi-select capabilities.</p>
+                        <div class="component-usage">Talanolius.Dropdown.new({
+  options: ["Option 1", "Option 2", "Option 3"],
+  onChange: function(selected) { ... }
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Input</span>
+                            <span class="component-tag">Form</span>
+                        </div>
+                        <a href="talanolius-api.html#dropdown" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+                
+                <!-- Slider Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/slider.png" alt="Slider component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">Slider</h3>
+                        <p class="component-description">Control for selecting a value from a range with support for marks, steps, and range selection.</p>
+                        <div class="component-usage">Talanolius.Slider.new({
+  min: 0,
+  max: 100,
+  value: 50,
+  onChange: function(value) { ... }
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Input</span>
+                            <span class="component-tag">Form</span>
+                        </div>
+                        <a href="talanolius-api.html#slider" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+                
+                <!-- DataGrid Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/data-grid.png" alt="DataGrid component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">DataGrid</h3>
+                        <p class="component-description">Powerful grid for displaying and editing tabular data with sorting, filtering, and pagination.</p>
+                        <div class="component-usage">Talanolius.DataGrid.new({
+  columns: ["Name", "Age", "Email"],
+  data: [["John", 30, "john@example.com"], ...]
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Data Display</span>
+                            <span class="component-tag">Input</span>
+                        </div>
+                        <a href="talanolius-api.html#datagrid" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+                
+                <!-- TabView Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/tabs.png" alt="TabView component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">TabView</h3>
+                        <p class="component-description">Tab container for organizing content into multiple views with customizable tab styles.</p>
+                        <div class="component-usage">Talanolius.TabView.new({
+  tabs: [
+    { title: "Tab 1", content: component1 },
+    { title: "Tab 2", content: component2 }
+  ]
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Navigation</span>
+                            <span class="component-tag">Layout</span>
+                        </div>
+                        <a href="talanolius-api.html#tabview" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+                
+                <!-- Dialog Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/dialog.png" alt="Dialog component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">Dialog</h3>
+                        <p class="component-description">Modal dialog for displaying important information or requesting user input with customizable buttons.</p>
+                        <div class="component-usage">Talanolius.Dialog.show({
+  title: "Confirmation",
+  message: "Are you sure?",
+  buttons: ["Cancel", "OK"],
+  onResult: function(result) { ... }
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Feedback</span>
+                            <span class="component-tag">Overlay</span>
+                        </div>
+                        <a href="talanolius-api.html#dialog" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+                
+                <!-- ProgressBar Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/progress-bar.png" alt="ProgressBar component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">ProgressBar</h3>
+                        <p class="component-description">Visual indicator of progress for operations with customizable appearance and indeterminate state.</p>
+                        <div class="component-usage">Talanolius.ProgressBar.new({
+  value: 75,
+  height: 8,
+  showLabel: true
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Feedback</span>
+                            <span class="component-tag">Data Display</span>
+                        </div>
+                        <a href="talanolius-api.html#progressbar" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+                
+                <!-- TreeView Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/tree-view.png" alt="TreeView component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">TreeView</h3>
+                        <p class="component-description">Hierarchical display of data with expandable nodes, selection, and drag-and-drop support.</p>
+                        <div class="component-usage">Talanolius.TreeView.new({
+  data: [
+    { label: "Node 1", children: [
+      { label: "Child 1" }
+    ]}
+  ],
+  onSelect: function(node) { ... }
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Data Display</span>
+                            <span class="component-tag">Navigation</span>
+                        </div>
+                        <a href="talanolius-api.html#treeview" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+                
+                <!-- Menu Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/menu.png" alt="Menu component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">Menu</h3>
+                        <p class="component-description">Dropdown menu for displaying a list of options with support for nested submenus and keyboard navigation.</p>
+                        <div class="component-usage">Talanolius.Menu.new({
+  items: [
+    { label: "Item 1", onClick: function() { ... } },
+    { label: "Item 2", submenu: [ ... ] }
+  ]
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Navigation</span>
+                            <span class="component-tag">Overlay</span>
+                        </div>
+                        <a href="talanolius-api.html#menu" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+                
+                <!-- ColorPicker Component -->
+                <div class="component-card">
+                    <div class="component-preview">
+                        <img src="images/talanolius/color-picker.png" alt="ColorPicker component">
+                    </div>
+                    <div class="component-info">
+                        <h3 class="component-name">ColorPicker</h3>
+                        <p class="component-description">Control for selecting colors with support for various color formats and alpha channel.</p>
+                        <div class="component-usage">Talanolius.ColorPicker.new({
+  value: "#4361ee",
+  onChange: function(color) { ... }
+})</div>
+                        <div class="component-tags">
+                            <span class="component-tag">Input</span>
+                            <span class="component-tag">Specialized</span>
+                        </div>
+                        <a href="talanolius-api.html#colorpicker" class="component-details-link">View Documentation →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Build with Talanolius GUI?</h2>
+            <p>Get started today and create beautiful, high-performance desktop applications with K2 and Talanolius GUI.</p>
+            <div class="cta-buttons">
+                <a href="talanolius-docs.html#getting-started" class="btn primary-btn">Get Started</a>
+                <a href="examples/talanolius-demo.html" class="btn secondary-btn">View Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>K2</h2>
+                    <p>Ultra-Fast Programming Language</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Product</h3>
+                        <ul>
+                            <li><a href="index.html#features">Features</a></li>
+                            <li><a href="index.html#performance">Performance</a></li>
+                            <li><a href="index.html#examples">Examples</a></li>
+                            <li><a href="index.html#download">Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="docs.html">Documentation</a></li>
+                            <li><a href="nahir-docs.html">Nahir UI</a></li>
+                            <li><a href="talanolius-docs.html">Talanolius GUI</a></li>
+                            <li><a href="forum.html">Community Forum</a></li>
+                            <li><a href="try.html">Try Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="legal/terms-of-use.html">Terms of Use</a></li>
+                            <li><a href="legal/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="legal/licenses.html">Licenses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 K2 Language. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

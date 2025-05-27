@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talanolius GUI - Ultra-Fast GUI Library for K2 Language</title>
+    <meta name="description" content="Talanolius GUI is a high-performance, memory-efficient GUI library for the K2 programming language.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/modern-ui.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- JavaScript -->
+    <script src="js/nahir-ui.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <style>
+        .talanolius-header {
+            background: linear-gradient(135deg, #3a0ca3 0%, #4361ee 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .talanolius-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .talanolius-header p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .talanolius-features {
+            padding: 80px 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 36px;
+            color: #4361ee;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .code-example {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 40px 0;
+            overflow: hidden;
+        }
+        
+        .code-header {
+            background-color: var(--code-header-bg);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            margin: -20px -20px 20px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        
+        .red { background-color: #ff5f56; }
+        .yellow { background-color: #ffbd2e; }
+        .green { background-color: #27c93f; }
+        
+        .filename {
+            margin-left: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+        
+        pre {
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--code-color);
+            overflow-x: auto;
+        }
+        
+        .comment { color: var(--code-comment); }
+        .keyword { color: var(--code-keyword); }
+        .string { color: var(--code-string); }
+        .function { color: var(--code-function); }
+        
+        .getting-started {
+            padding: 80px 0;
+            background-color: var(--bg-light);
+        }
+        
+        .installation-steps {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .step {
+            margin-bottom: 30px;
+        }
+        
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #4361ee;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .step-description {
+            margin-left: 40px;
+            line-height: 1.6;
+        }
+        
+        .step-code {
+            margin-left: 40px;
+            margin-top: 10px;
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+        
+        .components-section {
+            padding: 80px 0;
+        }
+        
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .component-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .component-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #4361ee;
+        }
+        
+        .component-description {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .component-preview {
+            background-color: var(--bg-light);
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .component-preview img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .component-usage {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            background-color: var(--code-bg);
+            padding: 10px;
+            border-radius: 4px;
+            color: var(--code-color);
+            overflow-x: auto;
+        }
+        
+        .comparison-section {
+            padding: 80px 0;
+            background-color: var(--bg-light);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 40px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .comparison-table th {
+            background-color: #4361ee;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: var(--bg-light);
+        }
+        
+        .check-icon {
+            color: #27c93f;
+        }
+        
+        .x-icon {
+            color: #ff5f56;
+        }
+        
+        .resources-section {
+            padding: 80px 0;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .resource-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .resource-icon {
+            font-size: 36px;
+            color: #4361ee;
+            margin-bottom: 20px;
+        }
+        
+        .resource-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .resource-description {
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="animated-link">Home</a></li>
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="index.html#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="talanolius-docs.html" class="animated-link active">Talanolius GUI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="talanolius-header">
+        <div class="container">
+            <h1>Talanolius GUI</h1>
+            <p>A high-performance, memory-efficient GUI library for K2 language</p>
+            <div class="header-buttons">
+                <a href="#getting-started" class="btn primary-btn">Get Started</a>
+                <a href="examples/talanolius-demo.html" class="btn secondary-btn">View Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="talanolius-features">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Why Choose Talanolius GUI?</h2>
+                <p>Talanolius GUI combines ultra-fast performance with elegant design to create stunning desktop applications.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Ultra-Fast Rendering</h3>
+                    <p class="feature-description">Leverages K2's ramdisk caching for microsecond rendering times, even with complex UIs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-memory"></i>
+                    </div>
+                    <h3 class="feature-title">Memory Efficient</h3>
+                    <p class="feature-description">Uses advanced memory pooling to minimize allocations and reduce garbage collection pauses.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="feature-title">Beautiful by Default</h3>
+                    <p class="feature-description">Comes with a modern, customizable theme system that looks great out of the box.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-universal-access"></i>
+                    </div>
+                    <h3 class="feature-title">Accessibility Built-in</h3>
+                    <p class="feature-description">Designed with accessibility in mind, including screen reader support and keyboard navigation.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="feature-title">Cross-Platform</h3>
+                    <p class="feature-description">Works seamlessly across Windows, macOS, Linux, and embedded systems with a single codebase.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-feather"></i>
+                    </div>
+                    <h3 class="feature-title">Lightweight</h3>
+                    <p class="feature-description">Core library is just 120KB, with optional modules for advanced functionality.</p>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">simple_app.k2</span>
+                </div>
+                <pre><span class="comment"># Simple Talanolius GUI Application</span>
+<span class="keyword">import</span> Talanolius
+
+<span class="comment"># Create a new application</span>
+app = Talanolius.Application.new(<span class="string">"Hello Talanolius"</span>)
+
+<span class="comment"># Create a window</span>
+window = Talanolius.Window.new({
+  title: <span class="string">"My First Talanolius App"</span>,
+  width: 800,
+  height: 600,
+  resizable: <span class="keyword">true</span>
+})
+
+<span class="comment"># Create a layout</span>
+layout = Talanolius.VBox.new({
+  spacing: 20,
+  padding: 20
+})
+
+<span class="comment"># Add a heading</span>
+heading = Talanolius.Label.new({
+  text: <span class="string">"Welcome to Talanolius GUI"</span>,
+  fontSize: 24,
+  fontWeight: <span class="string">"bold"</span>
+})
+
+<span class="comment"># Add a text input</span>
+input = Talanolius.TextInput.new({
+  placeholder: <span class="string">"Enter your name"</span>,
+  width: 300
+})
+
+<span class="comment"># Add a button</span>
+button = Talanolius.Button.new({
+  text: <span class="string">"Say Hello"</span>,
+  primary: <span class="keyword">true</span>,
+  onClick: <span class="keyword">function</span>() {
+    <span class="keyword">const</span> name = input.getValue() || <span class="string">"World"</span>
+    Talanolius.Dialog.show({
+      title: <span class="string">"Greeting"</span>,
+      message: <span class="string">"Hello, "</span> + name + <span class="string">"!"</span>,
+      type: <span class="string">"info"</span>
+    })
+  }
+})
+
+<span class="comment"># Add components to layout</span>
+layout.add(heading)
+layout.add(input)
+layout.add(button)
+
+<span class="comment"># Set window content</span>
+window.setContent(layout)
+
+<span class="comment"># Show the window</span>
+window.show()
+
+<span class="comment"># Start the application</span>
+app.run()</pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="getting-started" class="getting-started">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Getting Started</h2>
+                <p>Follow these simple steps to start building with Talanolius GUI</p>
+            </div>
+            <div class="installation-steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <h3 class="step-title">Install K2 Language</h3>
+                    <p class="step-description">First, make sure you have K2 language installed on your system.</p>
+                    <div class="step-code">curl -sSL https://k2lang.org/install | bash</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <h3 class="step-title">Install Talanolius GUI</h3>
+                    <p class="step-description">Use the K2 package manager to install Talanolius GUI.</p>
+                    <div class="step-code">k2 install talanolius-gui</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <h3 class="step-title">Create Your First App</h3>
+                    <p class="step-description">Create a new file called <code>hello_talanolius.k2</code> and add the following code:</p>
+                    <div class="step-code">import Talanolius
+
+app = Talanolius.Application.new("Hello")
+window = Talanolius.Window.new({ title: "Hello Talanolius" })
+label = Talanolius.Label.new({ text: "Hello, World!" })
+window.setContent(label)
+window.show()
+app.run()</div>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <h3 class="step-title">Run Your App</h3>
+                    <p class="step-description">Run your application using the K2 compiler.</p>
+                    <div class="step-code">k2 hello_talanolius.k2</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="components-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>UI Components</h2>
+                <p>Talanolius GUI provides a rich set of UI components to build beautiful applications</p>
+            </div>
+            <div class="components-grid">
+                <div class="component-card">
+                    <h3 class="component-name">Button</h3>
+                    <p class="component-description">Interactive button with various styles and states.</p>
+                    <div class="component-preview">
+                        <img src="images/talanolius/button.png" alt="Button component">
+                    </div>
+                    <div class="component-usage">Talanolius.Button.new({
+  text: "Click Me",
+  primary: true,
+  onClick: function() { ... }
+})</div>
+                </div>
+                <div class="component-card">
+                    <h3 class="component-name">TextInput</h3>
+                    <p class="component-description">Single-line text input field with validation support.</p>
+                    <div class="component-preview">
+                        <img src="images/talanolius/text-input.png" alt="TextInput component">
+                    </div>
+                    <div class="component-usage">Talanolius.TextInput.new({
+  placeholder: "Enter text",
+  onChange: function(value) { ... }
+})</div>
+                </div>
+                <div class="component-card">
+                    <h3 class="component-name">Checkbox</h3>
+                    <p class="component-description">Toggle control for boolean values.</p>
+                    <div class="component-preview">
+                        <img src="images/talanolius/checkbox.png" alt="Checkbox component">
+                    </div>
+                    <div class="component-usage">Talanolius.Checkbox.new({
+  label: "Enable feature",
+  checked: true,
+  onChange: function(checked) { ... }
+})</div>
+                </div>
+                <div class="component-card">
+                    <h3 class="component-name">Dropdown</h3>
+                    <p class="component-description">Selection control for choosing from a list of options.</p>
+                    <div class="component-preview">
+                        <img src="images/talanolius/dropdown.png" alt="Dropdown component">
+                    </div>
+                    <div class="component-usage">Talanolius.Dropdown.new({
+  options: ["Option 1", "Option 2", "Option 3"],
+  onChange: function(selected) { ... }
+})</div>
+                </div>
+                <div class="component-card">
+                    <h3 class="component-name">Slider</h3>
+                    <p class="component-description">Control for selecting a value from a range.</p>
+                    <div class="component-preview">
+                        <img src="images/talanolius/slider.png" alt="Slider component">
+                    </div>
+                    <div class="component-usage">Talanolius.Slider.new({
+  min: 0,
+  max: 100,
+  value: 50,
+  onChange: function(value) { ... }
+})</div>
+                </div>
+                <div class="component-card">
+                    <h3 class="component-name">DataGrid</h3>
+                    <p class="component-description">Powerful grid for displaying and editing tabular data.</p>
+                    <div class="component-preview">
+                        <img src="images/talanolius/data-grid.png" alt="DataGrid component">
+                    </div>
+                    <div class="component-usage">Talanolius.DataGrid.new({
+  columns: ["Name", "Age", "Email"],
+  data: [["John", 30, "john@example.com"], ...]
+})</div>
+                </div>
+            </div>
+            <div class="text-center" style="margin-top: 40px;">
+                <a href="talanolius-components.html" class="btn primary-btn">View All Components</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Comparison with Other GUI Libraries</h2>
+                <p>See how Talanolius GUI stacks up against other popular GUI libraries</p>
+            </div>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Talanolius GUI</th>
+                        <th>Nahir UI</th>
+                        <th>Qt</th>
+                        <th>GTK</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Native K2 Integration</td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-times x-icon"></i></td>
+                        <td><i class="fas fa-times x-icon"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Memory Pooling</td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-times x-icon"></i></td>
+                        <td><i class="fas fa-times x-icon"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Ramdisk Caching</td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-times x-icon"></i></td>
+                        <td><i class="fas fa-times x-icon"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Library Size</td>
+                        <td>120KB</td>
+                        <td>80KB</td>
+                        <td>~15MB</td>
+                        <td>~10MB</td>
+                    </tr>
+                    <tr>
+                        <td>Native Look & Feel</td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-times x-icon"></i></td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Embedded Systems Support</td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-times x-icon"></i></td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                    </tr>
+                    <tr>
+                        <td>3D Rendering Support</td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-times x-icon"></i></td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                        <td><i class="fas fa-check check-icon"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Startup Time</td>
+                        <td>5ms</td>
+                        <td>3ms</td>
+                        <td>150ms</td>
+                        <td>100ms</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="resources-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Resources</h2>
+                <p>Explore these resources to master Talanolius GUI</p>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="resource-title">Documentation</h3>
+                    <p class="resource-description">Comprehensive documentation with examples and API reference.</p>
+                    <a href="talanolius-api.html" class="btn primary-btn">View Docs</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="resource-title">Examples</h3>
+                    <p class="resource-description">Sample applications showcasing Talanolius GUI capabilities.</p>
+                    <a href="examples/talanolius-examples.html" class="btn primary-btn">View Examples</a>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="resource-title">Tutorials</h3>
+                    <p class="resource-description">Step-by-step tutorials for beginners and advanced users.</p>
+                    <a href="talanolius-tutorials.html" class="btn primary-btn">View Tutorials</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Build with Talanolius GUI?</h2>
+            <p>Get started today and create beautiful, high-performance desktop applications with K2 and Talanolius GUI.</p>
+            <div class="cta-buttons">
+                <a href="#getting-started" class="btn primary-btn">Get Started</a>
+                <a href="index.html#download" class="btn secondary-btn">Download K2</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>K2</h2>
+                    <p>Ultra-Fast Programming Language</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Product</h3>
+                        <ul>
+                            <li><a href="index.html#features">Features</a></li>
+                            <li><a href="index.html#performance">Performance</a></li>
+                            <li><a href="index.html#examples">Examples</a></li>
+                            <li><a href="index.html#download">Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="docs.html">Documentation</a></li>
+                            <li><a href="nahir-docs.html">Nahir UI</a></li>
+                            <li><a href="talanolius-docs.html">Talanolius GUI</a></li>
+                            <li><a href="forum.html">Community Forum</a></li>
+                            <li><a href="try.html">Try Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="legal/terms-of-use.html">Terms of Use</a></li>
+                            <li><a href="legal/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="legal/licenses.html">Licenses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 K2 Language. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

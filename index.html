@@ -34,6 +34,7 @@
                 <li><a href="#performance" class="animated-link">Performance</a></li>
                 <li><a href="#examples" class="animated-link">Examples</a></li>
                 <li><a href="#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="#talanolius" class="animated-link">Talanolius GUI</a></li>
                 <li><a href="try.html" class="animated-link">Try Online</a></li>
                 <li><a href="docs.html" class="animated-link">Documentation</a></li>
                 <li><a href="forum.html" class="animated-link">Forum</a></li>
@@ -297,6 +298,135 @@ UI.render(myButton)</code></pre>
         <div class="nahir-cta">
             <a href="nahir-docs.html" class="btn primary-btn">Explore Nahir UI</a>
             <a href="nahir-examples.html" class="btn secondary-btn">View Examples</a>
+        </div>
+    </section>
+
+    <section id="talanolius" class="talanolius">
+        <h2>Talanolius GUI Framework</h2>
+        <p class="section-intro">Build powerful desktop applications with our high-performance Talanolius GUI framework.</p>
+        
+        <div class="talanolius-features">
+            <div class="talanolius-feature-card">
+                <div class="talanolius-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <h3>Native Desktop Apps</h3>
+                <p>Create native desktop applications that look and feel like they belong on each platform.</p>
+            </div>
+            
+            <div class="talanolius-feature-card">
+                <div class="talanolius-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3>Beautiful UI Components</h3>
+                <p>Over 50 pre-built UI components with customizable themes and styles for any application.</p>
+            </div>
+            
+            <div class="talanolius-feature-card">
+                <div class="talanolius-icon">
+                    <i class="fas fa-memory"></i>
+                </div>
+                <h3>Memory Pooling</h3>
+                <p>Advanced memory pooling minimizes allocations and reduces garbage collection pauses.</p>
+            </div>
+            
+            <div class="talanolius-feature-card">
+                <div class="talanolius-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <h3>Cross-Platform</h3>
+                <p>Works seamlessly across Windows, macOS, Linux, and embedded systems with a single codebase.</p>
+            </div>
+        </div>
+        
+        <div class="talanolius-demo">
+            <div class="talanolius-code">
+                <div class="code-window">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">talanolius-example.k2</span>
+                    </div>
+                    <pre><code># Talanolius GUI Example
+import Talanolius
+
+# Create a new application
+app = Talanolius.Application.new("Hello Talanolius")
+
+# Create a window
+window = Talanolius.Window.new({
+  title: "My First Talanolius App",
+  width: 400,
+  height: 300,
+  resizable: true
+})
+
+# Create a layout
+layout = Talanolius.VBox.new({
+  spacing: 20,
+  padding: 20
+})
+
+# Add a heading
+heading = Talanolius.Label.new({
+  text: "Welcome to Talanolius GUI",
+  fontSize: 24,
+  fontWeight: "bold"
+})
+
+# Add a button
+button = Talanolius.Button.new({
+  text: "Click Me",
+  primary: true,
+  onClick: function() {
+    Talanolius.Dialog.show({
+      title: "Hello",
+      message: "Hello, World!",
+      type: "info"
+    })
+  }
+})
+
+# Add components to layout
+layout.add(heading)
+layout.add(button)
+
+# Set window content
+window.setContent(layout)
+
+# Show the window
+window.show()
+
+# Start the application
+app.run()</code></pre>
+                </div>
+            </div>
+            <div class="talanolius-preview">
+                <h3>Desktop Application</h3>
+                <div class="talanolius-preview-container">
+                    <div class="talanolius-window">
+                        <div class="talanolius-window-header">
+                            <div class="talanolius-window-controls">
+                                <span class="talanolius-window-close"></span>
+                                <span class="talanolius-window-minimize"></span>
+                                <span class="talanolius-window-maximize"></span>
+                            </div>
+                            <div class="talanolius-window-title">My First Talanolius App</div>
+                        </div>
+                        <div class="talanolius-window-content">
+                            <div class="talanolius-heading">Welcome to Talanolius GUI</div>
+                            <button class="talanolius-button">Click Me</button>
+                        </div>
+                    </div>
+                </div>
+                <p class="talanolius-caption">Preview of a native desktop application built with Talanolius GUI</p>
+            </div>
+        </div>
+        
+        <div class="talanolius-cta">
+            <a href="talanolius-docs.html" class="btn primary-btn">Explore Talanolius GUI</a>
+            <a href="examples/talanolius-demo.html" class="btn secondary-btn">View Demo</a>
         </div>
     </section>
 

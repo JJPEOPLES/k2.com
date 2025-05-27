@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talanolius GUI Demo - K2 Language</title>
+    <meta name="description" content="Interactive demo of Talanolius GUI, a high-performance GUI library for K2 language.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/modern-ui.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- JavaScript -->
+    <script src="../js/nahir-ui.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .demo-app {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        .demo-header {
+            background-color: #3a0ca3;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .demo-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .demo-header-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .demo-header-button {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .demo-header-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .demo-sidebar {
+            width: 250px;
+            background-color: var(--bg-light);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+            height: 600px;
+        }
+        
+        .demo-sidebar-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .demo-sidebar-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .demo-sidebar-item.active {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: #4361ee;
+            font-weight: 500;
+        }
+        
+        .demo-sidebar-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .demo-content {
+            display: flex;
+            height: 600px;
+        }
+        
+        .demo-main {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .demo-section {
+            margin-bottom: 30px;
+        }
+        
+        .demo-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #3a0ca3;
+        }
+        
+        .demo-form-group {
+            margin-bottom: 20px;
+        }
+        
+        .demo-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .demo-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+        
+        .demo-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            background-color: var(--card-bg);
+        }
+        
+        .demo-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .demo-checkbox input {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .demo-button {
+            background-color: #4361ee;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .demo-button:hover {
+            background-color: #3a0ca3;
+        }
+        
+        .demo-button.secondary {
+            background-color: transparent;
+            border: 1px solid #4361ee;
+            color: #4361ee;
+        }
+        
+        .demo-button.secondary:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .demo-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .demo-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .demo-card-content {
+            color: var(--text-color);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .demo-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        
+        .demo-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .demo-tab.active {
+            border-bottom: 2px solid #4361ee;
+            color: #4361ee;
+            font-weight: 500;
+        }
+        
+        .demo-tab:hover:not(.active) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .demo-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .demo-table th,
+        .demo-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .demo-table th {
+            font-weight: 600;
+            background-color: var(--bg-light);
+        }
+        
+        .demo-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .demo-progress {
+            height: 8px;
+            background-color: var(--bg-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .demo-progress-bar {
+            height: 100%;
+            background-color: #4361ee;
+            width: 75%;
+        }
+        
+        .demo-alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .demo-alert.info {
+            background-color: rgba(67, 97, 238, 0.1);
+            border-left: 4px solid #4361ee;
+            color: #4361ee;
+        }
+        
+        .demo-alert.success {
+            background-color: rgba(39, 201, 63, 0.1);
+            border-left: 4px solid #27c93f;
+            color: #27c93f;
+        }
+        
+        .demo-alert.warning {
+            background-color: rgba(255, 189, 46, 0.1);
+            border-left: 4px solid #ffbd2e;
+            color: #d4a000;
+        }
+        
+        .demo-alert.error {
+            background-color: rgba(255, 95, 86, 0.1);
+            border-left: 4px solid #ff5f56;
+            color: #ff5f56;
+        }
+        
+        .demo-code {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 40px;
+            overflow: hidden;
+        }
+        
+        .demo-code-header {
+            background-color: var(--code-header-bg);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            margin: -20px -20px 20px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        
+        .red { background-color: #ff5f56; }
+        .yellow { background-color: #ffbd2e; }
+        .green { background-color: #27c93f; }
+        
+        .filename {
+            margin-left: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+        
+        pre {
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--code-color);
+            overflow-x: auto;
+        }
+        
+        .comment { color: var(--code-comment); }
+        .keyword { color: var(--code-keyword); }
+        .string { color: var(--code-string); }
+        .function { color: var(--code-function); }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="animated-link">Home</a></li>
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="../talanolius-docs.html" class="animated-link active">Talanolius GUI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="example-hero">
+        <div class="container">
+            <h1>Talanolius GUI Demo</h1>
+            <p>Interactive demo of a desktop application built with Talanolius GUI</p>
+            <div class="hero-buttons">
+                <a href="../talanolius-docs.html" class="btn primary-btn">Documentation</a>
+                <a href="talanolius-examples.html" class="btn secondary-btn">More Examples</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <div class="container">
+            <div class="demo-container">
+                <div class="demo-app">
+                    <div class="demo-header">
+                        <h2>Talanolius Task Manager</h2>
+                        <div class="demo-header-controls">
+                            <button class="demo-header-button">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button class="demo-header-button">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <button class="demo-header-button">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="demo-content">
+                        <div class="demo-sidebar">
+                            <div class="demo-sidebar-item active">
+                                <i class="fas fa-home"></i>
+                                <span>Dashboard</span>
+                            </div>
+                            <div class="demo-sidebar-item">
+                                <i class="fas fa-tasks"></i>
+                                <span>Tasks</span>
+                            </div>
+                            <div class="demo-sidebar-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Calendar</span>
+                            </div>
+                            <div class="demo-sidebar-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Reports</span>
+                            </div>
+                            <div class="demo-sidebar-item">
+                                <i class="fas fa-users"></i>
+                                <span>Team</span>
+                            </div>
+                            <div class="demo-sidebar-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </div>
+                        </div>
+                        <div class="demo-main">
+                            <div class="demo-section">
+                                <h3 class="demo-section-title">Project Overview</h3>
+                                <div class="demo-alert info">
+                                    <i class="fas fa-info-circle"></i>
+                                    <div>Welcome to the Task Manager. You have 3 tasks due today.</div>
+                                </div>
+                                <div class="demo-tabs">
+                                    <div class="demo-tab active">All Projects</div>
+                                    <div class="demo-tab">Active</div>
+                                    <div class="demo-tab">Completed</div>
+                                </div>
+                                <div class="demo-card">
+                                    <h4 class="demo-card-title">Website Redesign</h4>
+                                    <p class="demo-card-content">Redesign the company website with new branding guidelines.</p>
+                                    <div class="demo-progress">
+                                        <div class="demo-progress-bar" style="width: 75%;"></div>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                                        <span style="font-size: 12px; color: var(--gray-color);">75% Complete</span>
+                                        <span style="font-size: 12px; color: var(--gray-color);">Due: Jun 15, 2025</span>
+                                    </div>
+                                </div>
+                                <div class="demo-card">
+                                    <h4 class="demo-card-title">Mobile App Development</h4>
+                                    <p class="demo-card-content">Develop a mobile app for iOS and Android platforms.</p>
+                                    <div class="demo-progress">
+                                        <div class="demo-progress-bar" style="width: 30%; background-color: #ffbd2e;"></div>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                                        <span style="font-size: 12px; color: var(--gray-color);">30% Complete</span>
+                                        <span style="font-size: 12px; color: var(--gray-color);">Due: Aug 20, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="demo-section">
+                                <h3 class="demo-section-title">Add New Task</h3>
+                                <div class="demo-form-group">
+                                    <label class="demo-label">Task Name</label>
+                                    <input type="text" class="demo-input" placeholder="Enter task name">
+                                </div>
+                                <div class="demo-form-group">
+                                    <label class="demo-label">Description</label>
+                                    <textarea class="demo-input" rows="3" placeholder="Enter task description"></textarea>
+                                </div>
+                                <div class="demo-form-group">
+                                    <label class="demo-label">Project</label>
+                                    <select class="demo-select">
+                                        <option>Website Redesign</option>
+                                        <option>Mobile App Development</option>
+                                        <option>Marketing Campaign</option>
+                                        <option>Product Launch</option>
+                                    </select>
+                                </div>
+                                <div class="demo-form-group">
+                                    <label class="demo-label">Due Date</label>
+                                    <input type="date" class="demo-input">
+                                </div>
+                                <div class="demo-form-group">
+                                    <label class="demo-label">Priority</label>
+                                    <div class="demo-checkbox">
+                                        <input type="radio" name="priority" id="low">
+                                        <label for="low">Low</label>
+                                    </div>
+                                    <div class="demo-checkbox">
+                                        <input type="radio" name="priority" id="medium" checked>
+                                        <label for="medium">Medium</label>
+                                    </div>
+                                    <div class="demo-checkbox">
+                                        <input type="radio" name="priority" id="high">
+                                        <label for="high">High</label>
+                                    </div>
+                                </div>
+                                <div class="demo-form-group">
+                                    <div class="demo-checkbox">
+                                        <input type="checkbox" id="notify">
+                                        <label for="notify">Send notifications</label>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 10px;">
+                                    <button class="demo-button">Add Task</button>
+                                    <button class="demo-button secondary">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-code">
+                    <div class="demo-code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">task_manager.k2</span>
+                    </div>
+                    <pre><span class="comment"># Task Manager Application using Talanolius GUI</span>
+<span class="keyword">import</span> Talanolius
+
+<span class="comment"># Create the application</span>
+app = Talanolius.Application.new(<span class="string">"Task Manager"</span>)
+
+<span class="comment"># Create the main window</span>
+window = Talanolius.Window.new({
+  title: <span class="string">"Talanolius Task Manager"</span>,
+  width: 1000,
+  height: 700,
+  resizable: <span class="keyword">true</span>
+})
+
+<span class="comment"># Create the layout</span>
+layout = Talanolius.HBox.new()
+
+<span class="comment"># Create the sidebar</span>
+sidebar = Talanolius.VBox.new({
+  width: 250,
+  backgroundColor: <span class="string">"#f5f5f5"</span>,
+  borderRight: <span class="string">"1px solid #e0e0e0"</span>
+})
+
+<span class="comment"># Add sidebar items</span>
+sidebarItems = [
+  { icon: <span class="string">"home"</span>, text: <span class="string">"Dashboard"</span>, active: <span class="keyword">true</span> },
+  { icon: <span class="string">"tasks"</span>, text: <span class="string">"Tasks"</span> },
+  { icon: <span class="string">"calendar"</span>, text: <span class="string">"Calendar"</span> },
+  { icon: <span class="string">"chart-bar"</span>, text: <span class="string">"Reports"</span> },
+  { icon: <span class="string">"users"</span>, text: <span class="string">"Team"</span> },
+  { icon: <span class="string">"cog"</span>, text: <span class="string">"Settings"</span> }
+]
+
+<span class="keyword">for</span> (item <span class="keyword">in</span> sidebarItems) {
+  sidebarItem = Talanolius.HBox.new({
+    padding: <span class="string">"12px 20px"</span>,
+    spacing: 10,
+    alignItems: <span class="string">"center"</span>,
+    backgroundColor: item.active ? <span class="string">"rgba(67, 97, 238, 0.1)"</span> : <span class="string">"transparent"</span>,
+    color: item.active ? <span class="string">"#4361ee"</span> : <span class="string">"inherit"</span>,
+    fontWeight: item.active ? <span class="string">"500"</span> : <span class="string">"normal"</span>,
+    cursor: <span class="string">"pointer"</span>,
+    onHover: <span class="keyword">function</span>(hovered) {
+      <span class="keyword">if</span> (!item.active && hovered) {
+        <span class="keyword">this</span>.setStyle({ backgroundColor: <span class="string">"rgba(0, 0, 0, 0.05)"</span> })
+      } <span class="keyword">else if</span> (!item.active) {
+        <span class="keyword">this</span>.setStyle({ backgroundColor: <span class="string">"transparent"</span> })
+      }
+    },
+    onClick: <span class="keyword">function</span>() {
+      <span class="comment"># Handle sidebar item click</span>
+      <span class="function">setActiveSidebarItem</span>(item.text)
+    }
+  })
+  
+  icon = Talanolius.Icon.new({
+    name: <span class="string">"fa-"</span> + item.icon,
+    width: 20,
+    textAlign: <span class="string">"center"</span>
+  })
+  
+  text = Talanolius.Label.new({
+    text: item.text
+  })
+  
+  sidebarItem.add(icon)
+  sidebarItem.add(text)
+  sidebar.add(sidebarItem)
+}
+
+<span class="comment"># Create the main content area</span>
+mainContent = Talanolius.VBox.new({
+  padding: 20,
+  spacing: 30,
+  flex: 1,
+  overflowY: <span class="string">"auto"</span>
+})
+
+<span class="comment"># Project Overview Section</span>
+overviewSection = Talanolius.VBox.new({
+  spacing: 15
+})
+
+overviewTitle = Talanolius.Label.new({
+  text: <span class="string">"Project Overview"</span>,
+  fontSize: 18,
+  fontWeight: <span class="string">"600"</span>,
+  color: <span class="string">"#3a0ca3"</span>
+})
+
+<span class="comment"># Alert component</span>
+alert = Talanolius.HBox.new({
+  backgroundColor: <span class="string">"rgba(67, 97, 238, 0.1)"</span>,
+  borderLeft: <span class="string">"4px solid #4361ee"</span>,
+  color: <span class="string">"#4361ee"</span>,
+  padding: 15,
+  borderRadius: 4,
+  spacing: 10,
+  alignItems: <span class="string">"center"</span>
+})
+
+alertIcon = Talanolius.Icon.new({
+  name: <span class="string">"fa-info-circle"</span>
+})
+
+alertText = Talanolius.Label.new({
+  text: <span class="string">"Welcome to the Task Manager. You have 3 tasks due today."</span>
+})
+
+alert.add(alertIcon)
+alert.add(alertText)
+
+<span class="comment"># Tabs component</span>
+tabs = Talanolius.HBox.new({
+  borderBottom: <span class="string">"1px solid #e0e0e0"</span>
+})
+
+tabItems = [<span class="string">"All Projects"</span>, <span class="string">"Active"</span>, <span class="string">"Completed"</span>]
+
+<span class="keyword">for</span> (i = 0; i < tabItems.length; i++) {
+  isActive = i == 0
+  tab = Talanolius.Label.new({
+    text: tabItems[i],
+    padding: <span class="string">"10px 20px"</span>,
+    borderBottom: isActive ? <span class="string">"2px solid #4361ee"</span> : <span class="string">"2px solid transparent"</span>,
+    color: isActive ? <span class="string">"#4361ee"</span> : <span class="string">"inherit"</span>,
+    fontWeight: isActive ? <span class="string">"500"</span> : <span class="string">"normal"</span>,
+    cursor: <span class="string">"pointer"</span>,
+    onHover: <span class="keyword">function</span>(hovered) {
+      <span class="keyword">if</span> (!isActive && hovered) {
+        <span class="keyword">this</span>.setStyle({ backgroundColor: <span class="string">"rgba(0, 0, 0, 0.05)"</span> })
+      } <span class="keyword">else if</span> (!isActive) {
+        <span class="keyword">this</span>.setStyle({ backgroundColor: <span class="string">"transparent"</span> })
+      }
+    },
+    onClick: <span class="keyword">function</span>() {
+      <span class="comment"># Handle tab click</span>
+      <span class="function">setActiveTab</span>(tabItems[i])
+    }
+  })
+  
+  tabs.add(tab)
+}
+
+<span class="comment"># Project cards</span>
+<span class="keyword">function</span> <span class="function">createProjectCard</span>(title, description, progress, dueDate) {
+  card = Talanolius.VBox.new({
+    backgroundColor: <span class="string">"#ffffff"</span>,
+    border: <span class="string">"1px solid #e0e0e0"</span>,
+    borderRadius: 8,
+    padding: 20,
+    marginBottom: 20
+  })
+  
+  cardTitle = Talanolius.Label.new({
+    text: title,
+    fontSize: 16,
+    fontWeight: <span class="string">"600"</span>,
+    marginBottom: 10
+  })
+  
+  cardDescription = Talanolius.Label.new({
+    text: description,
+    color: <span class="string">"#666666"</span>,
+    fontSize: 14,
+    lineHeight: 1.6
+  })
+  
+  progressBar = Talanolius.ProgressBar.new({
+    value: progress,
+    height: 8,
+    backgroundColor: <span class="string">"#f5f5f5"</span>,
+    progressColor: progress < 50 ? <span class="string">"#ffbd2e"</span> : <span class="string">"#4361ee"</span>,
+    borderRadius: 4,
+    margin: <span class="string">"10px 0"</span>
+  })
+  
+  progressInfo = Talanolius.HBox.new({
+    justifyContent: <span class="string">"space-between"</span>,
+    alignItems: <span class="string">"center"</span>,
+    marginTop: 10
+  })
+  
+  progressText = Talanolius.Label.new({
+    text: progress + <span class="string">"% Complete"</span>,
+    fontSize: 12,
+    color: <span class="string">"#666666"</span>
+  })
+  
+  dueText = Talanolius.Label.new({
+    text: <span class="string">"Due: "</span> + dueDate,
+    fontSize: 12,
+    color: <span class="string">"#666666"</span>
+  })
+  
+  progressInfo.add(progressText)
+  progressInfo.add(dueText)
+  
+  card.add(cardTitle)
+  card.add(cardDescription)
+  card.add(progressBar)
+  card.add(progressInfo)
+  
+  <span class="keyword">return</span> card
+}
+
+<span class="comment"># Add project cards</span>
+projectCard1 = <span class="function">createProjectCard</span>(
+  <span class="string">"Website Redesign"</span>,
+  <span class="string">"Redesign the company website with new branding guidelines."</span>,
+  75,
+  <span class="string">"Jun 15, 2025"</span>
+)
+
+projectCard2 = <span class="function">createProjectCard</span>(
+  <span class="string">"Mobile App Development"</span>,
+  <span class="string">"Develop a mobile app for iOS and Android platforms."</span>,
+  30,
+  <span class="string">"Aug 20, 2025"</span>
+)
+
+<span class="comment"># Add components to the overview section</span>
+overviewSection.add(overviewTitle)
+overviewSection.add(alert)
+overviewSection.add(tabs)
+overviewSection.add(projectCard1)
+overviewSection.add(projectCard2)
+
+<span class="comment"># Add New Task Section</span>
+<span class="comment"># ... (form implementation)</span>
+
+<span class="comment"># Add sections to main content</span>
+mainContent.add(overviewSection)
+<span class="comment"># mainContent.add(newTaskSection)</span>
+
+<span class="comment"># Add sidebar and main content to layout</span>
+layout.add(sidebar)
+layout.add(mainContent)
+
+<span class="comment"># Set window content</span>
+window.setContent(layout)
+
+<span class="comment"># Show the window</span>
+window.show()
+
+<span class="comment"># Start the application</span>
+app.run()</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Build with Talanolius GUI?</h2>
+            <p>Get started today and create beautiful, high-performance desktop applications with K2 and Talanolius GUI.</p>
+            <div class="cta-buttons">
+                <a href="../talanolius-docs.html#getting-started" class="btn primary-btn">Get Started</a>
+                <a href="../index.html#download" class="btn secondary-btn">Download K2</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>K2</h2>
+                    <p>Ultra-Fast Programming Language</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Product</h3>
+                        <ul>
+                            <li><a href="../index.html#features">Features</a></li>
+                            <li><a href="../index.html#performance">Performance</a></li>
+                            <li><a href="../index.html#examples">Examples</a></li>
+                            <li><a href="../index.html#download">Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="../docs.html">Documentation</a></li>
+                            <li><a href="../nahir-docs.html">Nahir UI</a></li>
+                            <li><a href="../talanolius-docs.html">Talanolius GUI</a></li>
+                            <li><a href="../forum.html">Community Forum</a></li>
+                            <li><a href="../try.html">Try Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="../about.html">About Us</a></li>
+                            <li><a href="../blog.html">Blog</a></li>
+                            <li><a href="../careers.html">Careers</a></li>
+                            <li><a href="../contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="../legal/terms-of-use.html">Terms of Use</a></li>
+                            <li><a href="../legal/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="../legal/licenses.html">Licenses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 K2 Language. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
