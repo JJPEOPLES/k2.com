@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K3 Hello World Examples - Fast, Safe, and Expressive Programming Language</title>
+    <meta name="description" content="Learn how to write Hello World programs in K3, the modern, high-performance programming language.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/modern-ui.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../../js/nahir-ui.js" defer></script>
+    <script src="../js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    
+    <style>
+        .examples-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .examples-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .examples-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .examples-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .example-section {
+            margin-bottom: 4rem;
+        }
+        
+        .example-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .example-section p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .example-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            margin-bottom: 2rem;
+        }
+        
+        .example-title {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .example-content {
+            padding: 1.5rem;
+        }
+        
+        .example-description {
+            margin-bottom: 1.5rem;
+        }
+        
+        .code-window {
+            margin-bottom: 1.5rem;
+        }
+        
+        .example-output {
+            background-color: #1E2A31;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 1.5rem;
+        }
+        
+        .example-output pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        .example-note {
+            background-color: rgba(76, 110, 245, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        .example-tip {
+            background-color: rgba(81, 207, 102, 0.1);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        .example-warning {
+            background-color: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid #ff6b6b;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        .try-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .try-button:hover {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+        
+        /* Dark mode adjustments */
+        [data-theme="dark"] .example-card {
+            background-color: var(--card-bg);
+        }
+        
+        [data-theme="dark"] .example-note {
+            background-color: rgba(76, 110, 245, 0.1);
+        }
+        
+        [data-theme="dark"] .example-tip {
+            background-color: rgba(81, 207, 102, 0.1);
+        }
+        
+        [data-theme="dark"] .example-warning {
+            background-color: rgba(255, 107, 107, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="../index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="../index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="examples-container">
+        <div class="examples-header">
+            <h1>Hello World Examples in K3</h1>
+            <p>Learn how to write your first K3 programs with these simple Hello World examples.</p>
+        </div>
+        
+        <div class="example-section">
+            <h2>Basic Hello World</h2>
+            <p>The simplest K3 program is a classic "Hello, World!" example. This demonstrates the basic structure of a K3 program and how to print text to the console.</p>
+            
+            <div class="example-card">
+                <div class="example-title">Simple Hello World</div>
+                <div class="example-content">
+                    <div class="example-description">
+                        <p>This is the most basic Hello World program in K3. It defines a <code>main</code> function that prints "Hello, World!" to the console.</p>
+                    </div>
+                    
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">hello.k3</span>
+                        </div>
+                        <pre><code>// Hello World in K3
+fn main() {
+    println("Hello, World!")
+}</code></pre>
+                    </div>
+                    
+                    <div class="example-output">
+                        <pre>Hello, World!</pre>
+                    </div>
+                    
+                    <div class="example-note">
+                        <p><strong>Note:</strong> The <code>main</code> function is the entry point of a K3 program. When you run a K3 program, the <code>main</code> function is automatically called.</p>
+                    </div>
+                    
+                    <a href="../try.html?code=fn%20main()%20%7B%0A%20%20%20%20println(%22Hello%2C%20World!%22)%0A%7D" class="try-button">Try it online</a>
+                </div>
+            </div>
+            
+            <div class="example-card">
+                <div class="example-title">Hello World with Command-Line Arguments</div>
+                <div class="example-content">
+                    <div class="example-description">
+                        <p>This example shows how to access command-line arguments in K3. It greets the user by name if a name is provided as an argument, or defaults to "World" if no argument is given.</p>
+                    </div>
+                    
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">hello_args.k3</span>
+                        </div>
+                        <pre><code>// Hello World with command-line arguments
+fn main(args: []string) {
+    if args.length > 1 {
+        println("Hello, {}!", args[1])
+    } else {
+        println("Hello, World!")
+    }
+}</code></pre>
+                    </div>
+                    
+                    <div class="example-output">
+                        <pre>$ k3 run hello_args.k3
+Hello, World!
+
+$ k3 run hello_args.k3 Alice
+Hello, Alice!</pre>
+                    </div>
+                    
+                    <div class="example-tip">
+                        <p><strong>Tip:</strong> In K3, <code>args[0]</code> is the name of the program itself, and <code>args[1]</code> is the first actual argument provided by the user.</p>
+                    </div>
+                    
+                    <a href="../try.html?code=fn%20main(args%3A%20%5B%5Dstring)%20%7B%0A%20%20%20%20if%20args.length%20%3E%201%20%7B%0A%20%20%20%20%20%20%20%20println(%22Hello%2C%20%7B%7D!%22%2C%20args%5B1%5D)%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20println(%22Hello%2C%20World!%22)%0A%20%20%20%20%7D%0A%7D" class="try-button">Try it online</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="example-section">
+            <h2>Interactive Hello World</h2>
+            <p>These examples show how to make your Hello World program more interactive by accepting user input.</p>
+            
+            <div class="example-card">
+                <div class="example-title">Hello World with User Input</div>
+                <div class="example-content">
+                    <div class="example-description">
+                        <p>This example asks the user for their name and then greets them. It demonstrates how to read input from the console in K3.</p>
+                    </div>
+                    
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">hello_input.k3</span>
+                        </div>
+                        <pre><code>// Hello World with user input
+fn main() {
+    println("What is your name?")
+    
+    let name = readLine()
+    
+    if name.trim() == "" {
+        println("Hello, stranger!")
+    } else {
+        println("Hello, {}!", name.trim())
+    }
+}</code></pre>
+                    </div>
+                    
+                    <div class="example-output">
+                        <pre>What is your name?
+Alice
+Hello, Alice!</pre>
+                    </div>
+                    
+                    <div class="example-note">
+                        <p><strong>Note:</strong> The <code>readLine()</code> function reads a line of text from standard input. The <code>trim()</code> method removes whitespace from the beginning and end of the string.</p>
+                    </div>
+                    
+                    <a href="../try.html?code=fn%20main()%20%7B%0A%20%20%20%20println(%22What%20is%20your%20name%3F%22)%0A%20%20%20%20%0A%20%20%20%20let%20name%20%3D%20readLine()%0A%20%20%20%20%0A%20%20%20%20if%20name.trim()%20%3D%3D%20%22%22%20%7B%0A%20%20%20%20%20%20%20%20println(%22Hello%2C%20stranger!%22)%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20println(%22Hello%2C%20%7B%7D!%22%2C%20name.trim())%0A%20%20%20%20%7D%0A%7D" class="try-button">Try it online</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="example-section">
+            <h2>Web Hello World</h2>
+            <p>K3 can also be used to build web applications. These examples show how to create a simple web server that responds with "Hello, World!".</p>
+            
+            <div class="example-card">
+                <div class="example-title">Hello World Web Server</div>
+                <div class="example-content">
+                    <div class="example-description">
+                        <p>This example creates a simple HTTP server that responds with "Hello, World!" to all requests. It demonstrates K3's built-in HTTP server capabilities.</p>
+                    </div>
+                    
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">hello_web.k3</span>
+                        </div>
+                        <pre><code>// Hello World web server
+import Http from "k3/http"
+
+fn main() {
+    let server = Http.createServer((req, res) => {
+        res.setHeader("Content-Type", "text/html")
+        res.write("&lt;h1&gt;Hello, World!&lt;/h1&gt;")
+        res.end()
+    })
+    
+    server.listen(8080, () => {
+        println("Server running at http://localhost:8080")
+    })
+}</code></pre>
+                    </div>
+                    
+                    <div class="example-output">
+                        <pre>Server running at http://localhost:8080</pre>
+                    </div>
+                    
+                    <div class="example-tip">
+                        <p><strong>Tip:</strong> When you run this program, you can open your web browser and navigate to <code>http://localhost:8080</code> to see the "Hello, World!" message.</p>
+                    </div>
+                    
+                    <a href="../try.html?code=import%20Http%20from%20%22k3%2Fhttp%22%0A%0Afn%20main()%20%7B%0A%20%20%20%20let%20server%20%3D%20Http.createServer((req%2C%20res)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20res.setHeader(%22Content-Type%22%2C%20%22text%2Fhtml%22)%0A%20%20%20%20%20%20%20%20res.write(%22%3Ch1%3EHello%2C%20World!%3C%2Fh1%3E%22)%0A%20%20%20%20%20%20%20%20res.end()%0A%20%20%20%20%7D)%0A%20%20%20%20%0A%20%20%20%20server.listen(8080%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20println(%22Server%20running%20at%20http%3A%2F%2Flocalhost%3A8080%22)%0A%20%20%20%20%7D)%0A%7D" class="try-button">Try it online</a>
+                </div>
+            </div>
+            
+            <div class="example-card">
+                <div class="example-title">Hello World with Stellar UI</div>
+                <div class="example-content">
+                    <div class="example-description">
+                        <p>This example creates a simple interactive web application using K3's Stellar UI framework. It displays a greeting that updates as the user types their name.</p>
+                    </div>
+                    
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">hello_stellar.k3</span>
+                        </div>
+                        <pre><code>// Hello World with Stellar UI
+import Stellar from "stellar/ui"
+
+class Greeting extends Stellar.Component {
+    state = {
+        name: "World"
+    }
+    
+    fn updateName(event) {
+        this.setState({ name: event.target.value })
+    }
+    
+    fn render() -> Stellar.Element {
+        return &lt;div&gt;
+            &lt;h1&gt;Hello, {this.state.name}!&lt;/h1&gt;
+            &lt;input 
+                type="text" 
+                value={this.state.name}
+                onChange={this.updateName}
+                placeholder="Enter your name"
+            /&gt;
+        &lt;/div&gt;
+    }
+}
+
+fn main() {
+    Stellar.render(&lt;Greeting /&gt;, "#app")
+}</code></pre>
+                    </div>
+                    
+                    <div class="example-note">
+                        <p><strong>Note:</strong> This example uses JSX-like syntax for defining UI components. The Stellar UI framework is built into K3 and provides a powerful way to build interactive web applications.</p>
+                    </div>
+                    
+                    <a href="../try.html?code=import%20Stellar%20from%20%22stellar%2Fui%22%0A%0Aclass%20Greeting%20extends%20Stellar.Component%20%7B%0A%20%20%20%20state%20%3D%20%7B%0A%20%20%20%20%20%20%20%20name%3A%20%22World%22%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20fn%20updateName(event)%20%7B%0A%20%20%20%20%20%20%20%20this.setState(%7B%20name%3A%20event.target.value%20%7D)%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20fn%20render()%20-%3E%20Stellar.Element%20%7B%0A%20%20%20%20%20%20%20%20return%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ch1%3EHello%2C%20%7Bthis.state.name%7D!%3C%2Fh1%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20type%3D%22text%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20value%3D%7Bthis.state.name%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20onChange%3D%7Bthis.updateName%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20placeholder%3D%22Enter%20your%20name%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%7D%0A%7D%0A%0Afn%20main()%20%7B%0A%20%20%20%20Stellar.render(%3CGreeting%20%2F%3E%2C%20%22%23app%22)%0A%7D" class="try-button">Try it online</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K3</h2>
+                <p>Fast, Safe, and Expressive</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="../docs.html">Documentation</a></li>
+                        <li><a href="../examples.html">Examples</a></li>
+                        <li><a href="../tutorials.html">Tutorials</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k3-lang/k3" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k3-lang" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k3_lang" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k3-lang" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="../../legal/license.html" target="_blank">License</a></li>
+                        <li><a href="../../legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="../../legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K3 Language. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
