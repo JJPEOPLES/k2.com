@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download K3 - Fast, Safe, and Expressive Programming Language</title>
+    <meta name="description" content="Download K3, the modern, high-performance programming language for building everything from system utilities to web applications.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/modern-ui.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../../js/nahir-ui.js" defer></script>
+    <script src="../js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    
+    <style>
+        .downloads-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .downloads-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .downloads-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .downloads-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .download-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .download-tab {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-light);
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .download-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: transparent;
+            transition: background-color 0.3s ease;
+        }
+        
+        .download-tab.active {
+            color: var(--primary-color);
+        }
+        
+        .download-tab.active::after {
+            background-color: var(--primary-color);
+        }
+        
+        .download-content {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .download-content.active {
+            display: block;
+        }
+        
+        .download-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            margin-bottom: 2rem;
+        }
+        
+        .download-card-header {
+            background-color: var(--primary-color);
+            padding: 1.5rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .download-card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .download-card-version {
+            font-size: 0.9rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        
+        .download-card-content {
+            padding: 1.5rem;
+        }
+        
+        .download-card-description {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+        
+        .download-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .download-option {
+            flex: 1;
+            min-width: 200px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .download-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+        
+        .download-option-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .download-option-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        
+        .download-option-size {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        .download-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .download-button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .download-instructions {
+            margin-top: 3rem;
+        }
+        
+        .download-instructions h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .installation-steps {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .installation-steps h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .installation-steps ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .installation-steps li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .installation-steps code {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+        
+        .installation-steps pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .installation-note {
+            background-color: rgba(76, 110, 245, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        /* Dark mode adjustments */
+        [data-theme="dark"] .download-option {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+        }
+        
+        [data-theme="dark"] .installation-note {
+            background-color: rgba(76, 110, 245, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="../index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="../index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="downloads-container">
+        <div class="downloads-header">
+            <h1>Download K3</h1>
+            <p>Get started with K3, the modern, high-performance programming language for building everything from system utilities to web applications.</p>
+        </div>
+        
+        <div class="download-tabs">
+            <button class="download-tab active" data-os="windows">Windows</button>
+            <button class="download-tab" data-os="macos">macOS</button>
+            <button class="download-tab" data-os="linux">Linux</button>
+            <button class="download-tab" data-os="source">Source Code</button>
+        </div>
+        
+        <div class="download-content active" id="windows-downloads">
+            <div class="download-card">
+                <div class="download-card-header">
+                    <h2 class="download-card-title">K3 for Windows</h2>
+                    <span class="download-card-version">v1.0.0</span>
+                </div>
+                <div class="download-card-content">
+                    <p class="download-card-description">K3 for Windows includes the compiler, standard library, package manager, and Stellar UI framework.</p>
+                    
+                    <div class="download-options">
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h3 class="download-option-title">Windows Installer (64-bit)</h3>
+                            <p class="download-option-size">25.4 MB</p>
+                            <a href="#" class="download-button">Download .exe</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-archive"></i>
+                            </div>
+                            <h3 class="download-option-title">Windows ZIP (64-bit)</h3>
+                            <p class="download-option-size">23.8 MB</p>
+                            <a href="#" class="download-button">Download .zip</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-instructions">
+                <h2>Installation Instructions</h2>
+                
+                <div class="installation-steps">
+                    <h3>Windows Installer</h3>
+                    <ol>
+                        <li>Download the Windows installer (.exe) from above.</li>
+                        <li>Run the installer and follow the prompts.</li>
+                        <li>The installer will add K3 to your PATH automatically.</li>
+                        <li>Open Command Prompt or PowerShell and verify the installation:</li>
+                    </ol>
+                    
+                    <pre><code>k3 --version</code></pre>
+                    
+                    <h3>Windows ZIP</h3>
+                    <ol>
+                        <li>Download the Windows ZIP file from above.</li>
+                        <li>Extract the ZIP file to a location of your choice (e.g., <code>C:\Program Files\K3</code>).</li>
+                        <li>Add the <code>bin</code> directory to your PATH:</li>
+                    </ol>
+                    
+                    <pre><code>setx PATH "%PATH%;C:\Program Files\K3\bin"</code></pre>
+                    
+                    <ol start="4">
+                        <li>Open a new Command Prompt or PowerShell window and verify the installation:</li>
+                    </ol>
+                    
+                    <pre><code>k3 --version</code></pre>
+                    
+                    <div class="installation-note">
+                        <p><strong>Note:</strong> If you're using Windows 7 or earlier, you may need to install the Visual C++ Redistributable for Visual Studio 2019.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="download-content" id="macos-downloads">
+            <div class="download-card">
+                <div class="download-card-header">
+                    <h2 class="download-card-title">K3 for macOS</h2>
+                    <span class="download-card-version">v1.0.0</span>
+                </div>
+                <div class="download-card-content">
+                    <p class="download-card-description">K3 for macOS includes the compiler, standard library, package manager, and Stellar UI framework.</p>
+                    
+                    <div class="download-options">
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h3 class="download-option-title">macOS Installer (Universal)</h3>
+                            <p class="download-option-size">24.2 MB</p>
+                            <a href="#" class="download-button">Download .pkg</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-archive"></i>
+                            </div>
+                            <h3 class="download-option-title">macOS Tarball (Universal)</h3>
+                            <p class="download-option-size">22.6 MB</p>
+                            <a href="#" class="download-button">Download .tar.gz</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-instructions">
+                <h2>Installation Instructions</h2>
+                
+                <div class="installation-steps">
+                    <h3>macOS Installer</h3>
+                    <ol>
+                        <li>Download the macOS installer (.pkg) from above.</li>
+                        <li>Open the package and follow the installation wizard.</li>
+                        <li>The installer will add K3 to your PATH automatically.</li>
+                        <li>Open Terminal and verify the installation:</li>
+                    </ol>
+                    
+                    <pre><code>k3 --version</code></pre>
+                    
+                    <h3>macOS Tarball</h3>
+                    <ol>
+                        <li>Download the macOS tarball (.tar.gz) from above.</li>
+                        <li>Extract it to a location of your choice:</li>
+                    </ol>
+                    
+                    <pre><code>tar -xzf k3-1.0.0-macos.tar.gz</code></pre>
+                    
+                    <ol start="3">
+                        <li>Move to a directory in your PATH:</li>
+                    </ol>
+                    
+                    <pre><code>sudo mv k3-1.0.0 /usr/local/k3
+sudo ln -s /usr/local/k3/bin/k3 /usr/local/bin/k3</code></pre>
+                    
+                    <ol start="4">
+                        <li>Verify the installation:</li>
+                    </ol>
+                    
+                    <pre><code>k3 --version</code></pre>
+                    
+                    <h3>Homebrew</h3>
+                    <p>Alternatively, you can use Homebrew to install K3:</p>
+                    
+                    <pre><code>brew install k3</code></pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="download-content" id="linux-downloads">
+            <div class="download-card">
+                <div class="download-card-header">
+                    <h2 class="download-card-title">K3 for Linux</h2>
+                    <span class="download-card-version">v1.0.0</span>
+                </div>
+                <div class="download-card-content">
+                    <p class="download-card-description">K3 for Linux includes the compiler, standard library, package manager, and Stellar UI framework.</p>
+                    
+                    <div class="download-options">
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h3 class="download-option-title">Linux x64 (Generic)</h3>
+                            <p class="download-option-size">22.8 MB</p>
+                            <a href="#" class="download-button">Download .tar.gz</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fab fa-ubuntu"></i>
+                            </div>
+                            <h3 class="download-option-title">Ubuntu/Debian Package</h3>
+                            <p class="download-option-size">23.5 MB</p>
+                            <a href="#" class="download-button">Download .deb</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fab fa-fedora"></i>
+                            </div>
+                            <h3 class="download-option-title">Fedora/RHEL Package</h3>
+                            <p class="download-option-size">23.2 MB</p>
+                            <a href="#" class="download-button">Download .rpm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-instructions">
+                <h2>Installation Instructions</h2>
+                
+                <div class="installation-steps">
+                    <h3>Ubuntu/Debian</h3>
+                    <p>Using the .deb package:</p>
+                    
+                    <pre><code>sudo dpkg -i k3-1.0.0-amd64.deb
+sudo apt-get install -f</code></pre>
+                    
+                    <p>Or using the package repository:</p>
+                    
+                    <pre><code>curl -fsSL https://k3-lang.org/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://k3-lang.org/apt stable main"
+sudo apt-get update
+sudo apt-get install k3</code></pre>
+                    
+                    <h3>Fedora/RHEL</h3>
+                    <p>Using the .rpm package:</p>
+                    
+                    <pre><code>sudo rpm -i k3-1.0.0-1.x86_64.rpm</code></pre>
+                    
+                    <p>Or using the package repository:</p>
+                    
+                    <pre><code>sudo dnf install -y dnf-plugins-core
+sudo dnf config-manager --add-repo https://k3-lang.org/rpm/k3.repo
+sudo dnf install k3</code></pre>
+                    
+                    <h3>Arch Linux</h3>
+                    <p>Using the AUR:</p>
+                    
+                    <pre><code>yay -S k3</code></pre>
+                    
+                    <h3>Generic Linux</h3>
+                    <ol>
+                        <li>Download the Linux tarball (.tar.gz) from above.</li>
+                        <li>Extract it:</li>
+                    </ol>
+                    
+                    <pre><code>tar -xzf k3-1.0.0-linux-x64.tar.gz</code></pre>
+                    
+                    <ol start="3">
+                        <li>Move to a directory in your PATH:</li>
+                    </ol>
+                    
+                    <pre><code>sudo mv k3-1.0.0 /usr/local/k3
+sudo ln -s /usr/local/k3/bin/k3 /usr/local/bin/k3</code></pre>
+                    
+                    <ol start="4">
+                        <li>Verify the installation:</li>
+                    </ol>
+                    
+                    <pre><code>k3 --version</code></pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="download-content" id="source-downloads">
+            <div class="download-card">
+                <div class="download-card-header">
+                    <h2 class="download-card-title">K3 Source Code</h2>
+                    <span class="download-card-version">v1.0.0</span>
+                </div>
+                <div class="download-card-content">
+                    <p class="download-card-description">Build K3 from source to get the latest features and optimizations for your specific platform.</p>
+                    
+                    <div class="download-options">
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h3 class="download-option-title">GitHub Repository</h3>
+                            <p class="download-option-size">Clone or fork</p>
+                            <a href="https://github.com/k3-lang/k3" class="download-button" target="_blank">View on GitHub</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-file-archive"></i>
+                            </div>
+                            <h3 class="download-option-title">Source Tarball</h3>
+                            <p class="download-option-size">15.6 MB</p>
+                            <a href="#" class="download-button">Download .tar.gz</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-file-archive"></i>
+                            </div>
+                            <h3 class="download-option-title">Source ZIP</h3>
+                            <p class="download-option-size">16.2 MB</p>
+                            <a href="#" class="download-button">Download .zip</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-instructions">
+                <h2>Build Instructions</h2>
+                
+                <div class="installation-steps">
+                    <h3>Prerequisites</h3>
+                    <p>To build K3 from source, you'll need:</p>
+                    <ul>
+                        <li>C++ compiler (GCC 9+, Clang 10+, or MSVC 2019+)</li>
+                        <li>CMake 3.15+</li>
+                        <li>Python 3.6+</li>
+                        <li>Git</li>
+                        <li>LLVM 12+ (optional, for JIT compilation)</li>
+                    </ul>
+                    
+                    <h3>Building from Source</h3>
+                    <ol>
+                        <li>Clone the repository:</li>
+                    </ol>
+                    
+                    <pre><code>git clone https://github.com/k3-lang/k3.git
+cd k3</code></pre>
+                    
+                    <ol start="2">
+                        <li>Create a build directory:</li>
+                    </ol>
+                    
+                    <pre><code>mkdir build
+cd build</code></pre>
+                    
+                    <ol start="3">
+                        <li>Configure and build:</li>
+                    </ol>
+                    
+                    <pre><code>cmake ..
+cmake --build . --config Release</code></pre>
+                    
+                    <ol start="4">
+                        <li>Install (optional):</li>
+                    </ol>
+                    
+                    <pre><code>sudo cmake --install .</code></pre>
+                    
+                    <div class="installation-note">
+                        <p><strong>Note:</strong> For more detailed build instructions and options, see the <a href="https://github.com/k3-lang/k3/blob/main/BUILDING.md" target="_blank">BUILDING.md</a> file in the repository.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K3</h2>
+                <p>Fast, Safe, and Expressive</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="../docs.html">Documentation</a></li>
+                        <li><a href="../examples.html">Examples</a></li>
+                        <li><a href="../tutorials.html">Tutorials</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k3-lang/k3" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k3-lang" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k3_lang" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k3-lang" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="../../legal/license.html" target="_blank">License</a></li>
+                        <li><a href="../../legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="../../legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K3 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // OS tabs
+            const downloadTabs = document.querySelectorAll('.download-tab');
+            const downloadContents = document.querySelectorAll('.download-content');
+            
+            downloadTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and content
+                    downloadTabs.forEach(t => t.classList.remove('active'));
+                    downloadContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    const os = tab.getAttribute('data-os');
+                    document.getElementById(`${os}-downloads`).classList.add('active');
+                });
+            });
+            
+            // Auto-select OS based on user's platform
+            const platform = navigator.platform.toLowerCase();
+            let defaultOS = 'windows';
+            
+            if (platform.includes('mac')) {
+                defaultOS = 'macos';
+            } else if (platform.includes('linux') || platform.includes('x11')) {
+                defaultOS = 'linux';
+            }
+            
+            // Trigger click on the appropriate tab
+            document.querySelector(`.download-tab[data-os="${defaultOS}"]`).click();
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download K3 - Fast, Safe, and Expressive Programming Language</title>
+    <meta name="description" content="Download K3, the modern, high-performance programming language for building everything from system utilities to web applications.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/modern-ui.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../../js/nahir-ui.js" defer></script>
+    <script src="../js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    
+    <style>
+        .downloads-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .downloads-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .downloads-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .downloads-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .download-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .download-tab {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-light);
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .download-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: transparent;
+            transition: background-color 0.3s ease;
+        }
+        
+        .download-tab.active {
+            color: var(--primary-color);
+        }
+        
+        .download-tab.active::after {
+            background-color: var(--primary-color);
+        }
+        
+        .download-content {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .download-content.active {
+            display: block;
+        }
+        
+        .download-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            margin-bottom: 2rem;
+        }
+        
+        .download-card-header {
+            background-color: var(--primary-color);
+            padding: 1.5rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .download-card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .download-card-version {
+            font-size: 0.9rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        
+        .download-card-content {
+            padding: 1.5rem;
+        }
+        
+        .download-card-description {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+        
+        .download-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .download-option {
+            flex: 1;
+            min-width: 200px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .download-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+        
+        .download-option-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .download-option-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        
+        .download-option-size {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        .download-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .download-button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .download-instructions {
+            margin-top: 3rem;
+        }
+        
+        .download-instructions h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .installation-steps {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .installation-steps h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .installation-steps ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .installation-steps li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .installation-steps code {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+        
+        .installation-steps pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .installation-note {
+            background-color: rgba(76, 110, 245, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        /* Dark mode adjustments */
+        [data-theme="dark"] .download-option {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+        }
+        
+        [data-theme="dark"] .installation-note {
+            background-color: rgba(76, 110, 245, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="../index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="../index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="downloads-container">
+        <div class="downloads-header">
+            <h1>Download K3</h1>
+            <p>Get started with K3, the modern, high-performance programming language for building everything from system utilities to web applications.</p>
+        </div>
+        
+        <div class="download-tabs">
+            <button class="download-tab active" data-os="windows">Windows</button>
+            <button class="download-tab" data-os="macos">macOS</button>
+            <button class="download-tab" data-os="linux">Linux</button>
+            <button class="download-tab" data-os="source">Source Code</button>
+        </div>
+        
+        <div class="download-content active" id="windows-downloads">
+            <div class="download-card">
+                <div class="download-card-header">
+                    <h2 class="download-card-title">K3 for Windows</h2>
+                    <span class="download-card-version">v1.0.0</span>
+                </div>
+                <div class="download-card-content">
+                    <p class="download-card-description">K3 for Windows includes the compiler, standard library, package manager, and Stellar UI framework.</p>
+                    
+                    <div class="download-options">
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h3 class="download-option-title">Windows Installer (64-bit)</h3>
+                            <p class="download-option-size">25.4 MB</p>
+                            <a href="#" class="download-button">Download .exe</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-archive"></i>
+                            </div>
+                            <h3 class="download-option-title">Windows ZIP (64-bit)</h3>
+                            <p class="download-option-size">23.8 MB</p>
+                            <a href="#" class="download-button">Download .zip</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-instructions">
+                <h2>Installation Instructions</h2>
+                
+                <div class="installation-steps">
+                    <h3>Windows Installer</h3>
+                    <ol>
+                        <li>Download the Windows installer (.exe) from above.</li>
+                        <li>Run the installer and follow the prompts.</li>
+                        <li>The installer will add K3 to your PATH automatically.</li>
+                        <li>Open Command Prompt or PowerShell and verify the installation:</li>
+                    </ol>
+                    
+                    <pre><code>k3 --version</code></pre>
+                    
+                    <h3>Windows ZIP</h3>
+                    <ol>
+                        <li>Download the Windows ZIP file from above.</li>
+                        <li>Extract the ZIP file to a location of your choice (e.g., <code>C:\Program Files\K3</code>).</li>
+                        <li>Add the <code>bin</code> directory to your PATH:</li>
+                    </ol>
+                    
+                    <pre><code>setx PATH "%PATH%;C:\Program Files\K3\bin"</code></pre>
+                    
+                    <ol start="4">
+                        <li>Open a new Command Prompt or PowerShell window and verify the installation:</li>
+                    </ol>
+                    
+                    <pre><code>k3 --version</code></pre>
+                    
+                    <div class="installation-note">
+                        <p><strong>Note:</strong> If you're using Windows 7 or earlier, you may need to install the Visual C++ Redistributable for Visual Studio 2019.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="download-content" id="macos-downloads">
+            <div class="download-card">
+                <div class="download-card-header">
+                    <h2 class="download-card-title">K3 for macOS</h2>
+                    <span class="download-card-version">v1.0.0</span>
+                </div>
+                <div class="download-card-content">
+                    <p class="download-card-description">K3 for macOS includes the compiler, standard library, package manager, and Stellar UI framework.</p>
+                    
+                    <div class="download-options">
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h3 class="download-option-title">macOS Installer (Universal)</h3>
+                            <p class="download-option-size">24.2 MB</p>
+                            <a href="#" class="download-button">Download .pkg</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-archive"></i>
+                            </div>
+                            <h3 class="download-option-title">macOS Tarball (Universal)</h3>
+                            <p class="download-option-size">22.6 MB</p>
+                            <a href="#" class="download-button">Download .tar.gz</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-instructions">
+                <h2>Installation Instructions</h2>
+                
+                <div class="installation-steps">
+                    <h3>macOS Installer</h3>
+                    <ol>
+                        <li>Download the macOS installer (.pkg) from above.</li>
+                        <li>Open the package and follow the installation wizard.</li>
+                        <li>The installer will add K3 to your PATH automatically.</li>
+                        <li>Open Terminal and verify the installation:</li>
+                    </ol>
+                    
+                    <pre><code>k3 --version</code></pre>
+                    
+                    <h3>macOS Tarball</h3>
+                    <ol>
+                        <li>Download the macOS tarball (.tar.gz) from above.</li>
+                        <li>Extract it to a location of your choice:</li>
+                    </ol>
+                    
+                    <pre><code>tar -xzf k3-1.0.0-macos.tar.gz</code></pre>
+                    
+                    <ol start="3">
+                        <li>Move to a directory in your PATH:</li>
+                    </ol>
+                    
+                    <pre><code>sudo mv k3-1.0.0 /usr/local/k3
+sudo ln -s /usr/local/k3/bin/k3 /usr/local/bin/k3</code></pre>
+                    
+                    <ol start="4">
+                        <li>Verify the installation:</li>
+                    </ol>
+                    
+                    <pre><code>k3 --version</code></pre>
+                    
+                    <h3>Homebrew</h3>
+                    <p>Alternatively, you can use Homebrew to install K3:</p>
+                    
+                    <pre><code>brew install k3</code></pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="download-content" id="linux-downloads">
+            <div class="download-card">
+                <div class="download-card-header">
+                    <h2 class="download-card-title">K3 for Linux</h2>
+                    <span class="download-card-version">v1.0.0</span>
+                </div>
+                <div class="download-card-content">
+                    <p class="download-card-description">K3 for Linux includes the compiler, standard library, package manager, and Stellar UI framework.</p>
+                    
+                    <div class="download-options">
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h3 class="download-option-title">Linux x64 (Generic)</h3>
+                            <p class="download-option-size">22.8 MB</p>
+                            <a href="#" class="download-button">Download .tar.gz</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fab fa-ubuntu"></i>
+                            </div>
+                            <h3 class="download-option-title">Ubuntu/Debian Package</h3>
+                            <p class="download-option-size">23.5 MB</p>
+                            <a href="#" class="download-button">Download .deb</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fab fa-fedora"></i>
+                            </div>
+                            <h3 class="download-option-title">Fedora/RHEL Package</h3>
+                            <p class="download-option-size">23.2 MB</p>
+                            <a href="#" class="download-button">Download .rpm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-instructions">
+                <h2>Installation Instructions</h2>
+                
+                <div class="installation-steps">
+                    <h3>Ubuntu/Debian</h3>
+                    <p>Using the .deb package:</p>
+                    
+                    <pre><code>sudo dpkg -i k3-1.0.0-amd64.deb
+sudo apt-get install -f</code></pre>
+                    
+                    <p>Or using the package repository:</p>
+                    
+                    <pre><code>curl -fsSL https://k3-lang.org/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://k3-lang.org/apt stable main"
+sudo apt-get update
+sudo apt-get install k3</code></pre>
+                    
+                    <h3>Fedora/RHEL</h3>
+                    <p>Using the .rpm package:</p>
+                    
+                    <pre><code>sudo rpm -i k3-1.0.0-1.x86_64.rpm</code></pre>
+                    
+                    <p>Or using the package repository:</p>
+                    
+                    <pre><code>sudo dnf install -y dnf-plugins-core
+sudo dnf config-manager --add-repo https://k3-lang.org/rpm/k3.repo
+sudo dnf install k3</code></pre>
+                    
+                    <h3>Arch Linux</h3>
+                    <p>Using the AUR:</p>
+                    
+                    <pre><code>yay -S k3</code></pre>
+                    
+                    <h3>Generic Linux</h3>
+                    <ol>
+                        <li>Download the Linux tarball (.tar.gz) from above.</li>
+                        <li>Extract it:</li>
+                    </ol>
+                    
+                    <pre><code>tar -xzf k3-1.0.0-linux-x64.tar.gz</code></pre>
+                    
+                    <ol start="3">
+                        <li>Move to a directory in your PATH:</li>
+                    </ol>
+                    
+                    <pre><code>sudo mv k3-1.0.0 /usr/local/k3
+sudo ln -s /usr/local/k3/bin/k3 /usr/local/bin/k3</code></pre>
+                    
+                    <ol start="4">
+                        <li>Verify the installation:</li>
+                    </ol>
+                    
+                    <pre><code>k3 --version</code></pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="download-content" id="source-downloads">
+            <div class="download-card">
+                <div class="download-card-header">
+                    <h2 class="download-card-title">K3 Source Code</h2>
+                    <span class="download-card-version">v1.0.0</span>
+                </div>
+                <div class="download-card-content">
+                    <p class="download-card-description">Build K3 from source to get the latest features and optimizations for your specific platform.</p>
+                    
+                    <div class="download-options">
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h3 class="download-option-title">GitHub Repository</h3>
+                            <p class="download-option-size">Clone or fork</p>
+                            <a href="https://github.com/k3-lang/k3" class="download-button" target="_blank">View on GitHub</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-file-archive"></i>
+                            </div>
+                            <h3 class="download-option-title">Source Tarball</h3>
+                            <p class="download-option-size">15.6 MB</p>
+                            <a href="#" class="download-button">Download .tar.gz</a>
+                        </div>
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-file-archive"></i>
+                            </div>
+                            <h3 class="download-option-title">Source ZIP</h3>
+                            <p class="download-option-size">16.2 MB</p>
+                            <a href="#" class="download-button">Download .zip</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-instructions">
+                <h2>Build Instructions</h2>
+                
+                <div class="installation-steps">
+                    <h3>Prerequisites</h3>
+                    <p>To build K3 from source, you'll need:</p>
+                    <ul>
+                        <li>C++ compiler (GCC 9+, Clang 10+, or MSVC 2019+)</li>
+                        <li>CMake 3.15+</li>
+                        <li>Python 3.6+</li>
+                        <li>Git</li>
+                        <li>LLVM 12+ (optional, for JIT compilation)</li>
+                    </ul>
+                    
+                    <h3>Building from Source</h3>
+                    <ol>
+                        <li>Clone the repository:</li>
+                    </ol>
+                    
+                    <pre><code>git clone https://github.com/k3-lang/k3.git
+cd k3</code></pre>
+                    
+                    <ol start="2">
+                        <li>Create a build directory:</li>
+                    </ol>
+                    
+                    <pre><code>mkdir build
+cd build</code></pre>
+                    
+                    <ol start="3">
+                        <li>Configure and build:</li>
+                    </ol>
+                    
+                    <pre><code>cmake ..
+cmake --build . --config Release</code></pre>
+                    
+                    <ol start="4">
+                        <li>Install (optional):</li>
+                    </ol>
+                    
+                    <pre><code>sudo cmake --install .</code></pre>
+                    
+                    <div class="installation-note">
+                        <p><strong>Note:</strong> For more detailed build instructions and options, see the <a href="https://github.com/k3-lang/k3/blob/main/BUILDING.md" target="_blank">BUILDING.md</a> file in the repository.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K3</h2>
+                <p>Fast, Safe, and Expressive</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="../docs.html">Documentation</a></li>
+                        <li><a href="../examples.html">Examples</a></li>
+                        <li><a href="../tutorials.html">Tutorials</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k3-lang/k3" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k3-lang" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k3_lang" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k3-lang" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="../../legal/license.html" target="_blank">License</a></li>
+                        <li><a href="../../legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="../../legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K3 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // OS tabs
+            const downloadTabs = document.querySelectorAll('.download-tab');
+            const downloadContents = document.querySelectorAll('.download-content');
+            
+            downloadTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and content
+                    downloadTabs.forEach(t => t.classList.remove('active'));
+                    downloadContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    const os = tab.getAttribute('data-os');
+                    document.getElementById(`${os}-downloads`).classList.add('active');
+                });
+            });
+            
+            // Auto-select OS based on user's platform
+            const platform = navigator.platform.toLowerCase();
+            let defaultOS = 'windows';
+            
+            if (platform.includes('mac')) {
+                defaultOS = 'macos';
+            } else if (platform.includes('linux') || platform.includes('x11')) {
+                defaultOS = 'linux';
+            }
+            
+            // Trigger click on the appropriate tab
+            document.querySelector(`.download-tab[data-os="${defaultOS}"]`).click();
+        });
+    </script>
+</body>
+</html>
