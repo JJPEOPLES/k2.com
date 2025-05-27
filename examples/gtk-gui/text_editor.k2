@@ -1,0 +1,156 @@
+# K2 GTK GUI - Text Editor Example
+# This example demonstrates a simple text editor application with K2 GTK GUI.
+
+import GtkGui
+import FileSystem
+
+# Create a new application
+app = GtkGui.Application.new("org.k2lang.gtkgui.texteditor", "Text Editor")
+
+# Create a window
+window = GtkGui.Window.new(app, "Text Editor", 800, 600)
+
+# Current file path
+currentFilePath = null
+
+# Create a vertical layout container for the main layout
+mainLayout = GtkGui.Box.new()
+mainLayout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
+mainLayout.setSpacing(0)
+
+# Create a toolbar
+toolbar = GtkGui.Box.new()
+toolbar.setOrientation(GtkGui.ORIENTATION_HORIZONTAL)
+toolbar.setSpacing(5)
+toolbar.setMargin(5)
+
+# Create toolbar buttons
+newButton = GtkGui.Button.new()
+newButton.setLabel("New")
+
+openButton = GtkGui.Button.new()
+openButton.setLabel("Open")
+
+saveButton = GtkGui.Button.new()
+saveButton.setLabel("Save")
+
+saveAsButton = GtkGui.Button.new()
+saveAsButton.setLabel("Save As")
+
+# Create text area
+textArea = GtkGui.TextArea.new()
+textArea.setProperty("monospace", "true")
+textArea.setProperty("wrapMode", "word")
+textArea.setProperty("margin", "10")
+
+# Create status bar
+statusBar = GtkGui.Label.new()
+statusBar.setText("Ready")
+statusBar.setProperty("xalign", "0") # Left-align text
+statusBar.setProperty("margin", "5")
+
+# Function to update the window title
+function updateWindowTitle() {
+  if (currentFilePath) {
+    window.setTitle("Text Editor - " + currentFilePath)
+  } else {
+    window.setTitle("Text Editor - Untitled")
+  }
+}
+
+# Function to create a new document
+function newDocument() {
+  if (textArea.getText().length() > 0) {
+    if (GtkGui.Dialog.showQuestion(window, "New Document", "Do you want to save changes to the current document?")) {
+      saveDocument()
+    }
+  }
+  
+  textArea.setText("")
+  currentFilePath = null
+  updateWindowTitle()
+  statusBar.setText("New document created")
+}
+
+# Function to open a document
+function openDocument() {
+  filePath = GtkGui.Dialog.showFileOpen(window, "Open Document")
+  if (filePath) {
+    try {
+      content = FileSystem.readFile(filePath)
+      textArea.setText(content)
+      currentFilePath = filePath
+      updateWindowTitle()
+      statusBar.setText("Opened: " + filePath)
+    } catch (error) {
+      GtkGui.Dialog.showMessage(window, "Error", "Could not open file: " + error.message)
+      statusBar.setText("Error opening file")
+    }
+  }
+}
+
+# Function to save the current document
+function saveDocument() {
+  if (!currentFilePath) {
+    saveDocumentAs()
+  } else {
+    try {
+      content = textArea.getText()
+      FileSystem.writeFile(currentFilePath, content)
+      statusBar.setText("Saved: " + currentFilePath)
+    } catch (error) {
+      GtkGui.Dialog.showMessage(window, "Error", "Could not save file: " + error.message)
+      statusBar.setText("Error saving file")
+    }
+  }
+}
+
+# Function to save the document as a new file
+function saveDocumentAs() {
+  filePath = GtkGui.Dialog.showFileSave(window, "Save Document", "untitled.txt")
+  if (filePath) {
+    currentFilePath = filePath
+    updateWindowTitle()
+    saveDocument()
+  }
+}
+
+# Set up button click handlers
+newButton.setCallback("clicked", function(widget) {
+  newDocument()
+})
+
+openButton.setCallback("clicked", function(widget) {
+  openDocument()
+})
+
+saveButton.setCallback("clicked", function(widget) {
+  saveDocument()
+})
+
+saveAsButton.setCallback("clicked", function(widget) {
+  saveDocumentAs()
+})
+
+# Add buttons to the toolbar
+toolbar.add(newButton)
+toolbar.add(openButton)
+toolbar.add(saveButton)
+toolbar.add(saveAsButton)
+
+# Add components to the main layout
+mainLayout.add(toolbar)
+mainLayout.add(textArea)
+mainLayout.add(statusBar)
+
+# Set the window content
+window.setContent(mainLayout)
+
+# Initialize the window title
+updateWindowTitle()
+
+# Show the window
+window.show()
+
+# Start the application
+app.run()

@@ -1,0 +1,109 @@
+# K2 GTK GUI - Calculator Example
+# This example demonstrates a simple calculator application with K2 GTK GUI.
+
+import GtkGui
+
+# Create a new application
+app = GtkGui.Application.new("org.k2lang.gtkgui.calculator", "Calculator")
+
+# Create a window
+window = GtkGui.Window.new(app, "Calculator", 300, 400)
+
+# Create a vertical layout container for the main layout
+mainLayout = GtkGui.Box.new()
+mainLayout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
+mainLayout.setSpacing(10)
+mainLayout.setMargin(10)
+
+# Create a display for the calculator
+display = GtkGui.Entry.new()
+display.setProperty("editable", "false")
+display.setProperty("xalign", "1.0") # Right-align text
+display.setProperty("placeholder", "0")
+display.setProperty("fontSize", "24")
+
+# Create a grid for the calculator buttons
+buttonsGrid = GtkGui.Grid.new()
+buttonsGrid.setColumnSpacing(5)
+buttonsGrid.setRowSpacing(5)
+
+# Define button labels
+buttonLabels = [
+  ["7", "8", "9", "/"],
+  ["4", "5", "6", "*"],
+  ["1", "2", "3", "-"],
+  ["0", ".", "=", "+"],
+  ["C", "CE", "(", ")"]
+]
+
+# Current calculation state
+currentValue = ""
+
+# Function to update the display
+function updateDisplay(value) {
+  display.setText(value)
+  currentValue = value
+}
+
+# Function to handle button clicks
+function onButtonClick(label) {
+  if (label == "=") {
+    # Evaluate the expression
+    try {
+      result = eval(currentValue)
+      updateDisplay(result.toString())
+    } catch (error) {
+      updateDisplay("Error")
+    }
+  } else if (label == "C") {
+    # Clear all
+    updateDisplay("")
+  } else if (label == "CE") {
+    # Clear entry (last character)
+    if (currentValue.length() > 0) {
+      updateDisplay(currentValue.substring(0, currentValue.length() - 1))
+    }
+  } else {
+    # Append the button label to the current value
+    updateDisplay(currentValue + label)
+  }
+}
+
+# Create buttons and add them to the grid
+for (row = 0; row < buttonLabels.length(); row++) {
+  for (col = 0; col < buttonLabels[row].length(); col++) {
+    label = buttonLabels[row][col]
+    button = GtkGui.Button.new()
+    button.setLabel(label)
+    
+    # Special styling for operator buttons
+    if (label == "+" || label == "-" || label == "*" || label == "/" || label == "=") {
+      button.setProperty("background", "#4CAF50")
+      button.setProperty("foreground", "white")
+    } else if (label == "C" || label == "CE") {
+      button.setProperty("background", "#F44336")
+      button.setProperty("foreground", "white")
+    }
+    
+    # Set button click handler
+    button.setCallback("clicked", function(widget) {
+      onButtonClick(label)
+    })
+    
+    # Add button to the grid
+    buttonsGrid.attach(button, col, row, 1, 1)
+  }
+}
+
+# Add components to the main layout
+mainLayout.add(display)
+mainLayout.add(buttonsGrid)
+
+# Set the window content
+window.setContent(mainLayout)
+
+# Show the window
+window.show()
+
+# Start the application
+app.run()

@@ -1,0 +1,41 @@
+# K2 GTK GUI - Hello World Example
+import GtkGui
+
+# Create a new application
+app = GtkGui.Application.new("org.k2lang.gtkgui.hello", "Hello World")
+
+# Create a window
+window = GtkGui.Window.new(app, "Hello World", 400, 300)
+
+# Create a vertical layout container
+layout = GtkGui.Box.new()
+layout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
+layout.setSpacing(20)
+layout.setMargin(20)
+
+# Create a heading label
+heading = GtkGui.Label.new()
+heading.setText("Hello, World!")
+heading.setProperty("markup", "<span size='xx-large' weight='bold'>Hello, World!</span>")
+
+# Create a button
+button = GtkGui.Button.new()
+button.setLabel("Click Me")
+
+# Add event listener to the button
+button.setCallback("clicked", function(widget) {
+  GtkGui.Dialog.showMessage(window, "Hello", "You clicked the button!")
+})
+
+# Add components to the layout
+layout.add(heading)
+layout.add(button)
+
+# Set the window content
+window.setContent(layout)
+
+# Show the window
+window.show()
+
+# Start the application
+app.run()

@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K2 GTK GUI Demo - K2 Programming Language</title>
+    <meta name="description" content="Interactive demos of the K2 GTK GUI library, a powerful native GUI toolkit for the K2 programming language.">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .demo-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .demo-header p {
+            font-size: 1.2rem;
+            color: var(--gray-color);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .demo-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .demo-tab {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--gray-color);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .demo-tab.active {
+            color: var(--primary-color);
+        }
+        
+        .demo-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .demo-content {
+            display: none;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .demo-content.active {
+            display: block;
+        }
+        
+        .demo-split {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .demo-code {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .demo-preview {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .demo-window {
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--bg-color);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .demo-window-header {
+            background-color: #2563eb;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .demo-window-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .demo-window-close,
+        .demo-window-minimize,
+        .demo-window-maximize {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: block;
+        }
+        
+        .demo-window-close {
+            background-color: #ff5f56;
+        }
+        
+        .demo-window-minimize {
+            background-color: #ffbd2e;
+        }
+        
+        .demo-window-maximize {
+            background-color: #27c93f;
+        }
+        
+        .demo-window-title {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .demo-window-content {
+            padding: 2rem;
+        }
+        
+        /* Hello World Demo */
+        .hello-world-demo .demo-window-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .hello-world-heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .hello-world-button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .hello-world-button:hover {
+            background-color: #1d4ed8;
+        }
+        
+        /* Calculator Demo */
+        .calculator-demo .demo-window-content {
+            padding: 1rem;
+        }
+        
+        .calculator-display {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.5rem;
+            text-align: right;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .calculator-button {
+            padding: 1rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 0.25rem;
+            background-color: #f1f5f9;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calculator-button:hover {
+            background-color: #e2e8f0;
+        }
+        
+        .calculator-button.operator {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .calculator-button.operator:hover {
+            background-color: #3d8b40;
+        }
+        
+        .calculator-button.clear {
+            background-color: #F44336;
+            color: white;
+        }
+        
+        .calculator-button.clear:hover {
+            background-color: #d32f2f;
+        }
+        
+        /* Text Editor Demo */
+        .text-editor-demo .demo-window-content {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+        }
+        
+        .text-editor-toolbar {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background-color: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .text-editor-button {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 0.25rem;
+            background-color: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .text-editor-button:hover {
+            background-color: #cbd5e1;
+        }
+        
+        .text-editor-textarea {
+            flex: 1;
+            width: 100%;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            border: none;
+            resize: none;
+        }
+        
+        .text-editor-statusbar {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            background-color: #f1f5f9;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="../index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="../index.html#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="../index.html#gtk-gui" class="animated-link">GTK GUI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>K2 GTK GUI Interactive Demos</h1>
+            <p>Experience the power of K2 GTK GUI with these interactive demos. See how easy it is to create native desktop applications with K2.</p>
+        </div>
+        
+        <div class="demo-tabs">
+            <button class="demo-tab active" data-tab="hello-world">Hello World</button>
+            <button class="demo-tab" data-tab="calculator">Calculator</button>
+            <button class="demo-tab" data-tab="text-editor">Text Editor</button>
+        </div>
+        
+        <div id="hello-world" class="demo-content active">
+            <div class="demo-split">
+                <div class="demo-code">
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">hello_world.k2</span>
+                        </div>
+                        <pre><code># K2 GTK GUI - Hello World Example
+import GtkGui
+
+# Create a new application
+app = GtkGui.Application.new("org.k2lang.gtkgui.hello", "Hello World")
+
+# Create a window
+window = GtkGui.Window.new(app, "Hello World", 400, 300)
+
+# Create a vertical layout container
+layout = GtkGui.Box.new()
+layout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
+layout.setSpacing(20)
+layout.setMargin(20)
+
+# Create a heading label
+heading = GtkGui.Label.new()
+heading.setText("Hello, World!")
+heading.setProperty("markup", "&lt;span size='xx-large' weight='bold'&gt;Hello, World!&lt;/span&gt;")
+
+# Create a button
+button = GtkGui.Button.new()
+button.setLabel("Click Me")
+
+# Add event listener to the button
+button.setCallback("clicked", function(widget) {
+  GtkGui.Dialog.showMessage(window, "Hello", "You clicked the button!")
+})
+
+# Add components to the layout
+layout.add(heading)
+layout.add(button)
+
+# Set the window content
+window.setContent(layout)
+
+# Show the window
+window.show()
+
+# Start the application
+app.run()</code></pre>
+                    </div>
+                </div>
+                
+                <div class="demo-preview hello-world-demo">
+                    <div class="demo-window">
+                        <div class="demo-window-header">
+                            <div class="demo-window-controls">
+                                <span class="demo-window-close"></span>
+                                <span class="demo-window-minimize"></span>
+                                <span class="demo-window-maximize"></span>
+                            </div>
+                            <div class="demo-window-title">Hello World</div>
+                        </div>
+                        <div class="demo-window-content">
+                            <div class="hello-world-heading">Hello, World!</div>
+                            <button class="hello-world-button" id="hello-world-button">Click Me</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="calculator" class="demo-content">
+            <div class="demo-split">
+                <div class="demo-code">
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">calculator.k2</span>
+                        </div>
+                        <pre><code># K2 GTK GUI - Calculator Example
+# This example demonstrates a simple calculator application with K2 GTK GUI.
+
+import GtkGui
+
+# Create a new application
+app = GtkGui.Application.new("org.k2lang.gtkgui.calculator", "Calculator")
+
+# Create a window
+window = GtkGui.Window.new(app, "Calculator", 300, 400)
+
+# Create a vertical layout container for the main layout
+mainLayout = GtkGui.Box.new()
+mainLayout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
+mainLayout.setSpacing(10)
+mainLayout.setMargin(10)
+
+# Create a display for the calculator
+display = GtkGui.Entry.new()
+display.setProperty("editable", "false")
+display.setProperty("xalign", "1.0") # Right-align text
+display.setProperty("placeholder", "0")
+display.setProperty("fontSize", "24")
+
+# Create a grid for the calculator buttons
+buttonsGrid = GtkGui.Grid.new()
+buttonsGrid.setColumnSpacing(5)
+buttonsGrid.setRowSpacing(5)
+
+# Define button labels
+buttonLabels = [
+  ["7", "8", "9", "/"],
+  ["4", "5", "6", "*"],
+  ["1", "2", "3", "-"],
+  ["0", ".", "=", "+"],
+  ["C", "CE", "(", ")"]
+]
+
+# Current calculation state
+currentValue = ""
+
+# Function to update the display
+function updateDisplay(value) {
+  display.setText(value)
+  currentValue = value
+}
+
+# Function to handle button clicks
+function onButtonClick(label) {
+  if (label == "=") {
+    # Evaluate the expression
+    try {
+      result = eval(currentValue)
+      updateDisplay(result.toString())
+    } catch (error) {
+      updateDisplay("Error")
+    }
+  } else if (label == "C") {
+    # Clear all
+    updateDisplay("")
+  } else if (label == "CE") {
+    # Clear entry (last character)
+    if (currentValue.length() > 0) {
+      updateDisplay(currentValue.substring(0, currentValue.length() - 1))
+    }
+  } else {
+    # Append the button label to the current value
+    updateDisplay(currentValue + label)
+  }
+}
+
+# Create buttons and add them to the grid
+for (row = 0; row < buttonLabels.length(); row++) {
+  for (col = 0; col < buttonLabels[row].length(); col++) {
+    label = buttonLabels[row][col]
+    button = GtkGui.Button.new()
+    button.setLabel(label)
+    
+    # Special styling for operator buttons
+    if (label == "+" || label == "-" || label == "*" || label == "/" || label == "=") {
+      button.setProperty("background", "#4CAF50")
+      button.setProperty("foreground", "white")
+    } else if (label == "C" || label == "CE") {
+      button.setProperty("background", "#F44336")
+      button.setProperty("foreground", "white")
+    }
+    
+    # Set button click handler
+    button.setCallback("clicked", function(widget) {
+      onButtonClick(label)
+    })
+    
+    # Add button to the grid
+    buttonsGrid.attach(button, col, row, 1, 1)
+  }
+}
+
+# Add components to the main layout
+mainLayout.add(display)
+mainLayout.add(buttonsGrid)
+
+# Set the window content
+window.setContent(mainLayout)
+
+# Show the window
+window.show()
+
+# Start the application
+app.run()</code></pre>
+                    </div>
+                </div>
+                
+                <div class="demo-preview calculator-demo">
+                    <div class="demo-window">
+                        <div class="demo-window-header">
+                            <div class="demo-window-controls">
+                                <span class="demo-window-close"></span>
+                                <span class="demo-window-minimize"></span>
+                                <span class="demo-window-maximize"></span>
+                            </div>
+                            <div class="demo-window-title">Calculator</div>
+                        </div>
+                        <div class="demo-window-content">
+                            <div class="calculator-display" id="calculator-display">0</div>
+                            <div class="calculator-buttons">
+                                <button class="calculator-button">7</button>
+                                <button class="calculator-button">8</button>
+                                <button class="calculator-button">9</button>
+                                <button class="calculator-button operator">/</button>
+                                <button class="calculator-button">4</button>
+                                <button class="calculator-button">5</button>
+                                <button class="calculator-button">6</button>
+                                <button class="calculator-button operator">*</button>
+                                <button class="calculator-button">1</button>
+                                <button class="calculator-button">2</button>
+                                <button class="calculator-button">3</button>
+                                <button class="calculator-button operator">-</button>
+                                <button class="calculator-button">0</button>
+                                <button class="calculator-button">.</button>
+                                <button class="calculator-button operator">=</button>
+                                <button class="calculator-button operator">+</button>
+                                <button class="calculator-button clear">C</button>
+                                <button class="calculator-button clear">CE</button>
+                                <button class="calculator-button">(</button>
+                                <button class="calculator-button">)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="text-editor" class="demo-content">
+            <div class="demo-split">
+                <div class="demo-code">
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">text_editor.k2</span>
+                        </div>
+                        <pre><code># K2 GTK GUI - Text Editor Example
+# This example demonstrates a simple text editor application with K2 GTK GUI.
+
+import GtkGui
+import FileSystem
+
+# Create a new application
+app = GtkGui.Application.new("org.k2lang.gtkgui.texteditor", "Text Editor")
+
+# Create a window
+window = GtkGui.Window.new(app, "Text Editor", 800, 600)
+
+# Current file path
+currentFilePath = null
+
+# Create a vertical layout container for the main layout
+mainLayout = GtkGui.Box.new()
+mainLayout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
+mainLayout.setSpacing(0)
+
+# Create a toolbar
+toolbar = GtkGui.Box.new()
+toolbar.setOrientation(GtkGui.ORIENTATION_HORIZONTAL)
+toolbar.setSpacing(5)
+toolbar.setMargin(5)
+
+# Create toolbar buttons
+newButton = GtkGui.Button.new()
+newButton.setLabel("New")
+
+openButton = GtkGui.Button.new()
+openButton.setLabel("Open")
+
+saveButton = GtkGui.Button.new()
+saveButton.setLabel("Save")
+
+saveAsButton = GtkGui.Button.new()
+saveAsButton.setLabel("Save As")
+
+# Create text area
+textArea = GtkGui.TextArea.new()
+textArea.setProperty("monospace", "true")
+textArea.setProperty("wrapMode", "word")
+textArea.setProperty("margin", "10")
+
+# Create status bar
+statusBar = GtkGui.Label.new()
+statusBar.setText("Ready")
+statusBar.setProperty("xalign", "0") # Left-align text
+statusBar.setProperty("margin", "5")
+
+# Function to update the window title
+function updateWindowTitle() {
+  if (currentFilePath) {
+    window.setTitle("Text Editor - " + currentFilePath)
+  } else {
+    window.setTitle("Text Editor - Untitled")
+  }
+}
+
+# Function to create a new document
+function newDocument() {
+  if (textArea.getText().length() > 0) {
+    if (GtkGui.Dialog.showQuestion(window, "New Document", "Do you want to save changes to the current document?")) {
+      saveDocument()
+    }
+  }
+  
+  textArea.setText("")
+  currentFilePath = null
+  updateWindowTitle()
+  statusBar.setText("New document created")
+}
+
+# Function to open a document
+function openDocument() {
+  filePath = GtkGui.Dialog.showFileOpen(window, "Open Document")
+  if (filePath) {
+    try {
+      content = FileSystem.readFile(filePath)
+      textArea.setText(content)
+      currentFilePath = filePath
+      updateWindowTitle()
+      statusBar.setText("Opened: " + filePath)
+    } catch (error) {
+      GtkGui.Dialog.showMessage(window, "Error", "Could not open file: " + error.message)
+      statusBar.setText("Error opening file")
+    }
+  }
+}
+
+# Function to save the current document
+function saveDocument() {
+  if (!currentFilePath) {
+    saveDocumentAs()
+  } else {
+    try {
+      content = textArea.getText()
+      FileSystem.writeFile(currentFilePath, content)
+      statusBar.setText("Saved: " + currentFilePath)
+    } catch (error) {
+      GtkGui.Dialog.showMessage(window, "Error", "Could not save file: " + error.message)
+      statusBar.setText("Error saving file")
+    }
+  }
+}
+
+# Function to save the document as a new file
+function saveDocumentAs() {
+  filePath = GtkGui.Dialog.showFileSave(window, "Save Document", "untitled.txt")
+  if (filePath) {
+    currentFilePath = filePath
+    updateWindowTitle()
+    saveDocument()
+  }
+}
+
+# Set up button click handlers
+newButton.setCallback("clicked", function(widget) {
+  newDocument()
+})
+
+openButton.setCallback("clicked", function(widget) {
+  openDocument()
+})
+
+saveButton.setCallback("clicked", function(widget) {
+  saveDocument()
+})
+
+saveAsButton.setCallback("clicked", function(widget) {
+  saveDocumentAs()
+})
+
+# Add buttons to the toolbar
+toolbar.add(newButton)
+toolbar.add(openButton)
+toolbar.add(saveButton)
+toolbar.add(saveAsButton)
+
+# Add components to the main layout
+mainLayout.add(toolbar)
+mainLayout.add(textArea)
+mainLayout.add(statusBar)
+
+# Set the window content
+window.setContent(mainLayout)
+
+# Initialize the window title
+updateWindowTitle()
+
+# Show the window
+window.show()
+
+# Start the application
+app.run()</code></pre>
+                    </div>
+                </div>
+                
+                <div class="demo-preview text-editor-demo">
+                    <div class="demo-window">
+                        <div class="demo-window-header">
+                            <div class="demo-window-controls">
+                                <span class="demo-window-close"></span>
+                                <span class="demo-window-minimize"></span>
+                                <span class="demo-window-maximize"></span>
+                            </div>
+                            <div class="demo-window-title">Text Editor - Untitled</div>
+                        </div>
+                        <div class="demo-window-content">
+                            <div class="text-editor-toolbar">
+                                <button class="text-editor-button">New</button>
+                                <button class="text-editor-button">Open</button>
+                                <button class="text-editor-button">Save</button>
+                                <button class="text-editor-button">Save As</button>
+                            </div>
+                            <textarea class="text-editor-textarea" placeholder="Type your text here..."></textarea>
+                            <div class="text-editor-statusbar">Ready</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K2</h2>
+                <p>Ultra-Fast Programming Language</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="../docs.html">Documentation</a></li>
+                        <li><a href="../index.html#examples">Examples</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k2-language/k2" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k2-language" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k2_language" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k2-language" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="../legal/license.html" target="_blank">License</a></li>
+                        <li><a href="../legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="../legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K2 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.demo-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.demo-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Hello World Demo
+        document.getElementById('hello-world-button').addEventListener('click', () => {
+            alert('Hello! You clicked the button!');
+        });
+        
+        // Calculator Demo
+        const calculatorDisplay = document.getElementById('calculator-display');
+        let currentCalculation = '0';
+        
+        document.querySelectorAll('.calculator-demo .calculator-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.textContent;
+                
+                if (value === 'C') {
+                    // Clear all
+                    currentCalculation = '0';
+                } else if (value === 'CE') {
+                    // Clear entry (last character)
+                    currentCalculation = currentCalculation.length > 1 
+                        ? currentCalculation.slice(0, -1) 
+                        : '0';
+                } else if (value === '=') {
+                    // Evaluate expression
+                    try {
+                        currentCalculation = eval(currentCalculation).toString();
+                    } catch (error) {
+                        currentCalculation = 'Error';
+                    }
+                } else {
+                    // Append value
+                    if (currentCalculation === '0' && value !== '.') {
+                        currentCalculation = value;
+                    } else {
+                        currentCalculation += value;
+                    }
+                }
+                
+                calculatorDisplay.textContent = currentCalculation;
+            });
+        });
+        
+        // Text Editor Demo
+        const textEditorButtons = document.querySelectorAll('.text-editor-toolbar .text-editor-button');
+        const textEditorTextarea = document.querySelector('.text-editor-textarea');
+        const textEditorStatusbar = document.querySelector('.text-editor-statusbar');
+        const textEditorWindowTitle = document.querySelector('.text-editor-demo .demo-window-title');
+        
+        textEditorButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                switch (index) {
+                    case 0: // New
+                        if (textEditorTextarea.value.trim() !== '') {
+                            if (confirm('Do you want to save changes to the current document?')) {
+                                alert('Document saved!');
+                            }
+                        }
+                        textEditorTextarea.value = '';
+                        textEditorWindowTitle.textContent = 'Text Editor - Untitled';
+                        textEditorStatusbar.textContent = 'New document created';
+                        break;
+                    case 1: // Open
+                        alert('Open dialog would appear here');
+                        textEditorTextarea.value = 'This is a sample document that was opened.\n\nIt contains multiple lines of text to demonstrate the text editor functionality.';
+                        textEditorWindowTitle.textContent = 'Text Editor - sample.txt';
+                        textEditorStatusbar.textContent = 'Opened: sample.txt';
+                        break;
+                    case 2: // Save
+                        alert('Document saved!');
+                        textEditorStatusbar.textContent = 'Saved: sample.txt';
+                        break;
+                    case 3: // Save As
+                        alert('Save As dialog would appear here');
+                        textEditorWindowTitle.textContent = 'Text Editor - new_document.txt';
+                        textEditorStatusbar.textContent = 'Saved: new_document.txt';
+                        break;
+                }
+            });
+        });
+        
+        textEditorTextarea.addEventListener('input', () => {
+            textEditorStatusbar.textContent = `Editing... ${textEditorTextarea.value.length} characters`;
+        });
+    </script>
+</body>
+</html>
