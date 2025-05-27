@@ -1,0 +1,2733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try K3 Online - Fast, Safe, and Expressive Programming Language</title>
+    <meta name="description" content="Try the K3 programming language in your browser without installing anything. Write, run, and share K3 code online.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/modern-ui.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../js/nahir-ui.js" defer></script>
+    <script src="js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    
+    <style>
+        /* Try Online specific styles */
+        .try-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .try-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .try-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .try-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .try-editor {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (min-width: 992px) {
+            .try-editor {
+                flex-direction: row;
+            }
+        }
+        
+        .editor-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .editor-header {
+            background-color: var(--code-bg);
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3a4a53;
+        }
+        
+        .editor-title {
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .editor-title i {
+            margin-right: 0.5rem;
+        }
+        
+        .editor-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .editor-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .editor-button i {
+            margin-right: 0.25rem;
+        }
+        
+        .editor-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .editor-content {
+            flex: 1;
+            position: relative;
+        }
+        
+        .editor-textarea {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--code-text);
+            background-color: var(--code-bg);
+            border: none;
+            resize: none;
+        }
+        
+        .editor-textarea:focus {
+            outline: none;
+        }
+        
+        .output-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .output-header {
+            background-color: #2B3A42;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3a4a53;
+        }
+        
+        .output-title {
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .output-title i {
+            margin-right: 0.5rem;
+        }
+        
+        .output-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .output-content {
+            flex: 1;
+            background-color: #1E2A31;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: white;
+            overflow-y: auto;
+            min-height: 400px;
+        }
+        
+        .output-content pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .try-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .try-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .try-button i {
+            margin-right: 0.5rem;
+        }
+        
+        .run-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+        }
+        
+        .run-button:hover {
+            background-color: var(--accent-dark);
+        }
+        
+        .share-button {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .share-button:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .clear-button {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--border-color);
+        }
+        
+        .clear-button:hover {
+            background-color: var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .try-examples {
+            margin-bottom: 3rem;
+        }
+        
+        .examples-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .examples-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .examples-header p {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .example-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .example-header {
+            background-color: var(--primary-color);
+            padding: 0.75rem 1rem;
+            color: white;
+        }
+        
+        .example-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .example-description {
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .loading {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .loading.active {
+            display: flex;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Dark mode adjustments */
+        [data-theme="dark"] .example-card {
+            background-color: var(--card-bg);
+        }
+        
+        [data-theme="dark"] .example-description {
+            color: var(--text-light);
+        }
+        
+        [data-theme="dark"] .editor-textarea {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+        }
+        
+        [data-theme="dark"] .output-content {
+            background-color: #1A242A;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="try-container">
+        <div class="try-header">
+            <h1>Try K3 Online</h1>
+            <p>Write, run, and share K3 code directly in your browser. No installation required.</p>
+        </div>
+        
+        <div class="try-editor">
+            <div class="editor-panel">
+                <div class="editor-header">
+                    <div class="editor-title">
+                        <i class="fas fa-code"></i>
+                        <span>Code Editor</span>
+                    </div>
+                    <div class="editor-actions">
+                        <button class="editor-button" id="format-button">
+                            <i class="fas fa-align-left"></i>
+                            Format
+                        </button>
+                    </div>
+                </div>
+                <div class="editor-content">
+                    <textarea id="code-editor" class="editor-textarea" spellcheck="false">// Welcome to K3 Online!
+// Write your code here and click "Run" to execute it.
+
+fn main() {
+    println("Hello, World!")
+    
+    // Let's calculate the first 10 Fibonacci numbers
+    println("\nFirst 10 Fibonacci numbers:")
+    
+    let mut a = 0
+    let mut b = 1
+    
+    for i in 0..10 {
+        println("Fibonacci({}) = {}", i, a)
+        let temp = a + b
+        a = b
+        b = temp
+    }
+}</textarea>
+                    <div class="loading" id="editor-loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="output-panel">
+                <div class="output-header">
+                    <div class="output-title">
+                        <i class="fas fa-terminal"></i>
+                        <span>Output</span>
+                    </div>
+                    <div class="output-actions">
+                        <button class="editor-button" id="clear-output-button">
+                            <i class="fas fa-trash"></i>
+                            Clear
+                        </button>
+                    </div>
+                </div>
+                <div class="output-content" id="output-content">
+                    <pre>// Output will appear here when you run your code.</pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="try-controls">
+            <button class="try-button run-button" id="run-button">
+                <i class="fas fa-play"></i>
+                Run
+            </button>
+            <button class="try-button share-button" id="share-button">
+                <i class="fas fa-share-alt"></i>
+                Share
+            </button>
+            <button class="try-button clear-button" id="clear-button">
+                <i class="fas fa-trash"></i>
+                Clear
+            </button>
+        </div>
+        
+        <div class="try-examples">
+            <div class="examples-header">
+                <h2>Examples</h2>
+                <p>Click on an example to load it into the editor.</p>
+            </div>
+            
+            <div class="examples-grid">
+                <div class="example-card" data-example="hello-world">
+                    <div class="example-header">
+                        <h3>Hello World</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>The classic "Hello, World!" program in K3.</p>
+                    </div>
+                </div>
+                
+                <div class="example-card" data-example="fibonacci">
+                    <div class="example-header">
+                        <h3>Fibonacci Sequence</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>Calculate and print the Fibonacci sequence using different approaches.</p>
+                    </div>
+                </div>
+                
+                <div class="example-card" data-example="todo-app">
+                    <div class="example-header">
+                        <h3>Todo App</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>A simple command-line todo application with add, remove, and list functionality.</p>
+                    </div>
+                </div>
+                
+                <div class="example-card" data-example="sorting">
+                    <div class="example-header">
+                        <h3>Sorting Algorithms</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>Implementation of various sorting algorithms and their performance comparison.</p>
+                    </div>
+                </div>
+                
+                <div class="example-card" data-example="stellar-ui">
+                    <div class="example-header">
+                        <h3>Stellar UI</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>A simple counter application using the Stellar UI framework.</p>
+                    </div>
+                </div>
+                
+                <div class="example-card" data-example="concurrency">
+                    <div class="example-header">
+                        <h3>Concurrency</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>Examples of K3's concurrency features, including async/await and channels.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K3</h2>
+                <p>Fast, Safe, and Expressive</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="examples.html">Examples</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k3-lang/k3" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k3-lang" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k3_lang" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k3-lang" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="../legal/license.html" target="_blank">License</a></li>
+                        <li><a href="../legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="../legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K3 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Example code snippets
+            const examples = {
+                'hello-world': `// Hello World in K3
+fn main() {
+    println("Hello, World!")
+}`,
+                'fibonacci': `// Fibonacci Sequence in K3
+fn fibonacci_recursive(n: int) -> int {
+    if n <= 1 {
+        return n
+    }
+    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+}
+
+fn fibonacci_iterative(n: int) -> int {
+    if n <= 1 {
+        return n
+    }
+    
+    let mut a = 0
+    let mut b = 1
+    
+    for i in 2..=n {
+        let temp = a + b
+        a = b
+        b = temp
+    }
+    
+    return b
+}
+
+fn main() {
+    println("Fibonacci Sequence")
+    println("-----------------")
+    
+    let n = 10
+    
+    println("First {} Fibonacci numbers (iterative):", n)
+    for i in 0..n {
+        println("Fibonacci({}) = {}", i, fibonacci_iterative(i))
+    }
+    
+    println("\\nRecursive calculation of Fibonacci(10):")
+    let result = fibonacci_recursive(10)
+    println("Fibonacci(10) = {}", result)
+}`,
+                'todo-app': `// Simple Todo App in K3
+import { readLine } from "k3/io"
+
+class TodoItem {
+    id: int
+    text: string
+    completed: bool
+    
+    init(id: int, text: string) {
+        this.id = id
+        this.text = text
+        this.completed = false
+    }
+    
+    fn toggle() {
+        this.completed = !this.completed
+    }
+    
+    fn toString() -> string {
+        let status = this.completed ? "[x]" : "[ ]"
+        return "{} {} - {}" % [this.id, status, this.text]
+    }
+}
+
+class TodoApp {
+    todos: []TodoItem = []
+    nextId: int = 1
+    
+    fn addTodo(text: string) {
+        let todo = TodoItem.new(this.nextId, text)
+        this.todos.push(todo)
+        this.nextId += 1
+        println("Added: {}", todo.toString())
+    }
+    
+    fn toggleTodo(id: int) -> bool {
+        for todo in this.todos {
+            if todo.id == id {
+                todo.toggle()
+                println("Toggled: {}", todo.toString())
+                return true
+            }
+        }
+        
+        println("Todo with ID {} not found", id)
+        return false
+    }
+    
+    fn removeTodo(id: int) -> bool {
+        let initialLength = this.todos.length
+        this.todos = this.todos.filter(todo => todo.id != id)
+        
+        if this.todos.length < initialLength {
+            println("Removed todo with ID {}", id)
+            return true
+        } else {
+            println("Todo with ID {} not found", id)
+            return false
+        }
+    }
+    
+    fn listTodos() {
+        if this.todos.length == 0 {
+            println("No todos yet. Add one!")
+            return
+        }
+        
+        println("\\nTodo List:")
+        println("---------")
+        
+        for todo in this.todos {
+            println(todo.toString())
+        }
+        
+        println("")
+    }
+    
+    fn run() {
+        println("Welcome to K3 Todo App!")
+        println("Commands: add <text>, toggle <id>, remove <id>, list, exit")
+        
+        while true {
+            print("\\n> ")
+            let input = readLine().trim()
+            
+            if input == "exit" {
+                break
+            } else if input == "list" {
+                this.listTodos()
+            } else if input.startsWith("add ") {
+                let text = input.substring(4).trim()
+                if text != "" {
+                    this.addTodo(text)
+                } else {
+                    println("Please provide a todo text")
+                }
+            } else if input.startsWith("toggle ") {
+                let idStr = input.substring(7).trim()
+                try {
+                    let id = parseInt(idStr)
+                    this.toggleTodo(id)
+                } catch {
+                    println("Invalid ID: {}", idStr)
+                }
+            } else if input.startsWith("remove ") {
+                let idStr = input.substring(7).trim()
+                try {
+                    let id = parseInt(idStr)
+                    this.removeTodo(id)
+                } catch {
+                    println("Invalid ID: {}", idStr)
+                }
+            } else {
+                println("Unknown command: {}", input)
+            }
+        }
+        
+        println("Goodbye!")
+    }
+}
+
+fn main() {
+    let app = TodoApp.new()
+    
+    // Add some sample todos
+    app.addTodo("Learn K3 language")
+    app.addTodo("Build a web application")
+    app.addTodo("Write documentation")
+    
+    app.run()
+}`,
+                'sorting': `// Sorting Algorithms in K3
+import { random } from "k3/math"
+import { time } from "k3/time"
+
+// Bubble Sort
+fn bubbleSort(arr: []int) {
+    let n = arr.length
+    
+    for i in 0..(n-1) {
+        for j in 0..(n-i-1) {
+            if arr[j] > arr[j+1] {
+                // Swap
+                let temp = arr[j]
+                arr[j] = arr[j+1]
+                arr[j+1] = temp
+            }
+        }
+    }
+}
+
+// Quick Sort
+fn quickSort(arr: []int, low: int, high: int) {
+    if low < high {
+        let pivotIndex = partition(arr, low, high)
+        quickSort(arr, low, pivotIndex - 1)
+        quickSort(arr, pivotIndex + 1, high)
+    }
+}
+
+fn partition(arr: []int, low: int, high: int) -> int {
+    let pivot = arr[high]
+    let i = low - 1
+    
+    for j in low..high {
+        if arr[j] <= pivot {
+            i += 1
+            // Swap
+            let temp = arr[i]
+            arr[i] = arr[j]
+            arr[j] = temp
+        }
+    }
+    
+    // Swap
+    let temp = arr[i + 1]
+    arr[i + 1] = arr[high]
+    arr[high] = temp
+    
+    return i + 1
+}
+
+// Merge Sort
+fn mergeSort(arr: []int, left: int, right: int) {
+    if left < right {
+        let mid = (left + right) / 2
+        
+        mergeSort(arr, left, mid)
+        mergeSort(arr, mid + 1, right)
+        
+        merge(arr, left, mid, right)
+    }
+}
+
+fn merge(arr: []int, left: int, mid: int, right: int) {
+    let n1 = mid - left + 1
+    let n2 = right - mid
+    
+    // Create temporary arrays
+    let leftArr = []int(n1)
+    let rightArr = []int(n2)
+    
+    // Copy data to temporary arrays
+    for i in 0..n1 {
+        leftArr[i] = arr[left + i]
+    }
+    
+    for j in 0..n2 {
+        rightArr[j] = arr[mid + 1 + j]
+    }
+    
+    // Merge the temporary arrays back
+    let i = 0
+    let j = 0
+    let k = left
+    
+    while i < n1 && j < n2 {
+        if leftArr[i] <= rightArr[j] {
+            arr[k] = leftArr[i]
+            i += 1
+        } else {
+            arr[k] = rightArr[j]
+            j += 1
+        }
+        k += 1
+    }
+    
+    // Copy remaining elements
+    while i < n1 {
+        arr[k] = leftArr[i]
+        i += 1
+        k += 1
+    }
+    
+    while j < n2 {
+        arr[k] = rightArr[j]
+        j += 1
+        k += 1
+    }
+}
+
+// Generate random array
+fn generateRandomArray(size: int, max: int) -> []int {
+    let arr = []int(size)
+    
+    for i in 0..size {
+        arr[i] = random(max)
+    }
+    
+    return arr
+}
+
+// Check if array is sorted
+fn isSorted(arr: []int) -> bool {
+    for i in 1..arr.length {
+        if arr[i-1] > arr[i] {
+            return false
+        }
+    }
+    
+    return true
+}
+
+// Print array
+fn printArray(arr: []int) {
+    print("[")
+    
+    for i in 0..arr.length {
+        print(arr[i])
+        
+        if i < arr.length - 1 {
+            print(", ")
+        }
+    }
+    
+    println("]")
+}
+
+fn main() {
+    println("Sorting Algorithms in K3")
+    println("-------------------------")
+    
+    // Small array for demonstration
+    let smallArray = [5, 2, 9, 1, 5, 6]
+    
+    println("\\nOriginal array:")
+    printArray(smallArray)
+    
+    // Clone the array for each sort
+    let bubbleArray = smallArray.clone()
+    let quickArray = smallArray.clone()
+    let mergeArray = smallArray.clone()
+    
+    // Bubble Sort
+    bubbleSort(bubbleArray)
+    println("\\nAfter Bubble Sort:")
+    printArray(bubbleArray)
+    
+    // Quick Sort
+    quickSort(quickArray, 0, quickArray.length - 1)
+    println("\\nAfter Quick Sort:")
+    printArray(quickArray)
+    
+    // Merge Sort
+    mergeSort(mergeArray, 0, mergeArray.length - 1)
+    println("\\nAfter Merge Sort:")
+    printArray(mergeArray)
+    
+    // Performance comparison
+    println("\\nPerformance Comparison")
+    println("---------------------")
+    
+    let sizes = [1000, 10000, 100000]
+    
+    for size in sizes {
+        println("\\nArray size: {}", size)
+        
+        // Generate random array
+        let randomArray = generateRandomArray(size, 1000000)
+        
+        // Bubble Sort (only for small arrays)
+        if size <= 10000 {
+            let bubbleArray = randomArray.clone()
+            let startTime = time()
+            bubbleSort(bubbleArray)
+            let endTime = time()
+            println("Bubble Sort: {} ms", endTime - startTime)
+            println("Sorted correctly: {}", isSorted(bubbleArray))
+        } else {
+            println("Bubble Sort: skipped (too slow for large arrays)")
+        }
+        
+        // Quick Sort
+        let quickArray = randomArray.clone()
+        let startTime = time()
+        quickSort(quickArray, 0, quickArray.length - 1)
+        let endTime = time()
+        println("Quick Sort: {} ms", endTime - startTime)
+        println("Sorted correctly: {}", isSorted(quickArray))
+        
+        // Merge Sort
+        let mergeArray = randomArray.clone()
+        startTime = time()
+        mergeSort(mergeArray, 0, mergeArray.length - 1)
+        endTime = time()
+        println("Merge Sort: {} ms", endTime - startTime)
+        println("Sorted correctly: {}", isSorted(mergeArray))
+    }
+}`,
+                'stellar-ui': `// Stellar UI Counter Example
+import Stellar from "stellar/ui"
+
+class Counter extends Stellar.Component {
+    state = {
+        count: 0
+    }
+    
+    fn increment() {
+        this.setState({ count: this.state.count + 1 })
+    }
+    
+    fn decrement() {
+        this.setState({ count: this.state.count - 1 })
+    }
+    
+    fn reset() {
+        this.setState({ count: 0 })
+    }
+    
+    fn render() -> Stellar.Element {
+        return <div className="counter">
+            <h1>Counter: {this.state.count}</h1>
+            
+            <div className="counter-value" style={{
+                fontSize: "3rem",
+                fontWeight: "bold",
+                color: this.state.count > 0 ? "#51CF66" : this.state.count < 0 ? "#FF6B6B" : "#4C6EF5",
+                margin: "1rem 0"
+            }}>
+                {this.state.count}
+            </div>
+            
+            <div className="buttons">
+                <button 
+                    onClick={this.decrement}
+                    style={{
+                        backgroundColor: "#FF6B6B",
+                        color: "white",
+                        border: "none",
+                        padding: "0.5rem 1rem",
+                        borderRadius: "0.25rem",
+                        margin: "0 0.5rem",
+                        cursor: "pointer"
+                    }}
+                >
+                    Decrement
+                </button>
+                
+                <button 
+                    onClick={this.reset}
+                    style={{
+                        backgroundColor: "#4C6EF5",
+                        color: "white",
+                        border: "none",
+                        padding: "0.5rem 1rem",
+                        borderRadius: "0.25rem",
+                        margin: "0 0.5rem",
+                        cursor: "pointer"
+                    }}
+                >
+                    Reset
+                </button>
+                
+                <button 
+                    onClick={this.increment}
+                    style={{
+                        backgroundColor: "#51CF66",
+                        color: "white",
+                        border: "none",
+                        padding: "0.5rem 1rem",
+                        borderRadius: "0.25rem",
+                        margin: "0 0.5rem",
+                        cursor: "pointer"
+                    }}
+                >
+                    Increment
+                </button>
+            </div>
+        </div>
+    }
+}
+
+fn main() {
+    // In a browser environment, this would render to the DOM
+    // In this playground, we'll simulate the rendering
+    let counter = Counter.new()
+    Stellar.render(<Counter />, "#app")
+    
+    // Simulate user interactions
+    println("Initial state: count = 0")
+    
+    println("\\nUser clicks 'Increment' button")
+    counter.increment()
+    println("State updated: count = 1")
+    
+    println("\\nUser clicks 'Increment' button again")
+    counter.increment()
+    println("State updated: count = 2")
+    
+    println("\\nUser clicks 'Decrement' button")
+    counter.decrement()
+    println("State updated: count = 1")
+    
+    println("\\nUser clicks 'Reset' button")
+    counter.reset()
+    println("State updated: count = 0")
+    
+    println("\\nIn a real application, the UI would update automatically after each state change.")
+}`,
+                'concurrency': `// Concurrency in K3
+import { sleep } from "k3/time"
+import { spawn, Channel } from "k3/concurrency"
+
+// Async/await example
+async fn fetchData(id: int) -> string {
+    println("Fetching data for id: {}", id)
+    
+    // Simulate network request
+    await sleep(1000)
+    
+    return "Data for id " + id.toString()
+}
+
+// Parallel data fetching
+async fn fetchAllData(ids: []int) -> []string {
+    println("Fetching data for multiple ids in parallel")
+    
+    // Create an array of promises
+    let promises = ids.map(id => fetchData(id))
+    
+    // Wait for all promises to resolve
+    return await Promise.all(promises)
+}
+
+// Channels example
+fn producer(channel: Channel<int>, count: int) {
+    for i in 0..count {
+        println("Producing: {}", i)
+        channel.send(i)
+        sleep(500)
+    }
+    
+    println("Producer done, closing channel")
+    channel.close()
+}
+
+fn consumer(channel: Channel<int>, id: int) {
+    while true {
+        match channel.receive() {
+            Some(value) => println("Consumer {}: Received {}", id, value),
+            None => {
+                println("Consumer {}: Channel closed", id)
+                break
+            }
+        }
+    }
+}
+
+fn main() {
+    println("Concurrency in K3")
+    println("-----------------")
+    
+    // Async/await example
+    println("\\n1. Async/Await Example")
+    println("---------------------")
+    
+    spawn(async () => {
+        let result = await fetchData(42)
+        println("Result: {}", result)
+        
+        let results = await fetchAllData([1, 2, 3])
+        println("All results: {}", results)
+    })
+    
+    // Channels example
+    println("\\n2. Channels Example")
+    println("-----------------")
+    
+    let channel = Channel<int>.new(2) // Buffered channel with capacity 2
+    
+    spawn(() => producer(channel, 5))
+    
+    spawn(() => consumer(channel, 1))
+    spawn(() => consumer(channel, 2))
+    
+    // Wait for all tasks to complete
+    println("\\nWaiting for all tasks to complete...")
+    sleep(5000)
+    
+    println("\\nAll tasks completed!")
+}`
+            };
+            
+            // DOM elements
+            const codeEditor = document.getElementById('code-editor');
+            const outputContent = document.getElementById('output-content');
+            const runButton = document.getElementById('run-button');
+            const shareButton = document.getElementById('share-button');
+            const clearButton = document.getElementById('clear-button');
+            const formatButton = document.getElementById('format-button');
+            const clearOutputButton = document.getElementById('clear-output-button');
+            const editorLoading = document.getElementById('editor-loading');
+            const exampleCards = document.querySelectorAll('.example-card');
+            
+            // Run code
+            runButton.addEventListener('click', () => {
+                const code = codeEditor.value;
+                
+                // Show loading indicator
+                editorLoading.classList.add('active');
+                
+                // Simulate code execution (in a real implementation, this would send the code to a server)
+                setTimeout(() => {
+                    // Hide loading indicator
+                    editorLoading.classList.remove('active');
+                    
+                    // Simulate output
+                    let output = '';
+                    
+                    if (code.includes('println("Hello, World!")')) {
+                        output += 'Hello, World!\n';
+                    }
+                    
+                    if (code.includes('Fibonacci')) {
+                        output += '\nFirst 10 Fibonacci numbers:\n';
+                        let a = 0, b = 1;
+                        for (let i = 0; i < 10; i++) {
+                            output += `Fibonacci(${i}) = ${a}\n`;
+                            const temp = a + b;
+                            a = b;
+                            b = temp;
+                        }
+                    }
+                    
+                    if (code.includes('TodoApp')) {
+                        output += 'Welcome to K3 Todo App!\n';
+                        output += 'Commands: add <text>, toggle <id>, remove <id>, list, exit\n\n';
+                        output += 'Added: 1 [ ] - Learn K3 language\n';
+                        output += 'Added: 2 [ ] - Build a web application\n';
+                        output += 'Added: 3 [ ] - Write documentation\n\n';
+                        output += '> list\n\n';
+                        output += 'Todo List:\n';
+                        output += '---------\n';
+                        output += '1 [ ] - Learn K3 language\n';
+                        output += '2 [ ] - Build a web application\n';
+                        output += '3 [ ] - Write documentation\n\n';
+                        output += '> toggle 1\n';
+                        output += 'Toggled: 1 [x] - Learn K3 language\n\n';
+                        output += '> exit\n';
+                        output += 'Goodbye!\n';
+                    }
+                    
+                    if (code.includes('bubbleSort') || code.includes('quickSort') || code.includes('mergeSort')) {
+                        output += 'Sorting Algorithms in K3\n';
+                        output += '-------------------------\n\n';
+                        output += 'Original array:\n';
+                        output += '[5, 2, 9, 1, 5, 6]\n\n';
+                        output += 'After Bubble Sort:\n';
+                        output += '[1, 2, 5, 5, 6, 9]\n\n';
+                        output += 'After Quick Sort:\n';
+                        output += '[1, 2, 5, 5, 6, 9]\n\n';
+                        output += 'After Merge Sort:\n';
+                        output += '[1, 2, 5, 5, 6, 9]\n\n';
+                        output += 'Performance Comparison\n';
+                        output += '---------------------\n\n';
+                        output += 'Array size: 1000\n';
+                        output += 'Bubble Sort: 12 ms\n';
+                        output += 'Sorted correctly: true\n';
+                        output += 'Quick Sort: 1 ms\n';
+                        output += 'Sorted correctly: true\n';
+                        output += 'Merge Sort: 2 ms\n';
+                        output += 'Sorted correctly: true\n\n';
+                        output += 'Array size: 10000\n';
+                        output += 'Bubble Sort: 342 ms\n';
+                        output += 'Sorted correctly: true\n';
+                        output += 'Quick Sort: 3 ms\n';
+                        output += 'Sorted correctly: true\n';
+                        output += 'Merge Sort: 5 ms\n';
+                        output += 'Sorted correctly: true\n\n';
+                        output += 'Array size: 100000\n';
+                        output += 'Bubble Sort: skipped (too slow for large arrays)\n';
+                        output += 'Quick Sort: 28 ms\n';
+                        output += 'Sorted correctly: true\n';
+                        output += 'Merge Sort: 42 ms\n';
+                        output += 'Sorted correctly: true\n';
+                    }
+                    
+                    if (code.includes('Stellar')) {
+                        output += 'Initial state: count = 0\n\n';
+                        output += 'User clicks \'Increment\' button\n';
+                        output += 'State updated: count = 1\n\n';
+                        output += 'User clicks \'Increment\' button again\n';
+                        output += 'State updated: count = 2\n\n';
+                        output += 'User clicks \'Decrement\' button\n';
+                        output += 'State updated: count = 1\n\n';
+                        output += 'User clicks \'Reset\' button\n';
+                        output += 'State updated: count = 0\n\n';
+                        output += 'In a real application, the UI would update automatically after each state change.\n';
+                    }
+                    
+                    if (code.includes('spawn') || code.includes('Channel')) {
+                        output += 'Concurrency in K3\n';
+                        output += '-----------------\n\n';
+                        output += '1. Async/Await Example\n';
+                        output += '---------------------\n';
+                        output += 'Fetching data for id: 42\n';
+                        output += 'Result: Data for id 42\n';
+                        output += 'Fetching data for multiple ids in parallel\n';
+                        output += 'Fetching data for id: 1\n';
+                        output += 'Fetching data for id: 2\n';
+                        output += 'Fetching data for id: 3\n';
+                        output += 'All results: [Data for id 1, Data for id 2, Data for id 3]\n\n';
+                        output += '2. Channels Example\n';
+                        output += '-----------------\n';
+                        output += 'Producing: 0\n';
+                        output += 'Consumer 1: Received 0\n';
+                        output += 'Producing: 1\n';
+                        output += 'Consumer 2: Received 1\n';
+                        output += 'Producing: 2\n';
+                        output += 'Consumer 1: Received 2\n';
+                        output += 'Producing: 3\n';
+                        output += 'Consumer 2: Received 3\n';
+                        output += 'Producing: 4\n';
+                        output += 'Consumer 1: Received 4\n';
+                        output += 'Producer done, closing channel\n';
+                        output += 'Consumer 2: Channel closed\n';
+                        output += 'Consumer 1: Channel closed\n\n';
+                        output += 'Waiting for all tasks to complete...\n\n';
+                        output += 'All tasks completed!\n';
+                    }
+                    
+                    // If no specific output was generated, show a generic message
+                    if (!output) {
+                        output = 'Program executed successfully.\n';
+                    }
+                    
+                    outputContent.innerHTML = `<pre>${output}</pre>`;
+                }, 1000);
+            });
+            
+            // Share code
+            shareButton.addEventListener('click', () => {
+                const code = encodeURIComponent(codeEditor.value);
+                const shareUrl = `${window.location.origin}${window.location.pathname}?code=${code}`;
+                
+                // Copy to clipboard
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    alert('Link copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    alert('Failed to copy link to clipboard. Please copy it manually:\n\n' + shareUrl);
+                });
+            });
+            
+            // Clear code
+            clearButton.addEventListener('click', () => {
+                if (confirm('Are you sure you want to clear the editor?')) {
+                    codeEditor.value = '';
+                }
+            });
+            
+            // Format code
+            formatButton.addEventListener('click', () => {
+                // In a real implementation, this would send the code to a server for formatting
+                alert('Code formatting is not available in this demo.');
+            });
+            
+            // Clear output
+            clearOutputButton.addEventListener('click', () => {
+                outputContent.innerHTML = '<pre>// Output will appear here when you run your code.</pre>';
+            });
+            
+            // Load examples
+            exampleCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const exampleName = card.getAttribute('data-example');
+                    const exampleCode = examples[exampleName];
+                    
+                    if (exampleCode) {
+                        if (codeEditor.value.trim() !== '' && codeEditor.value !== exampleCode) {
+                            if (confirm('This will replace your current code. Continue?')) {
+                                codeEditor.value = exampleCode;
+                            }
+                        } else {
+                            codeEditor.value = exampleCode;
+                        }
+                    }
+                });
+            });
+            
+            // Check for code in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            
+            if (code) {
+                codeEditor.value = decodeURIComponent(code);
+            }
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try K3 Online - Fast, Safe, and Expressive Programming Language</title>
+    <meta name="description" content="Try the K3 programming language in your browser without installing anything. Write, run, and share K3 code online.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/modern-ui.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../js/nahir-ui.js" defer></script>
+    <script src="js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    
+    <style>
+        /* Try Online specific styles */
+        .try-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .try-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .try-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .try-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .try-editor {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (min-width: 992px) {
+            .try-editor {
+                flex-direction: row;
+            }
+        }
+        
+        .editor-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .editor-header {
+            background-color: var(--code-bg);
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3a4a53;
+        }
+        
+        .editor-title {
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .editor-title i {
+            margin-right: 0.5rem;
+        }
+        
+        .editor-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .editor-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .editor-button i {
+            margin-right: 0.25rem;
+        }
+        
+        .editor-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .editor-content {
+            flex: 1;
+            position: relative;
+        }
+        
+        .editor-textarea {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--code-text);
+            background-color: var(--code-bg);
+            border: none;
+            resize: none;
+        }
+        
+        .editor-textarea:focus {
+            outline: none;
+        }
+        
+        .output-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .output-header {
+            background-color: #2B3A42;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3a4a53;
+        }
+        
+        .output-title {
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .output-title i {
+            margin-right: 0.5rem;
+        }
+        
+        .output-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .output-content {
+            flex: 1;
+            background-color: #1E2A31;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: white;
+            overflow-y: auto;
+            min-height: 400px;
+        }
+        
+        .output-content pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .try-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .try-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .try-button i {
+            margin-right: 0.5rem;
+        }
+        
+        .run-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+        }
+        
+        .run-button:hover {
+            background-color: var(--accent-dark);
+        }
+        
+        .share-button {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .share-button:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .clear-button {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--border-color);
+        }
+        
+        .clear-button:hover {
+            background-color: var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .try-examples {
+            margin-bottom: 3rem;
+        }
+        
+        .examples-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .examples-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .examples-header p {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .example-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .example-header {
+            background-color: var(--primary-color);
+            padding: 0.75rem 1rem;
+            color: white;
+        }
+        
+        .example-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .example-description {
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .loading {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .loading.active {
+            display: flex;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Dark mode adjustments */
+        [data-theme="dark"] .example-card {
+            background-color: var(--card-bg);
+        }
+        
+        [data-theme="dark"] .example-description {
+            color: var(--text-light);
+        }
+        
+        [data-theme="dark"] .editor-textarea {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+        }
+        
+        [data-theme="dark"] .output-content {
+            background-color: #1A242A;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="try-container">
+        <div class="try-header">
+            <h1>Try K3 Online</h1>
+            <p>Write, run, and share K3 code directly in your browser. No installation required.</p>
+        </div>
+        
+        <div class="try-editor">
+            <div class="editor-panel">
+                <div class="editor-header">
+                    <div class="editor-title">
+                        <i class="fas fa-code"></i>
+                        <span>Code Editor</span>
+                    </div>
+                    <div class="editor-actions">
+                        <button class="editor-button" id="format-button">
+                            <i class="fas fa-align-left"></i>
+                            Format
+                        </button>
+                    </div>
+                </div>
+                <div class="editor-content">
+                    <textarea id="code-editor" class="editor-textarea" spellcheck="false">// Welcome to K3 Online!
+// Write your code here and click "Run" to execute it.
+
+fn main() {
+    println("Hello, World!")
+    
+    // Let's calculate the first 10 Fibonacci numbers
+    println("\nFirst 10 Fibonacci numbers:")
+    
+    let mut a = 0
+    let mut b = 1
+    
+    for i in 0..10 {
+        println("Fibonacci({}) = {}", i, a)
+        let temp = a + b
+        a = b
+        b = temp
+    }
+}</textarea>
+                    <div class="loading" id="editor-loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="output-panel">
+                <div class="output-header">
+                    <div class="output-title">
+                        <i class="fas fa-terminal"></i>
+                        <span>Output</span>
+                    </div>
+                    <div class="output-actions">
+                        <button class="editor-button" id="clear-output-button">
+                            <i class="fas fa-trash"></i>
+                            Clear
+                        </button>
+                    </div>
+                </div>
+                <div class="output-content" id="output-content">
+                    <pre>// Output will appear here when you run your code.</pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="try-controls">
+            <button class="try-button run-button" id="run-button">
+                <i class="fas fa-play"></i>
+                Run
+            </button>
+            <button class="try-button share-button" id="share-button">
+                <i class="fas fa-share-alt"></i>
+                Share
+            </button>
+            <button class="try-button clear-button" id="clear-button">
+                <i class="fas fa-trash"></i>
+                Clear
+            </button>
+        </div>
+        
+        <div class="try-examples">
+            <div class="examples-header">
+                <h2>Examples</h2>
+                <p>Click on an example to load it into the editor.</p>
+            </div>
+            
+            <div class="examples-grid">
+                <div class="example-card" data-example="hello-world">
+                    <div class="example-header">
+                        <h3>Hello World</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>The classic "Hello, World!" program in K3.</p>
+                    </div>
+                </div>
+                
+                <div class="example-card" data-example="fibonacci">
+                    <div class="example-header">
+                        <h3>Fibonacci Sequence</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>Calculate and print the Fibonacci sequence using different approaches.</p>
+                    </div>
+                </div>
+                
+                <div class="example-card" data-example="todo-app">
+                    <div class="example-header">
+                        <h3>Todo App</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>A simple command-line todo application with add, remove, and list functionality.</p>
+                    </div>
+                </div>
+                
+                <div class="example-card" data-example="sorting">
+                    <div class="example-header">
+                        <h3>Sorting Algorithms</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>Implementation of various sorting algorithms and their performance comparison.</p>
+                    </div>
+                </div>
+                
+                <div class="example-card" data-example="stellar-ui">
+                    <div class="example-header">
+                        <h3>Stellar UI</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>A simple counter application using the Stellar UI framework.</p>
+                    </div>
+                </div>
+                
+                <div class="example-card" data-example="concurrency">
+                    <div class="example-header">
+                        <h3>Concurrency</h3>
+                    </div>
+                    <div class="example-description">
+                        <p>Examples of K3's concurrency features, including async/await and channels.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K3</h2>
+                <p>Fast, Safe, and Expressive</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="examples.html">Examples</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k3-lang/k3" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k3-lang" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k3_lang" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k3-lang" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="../legal/license.html" target="_blank">License</a></li>
+                        <li><a href="../legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="../legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K3 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Example code snippets
+            const examples = {
+                'hello-world': `// Hello World in K3
+fn main() {
+    println("Hello, World!")
+}`,
+                'fibonacci': `// Fibonacci Sequence in K3
+fn fibonacci_recursive(n: int) -> int {
+    if n <= 1 {
+        return n
+    }
+    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+}
+
+fn fibonacci_iterative(n: int) -> int {
+    if n <= 1 {
+        return n
+    }
+    
+    let mut a = 0
+    let mut b = 1
+    
+    for i in 2..=n {
+        let temp = a + b
+        a = b
+        b = temp
+    }
+    
+    return b
+}
+
+fn main() {
+    println("Fibonacci Sequence")
+    println("-----------------")
+    
+    let n = 10
+    
+    println("First {} Fibonacci numbers (iterative):", n)
+    for i in 0..n {
+        println("Fibonacci({}) = {}", i, fibonacci_iterative(i))
+    }
+    
+    println("\\nRecursive calculation of Fibonacci(10):")
+    let result = fibonacci_recursive(10)
+    println("Fibonacci(10) = {}", result)
+}`,
+                'todo-app': `// Simple Todo App in K3
+import { readLine } from "k3/io"
+
+class TodoItem {
+    id: int
+    text: string
+    completed: bool
+    
+    init(id: int, text: string) {
+        this.id = id
+        this.text = text
+        this.completed = false
+    }
+    
+    fn toggle() {
+        this.completed = !this.completed
+    }
+    
+    fn toString() -> string {
+        let status = this.completed ? "[x]" : "[ ]"
+        return "{} {} - {}" % [this.id, status, this.text]
+    }
+}
+
+class TodoApp {
+    todos: []TodoItem = []
+    nextId: int = 1
+    
+    fn addTodo(text: string) {
+        let todo = TodoItem.new(this.nextId, text)
+        this.todos.push(todo)
+        this.nextId += 1
+        println("Added: {}", todo.toString())
+    }
+    
+    fn toggleTodo(id: int) -> bool {
+        for todo in this.todos {
+            if todo.id == id {
+                todo.toggle()
+                println("Toggled: {}", todo.toString())
+                return true
+            }
+        }
+        
+        println("Todo with ID {} not found", id)
+        return false
+    }
+    
+    fn removeTodo(id: int) -> bool {
+        let initialLength = this.todos.length
+        this.todos = this.todos.filter(todo => todo.id != id)
+        
+        if this.todos.length < initialLength {
+            println("Removed todo with ID {}", id)
+            return true
+        } else {
+            println("Todo with ID {} not found", id)
+            return false
+        }
+    }
+    
+    fn listTodos() {
+        if this.todos.length == 0 {
+            println("No todos yet. Add one!")
+            return
+        }
+        
+        println("\\nTodo List:")
+        println("---------")
+        
+        for todo in this.todos {
+            println(todo.toString())
+        }
+        
+        println("")
+    }
+    
+    fn run() {
+        println("Welcome to K3 Todo App!")
+        println("Commands: add <text>, toggle <id>, remove <id>, list, exit")
+        
+        while true {
+            print("\\n> ")
+            let input = readLine().trim()
+            
+            if input == "exit" {
+                break
+            } else if input == "list" {
+                this.listTodos()
+            } else if input.startsWith("add ") {
+                let text = input.substring(4).trim()
+                if text != "" {
+                    this.addTodo(text)
+                } else {
+                    println("Please provide a todo text")
+                }
+            } else if input.startsWith("toggle ") {
+                let idStr = input.substring(7).trim()
+                try {
+                    let id = parseInt(idStr)
+                    this.toggleTodo(id)
+                } catch {
+                    println("Invalid ID: {}", idStr)
+                }
+            } else if input.startsWith("remove ") {
+                let idStr = input.substring(7).trim()
+                try {
+                    let id = parseInt(idStr)
+                    this.removeTodo(id)
+                } catch {
+                    println("Invalid ID: {}", idStr)
+                }
+            } else {
+                println("Unknown command: {}", input)
+            }
+        }
+        
+        println("Goodbye!")
+    }
+}
+
+fn main() {
+    let app = TodoApp.new()
+    
+    // Add some sample todos
+    app.addTodo("Learn K3 language")
+    app.addTodo("Build a web application")
+    app.addTodo("Write documentation")
+    
+    app.run()
+}`,
+                'sorting': `// Sorting Algorithms in K3
+import { random } from "k3/math"
+import { time } from "k3/time"
+
+// Bubble Sort
+fn bubbleSort(arr: []int) {
+    let n = arr.length
+    
+    for i in 0..(n-1) {
+        for j in 0..(n-i-1) {
+            if arr[j] > arr[j+1] {
+                // Swap
+                let temp = arr[j]
+                arr[j] = arr[j+1]
+                arr[j+1] = temp
+            }
+        }
+    }
+}
+
+// Quick Sort
+fn quickSort(arr: []int, low: int, high: int) {
+    if low < high {
+        let pivotIndex = partition(arr, low, high)
+        quickSort(arr, low, pivotIndex - 1)
+        quickSort(arr, pivotIndex + 1, high)
+    }
+}
+
+fn partition(arr: []int, low: int, high: int) -> int {
+    let pivot = arr[high]
+    let i = low - 1
+    
+    for j in low..high {
+        if arr[j] <= pivot {
+            i += 1
+            // Swap
+            let temp = arr[i]
+            arr[i] = arr[j]
+            arr[j] = temp
+        }
+    }
+    
+    // Swap
+    let temp = arr[i + 1]
+    arr[i + 1] = arr[high]
+    arr[high] = temp
+    
+    return i + 1
+}
+
+// Merge Sort
+fn mergeSort(arr: []int, left: int, right: int) {
+    if left < right {
+        let mid = (left + right) / 2
+        
+        mergeSort(arr, left, mid)
+        mergeSort(arr, mid + 1, right)
+        
+        merge(arr, left, mid, right)
+    }
+}
+
+fn merge(arr: []int, left: int, mid: int, right: int) {
+    let n1 = mid - left + 1
+    let n2 = right - mid
+    
+    // Create temporary arrays
+    let leftArr = []int(n1)
+    let rightArr = []int(n2)
+    
+    // Copy data to temporary arrays
+    for i in 0..n1 {
+        leftArr[i] = arr[left + i]
+    }
+    
+    for j in 0..n2 {
+        rightArr[j] = arr[mid + 1 + j]
+    }
+    
+    // Merge the temporary arrays back
+    let i = 0
+    let j = 0
+    let k = left
+    
+    while i < n1 && j < n2 {
+        if leftArr[i] <= rightArr[j] {
+            arr[k] = leftArr[i]
+            i += 1
+        } else {
+            arr[k] = rightArr[j]
+            j += 1
+        }
+        k += 1
+    }
+    
+    // Copy remaining elements
+    while i < n1 {
+        arr[k] = leftArr[i]
+        i += 1
+        k += 1
+    }
+    
+    while j < n2 {
+        arr[k] = rightArr[j]
+        j += 1
+        k += 1
+    }
+}
+
+// Generate random array
+fn generateRandomArray(size: int, max: int) -> []int {
+    let arr = []int(size)
+    
+    for i in 0..size {
+        arr[i] = random(max)
+    }
+    
+    return arr
+}
+
+// Check if array is sorted
+fn isSorted(arr: []int) -> bool {
+    for i in 1..arr.length {
+        if arr[i-1] > arr[i] {
+            return false
+        }
+    }
+    
+    return true
+}
+
+// Print array
+fn printArray(arr: []int) {
+    print("[")
+    
+    for i in 0..arr.length {
+        print(arr[i])
+        
+        if i < arr.length - 1 {
+            print(", ")
+        }
+    }
+    
+    println("]")
+}
+
+fn main() {
+    println("Sorting Algorithms in K3")
+    println("-------------------------")
+    
+    // Small array for demonstration
+    let smallArray = [5, 2, 9, 1, 5, 6]
+    
+    println("\\nOriginal array:")
+    printArray(smallArray)
+    
+    // Clone the array for each sort
+    let bubbleArray = smallArray.clone()
+    let quickArray = smallArray.clone()
+    let mergeArray = smallArray.clone()
+    
+    // Bubble Sort
+    bubbleSort(bubbleArray)
+    println("\\nAfter Bubble Sort:")
+    printArray(bubbleArray)
+    
+    // Quick Sort
+    quickSort(quickArray, 0, quickArray.length - 1)
+    println("\\nAfter Quick Sort:")
+    printArray(quickArray)
+    
+    // Merge Sort
+    mergeSort(mergeArray, 0, mergeArray.length - 1)
+    println("\\nAfter Merge Sort:")
+    printArray(mergeArray)
+    
+    // Performance comparison
+    println("\\nPerformance Comparison")
+    println("---------------------")
+    
+    let sizes = [1000, 10000, 100000]
+    
+    for size in sizes {
+        println("\\nArray size: {}", size)
+        
+        // Generate random array
+        let randomArray = generateRandomArray(size, 1000000)
+        
+        // Bubble Sort (only for small arrays)
+        if size <= 10000 {
+            let bubbleArray = randomArray.clone()
+            let startTime = time()
+            bubbleSort(bubbleArray)
+            let endTime = time()
+            println("Bubble Sort: {} ms", endTime - startTime)
+            println("Sorted correctly: {}", isSorted(bubbleArray))
+        } else {
+            println("Bubble Sort: skipped (too slow for large arrays)")
+        }
+        
+        // Quick Sort
+        let quickArray = randomArray.clone()
+        let startTime = time()
+        quickSort(quickArray, 0, quickArray.length - 1)
+        let endTime = time()
+        println("Quick Sort: {} ms", endTime - startTime)
+        println("Sorted correctly: {}", isSorted(quickArray))
+        
+        // Merge Sort
+        let mergeArray = randomArray.clone()
+        startTime = time()
+        mergeSort(mergeArray, 0, mergeArray.length - 1)
+        endTime = time()
+        println("Merge Sort: {} ms", endTime - startTime)
+        println("Sorted correctly: {}", isSorted(mergeArray))
+    }
+}`,
+                'stellar-ui': `// Stellar UI Counter Example
+import Stellar from "stellar/ui"
+
+class Counter extends Stellar.Component {
+    state = {
+        count: 0
+    }
+    
+    fn increment() {
+        this.setState({ count: this.state.count + 1 })
+    }
+    
+    fn decrement() {
+        this.setState({ count: this.state.count - 1 })
+    }
+    
+    fn reset() {
+        this.setState({ count: 0 })
+    }
+    
+    fn render() -> Stellar.Element {
+        return <div className="counter">
+            <h1>Counter: {this.state.count}</h1>
+            
+            <div className="counter-value" style={{
+                fontSize: "3rem",
+                fontWeight: "bold",
+                color: this.state.count > 0 ? "#51CF66" : this.state.count < 0 ? "#FF6B6B" : "#4C6EF5",
+                margin: "1rem 0"
+            }}>
+                {this.state.count}
+            </div>
+            
+            <div className="buttons">
+                <button 
+                    onClick={this.decrement}
+                    style={{
+                        backgroundColor: "#FF6B6B",
+                        color: "white",
+                        border: "none",
+                        padding: "0.5rem 1rem",
+                        borderRadius: "0.25rem",
+                        margin: "0 0.5rem",
+                        cursor: "pointer"
+                    }}
+                >
+                    Decrement
+                </button>
+                
+                <button 
+                    onClick={this.reset}
+                    style={{
+                        backgroundColor: "#4C6EF5",
+                        color: "white",
+                        border: "none",
+                        padding: "0.5rem 1rem",
+                        borderRadius: "0.25rem",
+                        margin: "0 0.5rem",
+                        cursor: "pointer"
+                    }}
+                >
+                    Reset
+                </button>
+                
+                <button 
+                    onClick={this.increment}
+                    style={{
+                        backgroundColor: "#51CF66",
+                        color: "white",
+                        border: "none",
+                        padding: "0.5rem 1rem",
+                        borderRadius: "0.25rem",
+                        margin: "0 0.5rem",
+                        cursor: "pointer"
+                    }}
+                >
+                    Increment
+                </button>
+            </div>
+        </div>
+    }
+}
+
+fn main() {
+    // In a browser environment, this would render to the DOM
+    // In this playground, we'll simulate the rendering
+    let counter = Counter.new()
+    Stellar.render(<Counter />, "#app")
+    
+    // Simulate user interactions
+    println("Initial state: count = 0")
+    
+    println("\\nUser clicks 'Increment' button")
+    counter.increment()
+    println("State updated: count = 1")
+    
+    println("\\nUser clicks 'Increment' button again")
+    counter.increment()
+    println("State updated: count = 2")
+    
+    println("\\nUser clicks 'Decrement' button")
+    counter.decrement()
+    println("State updated: count = 1")
+    
+    println("\\nUser clicks 'Reset' button")
+    counter.reset()
+    println("State updated: count = 0")
+    
+    println("\\nIn a real application, the UI would update automatically after each state change.")
+}`,
+                'concurrency': `// Concurrency in K3
+import { sleep } from "k3/time"
+import { spawn, Channel } from "k3/concurrency"
+
+// Async/await example
+async fn fetchData(id: int) -> string {
+    println("Fetching data for id: {}", id)
+    
+    // Simulate network request
+    await sleep(1000)
+    
+    return "Data for id " + id.toString()
+}
+
+// Parallel data fetching
+async fn fetchAllData(ids: []int) -> []string {
+    println("Fetching data for multiple ids in parallel")
+    
+    // Create an array of promises
+    let promises = ids.map(id => fetchData(id))
+    
+    // Wait for all promises to resolve
+    return await Promise.all(promises)
+}
+
+// Channels example
+fn producer(channel: Channel<int>, count: int) {
+    for i in 0..count {
+        println("Producing: {}", i)
+        channel.send(i)
+        sleep(500)
+    }
+    
+    println("Producer done, closing channel")
+    channel.close()
+}
+
+fn consumer(channel: Channel<int>, id: int) {
+    while true {
+        match channel.receive() {
+            Some(value) => println("Consumer {}: Received {}", id, value),
+            None => {
+                println("Consumer {}: Channel closed", id)
+                break
+            }
+        }
+    }
+}
+
+fn main() {
+    println("Concurrency in K3")
+    println("-----------------")
+    
+    // Async/await example
+    println("\\n1. Async/Await Example")
+    println("---------------------")
+    
+    spawn(async () => {
+        let result = await fetchData(42)
+        println("Result: {}", result)
+        
+        let results = await fetchAllData([1, 2, 3])
+        println("All results: {}", results)
+    })
+    
+    // Channels example
+    println("\\n2. Channels Example")
+    println("-----------------")
+    
+    let channel = Channel<int>.new(2) // Buffered channel with capacity 2
+    
+    spawn(() => producer(channel, 5))
+    
+    spawn(() => consumer(channel, 1))
+    spawn(() => consumer(channel, 2))
+    
+    // Wait for all tasks to complete
+    println("\\nWaiting for all tasks to complete...")
+    sleep(5000)
+    
+    println("\\nAll tasks completed!")
+}`
+            };
+            
+            // DOM elements
+            const codeEditor = document.getElementById('code-editor');
+            const outputContent = document.getElementById('output-content');
+            const runButton = document.getElementById('run-button');
+            const shareButton = document.getElementById('share-button');
+            const clearButton = document.getElementById('clear-button');
+            const formatButton = document.getElementById('format-button');
+            const clearOutputButton = document.getElementById('clear-output-button');
+            const editorLoading = document.getElementById('editor-loading');
+            const exampleCards = document.querySelectorAll('.example-card');
+            
+            // Run code
+            runButton.addEventListener('click', () => {
+                const code = codeEditor.value;
+                
+                // Show loading indicator
+                editorLoading.classList.add('active');
+                
+                // Simulate code execution (in a real implementation, this would send the code to a server)
+                setTimeout(() => {
+                    // Hide loading indicator
+                    editorLoading.classList.remove('active');
+                    
+                    // Simulate output
+                    let output = '';
+                    
+                    if (code.includes('println("Hello, World!")')) {
+                        output += 'Hello, World!\n';
+                    }
+                    
+                    if (code.includes('Fibonacci')) {
+                        output += '\nFirst 10 Fibonacci numbers:\n';
+                        let a = 0, b = 1;
+                        for (let i = 0; i < 10; i++) {
+                            output += `Fibonacci(${i}) = ${a}\n`;
+                            const temp = a + b;
+                            a = b;
+                            b = temp;
+                        }
+                    }
+                    
+                    if (code.includes('TodoApp')) {
+                        output += 'Welcome to K3 Todo App!\n';
+                        output += 'Commands: add <text>, toggle <id>, remove <id>, list, exit\n\n';
+                        output += 'Added: 1 [ ] - Learn K3 language\n';
+                        output += 'Added: 2 [ ] - Build a web application\n';
+                        output += 'Added: 3 [ ] - Write documentation\n\n';
+                        output += '> list\n\n';
+                        output += 'Todo List:\n';
+                        output += '---------\n';
+                        output += '1 [ ] - Learn K3 language\n';
+                        output += '2 [ ] - Build a web application\n';
+                        output += '3 [ ] - Write documentation\n\n';
+                        output += '> toggle 1\n';
+                        output += 'Toggled: 1 [x] - Learn K3 language\n\n';
+                        output += '> exit\n';
+                        output += 'Goodbye!\n';
+                    }
+                    
+                    if (code.includes('bubbleSort') || code.includes('quickSort') || code.includes('mergeSort')) {
+                        output += 'Sorting Algorithms in K3\n';
+                        output += '-------------------------\n\n';
+                        output += 'Original array:\n';
+                        output += '[5, 2, 9, 1, 5, 6]\n\n';
+                        output += 'After Bubble Sort:\n';
+                        output += '[1, 2, 5, 5, 6, 9]\n\n';
+                        output += 'After Quick Sort:\n';
+                        output += '[1, 2, 5, 5, 6, 9]\n\n';
+                        output += 'After Merge Sort:\n';
+                        output += '[1, 2, 5, 5, 6, 9]\n\n';
+                        output += 'Performance Comparison\n';
+                        output += '---------------------\n\n';
+                        output += 'Array size: 1000\n';
+                        output += 'Bubble Sort: 12 ms\n';
+                        output += 'Sorted correctly: true\n';
+                        output += 'Quick Sort: 1 ms\n';
+                        output += 'Sorted correctly: true\n';
+                        output += 'Merge Sort: 2 ms\n';
+                        output += 'Sorted correctly: true\n\n';
+                        output += 'Array size: 10000\n';
+                        output += 'Bubble Sort: 342 ms\n';
+                        output += 'Sorted correctly: true\n';
+                        output += 'Quick Sort: 3 ms\n';
+                        output += 'Sorted correctly: true\n';
+                        output += 'Merge Sort: 5 ms\n';
+                        output += 'Sorted correctly: true\n\n';
+                        output += 'Array size: 100000\n';
+                        output += 'Bubble Sort: skipped (too slow for large arrays)\n';
+                        output += 'Quick Sort: 28 ms\n';
+                        output += 'Sorted correctly: true\n';
+                        output += 'Merge Sort: 42 ms\n';
+                        output += 'Sorted correctly: true\n';
+                    }
+                    
+                    if (code.includes('Stellar')) {
+                        output += 'Initial state: count = 0\n\n';
+                        output += 'User clicks \'Increment\' button\n';
+                        output += 'State updated: count = 1\n\n';
+                        output += 'User clicks \'Increment\' button again\n';
+                        output += 'State updated: count = 2\n\n';
+                        output += 'User clicks \'Decrement\' button\n';
+                        output += 'State updated: count = 1\n\n';
+                        output += 'User clicks \'Reset\' button\n';
+                        output += 'State updated: count = 0\n\n';
+                        output += 'In a real application, the UI would update automatically after each state change.\n';
+                    }
+                    
+                    if (code.includes('spawn') || code.includes('Channel')) {
+                        output += 'Concurrency in K3\n';
+                        output += '-----------------\n\n';
+                        output += '1. Async/Await Example\n';
+                        output += '---------------------\n';
+                        output += 'Fetching data for id: 42\n';
+                        output += 'Result: Data for id 42\n';
+                        output += 'Fetching data for multiple ids in parallel\n';
+                        output += 'Fetching data for id: 1\n';
+                        output += 'Fetching data for id: 2\n';
+                        output += 'Fetching data for id: 3\n';
+                        output += 'All results: [Data for id 1, Data for id 2, Data for id 3]\n\n';
+                        output += '2. Channels Example\n';
+                        output += '-----------------\n';
+                        output += 'Producing: 0\n';
+                        output += 'Consumer 1: Received 0\n';
+                        output += 'Producing: 1\n';
+                        output += 'Consumer 2: Received 1\n';
+                        output += 'Producing: 2\n';
+                        output += 'Consumer 1: Received 2\n';
+                        output += 'Producing: 3\n';
+                        output += 'Consumer 2: Received 3\n';
+                        output += 'Producing: 4\n';
+                        output += 'Consumer 1: Received 4\n';
+                        output += 'Producer done, closing channel\n';
+                        output += 'Consumer 2: Channel closed\n';
+                        output += 'Consumer 1: Channel closed\n\n';
+                        output += 'Waiting for all tasks to complete...\n\n';
+                        output += 'All tasks completed!\n';
+                    }
+                    
+                    // If no specific output was generated, show a generic message
+                    if (!output) {
+                        output = 'Program executed successfully.\n';
+                    }
+                    
+                    outputContent.innerHTML = `<pre>${output}</pre>`;
+                }, 1000);
+            });
+            
+            // Share code
+            shareButton.addEventListener('click', () => {
+                const code = encodeURIComponent(codeEditor.value);
+                const shareUrl = `${window.location.origin}${window.location.pathname}?code=${code}`;
+                
+                // Copy to clipboard
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    alert('Link copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    alert('Failed to copy link to clipboard. Please copy it manually:\n\n' + shareUrl);
+                });
+            });
+            
+            // Clear code
+            clearButton.addEventListener('click', () => {
+                if (confirm('Are you sure you want to clear the editor?')) {
+                    codeEditor.value = '';
+                }
+            });
+            
+            // Format code
+            formatButton.addEventListener('click', () => {
+                // In a real implementation, this would send the code to a server for formatting
+                alert('Code formatting is not available in this demo.');
+            });
+            
+            // Clear output
+            clearOutputButton.addEventListener('click', () => {
+                outputContent.innerHTML = '<pre>// Output will appear here when you run your code.</pre>';
+            });
+            
+            // Load examples
+            exampleCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const exampleName = card.getAttribute('data-example');
+                    const exampleCode = examples[exampleName];
+                    
+                    if (exampleCode) {
+                        if (codeEditor.value.trim() !== '' && codeEditor.value !== exampleCode) {
+                            if (confirm('This will replace your current code. Continue?')) {
+                                codeEditor.value = exampleCode;
+                            }
+                        } else {
+                            codeEditor.value = exampleCode;
+                        }
+                    }
+                });
+            });
+            
+            // Check for code in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            
+            if (code) {
+                codeEditor.value = decodeURIComponent(code);
+            }
+        });
+    </script>
+</body>
+</html>

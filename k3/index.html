@@ -1,0 +1,2399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K3 Language - Next Generation Programming</title>
+    <meta name="description" content="K3 is a modern, high-performance programming language designed for building everything from system utilities to web applications.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/modern-ui.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../js/nahir-ui.js" defer></script>
+    <script src="js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    
+    <style>
+        /* K3-specific overrides */
+        :root {
+            --primary-color: #4C6EF5;
+            --primary-dark: #3B5BDC;
+            --primary-light: #748FFA;
+            --accent-color: #51CF66;
+        }
+        
+        .logo h1 {
+            color: var(--primary-color);
+        }
+        
+        .tagline {
+            color: var(--text-light);
+        }
+        
+        .stellar-link {
+            color: var(--accent-color);
+        }
+        
+        .stellar-link::after {
+            background-color: var(--accent-color);
+        }
+        
+        .download-btn {
+            background-color: var(--primary-color);
+        }
+        
+        .download-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .primary-btn {
+            background-color: var(--primary-color);
+        }
+        
+        .primary-btn:hover {
+            background-color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features" class="animated-link">Features</a></li>
+                <li><a href="#performance" class="animated-link">Performance</a></li>
+                <li><a href="#examples" class="animated-link">Examples</a></li>
+                <li><a href="#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>K3 Language</h1>
+            <h2>The <span class="highlight">Next Generation</span> of K2</h2>
+            <p>A modern, high-performance language for building everything from system utilities to web applications, combining the speed of K2 with powerful new features.</p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn primary-btn">Download K3</a>
+                <a href="try.html" class="btn secondary-btn">Try Online</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">hello_world.k3</span>
+                </div>
+                <pre><code>// Hello World in K3
+fn main() {
+    println("Hello, World!")
+}
+
+// A more interactive example
+import Stellar from "stellar/ui"
+
+class Greeting extends Stellar.Component {
+    state = {
+        name: "World"
+    }
+    
+    fn updateName(event) {
+        this.setState({ name: event.target.value })
+    }
+    
+    fn render() -> Stellar.Element {
+        return &lt;div&gt;
+            &lt;h1&gt;Hello, {this.state.name}!&lt;/h1&gt;
+            &lt;input 
+                type="text" 
+                value={this.state.name}
+                onChange={this.updateName}
+                placeholder="Enter your name"
+            /&gt;
+        &lt;/div&gt;
+    }
+}
+
+// Start the UI application
+Stellar.render(&lt;Greeting /&gt;, "#app")</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2>Why Choose K3?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>High Performance</h3>
+                <p>K3's hybrid compilation system delivers performance comparable to C++ and Rust, with the development speed of scripting languages.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Memory Safety</h3>
+                <p>Enjoy memory safety without garbage collection through K3's ownership model and automatic reference counting.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Expressive Syntax</h3>
+                <p>Write clean, readable code with K3's modern syntax that combines the best features from multiple programming paradigms.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h3>Powerful Type System</h3>
+                <p>Strong static typing with powerful inference, gradual typing for flexibility, and algebraic data types with pattern matching.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3>Concurrency First</h3>
+                <p>Built-in support for async/await, lightweight threads, and actor model for distributed computing.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <h3>Stellar UI</h3>
+                <p>Create beautiful, responsive user interfaces for desktop and web with the built-in Stellar UI framework.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="performance" class="performance">
+        <h2>Exceptional Performance</h2>
+        <p class="section-intro">K3 delivers exceptional performance across a wide range of workloads, from number crunching to web servers.</p>
+        
+        <div class="performance-chart">
+            <div class="chart-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+            <div class="performance-stats">
+                <div class="stat-card">
+                    <h3>95%</h3>
+                    <p>of C++ performance</p>
+                </div>
+                <div class="stat-card">
+                    <h3>10-100x</h3>
+                    <p>faster than Python</p>
+                </div>
+                <div class="stat-card">
+                    <h3>5-20x</h3>
+                    <p>faster than JavaScript</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="benchmark-tabs">
+            <button class="benchmark-tab active" data-benchmark="fibonacci">Fibonacci</button>
+            <button class="benchmark-tab" data-benchmark="sorting">Sorting</button>
+            <button class="benchmark-tab" data-benchmark="webserver">Web Server</button>
+            <button class="benchmark-tab" data-benchmark="image">Image Processing</button>
+        </div>
+        
+        <div class="benchmark-description">
+            <h3>Fibonacci Benchmark</h3>
+            <p>This benchmark calculates the 45th Fibonacci number recursively, testing function call overhead and integer performance. K3's optimizing compiler produces code that's within 5% of C++ performance while maintaining memory safety.</p>
+        </div>
+    </section>
+
+    <section id="examples" class="examples">
+        <h2>Code Examples</h2>
+        <p class="section-intro">Explore K3's elegant syntax and powerful features through these examples.</p>
+        
+        <div class="example-tabs">
+            <button class="example-tab active" data-example="hello">Hello World</button>
+            <button class="example-tab" data-example="fibonacci">Fibonacci</button>
+            <button class="example-tab" data-example="webserver">Web Server</button>
+            <button class="example-tab" data-example="ui">Stellar UI</button>
+            <button class="example-tab" data-example="concurrency">Concurrency</button>
+        </div>
+        
+        <div class="example-content active" id="hello-example">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">hello_world.k3</span>
+                </div>
+                <pre><code>// Hello World in K3
+fn main() {
+    println("Hello, World!")
+}
+
+// With command-line arguments
+fn main(args: []string) {
+    if args.length > 1 {
+        println("Hello, {}!", args[1])
+    } else {
+        println("Hello, World!")
+    }
+}
+
+// As a web application
+import Stellar from "stellar/ui"
+import Http from "k3/http"
+
+fn main() {
+    let server = Http.createServer((req, res) => {
+        res.setHeader("Content-Type", "text/html")
+        res.write("&lt;h1&gt;Hello, World!&lt;/h1&gt;")
+        res.end()
+    })
+    
+    server.listen(8080, () => {
+        println("Server running at http://localhost:8080")
+    })
+}</code></pre>
+            </div>
+            <div class="example-description">
+                <h3>Hello World</h3>
+                <p>The classic "Hello, World!" program in K3, showing both a simple console application and a basic web server. K3's clean syntax makes even the simplest programs readable and maintainable.</p>
+                <a href="examples/hello-world.html" class="example-link">See more Hello World examples</a>
+            </div>
+        </div>
+        
+        <div class="example-content" id="fibonacci-example">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">fibonacci.k3</span>
+                </div>
+                <pre><code>// Recursive Fibonacci
+fn fibonacci_recursive(n: int) -> int {
+    if n <= 1 {
+        return n
+    }
+    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+}
+
+// Iterative Fibonacci
+fn fibonacci_iterative(n: int) -> int {
+    if n <= 1 {
+        return n
+    }
+    
+    let a = 0
+    let b = 1
+    
+    for i in 2..=n {
+        let temp = a + b
+        a = b
+        b = temp
+    }
+    
+    return b
+}
+
+// Memoized Fibonacci
+fn fibonacci_memoized(n: int) -> int {
+    static memo: Map&lt;int, int&gt; = {}
+    
+    if memo.has(n) {
+        return memo.get(n)
+    }
+    
+    if n <= 1 {
+        return n
+    }
+    
+    let result = fibonacci_memoized(n - 1) + fibonacci_memoized(n - 2)
+    memo.set(n, result)
+    
+    return result
+}
+
+fn main() {
+    let n = 40
+    
+    let start = Time.now()
+    let result1 = fibonacci_recursive(n)
+    let end = Time.now()
+    println("Recursive: {} (took {} ms)", result1, end - start)
+    
+    start = Time.now()
+    let result2 = fibonacci_iterative(n)
+    end = Time.now()
+    println("Iterative: {} (took {} ms)", result2, end - start)
+    
+    start = Time.now()
+    let result3 = fibonacci_memoized(n)
+    end = Time.now()
+    println("Memoized: {} (took {} ms)", result3, end - start)
+}</code></pre>
+            </div>
+            <div class="example-description">
+                <h3>Fibonacci Sequence</h3>
+                <p>This example demonstrates three different approaches to calculating Fibonacci numbers: recursive, iterative, and memoized. It showcases K3's performance and syntax for functions, loops, and data structures.</p>
+                <a href="examples/fibonacci.html" class="example-link">See more algorithm examples</a>
+            </div>
+        </div>
+        
+        <div class="example-content" id="webserver-example">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">web_server.k3</span>
+                </div>
+                <pre><code>import Http from "k3/http"
+import Router from "k3/http/router"
+import { readFile } from "k3/fs"
+
+// Create a new router
+let router = Router.new()
+
+// Define routes
+router.get("/", async (req, res) => {
+    let content = await readFile("public/index.html", "utf-8")
+    res.setHeader("Content-Type", "text/html")
+    res.write(content)
+    res.end()
+})
+
+router.get("/api/users", async (req, res) => {
+    let users = [
+        { id: 1, name: "Alice" },
+        { id: 2, name: "Bob" },
+        { id: 3, name: "Charlie" }
+    ]
+    
+    res.setHeader("Content-Type", "application/json")
+    res.write(JSON.stringify(users))
+    res.end()
+})
+
+router.post("/api/users", async (req, res) => {
+    let body = await req.json()
+    
+    // Validate input
+    if (!body.name) {
+        res.statusCode = 400
+        res.write(JSON.stringify({ error: "Name is required" }))
+        res.end()
+        return
+    }
+    
+    // In a real app, you would save to a database
+    res.statusCode = 201
+    res.setHeader("Content-Type", "application/json")
+    res.write(JSON.stringify({ id: 4, name: body.name }))
+    res.end()
+})
+
+// Create and start the server
+fn main() {
+    let server = Http.createServer((req, res) => {
+        router.handle(req, res)
+    })
+    
+    server.listen(3000, () => {
+        println("Server running at http://localhost:3000")
+    })
+}</code></pre>
+            </div>
+            <div class="example-description">
+                <h3>Web Server</h3>
+                <p>A simple but powerful web server using K3's HTTP library. This example demonstrates routing, async/await for file operations, and JSON handling. K3's concurrency model makes it easy to build high-performance web applications.</p>
+                <a href="examples/web-server.html" class="example-link">See more web server examples</a>
+            </div>
+        </div>
+        
+        <div class="example-content" id="ui-example">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">counter_app.k3</span>
+                </div>
+                <pre><code>import Stellar from "stellar/ui"
+
+// A simple counter component
+class Counter extends Stellar.Component {
+    state = {
+        count: 0
+    }
+    
+    fn increment() {
+        this.setState({ count: this.state.count + 1 })
+    }
+    
+    fn decrement() {
+        this.setState({ count: this.state.count - 1 })
+    }
+    
+    fn render() -> Stellar.Element {
+        return &lt;div className="counter"&gt;
+            &lt;h1&gt;Counter: {this.state.count}&lt;/h1&gt;
+            &lt;div className="buttons"&gt;
+                &lt;button onClick={this.decrement}&gt;-&lt;/button&gt;
+                &lt;button onClick={this.increment}&gt;+&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    }
+}
+
+// A todo list component
+class TodoList extends Stellar.Component {
+    state = {
+        todos: [],
+        newTodo: ""
+    }
+    
+    fn handleInput(event) {
+        this.setState({ newTodo: event.target.value })
+    }
+    
+    fn addTodo() {
+        if (this.state.newTodo.trim() == "") {
+            return
+        }
+        
+        let newTodos = [...this.state.todos, {
+            id: Date.now(),
+            text: this.state.newTodo,
+            completed: false
+        }]
+        
+        this.setState({
+            todos: newTodos,
+            newTodo: ""
+        })
+    }
+    
+    fn toggleTodo(id) {
+        let newTodos = this.state.todos.map(todo => {
+            if (todo.id == id) {
+                return { ...todo, completed: !todo.completed }
+            }
+            return todo
+        })
+        
+        this.setState({ todos: newTodos })
+    }
+    
+    fn render() -> Stellar.Element {
+        return &lt;div className="todo-list"&gt;
+            &lt;h1&gt;Todo List&lt;/h1&gt;
+            
+            &lt;div className="add-todo"&gt;
+                &lt;input 
+                    type="text" 
+                    value={this.state.newTodo}
+                    onChange={this.handleInput}
+                    placeholder="Add a new todo"
+                /&gt;
+                &lt;button onClick={this.addTodo}&gt;Add&lt;/button&gt;
+            &lt;/div&gt;
+            
+            &lt;ul&gt;
+                {this.state.todos.map(todo => (
+                    &lt;li 
+                        key={todo.id}
+                        className={todo.completed ? "completed" : ""}
+                        onClick={() => this.toggleTodo(todo.id)}
+                    &gt;
+                        {todo.text}
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    }
+}
+
+// Main app component
+class App extends Stellar.Component {
+    fn render() -> Stellar.Element {
+        return &lt;div className="app"&gt;
+            &lt;Counter /&gt;
+            &lt;TodoList /&gt;
+        &lt;/div&gt;
+    }
+}
+
+// Start the UI application
+fn main() {
+    Stellar.render(&lt;App /&gt;, "#app")
+}</code></pre>
+            </div>
+            <div class="example-description">
+                <h3>Stellar UI</h3>
+                <p>This example demonstrates K3's built-in UI framework, Stellar. It shows how to create components with state, handle events, and build a reactive user interface. Stellar works for both web and desktop applications with the same code.</p>
+                <a href="examples/stellar-ui.html" class="example-link">See more Stellar UI examples</a>
+            </div>
+        </div>
+        
+        <div class="example-content" id="concurrency-example">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">concurrency.k3</span>
+                </div>
+                <pre><code>import { sleep } from "k3/time"
+import { spawn, Channel } from "k3/concurrency"
+
+// Async/await example
+async fn fetchUserData(userId: int) -> Result&lt;User, Error&gt; {
+    println("Fetching user data for user {}", userId)
+    
+    // Simulate network request
+    await sleep(1000)
+    
+    // Simulate successful response
+    return Ok(User {
+        id: userId,
+        name: "User " + userId.toString(),
+        email: "user" + userId.toString() + "@example.com"
+    })
+}
+
+// Parallel data fetching
+async fn fetchAllUsers(userIds: []int) -> []User {
+    // Create an array of promises
+    let promises = userIds.map(id => fetchUserData(id))
+    
+    // Wait for all promises to resolve
+    let results = await Promise.all(promises)
+    
+    // Filter out errors and return successful results
+    return results
+        .filter(result => result.isOk())
+        .map(result => result.unwrap())
+}
+
+// Actor model example
+actor Counter {
+    count: int = 0
+    
+    fn increment() {
+        this.count += 1
+        return this.count
+    }
+    
+    fn decrement() {
+        this.count -= 1
+        return this.count
+    }
+    
+    fn getCount() {
+        return this.count
+    }
+}
+
+// Channels and lightweight threads
+fn producer(channel: Channel&lt;int&gt;, count: int) {
+    for i in 0..count {
+        println("Producing: {}", i)
+        channel.send(i)
+        sleep(100)
+    }
+    channel.close()
+}
+
+fn consumer(channel: Channel&lt;int&gt;, id: int) {
+    while true {
+        match channel.receive() {
+            Some(value) => println("Consumer {}: Received {}", id, value),
+            None => break // Channel closed
+        }
+    }
+}
+
+fn main() {
+    // Async/await example
+    spawn(async () => {
+        let users = await fetchAllUsers([1, 2, 3, 4, 5])
+        println("Fetched {} users", users.length)
+        
+        for user in users {
+            println("User: {}", user.name)
+        }
+    })
+    
+    // Actor example
+    let counter = Counter.new()
+    
+    for i in 0..5 {
+        spawn(async () => {
+            for j in 0..10 {
+                let value = await counter.increment()
+                println("Actor thread {}: Counter = {}", i, value)
+                await sleep(100)
+            }
+        })
+    }
+    
+    // Channels example
+    let channel = Channel&lt;int&gt;.new(5) // Buffered channel with capacity 5
+    
+    spawn(() => producer(channel, 10))
+    
+    for i in 0..3 {
+        spawn(() => consumer(channel, i))
+    }
+    
+    // Wait for all tasks to complete
+    sleep(3000)
+}</code></pre>
+            </div>
+            <div class="example-description">
+                <h3>Concurrency</h3>
+                <p>This example showcases K3's powerful concurrency features, including async/await, lightweight threads, channels, and the actor model. K3 makes it easy to write concurrent code that's both efficient and safe.</p>
+                <a href="examples/concurrency.html" class="example-link">See more concurrency examples</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="stellar" class="stellar">
+        <h2>Stellar UI Framework</h2>
+        <p class="section-intro">Build beautiful, responsive user interfaces for desktop and web with K3's built-in UI framework.</p>
+        
+        <div class="stellar-features">
+            <div class="stellar-feature-card">
+                <div class="stellar-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3>Declarative Syntax</h3>
+                <p>Create UIs with a familiar, component-based approach using JSX-like syntax that's easy to read and maintain.</p>
+            </div>
+            <div class="stellar-feature-card">
+                <div class="stellar-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3>Reactive State</h3>
+                <p>Components automatically update when their state changes, making it easy to build dynamic, interactive applications.</p>
+            </div>
+            <div class="stellar-feature-card">
+                <div class="stellar-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Cross-Platform</h3>
+                <p>Write once, run anywhere. Stellar works on desktop, web, and mobile with the same codebase.</p>
+            </div>
+            <div class="stellar-feature-card">
+                <div class="stellar-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>High Performance</h3>
+                <p>Stellar's virtual DOM and efficient rendering engine ensure smooth, responsive UIs even for complex applications.</p>
+            </div>
+        </div>
+        
+        <div class="stellar-demo">
+            <div class="stellar-code">
+                <div class="code-window">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">todo_app.k3</span>
+                    </div>
+                    <pre><code>import Stellar from "stellar/ui"
+
+class TodoApp extends Stellar.Component {
+    state = {
+        todos: [],
+        newTodo: ""
+    }
+    
+    fn handleInput(event) {
+        this.setState({ newTodo: event.target.value })
+    }
+    
+    fn addTodo() {
+        if (this.state.newTodo.trim() == "") {
+            return
+        }
+        
+        let newTodos = [...this.state.todos, {
+            id: Date.now(),
+            text: this.state.newTodo,
+            completed: false
+        }]
+        
+        this.setState({
+            todos: newTodos,
+            newTodo: ""
+        })
+    }
+    
+    fn toggleTodo(id) {
+        let newTodos = this.state.todos.map(todo => {
+            if (todo.id == id) {
+                return { ...todo, completed: !todo.completed }
+            }
+            return todo
+        })
+        
+        this.setState({ todos: newTodos })
+    }
+    
+    fn deleteTodo(id) {
+        let newTodos = this.state.todos.filter(todo => todo.id != id)
+        this.setState({ todos: newTodos })
+    }
+    
+    fn render() -> Stellar.Element {
+        return &lt;div className="todo-app"&gt;
+            &lt;h1&gt;Todo List&lt;/h1&gt;
+            
+            &lt;div className="add-todo"&gt;
+                &lt;input 
+                    type="text" 
+                    value={this.state.newTodo}
+                    onChange={this.handleInput}
+                    onKeyPress={e => e.key == "Enter" && this.addTodo()}
+                    placeholder="Add a new todo"
+                /&gt;
+                &lt;button onClick={this.addTodo}&gt;Add&lt;/button&gt;
+            &lt;/div&gt;
+            
+            &lt;ul className="todo-list"&gt;
+                {this.state.todos.length == 0 ? (
+                    &lt;li className="empty-state"&gt;No todos yet. Add one above!&lt;/li&gt;
+                ) : (
+                    this.state.todos.map(todo => (
+                        &lt;li key={todo.id} className={todo.completed ? "completed" : ""}&gt;
+                            &lt;input 
+                                type="checkbox" 
+                                checked={todo.completed}
+                                onChange={() => this.toggleTodo(todo.id)}
+                            /&gt;
+                            &lt;span&gt;{todo.text}&lt;/span&gt;
+                            &lt;button 
+                                className="delete-btn"
+                                onClick={() => this.deleteTodo(todo.id)}
+                            &gt;
+                                Delete
+                            &lt;/button&gt;
+                        &lt;/li&gt;
+                    ))
+                )}
+            &lt;/ul&gt;
+            
+            {this.state.todos.length > 0 && (
+                &lt;div className="todo-stats"&gt;
+                    {this.state.todos.filter(t => !t.completed).length} items left
+                &lt;/div&gt;
+            )}
+        &lt;/div&gt;
+    }
+}
+
+fn main() {
+    Stellar.render(&lt;TodoApp /&gt;, "#app")
+}</code></pre>
+                </div>
+            </div>
+            <div class="stellar-preview">
+                <div class="preview-window">
+                    <div class="preview-header">
+                        <div class="preview-controls">
+                            <span class="preview-close"></span>
+                            <span class="preview-minimize"></span>
+                            <span class="preview-maximize"></span>
+                        </div>
+                        <div class="preview-title">Todo App</div>
+                    </div>
+                    <div class="preview-content">
+                        <div class="todo-app-preview">
+                            <h1>Todo List</h1>
+                            <div class="add-todo-preview">
+                                <input type="text" placeholder="Add a new todo">
+                                <button>Add</button>
+                            </div>
+                            <ul class="todo-list-preview">
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Learn K3 language</span>
+                                    <button class="delete-btn-preview">Delete</button>
+                                </li>
+                                <li class="completed-preview">
+                                    <input type="checkbox" checked>
+                                    <span>Install K3 compiler</span>
+                                    <button class="delete-btn-preview">Delete</button>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Build a Stellar UI application</span>
+                                    <button class="delete-btn-preview">Delete</button>
+                                </li>
+                            </ul>
+                            <div class="todo-stats-preview">
+                                2 items left
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stellar-cta">
+            <a href="stellar-ui.html" class="btn primary-btn">Learn More About Stellar UI</a>
+            <a href="examples/stellar-ui.html" class="btn secondary-btn">See More Examples</a>
+        </div>
+    </section>
+
+    <section id="download" class="download">
+        <h2>Download K3</h2>
+        <p class="section-intro">Get started with K3 today. Available for Windows, macOS, and Linux.</p>
+        
+        <div class="download-options">
+            <div class="download-option">
+                <div class="download-icon">
+                    <i class="fab fa-windows"></i>
+                </div>
+                <h3>Windows</h3>
+                <a href="downloads/k3-1.0.0-windows-x64.exe" class="download-button">Download for Windows</a>
+                <p class="download-details">Windows 10/11 (64-bit)</p>
+            </div>
+            <div class="download-option">
+                <div class="download-icon">
+                    <i class="fab fa-apple"></i>
+                </div>
+                <h3>macOS</h3>
+                <a href="downloads/k3-1.0.0-macos-x64.pkg" class="download-button">Download for macOS</a>
+                <p class="download-details">macOS 11+ (Intel/Apple Silicon)</p>
+            </div>
+            <div class="download-option">
+                <div class="download-icon">
+                    <i class="fab fa-linux"></i>
+                </div>
+                <h3>Linux</h3>
+                <a href="downloads/k3-1.0.0-linux-x64.tar.gz" class="download-button">Download for Linux</a>
+                <p class="download-details">Ubuntu, Debian, Fedora, etc.</p>
+            </div>
+        </div>
+        
+        <div class="installation-instructions">
+            <h3>Installation Instructions</h3>
+            <div class="installation-tabs">
+                <button class="installation-tab active" data-os="windows">Windows</button>
+                <button class="installation-tab" data-os="macos">macOS</button>
+                <button class="installation-tab" data-os="linux">Linux</button>
+            </div>
+            <div class="installation-content active" id="windows-installation">
+                <ol>
+                    <li>Download the Windows installer (.exe)</li>
+                    <li>Run the installer and follow the prompts</li>
+                    <li>Open Command Prompt and type <code>k3 --version</code> to verify installation</li>
+                </ol>
+            </div>
+            <div class="installation-content" id="macos-installation">
+                <ol>
+                    <li>Download the macOS package (.pkg)</li>
+                    <li>Open the package and follow the installation wizard</li>
+                    <li>Open Terminal and type <code>k3 --version</code> to verify installation</li>
+                </ol>
+            </div>
+            <div class="installation-content" id="linux-installation">
+                <ol>
+                    <li>Download the Linux tarball (.tar.gz)</li>
+                    <li>Extract it: <code>tar -xzf k3-1.0.0-linux-x64.tar.gz</code></li>
+                    <li>Move to a directory in your PATH: <code>sudo mv k3-1.0.0 /usr/local/k3</code></li>
+                    <li>Create a symlink: <code>sudo ln -s /usr/local/k3/bin/k3 /usr/local/bin/k3</code></li>
+                    <li>Verify installation: <code>k3 --version</code></li>
+                </ol>
+                <p>Alternatively, use your package manager:</p>
+                <pre><code>// Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install k3
+
+// Fedora
+sudo dnf install k3
+
+// Arch Linux
+sudo pacman -S k3</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="community">
+        <h2>Join the K3 Community</h2>
+        <p class="section-intro">Connect with other K3 developers, get help, and contribute to the language.</p>
+        
+        <div class="community-links">
+            <a href="https://github.com/k3-lang/k3" class="community-link" target="_blank">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://discord.gg/k3-lang" class="community-link" target="_blank">
+                <i class="fab fa-discord"></i>
+                <span>Discord</span>
+            </a>
+            <a href="https://twitter.com/k3_lang" class="community-link" target="_blank">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+            </a>
+            <a href="https://stackoverflow.com/questions/tagged/k3-lang" class="community-link" target="_blank">
+                <i class="fab fa-stack-overflow"></i>
+                <span>Stack Overflow</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K3</h2>
+                <p>Fast, Safe, and Expressive</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="examples.html">Examples</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k3-lang/k3" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k3-lang" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k3_lang" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k3-lang" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="../legal/license.html" target="_blank">License</a></li>
+                        <li><a href="../legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="../legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K3 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Performance chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            const performanceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Fibonacci', 'Sorting', 'Web Server', 'Image Processing'],
+                    datasets: [
+                        {
+                            label: 'K3',
+                            data: [95, 98, 92, 94],
+                            backgroundColor: '#4C6EF5'
+                        },
+                        {
+                            label: 'C++',
+                            data: [100, 100, 85, 100],
+                            backgroundColor: '#FF6B6B'
+                        },
+                        {
+                            label: 'Rust',
+                            data: [98, 99, 90, 97],
+                            backgroundColor: '#51CF66'
+                        },
+                        {
+                            label: 'Go',
+                            data: [85, 90, 95, 80],
+                            backgroundColor: '#FAB005'
+                        },
+                        {
+                            label: 'JavaScript',
+                            data: [25, 30, 75, 20],
+                            backgroundColor: '#BE4BDB'
+                        },
+                        {
+                            label: 'Python',
+                            data: [10, 15, 40, 12],
+                            backgroundColor: '#20C997'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Performance (higher is better)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Benchmark tabs
+            document.querySelectorAll('.benchmark-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.benchmark-tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Update benchmark description
+                    const benchmark = tab.getAttribute('data-benchmark');
+                    const description = document.querySelector('.benchmark-description');
+                    
+                    switch (benchmark) {
+                        case 'fibonacci':
+                            description.innerHTML = `
+                                <h3>Fibonacci Benchmark</h3>
+                                <p>This benchmark calculates the 45th Fibonacci number recursively, testing function call overhead and integer performance. K3's optimizing compiler produces code that's within 5% of C++ performance while maintaining memory safety.</p>
+                            `;
+                            break;
+                        case 'sorting':
+                            description.innerHTML = `
+                                <h3>Sorting Benchmark</h3>
+                                <p>This benchmark sorts an array of 1 million random integers, testing memory management and algorithm implementation. K3's efficient memory model and optimized standard library deliver performance comparable to C++ and Rust.</p>
+                            `;
+                            break;
+                        case 'webserver':
+                            description.innerHTML = `
+                                <h3>Web Server Benchmark</h3>
+                                <p>This benchmark measures requests per second for a simple HTTP server. K3's lightweight concurrency model and efficient I/O handling make it competitive with Go for web server workloads, while being much faster than JavaScript and Python.</p>
+                            `;
+                            break;
+                        case 'image':
+                            description.innerHTML = `
+                                <h3>Image Processing Benchmark</h3>
+                                <p>This benchmark applies a Gaussian blur to a 4K image, testing floating-point performance and memory throughput. K3's SIMD optimizations and cache-friendly memory layout enable performance close to C++ for this compute-intensive task.</p>
+                            `;
+                            break;
+                    }
+                    
+                    // Update chart data
+                    switch (benchmark) {
+                        case 'fibonacci':
+                            performanceChart.data.datasets[0].data = [95, 98, 92, 94];
+                            performanceChart.data.datasets[1].data = [100, 100, 85, 100];
+                            performanceChart.data.datasets[2].data = [98, 99, 90, 97];
+                            performanceChart.data.datasets[3].data = [85, 90, 95, 80];
+                            performanceChart.data.datasets[4].data = [25, 30, 75, 20];
+                            performanceChart.data.datasets[5].data = [10, 15, 40, 12];
+                            break;
+                        case 'sorting':
+                            performanceChart.data.datasets[0].data = [98, 98, 92, 94];
+                            performanceChart.data.datasets[1].data = [100, 100, 85, 100];
+                            performanceChart.data.datasets[2].data = [99, 99, 90, 97];
+                            performanceChart.data.datasets[3].data = [90, 90, 95, 80];
+                            performanceChart.data.datasets[4].data = [30, 30, 75, 20];
+                            performanceChart.data.datasets[5].data = [15, 15, 40, 12];
+                            break;
+                        case 'webserver':
+                            performanceChart.data.datasets[0].data = [92, 98, 92, 94];
+                            performanceChart.data.datasets[1].data = [85, 100, 85, 100];
+                            performanceChart.data.datasets[2].data = [90, 99, 90, 97];
+                            performanceChart.data.datasets[3].data = [95, 90, 95, 80];
+                            performanceChart.data.datasets[4].data = [75, 30, 75, 20];
+                            performanceChart.data.datasets[5].data = [40, 15, 40, 12];
+                            break;
+                        case 'image':
+                            performanceChart.data.datasets[0].data = [94, 98, 92, 94];
+                            performanceChart.data.datasets[1].data = [100, 100, 85, 100];
+                            performanceChart.data.datasets[2].data = [97, 99, 90, 97];
+                            performanceChart.data.datasets[3].data = [80, 90, 95, 80];
+                            performanceChart.data.datasets[4].data = [20, 30, 75, 20];
+                            performanceChart.data.datasets[5].data = [12, 15, 40, 12];
+                            break;
+                    }
+                    
+                    performanceChart.update();
+                });
+            });
+            
+            // Example tabs
+            document.querySelectorAll('.example-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and content
+                    document.querySelectorAll('.example-tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    document.querySelectorAll('.example-content').forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    const example = tab.getAttribute('data-example');
+                    document.getElementById(`${example}-example`).classList.add('active');
+                });
+            });
+            
+            // Installation tabs
+            document.querySelectorAll('.installation-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and content
+                    document.querySelectorAll('.installation-tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    document.querySelectorAll('.installation-content').forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    const os = tab.getAttribute('data-os');
+                    document.getElementById(`${os}-installation`).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K3 Language - Next Generation Programming</title>
+    <meta name="description" content="K3 is a modern, high-performance programming language designed for building everything from system utilities to web applications.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/modern-ui.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../js/nahir-ui.js" defer></script>
+    <script src="js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    
+    <style>
+        /* K3-specific overrides */
+        :root {
+            --primary-color: #4C6EF5;
+            --primary-dark: #3B5BDC;
+            --primary-light: #748FFA;
+            --accent-color: #51CF66;
+        }
+        
+        .logo h1 {
+            color: var(--primary-color);
+        }
+        
+        .tagline {
+            color: var(--text-light);
+        }
+        
+        .stellar-link {
+            color: var(--accent-color);
+        }
+        
+        .stellar-link::after {
+            background-color: var(--accent-color);
+        }
+        
+        .download-btn {
+            background-color: var(--primary-color);
+        }
+        
+        .download-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .primary-btn {
+            background-color: var(--primary-color);
+        }
+        
+        .primary-btn:hover {
+            background-color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features" class="animated-link">Features</a></li>
+                <li><a href="#performance" class="animated-link">Performance</a></li>
+                <li><a href="#examples" class="animated-link">Examples</a></li>
+                <li><a href="#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>K3 Language</h1>
+            <h2>The <span class="highlight">Next Generation</span> of K2</h2>
+            <p>A modern, high-performance language for building everything from system utilities to web applications, combining the speed of K2 with powerful new features.</p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn primary-btn">Download K3</a>
+                <a href="try.html" class="btn secondary-btn">Try Online</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">hello_world.k3</span>
+                </div>
+                <pre><code>// Hello World in K3
+fn main() {
+    println("Hello, World!")
+}
+
+// A more interactive example
+import Stellar from "stellar/ui"
+
+class Greeting extends Stellar.Component {
+    state = {
+        name: "World"
+    }
+    
+    fn updateName(event) {
+        this.setState({ name: event.target.value })
+    }
+    
+    fn render() -> Stellar.Element {
+        return &lt;div&gt;
+            &lt;h1&gt;Hello, {this.state.name}!&lt;/h1&gt;
+            &lt;input 
+                type="text" 
+                value={this.state.name}
+                onChange={this.updateName}
+                placeholder="Enter your name"
+            /&gt;
+        &lt;/div&gt;
+    }
+}
+
+// Start the UI application
+Stellar.render(&lt;Greeting /&gt;, "#app")</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2>Why Choose K3?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>High Performance</h3>
+                <p>K3's hybrid compilation system delivers performance comparable to C++ and Rust, with the development speed of scripting languages.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Memory Safety</h3>
+                <p>Enjoy memory safety without garbage collection through K3's ownership model and automatic reference counting.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Expressive Syntax</h3>
+                <p>Write clean, readable code with K3's modern syntax that combines the best features from multiple programming paradigms.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h3>Powerful Type System</h3>
+                <p>Strong static typing with powerful inference, gradual typing for flexibility, and algebraic data types with pattern matching.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3>Concurrency First</h3>
+                <p>Built-in support for async/await, lightweight threads, and actor model for distributed computing.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <h3>Stellar UI</h3>
+                <p>Create beautiful, responsive user interfaces for desktop and web with the built-in Stellar UI framework.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="performance" class="performance">
+        <h2>Exceptional Performance</h2>
+        <p class="section-intro">K3 delivers exceptional performance across a wide range of workloads, from number crunching to web servers.</p>
+        
+        <div class="performance-chart">
+            <div class="chart-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+            <div class="performance-stats">
+                <div class="stat-card">
+                    <h3>95%</h3>
+                    <p>of C++ performance</p>
+                </div>
+                <div class="stat-card">
+                    <h3>10-100x</h3>
+                    <p>faster than Python</p>
+                </div>
+                <div class="stat-card">
+                    <h3>5-20x</h3>
+                    <p>faster than JavaScript</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="benchmark-tabs">
+            <button class="benchmark-tab active" data-benchmark="fibonacci">Fibonacci</button>
+            <button class="benchmark-tab" data-benchmark="sorting">Sorting</button>
+            <button class="benchmark-tab" data-benchmark="webserver">Web Server</button>
+            <button class="benchmark-tab" data-benchmark="image">Image Processing</button>
+        </div>
+        
+        <div class="benchmark-description">
+            <h3>Fibonacci Benchmark</h3>
+            <p>This benchmark calculates the 45th Fibonacci number recursively, testing function call overhead and integer performance. K3's optimizing compiler produces code that's within 5% of C++ performance while maintaining memory safety.</p>
+        </div>
+    </section>
+
+    <section id="examples" class="examples">
+        <h2>Code Examples</h2>
+        <p class="section-intro">Explore K3's elegant syntax and powerful features through these examples.</p>
+        
+        <div class="example-tabs">
+            <button class="example-tab active" data-example="hello">Hello World</button>
+            <button class="example-tab" data-example="fibonacci">Fibonacci</button>
+            <button class="example-tab" data-example="webserver">Web Server</button>
+            <button class="example-tab" data-example="ui">Stellar UI</button>
+            <button class="example-tab" data-example="concurrency">Concurrency</button>
+        </div>
+        
+        <div class="example-content active" id="hello-example">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">hello_world.k3</span>
+                </div>
+                <pre><code>// Hello World in K3
+fn main() {
+    println("Hello, World!")
+}
+
+// With command-line arguments
+fn main(args: []string) {
+    if args.length > 1 {
+        println("Hello, {}!", args[1])
+    } else {
+        println("Hello, World!")
+    }
+}
+
+// As a web application
+import Stellar from "stellar/ui"
+import Http from "k3/http"
+
+fn main() {
+    let server = Http.createServer((req, res) => {
+        res.setHeader("Content-Type", "text/html")
+        res.write("&lt;h1&gt;Hello, World!&lt;/h1&gt;")
+        res.end()
+    })
+    
+    server.listen(8080, () => {
+        println("Server running at http://localhost:8080")
+    })
+}</code></pre>
+            </div>
+            <div class="example-description">
+                <h3>Hello World</h3>
+                <p>The classic "Hello, World!" program in K3, showing both a simple console application and a basic web server. K3's clean syntax makes even the simplest programs readable and maintainable.</p>
+                <a href="examples/hello-world.html" class="example-link">See more Hello World examples</a>
+            </div>
+        </div>
+        
+        <div class="example-content" id="fibonacci-example">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">fibonacci.k3</span>
+                </div>
+                <pre><code>// Recursive Fibonacci
+fn fibonacci_recursive(n: int) -> int {
+    if n <= 1 {
+        return n
+    }
+    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+}
+
+// Iterative Fibonacci
+fn fibonacci_iterative(n: int) -> int {
+    if n <= 1 {
+        return n
+    }
+    
+    let a = 0
+    let b = 1
+    
+    for i in 2..=n {
+        let temp = a + b
+        a = b
+        b = temp
+    }
+    
+    return b
+}
+
+// Memoized Fibonacci
+fn fibonacci_memoized(n: int) -> int {
+    static memo: Map&lt;int, int&gt; = {}
+    
+    if memo.has(n) {
+        return memo.get(n)
+    }
+    
+    if n <= 1 {
+        return n
+    }
+    
+    let result = fibonacci_memoized(n - 1) + fibonacci_memoized(n - 2)
+    memo.set(n, result)
+    
+    return result
+}
+
+fn main() {
+    let n = 40
+    
+    let start = Time.now()
+    let result1 = fibonacci_recursive(n)
+    let end = Time.now()
+    println("Recursive: {} (took {} ms)", result1, end - start)
+    
+    start = Time.now()
+    let result2 = fibonacci_iterative(n)
+    end = Time.now()
+    println("Iterative: {} (took {} ms)", result2, end - start)
+    
+    start = Time.now()
+    let result3 = fibonacci_memoized(n)
+    end = Time.now()
+    println("Memoized: {} (took {} ms)", result3, end - start)
+}</code></pre>
+            </div>
+            <div class="example-description">
+                <h3>Fibonacci Sequence</h3>
+                <p>This example demonstrates three different approaches to calculating Fibonacci numbers: recursive, iterative, and memoized. It showcases K3's performance and syntax for functions, loops, and data structures.</p>
+                <a href="examples/fibonacci.html" class="example-link">See more algorithm examples</a>
+            </div>
+        </div>
+        
+        <div class="example-content" id="webserver-example">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">web_server.k3</span>
+                </div>
+                <pre><code>import Http from "k3/http"
+import Router from "k3/http/router"
+import { readFile } from "k3/fs"
+
+// Create a new router
+let router = Router.new()
+
+// Define routes
+router.get("/", async (req, res) => {
+    let content = await readFile("public/index.html", "utf-8")
+    res.setHeader("Content-Type", "text/html")
+    res.write(content)
+    res.end()
+})
+
+router.get("/api/users", async (req, res) => {
+    let users = [
+        { id: 1, name: "Alice" },
+        { id: 2, name: "Bob" },
+        { id: 3, name: "Charlie" }
+    ]
+    
+    res.setHeader("Content-Type", "application/json")
+    res.write(JSON.stringify(users))
+    res.end()
+})
+
+router.post("/api/users", async (req, res) => {
+    let body = await req.json()
+    
+    // Validate input
+    if (!body.name) {
+        res.statusCode = 400
+        res.write(JSON.stringify({ error: "Name is required" }))
+        res.end()
+        return
+    }
+    
+    // In a real app, you would save to a database
+    res.statusCode = 201
+    res.setHeader("Content-Type", "application/json")
+    res.write(JSON.stringify({ id: 4, name: body.name }))
+    res.end()
+})
+
+// Create and start the server
+fn main() {
+    let server = Http.createServer((req, res) => {
+        router.handle(req, res)
+    })
+    
+    server.listen(3000, () => {
+        println("Server running at http://localhost:3000")
+    })
+}</code></pre>
+            </div>
+            <div class="example-description">
+                <h3>Web Server</h3>
+                <p>A simple but powerful web server using K3's HTTP library. This example demonstrates routing, async/await for file operations, and JSON handling. K3's concurrency model makes it easy to build high-performance web applications.</p>
+                <a href="examples/web-server.html" class="example-link">See more web server examples</a>
+            </div>
+        </div>
+        
+        <div class="example-content" id="ui-example">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">counter_app.k3</span>
+                </div>
+                <pre><code>import Stellar from "stellar/ui"
+
+// A simple counter component
+class Counter extends Stellar.Component {
+    state = {
+        count: 0
+    }
+    
+    fn increment() {
+        this.setState({ count: this.state.count + 1 })
+    }
+    
+    fn decrement() {
+        this.setState({ count: this.state.count - 1 })
+    }
+    
+    fn render() -> Stellar.Element {
+        return &lt;div className="counter"&gt;
+            &lt;h1&gt;Counter: {this.state.count}&lt;/h1&gt;
+            &lt;div className="buttons"&gt;
+                &lt;button onClick={this.decrement}&gt;-&lt;/button&gt;
+                &lt;button onClick={this.increment}&gt;+&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    }
+}
+
+// A todo list component
+class TodoList extends Stellar.Component {
+    state = {
+        todos: [],
+        newTodo: ""
+    }
+    
+    fn handleInput(event) {
+        this.setState({ newTodo: event.target.value })
+    }
+    
+    fn addTodo() {
+        if (this.state.newTodo.trim() == "") {
+            return
+        }
+        
+        let newTodos = [...this.state.todos, {
+            id: Date.now(),
+            text: this.state.newTodo,
+            completed: false
+        }]
+        
+        this.setState({
+            todos: newTodos,
+            newTodo: ""
+        })
+    }
+    
+    fn toggleTodo(id) {
+        let newTodos = this.state.todos.map(todo => {
+            if (todo.id == id) {
+                return { ...todo, completed: !todo.completed }
+            }
+            return todo
+        })
+        
+        this.setState({ todos: newTodos })
+    }
+    
+    fn render() -> Stellar.Element {
+        return &lt;div className="todo-list"&gt;
+            &lt;h1&gt;Todo List&lt;/h1&gt;
+            
+            &lt;div className="add-todo"&gt;
+                &lt;input 
+                    type="text" 
+                    value={this.state.newTodo}
+                    onChange={this.handleInput}
+                    placeholder="Add a new todo"
+                /&gt;
+                &lt;button onClick={this.addTodo}&gt;Add&lt;/button&gt;
+            &lt;/div&gt;
+            
+            &lt;ul&gt;
+                {this.state.todos.map(todo => (
+                    &lt;li 
+                        key={todo.id}
+                        className={todo.completed ? "completed" : ""}
+                        onClick={() => this.toggleTodo(todo.id)}
+                    &gt;
+                        {todo.text}
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    }
+}
+
+// Main app component
+class App extends Stellar.Component {
+    fn render() -> Stellar.Element {
+        return &lt;div className="app"&gt;
+            &lt;Counter /&gt;
+            &lt;TodoList /&gt;
+        &lt;/div&gt;
+    }
+}
+
+// Start the UI application
+fn main() {
+    Stellar.render(&lt;App /&gt;, "#app")
+}</code></pre>
+            </div>
+            <div class="example-description">
+                <h3>Stellar UI</h3>
+                <p>This example demonstrates K3's built-in UI framework, Stellar. It shows how to create components with state, handle events, and build a reactive user interface. Stellar works for both web and desktop applications with the same code.</p>
+                <a href="examples/stellar-ui.html" class="example-link">See more Stellar UI examples</a>
+            </div>
+        </div>
+        
+        <div class="example-content" id="concurrency-example">
+            <div class="code-window">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="filename">concurrency.k3</span>
+                </div>
+                <pre><code>import { sleep } from "k3/time"
+import { spawn, Channel } from "k3/concurrency"
+
+// Async/await example
+async fn fetchUserData(userId: int) -> Result&lt;User, Error&gt; {
+    println("Fetching user data for user {}", userId)
+    
+    // Simulate network request
+    await sleep(1000)
+    
+    // Simulate successful response
+    return Ok(User {
+        id: userId,
+        name: "User " + userId.toString(),
+        email: "user" + userId.toString() + "@example.com"
+    })
+}
+
+// Parallel data fetching
+async fn fetchAllUsers(userIds: []int) -> []User {
+    // Create an array of promises
+    let promises = userIds.map(id => fetchUserData(id))
+    
+    // Wait for all promises to resolve
+    let results = await Promise.all(promises)
+    
+    // Filter out errors and return successful results
+    return results
+        .filter(result => result.isOk())
+        .map(result => result.unwrap())
+}
+
+// Actor model example
+actor Counter {
+    count: int = 0
+    
+    fn increment() {
+        this.count += 1
+        return this.count
+    }
+    
+    fn decrement() {
+        this.count -= 1
+        return this.count
+    }
+    
+    fn getCount() {
+        return this.count
+    }
+}
+
+// Channels and lightweight threads
+fn producer(channel: Channel&lt;int&gt;, count: int) {
+    for i in 0..count {
+        println("Producing: {}", i)
+        channel.send(i)
+        sleep(100)
+    }
+    channel.close()
+}
+
+fn consumer(channel: Channel&lt;int&gt;, id: int) {
+    while true {
+        match channel.receive() {
+            Some(value) => println("Consumer {}: Received {}", id, value),
+            None => break // Channel closed
+        }
+    }
+}
+
+fn main() {
+    // Async/await example
+    spawn(async () => {
+        let users = await fetchAllUsers([1, 2, 3, 4, 5])
+        println("Fetched {} users", users.length)
+        
+        for user in users {
+            println("User: {}", user.name)
+        }
+    })
+    
+    // Actor example
+    let counter = Counter.new()
+    
+    for i in 0..5 {
+        spawn(async () => {
+            for j in 0..10 {
+                let value = await counter.increment()
+                println("Actor thread {}: Counter = {}", i, value)
+                await sleep(100)
+            }
+        })
+    }
+    
+    // Channels example
+    let channel = Channel&lt;int&gt;.new(5) // Buffered channel with capacity 5
+    
+    spawn(() => producer(channel, 10))
+    
+    for i in 0..3 {
+        spawn(() => consumer(channel, i))
+    }
+    
+    // Wait for all tasks to complete
+    sleep(3000)
+}</code></pre>
+            </div>
+            <div class="example-description">
+                <h3>Concurrency</h3>
+                <p>This example showcases K3's powerful concurrency features, including async/await, lightweight threads, channels, and the actor model. K3 makes it easy to write concurrent code that's both efficient and safe.</p>
+                <a href="examples/concurrency.html" class="example-link">See more concurrency examples</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="stellar" class="stellar">
+        <h2>Stellar UI Framework</h2>
+        <p class="section-intro">Build beautiful, responsive user interfaces for desktop and web with K3's built-in UI framework.</p>
+        
+        <div class="stellar-features">
+            <div class="stellar-feature-card">
+                <div class="stellar-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3>Declarative Syntax</h3>
+                <p>Create UIs with a familiar, component-based approach using JSX-like syntax that's easy to read and maintain.</p>
+            </div>
+            <div class="stellar-feature-card">
+                <div class="stellar-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3>Reactive State</h3>
+                <p>Components automatically update when their state changes, making it easy to build dynamic, interactive applications.</p>
+            </div>
+            <div class="stellar-feature-card">
+                <div class="stellar-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Cross-Platform</h3>
+                <p>Write once, run anywhere. Stellar works on desktop, web, and mobile with the same codebase.</p>
+            </div>
+            <div class="stellar-feature-card">
+                <div class="stellar-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>High Performance</h3>
+                <p>Stellar's virtual DOM and efficient rendering engine ensure smooth, responsive UIs even for complex applications.</p>
+            </div>
+        </div>
+        
+        <div class="stellar-demo">
+            <div class="stellar-code">
+                <div class="code-window">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">todo_app.k3</span>
+                    </div>
+                    <pre><code>import Stellar from "stellar/ui"
+
+class TodoApp extends Stellar.Component {
+    state = {
+        todos: [],
+        newTodo: ""
+    }
+    
+    fn handleInput(event) {
+        this.setState({ newTodo: event.target.value })
+    }
+    
+    fn addTodo() {
+        if (this.state.newTodo.trim() == "") {
+            return
+        }
+        
+        let newTodos = [...this.state.todos, {
+            id: Date.now(),
+            text: this.state.newTodo,
+            completed: false
+        }]
+        
+        this.setState({
+            todos: newTodos,
+            newTodo: ""
+        })
+    }
+    
+    fn toggleTodo(id) {
+        let newTodos = this.state.todos.map(todo => {
+            if (todo.id == id) {
+                return { ...todo, completed: !todo.completed }
+            }
+            return todo
+        })
+        
+        this.setState({ todos: newTodos })
+    }
+    
+    fn deleteTodo(id) {
+        let newTodos = this.state.todos.filter(todo => todo.id != id)
+        this.setState({ todos: newTodos })
+    }
+    
+    fn render() -> Stellar.Element {
+        return &lt;div className="todo-app"&gt;
+            &lt;h1&gt;Todo List&lt;/h1&gt;
+            
+            &lt;div className="add-todo"&gt;
+                &lt;input 
+                    type="text" 
+                    value={this.state.newTodo}
+                    onChange={this.handleInput}
+                    onKeyPress={e => e.key == "Enter" && this.addTodo()}
+                    placeholder="Add a new todo"
+                /&gt;
+                &lt;button onClick={this.addTodo}&gt;Add&lt;/button&gt;
+            &lt;/div&gt;
+            
+            &lt;ul className="todo-list"&gt;
+                {this.state.todos.length == 0 ? (
+                    &lt;li className="empty-state"&gt;No todos yet. Add one above!&lt;/li&gt;
+                ) : (
+                    this.state.todos.map(todo => (
+                        &lt;li key={todo.id} className={todo.completed ? "completed" : ""}&gt;
+                            &lt;input 
+                                type="checkbox" 
+                                checked={todo.completed}
+                                onChange={() => this.toggleTodo(todo.id)}
+                            /&gt;
+                            &lt;span&gt;{todo.text}&lt;/span&gt;
+                            &lt;button 
+                                className="delete-btn"
+                                onClick={() => this.deleteTodo(todo.id)}
+                            &gt;
+                                Delete
+                            &lt;/button&gt;
+                        &lt;/li&gt;
+                    ))
+                )}
+            &lt;/ul&gt;
+            
+            {this.state.todos.length > 0 && (
+                &lt;div className="todo-stats"&gt;
+                    {this.state.todos.filter(t => !t.completed).length} items left
+                &lt;/div&gt;
+            )}
+        &lt;/div&gt;
+    }
+}
+
+fn main() {
+    Stellar.render(&lt;TodoApp /&gt;, "#app")
+}</code></pre>
+                </div>
+            </div>
+            <div class="stellar-preview">
+                <div class="preview-window">
+                    <div class="preview-header">
+                        <div class="preview-controls">
+                            <span class="preview-close"></span>
+                            <span class="preview-minimize"></span>
+                            <span class="preview-maximize"></span>
+                        </div>
+                        <div class="preview-title">Todo App</div>
+                    </div>
+                    <div class="preview-content">
+                        <div class="todo-app-preview">
+                            <h1>Todo List</h1>
+                            <div class="add-todo-preview">
+                                <input type="text" placeholder="Add a new todo">
+                                <button>Add</button>
+                            </div>
+                            <ul class="todo-list-preview">
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Learn K3 language</span>
+                                    <button class="delete-btn-preview">Delete</button>
+                                </li>
+                                <li class="completed-preview">
+                                    <input type="checkbox" checked>
+                                    <span>Install K3 compiler</span>
+                                    <button class="delete-btn-preview">Delete</button>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Build a Stellar UI application</span>
+                                    <button class="delete-btn-preview">Delete</button>
+                                </li>
+                            </ul>
+                            <div class="todo-stats-preview">
+                                2 items left
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stellar-cta">
+            <a href="stellar-ui.html" class="btn primary-btn">Learn More About Stellar UI</a>
+            <a href="examples/stellar-ui.html" class="btn secondary-btn">See More Examples</a>
+        </div>
+    </section>
+
+    <section id="download" class="download">
+        <h2>Download K3</h2>
+        <p class="section-intro">Get started with K3 today. Available for Windows, macOS, and Linux.</p>
+        
+        <div class="download-options">
+            <div class="download-option">
+                <div class="download-icon">
+                    <i class="fab fa-windows"></i>
+                </div>
+                <h3>Windows</h3>
+                <a href="downloads/k3-1.0.0-windows-x64.exe" class="download-button">Download for Windows</a>
+                <p class="download-details">Windows 10/11 (64-bit)</p>
+            </div>
+            <div class="download-option">
+                <div class="download-icon">
+                    <i class="fab fa-apple"></i>
+                </div>
+                <h3>macOS</h3>
+                <a href="downloads/k3-1.0.0-macos-x64.pkg" class="download-button">Download for macOS</a>
+                <p class="download-details">macOS 11+ (Intel/Apple Silicon)</p>
+            </div>
+            <div class="download-option">
+                <div class="download-icon">
+                    <i class="fab fa-linux"></i>
+                </div>
+                <h3>Linux</h3>
+                <a href="downloads/k3-1.0.0-linux-x64.tar.gz" class="download-button">Download for Linux</a>
+                <p class="download-details">Ubuntu, Debian, Fedora, etc.</p>
+            </div>
+        </div>
+        
+        <div class="installation-instructions">
+            <h3>Installation Instructions</h3>
+            <div class="installation-tabs">
+                <button class="installation-tab active" data-os="windows">Windows</button>
+                <button class="installation-tab" data-os="macos">macOS</button>
+                <button class="installation-tab" data-os="linux">Linux</button>
+            </div>
+            <div class="installation-content active" id="windows-installation">
+                <ol>
+                    <li>Download the Windows installer (.exe)</li>
+                    <li>Run the installer and follow the prompts</li>
+                    <li>Open Command Prompt and type <code>k3 --version</code> to verify installation</li>
+                </ol>
+            </div>
+            <div class="installation-content" id="macos-installation">
+                <ol>
+                    <li>Download the macOS package (.pkg)</li>
+                    <li>Open the package and follow the installation wizard</li>
+                    <li>Open Terminal and type <code>k3 --version</code> to verify installation</li>
+                </ol>
+            </div>
+            <div class="installation-content" id="linux-installation">
+                <ol>
+                    <li>Download the Linux tarball (.tar.gz)</li>
+                    <li>Extract it: <code>tar -xzf k3-1.0.0-linux-x64.tar.gz</code></li>
+                    <li>Move to a directory in your PATH: <code>sudo mv k3-1.0.0 /usr/local/k3</code></li>
+                    <li>Create a symlink: <code>sudo ln -s /usr/local/k3/bin/k3 /usr/local/bin/k3</code></li>
+                    <li>Verify installation: <code>k3 --version</code></li>
+                </ol>
+                <p>Alternatively, use your package manager:</p>
+                <pre><code>// Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install k3
+
+// Fedora
+sudo dnf install k3
+
+// Arch Linux
+sudo pacman -S k3</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="community">
+        <h2>Join the K3 Community</h2>
+        <p class="section-intro">Connect with other K3 developers, get help, and contribute to the language.</p>
+        
+        <div class="community-links">
+            <a href="https://github.com/k3-lang/k3" class="community-link" target="_blank">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://discord.gg/k3-lang" class="community-link" target="_blank">
+                <i class="fab fa-discord"></i>
+                <span>Discord</span>
+            </a>
+            <a href="https://twitter.com/k3_lang" class="community-link" target="_blank">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+            </a>
+            <a href="https://stackoverflow.com/questions/tagged/k3-lang" class="community-link" target="_blank">
+                <i class="fab fa-stack-overflow"></i>
+                <span>Stack Overflow</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K3</h2>
+                <p>Fast, Safe, and Expressive</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="examples.html">Examples</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k3-lang/k3" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k3-lang" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k3_lang" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k3-lang" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="../legal/license.html" target="_blank">License</a></li>
+                        <li><a href="../legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="../legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K3 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Performance chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            const performanceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Fibonacci', 'Sorting', 'Web Server', 'Image Processing'],
+                    datasets: [
+                        {
+                            label: 'K3',
+                            data: [95, 98, 92, 94],
+                            backgroundColor: '#4C6EF5'
+                        },
+                        {
+                            label: 'C++',
+                            data: [100, 100, 85, 100],
+                            backgroundColor: '#FF6B6B'
+                        },
+                        {
+                            label: 'Rust',
+                            data: [98, 99, 90, 97],
+                            backgroundColor: '#51CF66'
+                        },
+                        {
+                            label: 'Go',
+                            data: [85, 90, 95, 80],
+                            backgroundColor: '#FAB005'
+                        },
+                        {
+                            label: 'JavaScript',
+                            data: [25, 30, 75, 20],
+                            backgroundColor: '#BE4BDB'
+                        },
+                        {
+                            label: 'Python',
+                            data: [10, 15, 40, 12],
+                            backgroundColor: '#20C997'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Performance (higher is better)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Benchmark tabs
+            document.querySelectorAll('.benchmark-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.benchmark-tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Update benchmark description
+                    const benchmark = tab.getAttribute('data-benchmark');
+                    const description = document.querySelector('.benchmark-description');
+                    
+                    switch (benchmark) {
+                        case 'fibonacci':
+                            description.innerHTML = `
+                                <h3>Fibonacci Benchmark</h3>
+                                <p>This benchmark calculates the 45th Fibonacci number recursively, testing function call overhead and integer performance. K3's optimizing compiler produces code that's within 5% of C++ performance while maintaining memory safety.</p>
+                            `;
+                            break;
+                        case 'sorting':
+                            description.innerHTML = `
+                                <h3>Sorting Benchmark</h3>
+                                <p>This benchmark sorts an array of 1 million random integers, testing memory management and algorithm implementation. K3's efficient memory model and optimized standard library deliver performance comparable to C++ and Rust.</p>
+                            `;
+                            break;
+                        case 'webserver':
+                            description.innerHTML = `
+                                <h3>Web Server Benchmark</h3>
+                                <p>This benchmark measures requests per second for a simple HTTP server. K3's lightweight concurrency model and efficient I/O handling make it competitive with Go for web server workloads, while being much faster than JavaScript and Python.</p>
+                            `;
+                            break;
+                        case 'image':
+                            description.innerHTML = `
+                                <h3>Image Processing Benchmark</h3>
+                                <p>This benchmark applies a Gaussian blur to a 4K image, testing floating-point performance and memory throughput. K3's SIMD optimizations and cache-friendly memory layout enable performance close to C++ for this compute-intensive task.</p>
+                            `;
+                            break;
+                    }
+                    
+                    // Update chart data
+                    switch (benchmark) {
+                        case 'fibonacci':
+                            performanceChart.data.datasets[0].data = [95, 98, 92, 94];
+                            performanceChart.data.datasets[1].data = [100, 100, 85, 100];
+                            performanceChart.data.datasets[2].data = [98, 99, 90, 97];
+                            performanceChart.data.datasets[3].data = [85, 90, 95, 80];
+                            performanceChart.data.datasets[4].data = [25, 30, 75, 20];
+                            performanceChart.data.datasets[5].data = [10, 15, 40, 12];
+                            break;
+                        case 'sorting':
+                            performanceChart.data.datasets[0].data = [98, 98, 92, 94];
+                            performanceChart.data.datasets[1].data = [100, 100, 85, 100];
+                            performanceChart.data.datasets[2].data = [99, 99, 90, 97];
+                            performanceChart.data.datasets[3].data = [90, 90, 95, 80];
+                            performanceChart.data.datasets[4].data = [30, 30, 75, 20];
+                            performanceChart.data.datasets[5].data = [15, 15, 40, 12];
+                            break;
+                        case 'webserver':
+                            performanceChart.data.datasets[0].data = [92, 98, 92, 94];
+                            performanceChart.data.datasets[1].data = [85, 100, 85, 100];
+                            performanceChart.data.datasets[2].data = [90, 99, 90, 97];
+                            performanceChart.data.datasets[3].data = [95, 90, 95, 80];
+                            performanceChart.data.datasets[4].data = [75, 30, 75, 20];
+                            performanceChart.data.datasets[5].data = [40, 15, 40, 12];
+                            break;
+                        case 'image':
+                            performanceChart.data.datasets[0].data = [94, 98, 92, 94];
+                            performanceChart.data.datasets[1].data = [100, 100, 85, 100];
+                            performanceChart.data.datasets[2].data = [97, 99, 90, 97];
+                            performanceChart.data.datasets[3].data = [80, 90, 95, 80];
+                            performanceChart.data.datasets[4].data = [20, 30, 75, 20];
+                            performanceChart.data.datasets[5].data = [12, 15, 40, 12];
+                            break;
+                    }
+                    
+                    performanceChart.update();
+                });
+            });
+            
+            // Example tabs
+            document.querySelectorAll('.example-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and content
+                    document.querySelectorAll('.example-tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    document.querySelectorAll('.example-content').forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    const example = tab.getAttribute('data-example');
+                    document.getElementById(`${example}-example`).classList.add('active');
+                });
+            });
+            
+            // Installation tabs
+            document.querySelectorAll('.installation-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and content
+                    document.querySelectorAll('.installation-tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    document.querySelectorAll('.installation-content').forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    const os = tab.getAttribute('data-os');
+                    document.getElementById(`${os}-installation`).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

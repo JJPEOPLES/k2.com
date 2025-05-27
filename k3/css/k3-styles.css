@@ -1,0 +1,579 @@
+/* K3 Language Specific Styles */
+
+:root {
+    --primary-color: #4C6EF5;
+    --primary-dark: #3B5BDC;
+    --primary-light: #748FFA;
+    --accent-color: #51CF66;
+    --accent-dark: #40B356;
+    --accent-light: #72E588;
+    --text-color: #212529;
+    --text-light: #495057;
+    --bg-color: #FFFFFF;
+    --card-bg: #F8F9FA;
+    --border-color: #DEE2E6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --code-bg: #2B3A42;
+    --code-text: #E0E0E0;
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] {
+    --primary-color: #5C7CFF;
+    --primary-dark: #4C6EF5;
+    --primary-light: #8CA0FF;
+    --accent-color: #51CF66;
+    --accent-dark: #40B356;
+    --accent-light: #72E588;
+    --text-color: #E9ECEF;
+    --text-light: #CED4DA;
+    --bg-color: #212529;
+    --card-bg: #343A40;
+    --border-color: #495057;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --code-bg: #1A242A;
+    --code-text: #E0E0E0;
+}
+
+/* Stellar UI specific styles */
+.stellar-feature-card {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.stellar-feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px var(--shadow-color);
+}
+
+.stellar-icon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.stellar-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem auto;
+}
+
+.stellar-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem auto;
+}
+
+@media (min-width: 992px) {
+    .stellar-demo {
+        flex-direction: row;
+    }
+}
+
+.stellar-code {
+    flex: 1;
+}
+
+.stellar-preview {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-window {
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--bg-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.preview-header {
+    background-color: var(--primary-color);
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.preview-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.preview-close,
+.preview-minimize,
+.preview-maximize {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: block;
+}
+
+.preview-close {
+    background-color: #FF5F56;
+}
+
+.preview-minimize {
+    background-color: #FFBD2E;
+}
+
+.preview-maximize {
+    background-color: #27C93F;
+}
+
+.preview-title {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.preview-content {
+    padding: 1.5rem;
+}
+
+.stellar-cta {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Todo App Preview Styles */
+.todo-app-preview {
+    font-family: 'Inter', sans-serif;
+}
+
+.todo-app-preview h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.add-todo-preview {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+.add-todo-preview input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px 0 0 4px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+.add-todo-preview button {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.todo-list-preview {
+    list-style: none;
+    margin-bottom: 1.5rem;
+    padding: 0;
+}
+
+.todo-list-preview li {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.todo-list-preview li input[type="checkbox"] {
+    margin-right: 0.75rem;
+}
+
+.todo-list-preview li span {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.completed-preview span {
+    text-decoration: line-through;
+    color: var(--text-light);
+}
+
+.delete-btn-preview {
+    padding: 0.25rem 0.5rem;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.todo-stats-preview {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: left;
+}
+
+/* K3 specific overrides */
+.highlight {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.example-link {
+    color: var(--primary-color);
+    display: inline-block;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+.example-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.benchmark-tab.active {
+    color: var(--primary-color);
+}
+
+.benchmark-tab.active::after {
+    background-color: var(--primary-color);
+}
+
+.installation-tab.active {
+    color: var(--primary-color);
+}
+
+.installation-tab.active::after {
+    background-color: var(--primary-color);
+}
+
+.example-tab.active {
+    color: var(--primary-color);
+}
+
+.example-tab.active::after {
+    background-color: var(--primary-color);
+}
+
+.download-button {
+    background-color: var(--primary-color);
+}
+
+.download-button:hover {
+    background-color: var(--primary-dark);
+}
+
+.community-link:hover {
+    transform: translateY(-5px);
+    color: var(--primary-color);
+}
+
+.footer-logo h2 {
+    color: var(--primary-color);
+}/* K3 Language Specific Styles */
+
+:root {
+    --primary-color: #4C6EF5;
+    --primary-dark: #3B5BDC;
+    --primary-light: #748FFA;
+    --accent-color: #51CF66;
+    --accent-dark: #40B356;
+    --accent-light: #72E588;
+    --text-color: #212529;
+    --text-light: #495057;
+    --bg-color: #FFFFFF;
+    --card-bg: #F8F9FA;
+    --border-color: #DEE2E6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --code-bg: #2B3A42;
+    --code-text: #E0E0E0;
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] {
+    --primary-color: #5C7CFF;
+    --primary-dark: #4C6EF5;
+    --primary-light: #8CA0FF;
+    --accent-color: #51CF66;
+    --accent-dark: #40B356;
+    --accent-light: #72E588;
+    --text-color: #E9ECEF;
+    --text-light: #CED4DA;
+    --bg-color: #212529;
+    --card-bg: #343A40;
+    --border-color: #495057;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --code-bg: #1A242A;
+    --code-text: #E0E0E0;
+}
+
+/* Stellar UI specific styles */
+.stellar-feature-card {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.stellar-feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px var(--shadow-color);
+}
+
+.stellar-icon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.stellar-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem auto;
+}
+
+.stellar-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem auto;
+}
+
+@media (min-width: 992px) {
+    .stellar-demo {
+        flex-direction: row;
+    }
+}
+
+.stellar-code {
+    flex: 1;
+}
+
+.stellar-preview {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-window {
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--bg-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.preview-header {
+    background-color: var(--primary-color);
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.preview-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.preview-close,
+.preview-minimize,
+.preview-maximize {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: block;
+}
+
+.preview-close {
+    background-color: #FF5F56;
+}
+
+.preview-minimize {
+    background-color: #FFBD2E;
+}
+
+.preview-maximize {
+    background-color: #27C93F;
+}
+
+.preview-title {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.preview-content {
+    padding: 1.5rem;
+}
+
+.stellar-cta {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Todo App Preview Styles */
+.todo-app-preview {
+    font-family: 'Inter', sans-serif;
+}
+
+.todo-app-preview h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.add-todo-preview {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+.add-todo-preview input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px 0 0 4px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+.add-todo-preview button {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.todo-list-preview {
+    list-style: none;
+    margin-bottom: 1.5rem;
+    padding: 0;
+}
+
+.todo-list-preview li {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.todo-list-preview li input[type="checkbox"] {
+    margin-right: 0.75rem;
+}
+
+.todo-list-preview li span {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.completed-preview span {
+    text-decoration: line-through;
+    color: var(--text-light);
+}
+
+.delete-btn-preview {
+    padding: 0.25rem 0.5rem;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.todo-stats-preview {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: left;
+}
+
+/* K3 specific overrides */
+.highlight {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.example-link {
+    color: var(--primary-color);
+    display: inline-block;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+.example-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.benchmark-tab.active {
+    color: var(--primary-color);
+}
+
+.benchmark-tab.active::after {
+    background-color: var(--primary-color);
+}
+
+.installation-tab.active {
+    color: var(--primary-color);
+}
+
+.installation-tab.active::after {
+    background-color: var(--primary-color);
+}
+
+.example-tab.active {
+    color: var(--primary-color);
+}
+
+.example-tab.active::after {
+    background-color: var(--primary-color);
+}
+
+.download-button {
+    background-color: var(--primary-color);
+}
+
+.download-button:hover {
+    background-color: var(--primary-dark);
+}
+
+.community-link:hover {
+    transform: translateY(-5px);
+    color: var(--primary-color);
+}
+
+.footer-logo h2 {
+    color: var(--primary-color);
+}

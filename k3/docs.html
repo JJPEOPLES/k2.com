@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K3 Documentation - Fast, Safe, and Expressive Programming Language</title>
+    <meta name="description" content="Comprehensive documentation for the K3 programming language, including guides, tutorials, and API reference.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/modern-ui.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../js/nahir-ui.js" defer></script>
+    <script src="js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    
+    <style>
+        /* Documentation specific styles */
+        .docs-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .docs-sidebar {
+            width: 300px;
+            position: sticky;
+            top: 100px;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            padding-right: 2rem;
+        }
+        
+        .docs-content {
+            flex: 1;
+            max-width: 800px;
+        }
+        
+        .docs-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .docs-menu-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .docs-menu-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+        }
+        
+        .docs-menu-items {
+            list-style: none;
+            padding-left: 1rem;
+        }
+        
+        .docs-menu-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .docs-menu-item a {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        
+        .docs-menu-item a:hover {
+            color: var(--primary-color);
+        }
+        
+        .docs-menu-item a.active {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .docs-section {
+            margin-bottom: 3rem;
+        }
+        
+        .docs-section h2 {
+            text-align: left;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .docs-section h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .docs-section h4 {
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .docs-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        
+        .docs-section ul, .docs-section ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .docs-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .docs-section code {
+            background-color: #f1f3f5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+        
+        .docs-section pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .docs-section pre code {
+            background-color: transparent;
+            padding: 0;
+            color: inherit;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .docs-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+        
+        .docs-section th, .docs-section td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        
+        .docs-section th {
+            background-color: var(--card-bg);
+            font-weight: 600;
+        }
+        
+        .docs-section tr:nth-child(even) {
+            background-color: var(--card-bg);
+        }
+        
+        .docs-note {
+            background-color: #e7f5ff;
+            border-left: 4px solid #4dabf7;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        .docs-warning {
+            background-color: #fff9db;
+            border-left: 4px solid #fcc419;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        .docs-tip {
+            background-color: #ebfbee;
+            border-left: 4px solid #51cf66;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        .docs-search {
+            margin-bottom: 2rem;
+        }
+        
+        .docs-search input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            font-size: 0.95rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        @media screen and (max-width: 992px) {
+            .docs-container {
+                flex-direction: column;
+            }
+            
+            .docs-sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+                height: auto;
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .docs-content {
+                max-width: 100%;
+            }
+        }
+        
+        /* Dark mode adjustments */
+        [data-theme="dark"] .docs-note {
+            background-color: rgba(77, 171, 247, 0.1);
+        }
+        
+        [data-theme="dark"] .docs-warning {
+            background-color: rgba(252, 196, 25, 0.1);
+        }
+        
+        [data-theme="dark"] .docs-tip {
+            background-color: rgba(81, 207, 102, 0.1);
+        }
+        
+        [data-theme="dark"] .docs-section code {
+            background-color: #2c3237;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="docs-container">
+        <aside class="docs-sidebar">
+            <div class="docs-search">
+                <input type="text" placeholder="Search documentation...">
+            </div>
+            
+            <ul class="docs-menu">
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Getting Started</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#introduction" class="active">Introduction</a></li>
+                        <li class="docs-menu-item"><a href="#installation">Installation</a></li>
+                        <li class="docs-menu-item"><a href="#hello-world">Hello World</a></li>
+                        <li class="docs-menu-item"><a href="#editor-setup">Editor Setup</a></li>
+                    </ul>
+                </li>
+                
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Language Basics</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#syntax">Syntax Overview</a></li>
+                        <li class="docs-menu-item"><a href="#variables">Variables and Constants</a></li>
+                        <li class="docs-menu-item"><a href="#data-types">Data Types</a></li>
+                        <li class="docs-menu-item"><a href="#operators">Operators</a></li>
+                        <li class="docs-menu-item"><a href="#control-flow">Control Flow</a></li>
+                        <li class="docs-menu-item"><a href="#functions">Functions</a></li>
+                        <li class="docs-menu-item"><a href="#error-handling">Error Handling</a></li>
+                    </ul>
+                </li>
+                
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Advanced Topics</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#classes">Classes and Objects</a></li>
+                        <li class="docs-menu-item"><a href="#modules">Modules and Imports</a></li>
+                        <li class="docs-menu-item"><a href="#concurrency">Concurrency</a></li>
+                        <li class="docs-menu-item"><a href="#memory-management">Memory Management</a></li>
+                        <li class="docs-menu-item"><a href="#generics">Generics</a></li>
+                        <li class="docs-menu-item"><a href="#pattern-matching">Pattern Matching</a></li>
+                    </ul>
+                </li>
+                
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Stellar UI</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#stellar-introduction">Introduction</a></li>
+                        <li class="docs-menu-item"><a href="#components">Components</a></li>
+                        <li class="docs-menu-item"><a href="#state-management">State Management</a></li>
+                        <li class="docs-menu-item"><a href="#event-handling">Event Handling</a></li>
+                        <li class="docs-menu-item"><a href="#styling">Styling</a></li>
+                    </ul>
+                </li>
+                
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Standard Library</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#core">Core</a></li>
+                        <li class="docs-menu-item"><a href="#collections">Collections</a></li>
+                        <li class="docs-menu-item"><a href="#io">Input/Output</a></li>
+                        <li class="docs-menu-item"><a href="#network">Network</a></li>
+                        <li class="docs-menu-item"><a href="#time">Time and Date</a></li>
+                        <li class="docs-menu-item"><a href="#math">Math</a></li>
+                    </ul>
+                </li>
+                
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Tools and Ecosystem</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#package-manager">Package Manager</a></li>
+                        <li class="docs-menu-item"><a href="#build-system">Build System</a></li>
+                        <li class="docs-menu-item"><a href="#testing">Testing</a></li>
+                        <li class="docs-menu-item"><a href="#debugging">Debugging</a></li>
+                        <li class="docs-menu-item"><a href="#profiling">Profiling</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+        
+        <main class="docs-content">
+            <section id="introduction" class="docs-section">
+                <h2>Introduction to K3</h2>
+                <p>K3 is a modern, high-performance programming language designed for building everything from system utilities to web applications. It combines the speed of compiled languages with the ease of use of scripting languages.</p>
+                
+                <p>K3 was created with several key principles in mind:</p>
+                
+                <ul>
+                    <li><strong>Performance:</strong> K3 is designed to be fast, with performance comparable to C++ and Rust.</li>
+                    <li><strong>Safety:</strong> Memory safety without garbage collection through an ownership model and automatic reference counting.</li>
+                    <li><strong>Expressiveness:</strong> Clean, readable syntax that makes code easy to write and maintain.</li>
+                    <li><strong>Versatility:</strong> Suitable for a wide range of applications, from low-level system programming to high-level web development.</li>
+                </ul>
+                
+                <div class="docs-note">
+                    <p><strong>Note:</strong> K3 is under active development. While the core language is stable, some advanced features may change in future releases.</p>
+                </div>
+            </section>
+            
+            <section id="installation" class="docs-section">
+                <h2>Installation</h2>
+                <p>K3 can be installed on Windows, macOS, and Linux. Choose the installation method that works best for your operating system.</p>
+                
+                <h3>Windows</h3>
+                <ol>
+                    <li>Download the Windows installer (.exe) from the <a href="index.html#download">download page</a>.</li>
+                    <li>Run the installer and follow the prompts.</li>
+                    <li>Open Command Prompt and verify the installation:</li>
+                </ol>
+                
+                <pre><code>k3 --version</code></pre>
+                
+                <h3>macOS</h3>
+                <ol>
+                    <li>Download the macOS package (.pkg) from the <a href="index.html#download">download page</a>.</li>
+                    <li>Open the package and follow the installation wizard.</li>
+                    <li>Open Terminal and verify the installation:</li>
+                </ol>
+                
+                <pre><code>k3 --version</code></pre>
+                
+                <p>Alternatively, you can use Homebrew:</p>
+                
+                <pre><code>brew install k3</code></pre>
+                
+                <h3>Linux</h3>
+                <p>For Ubuntu/Debian:</p>
+                
+                <pre><code>sudo apt-get update
+sudo apt-get install k3</code></pre>
+                
+                <p>For Fedora:</p>
+                
+                <pre><code>sudo dnf install k3</code></pre>
+                
+                <p>For Arch Linux:</p>
+                
+                <pre><code>sudo pacman -S k3</code></pre>
+                
+                <p>Alternatively, you can download and install the binary manually:</p>
+                
+                <ol>
+                    <li>Download the Linux tarball (.tar.gz) from the <a href="index.html#download">download page</a>.</li>
+                    <li>Extract it:</li>
+                </ol>
+                
+                <pre><code>tar -xzf k3-1.0.0-linux-x64.tar.gz</code></pre>
+                
+                <ol start="3">
+                    <li>Move to a directory in your PATH:</li>
+                </ol>
+                
+                <pre><code>sudo mv k3-1.0.0 /usr/local/k3
+sudo ln -s /usr/local/k3/bin/k3 /usr/local/bin/k3</code></pre>
+                
+                <ol start="4">
+                    <li>Verify the installation:</li>
+                </ol>
+                
+                <pre><code>k3 --version</code></pre>
+            </section>
+            
+            <section id="hello-world" class="docs-section">
+                <h2>Hello World</h2>
+                <p>Let's start with the traditional "Hello, World!" program in K3:</p>
+                
+                <pre><code>// hello.k3
+fn main() {
+    println("Hello, World!")
+}</code></pre>
+                
+                <p>Save this code to a file named <code>hello.k3</code>, then compile and run it:</p>
+                
+                <pre><code>k3 build hello.k3
+./hello</code></pre>
+                
+                <p>Alternatively, you can use the run command to compile and execute in one step:</p>
+                
+                <pre><code>k3 run hello.k3</code></pre>
+                
+                <p>You should see the following output:</p>
+                
+                <pre><code>Hello, World!</code></pre>
+                
+                <h3>Understanding the Code</h3>
+                <p>Let's break down the Hello World program:</p>
+                
+                <ul>
+                    <li><code>// hello.k3</code> - This is a comment indicating the filename.</li>
+                    <li><code>fn main() { ... }</code> - This defines the main function, which is the entry point of the program.</li>
+                    <li><code>println("Hello, World!")</code> - This calls the <code>println</code> function to print the string "Hello, World!" to the console.</li>
+                </ul>
+                
+                <h3>A More Interactive Example</h3>
+                <p>Let's create a slightly more interactive program that asks for the user's name and greets them:</p>
+                
+                <pre><code>// greeting.k3
+fn main() {
+    println("What is your name?")
+    
+    let name = readLine()
+    
+    if name.trim() == "" {
+        println("Hello, stranger!")
+    } else {
+        println("Hello, {}!", name.trim())
+    }
+}</code></pre>
+                
+                <p>Run this program with:</p>
+                
+                <pre><code>k3 run greeting.k3</code></pre>
+                
+                <div class="docs-tip">
+                    <p><strong>Tip:</strong> K3 uses string interpolation with curly braces <code>{}</code> to insert values into strings, similar to Rust's format strings.</p>
+                </div>
+            </section>
+            
+            <section id="editor-setup" class="docs-section">
+                <h2>Editor Setup</h2>
+                <p>K3 has excellent editor support for popular code editors and IDEs. Here's how to set up K3 in your favorite editor:</p>
+                
+                <h3>Visual Studio Code</h3>
+                <ol>
+                    <li>Install the <a href="#" target="_blank">K3 extension</a> from the VS Code marketplace.</li>
+                    <li>Open a K3 file or create a new one with a <code>.k3</code> extension.</li>
+                    <li>The extension provides syntax highlighting, code completion, error checking, and more.</li>
+                </ol>
+                
+                <h3>JetBrains IDEs (IntelliJ IDEA, WebStorm, etc.)</h3>
+                <ol>
+                    <li>Install the <a href="#" target="_blank">K3 plugin</a> from the JetBrains marketplace.</li>
+                    <li>Restart your IDE.</li>
+                    <li>Open a K3 file or create a new one with a <code>.k3</code> extension.</li>
+                </ol>
+                
+                <h3>Vim/Neovim</h3>
+                <p>For Vim or Neovim, you can use the K3 plugin:</p>
+                
+                <pre><code># For Vim with vim-plug
+Plug 'k3-lang/vim-k3'
+
+# For Neovim with packer.nvim
+use 'k3-lang/vim-k3'</code></pre>
+                
+                <h3>Emacs</h3>
+                <p>For Emacs, you can use the K3 mode:</p>
+                
+                <pre><code>;; Using use-package
+(use-package k3-mode
+  :ensure t)</code></pre>
+                
+                <h3>Sublime Text</h3>
+                <ol>
+                    <li>Install Package Control if you haven't already.</li>
+                    <li>Open the Command Palette (Ctrl+Shift+P or Cmd+Shift+P).</li>
+                    <li>Select "Package Control: Install Package".</li>
+                    <li>Search for "K3 Language" and install it.</li>
+                </ol>
+                
+                <div class="docs-note">
+                    <p><strong>Note:</strong> All these editor extensions provide syntax highlighting, code completion, and error checking. Some also provide debugging support, code formatting, and more advanced features.</p>
+                </div>
+            </section>
+            
+            <section id="syntax" class="docs-section">
+                <h2>Syntax Overview</h2>
+                <p>K3's syntax is designed to be clean, readable, and familiar to developers coming from languages like Rust, TypeScript, and Swift. This section provides a quick overview of K3's syntax.</p>
+                
+                <h3>Comments</h3>
+                <pre><code>// This is a single-line comment
+
+/* This is a
+   multi-line comment */
+
+/// Documentation comment for the following item
+fn documented_function() {
+    // Function body
+}</code></pre>
+                
+                <h3>Basic Structure</h3>
+                <pre><code>// Import statement
+import Math from "k3/math"
+
+// Function definition
+fn add(a: int, b: int) -> int {
+    return a + b
+}
+
+// Main function (entry point)
+fn main() {
+    let result = add(5, 3)
+    println("5 + 3 = {}", result)
+    
+    // Using an imported function
+    let sqrt = Math.sqrt(16)
+    println("Square root of 16 is {}", sqrt)
+}</code></pre>
+                
+                <h3>Variables and Constants</h3>
+                <pre><code>// Variable declaration with type inference
+let name = "Alice"
+
+// Variable declaration with explicit type
+let age: int = 30
+
+// Constants
+const PI: f64 = 3.14159
+const MAX_USERS: int = 1000
+
+// Mutability
+let mut counter = 0
+counter += 1  // OK, counter is mutable
+
+name = "Bob"  // Error, name is immutable</code></pre>
+                
+                <h3>Control Flow</h3>
+                <pre><code>// If-else statement
+if age >= 18 {
+    println("Adult")
+} else if age >= 13 {
+    println("Teenager")
+} else {
+    println("Child")
+}
+
+// For loop
+for i in 0..10 {
+    println("{}", i)
+}
+
+// While loop
+let mut i = 0
+while i < 10 {
+    println("{}", i)
+    i += 1
+}
+
+// Match statement (pattern matching)
+match status {
+    Status.Success => println("Operation succeeded"),
+    Status.Error(err) => println("Error: {}", err),
+    Status.Pending => println("Operation pending"),
+    _ => println("Unknown status")
+}</code></pre>
+                
+                <div class="docs-tip">
+                    <p><strong>Tip:</strong> K3's syntax is designed to be familiar to developers coming from languages like Rust, TypeScript, and Swift, making it easy to learn if you already know one of these languages.</p>
+                </div>
+            </section>
+            
+            <!-- More sections would continue here -->
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K3</h2>
+                <p>Fast, Safe, and Expressive</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="examples.html">Examples</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k3-lang/k3" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k3-lang" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k3_lang" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k3-lang" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="../legal/license.html" target="_blank">License</a></li>
+                        <li><a href="../legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="../legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K3 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for documentation links
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.docs-menu-item a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    document.querySelectorAll('.docs-menu-item a').forEach(l => {
+                        l.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.querySelector('.docs-search input');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                if (searchTerm.length < 2) {
+                    // Reset all menu items if search term is too short
+                    document.querySelectorAll('.docs-menu-item').forEach(item => {
+                        item.style.display = 'list-item';
+                    });
+                    
+                    document.querySelectorAll('.docs-menu-section').forEach(section => {
+                        section.style.display = 'block';
+                    });
+                    
+                    return;
+                }
+                
+                // Hide all sections initially
+                document.querySelectorAll('.docs-menu-section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Search through menu items
+                document.querySelectorAll('.docs-menu-item').forEach(item => {
+                    const link = item.querySelector('a');
+                    const text = link.textContent.toLowerCase();
+                    
+                    if (text.includes(searchTerm)) {
+                        item.style.display = 'list-item';
+                        item.closest('.docs-menu-section').style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K3 Documentation - Fast, Safe, and Expressive Programming Language</title>
+    <meta name="description" content="Comprehensive documentation for the K3 programming language, including guides, tutorials, and API reference.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/modern-ui.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../js/nahir-ui.js" defer></script>
+    <script src="js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    
+    <style>
+        /* Documentation specific styles */
+        .docs-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .docs-sidebar {
+            width: 300px;
+            position: sticky;
+            top: 100px;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            padding-right: 2rem;
+        }
+        
+        .docs-content {
+            flex: 1;
+            max-width: 800px;
+        }
+        
+        .docs-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .docs-menu-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .docs-menu-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+        }
+        
+        .docs-menu-items {
+            list-style: none;
+            padding-left: 1rem;
+        }
+        
+        .docs-menu-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .docs-menu-item a {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        
+        .docs-menu-item a:hover {
+            color: var(--primary-color);
+        }
+        
+        .docs-menu-item a.active {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .docs-section {
+            margin-bottom: 3rem;
+        }
+        
+        .docs-section h2 {
+            text-align: left;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .docs-section h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .docs-section h4 {
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .docs-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        
+        .docs-section ul, .docs-section ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .docs-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .docs-section code {
+            background-color: #f1f3f5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+        
+        .docs-section pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .docs-section pre code {
+            background-color: transparent;
+            padding: 0;
+            color: inherit;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .docs-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+        
+        .docs-section th, .docs-section td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        
+        .docs-section th {
+            background-color: var(--card-bg);
+            font-weight: 600;
+        }
+        
+        .docs-section tr:nth-child(even) {
+            background-color: var(--card-bg);
+        }
+        
+        .docs-note {
+            background-color: #e7f5ff;
+            border-left: 4px solid #4dabf7;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        .docs-warning {
+            background-color: #fff9db;
+            border-left: 4px solid #fcc419;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        .docs-tip {
+            background-color: #ebfbee;
+            border-left: 4px solid #51cf66;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        
+        .docs-search {
+            margin-bottom: 2rem;
+        }
+        
+        .docs-search input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            font-size: 0.95rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        @media screen and (max-width: 992px) {
+            .docs-container {
+                flex-direction: column;
+            }
+            
+            .docs-sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+                height: auto;
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .docs-content {
+                max-width: 100%;
+            }
+        }
+        
+        /* Dark mode adjustments */
+        [data-theme="dark"] .docs-note {
+            background-color: rgba(77, 171, 247, 0.1);
+        }
+        
+        [data-theme="dark"] .docs-warning {
+            background-color: rgba(252, 196, 25, 0.1);
+        }
+        
+        [data-theme="dark"] .docs-tip {
+            background-color: rgba(81, 207, 102, 0.1);
+        }
+        
+        [data-theme="dark"] .docs-section code {
+            background-color: #2c3237;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="docs-container">
+        <aside class="docs-sidebar">
+            <div class="docs-search">
+                <input type="text" placeholder="Search documentation...">
+            </div>
+            
+            <ul class="docs-menu">
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Getting Started</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#introduction" class="active">Introduction</a></li>
+                        <li class="docs-menu-item"><a href="#installation">Installation</a></li>
+                        <li class="docs-menu-item"><a href="#hello-world">Hello World</a></li>
+                        <li class="docs-menu-item"><a href="#editor-setup">Editor Setup</a></li>
+                    </ul>
+                </li>
+                
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Language Basics</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#syntax">Syntax Overview</a></li>
+                        <li class="docs-menu-item"><a href="#variables">Variables and Constants</a></li>
+                        <li class="docs-menu-item"><a href="#data-types">Data Types</a></li>
+                        <li class="docs-menu-item"><a href="#operators">Operators</a></li>
+                        <li class="docs-menu-item"><a href="#control-flow">Control Flow</a></li>
+                        <li class="docs-menu-item"><a href="#functions">Functions</a></li>
+                        <li class="docs-menu-item"><a href="#error-handling">Error Handling</a></li>
+                    </ul>
+                </li>
+                
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Advanced Topics</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#classes">Classes and Objects</a></li>
+                        <li class="docs-menu-item"><a href="#modules">Modules and Imports</a></li>
+                        <li class="docs-menu-item"><a href="#concurrency">Concurrency</a></li>
+                        <li class="docs-menu-item"><a href="#memory-management">Memory Management</a></li>
+                        <li class="docs-menu-item"><a href="#generics">Generics</a></li>
+                        <li class="docs-menu-item"><a href="#pattern-matching">Pattern Matching</a></li>
+                    </ul>
+                </li>
+                
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Stellar UI</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#stellar-introduction">Introduction</a></li>
+                        <li class="docs-menu-item"><a href="#components">Components</a></li>
+                        <li class="docs-menu-item"><a href="#state-management">State Management</a></li>
+                        <li class="docs-menu-item"><a href="#event-handling">Event Handling</a></li>
+                        <li class="docs-menu-item"><a href="#styling">Styling</a></li>
+                    </ul>
+                </li>
+                
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Standard Library</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#core">Core</a></li>
+                        <li class="docs-menu-item"><a href="#collections">Collections</a></li>
+                        <li class="docs-menu-item"><a href="#io">Input/Output</a></li>
+                        <li class="docs-menu-item"><a href="#network">Network</a></li>
+                        <li class="docs-menu-item"><a href="#time">Time and Date</a></li>
+                        <li class="docs-menu-item"><a href="#math">Math</a></li>
+                    </ul>
+                </li>
+                
+                <li class="docs-menu-section">
+                    <div class="docs-menu-title">Tools and Ecosystem</div>
+                    <ul class="docs-menu-items">
+                        <li class="docs-menu-item"><a href="#package-manager">Package Manager</a></li>
+                        <li class="docs-menu-item"><a href="#build-system">Build System</a></li>
+                        <li class="docs-menu-item"><a href="#testing">Testing</a></li>
+                        <li class="docs-menu-item"><a href="#debugging">Debugging</a></li>
+                        <li class="docs-menu-item"><a href="#profiling">Profiling</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+        
+        <main class="docs-content">
+            <section id="introduction" class="docs-section">
+                <h2>Introduction to K3</h2>
+                <p>K3 is a modern, high-performance programming language designed for building everything from system utilities to web applications. It combines the speed of compiled languages with the ease of use of scripting languages.</p>
+                
+                <p>K3 was created with several key principles in mind:</p>
+                
+                <ul>
+                    <li><strong>Performance:</strong> K3 is designed to be fast, with performance comparable to C++ and Rust.</li>
+                    <li><strong>Safety:</strong> Memory safety without garbage collection through an ownership model and automatic reference counting.</li>
+                    <li><strong>Expressiveness:</strong> Clean, readable syntax that makes code easy to write and maintain.</li>
+                    <li><strong>Versatility:</strong> Suitable for a wide range of applications, from low-level system programming to high-level web development.</li>
+                </ul>
+                
+                <div class="docs-note">
+                    <p><strong>Note:</strong> K3 is under active development. While the core language is stable, some advanced features may change in future releases.</p>
+                </div>
+            </section>
+            
+            <section id="installation" class="docs-section">
+                <h2>Installation</h2>
+                <p>K3 can be installed on Windows, macOS, and Linux. Choose the installation method that works best for your operating system.</p>
+                
+                <h3>Windows</h3>
+                <ol>
+                    <li>Download the Windows installer (.exe) from the <a href="index.html#download">download page</a>.</li>
+                    <li>Run the installer and follow the prompts.</li>
+                    <li>Open Command Prompt and verify the installation:</li>
+                </ol>
+                
+                <pre><code>k3 --version</code></pre>
+                
+                <h3>macOS</h3>
+                <ol>
+                    <li>Download the macOS package (.pkg) from the <a href="index.html#download">download page</a>.</li>
+                    <li>Open the package and follow the installation wizard.</li>
+                    <li>Open Terminal and verify the installation:</li>
+                </ol>
+                
+                <pre><code>k3 --version</code></pre>
+                
+                <p>Alternatively, you can use Homebrew:</p>
+                
+                <pre><code>brew install k3</code></pre>
+                
+                <h3>Linux</h3>
+                <p>For Ubuntu/Debian:</p>
+                
+                <pre><code>sudo apt-get update
+sudo apt-get install k3</code></pre>
+                
+                <p>For Fedora:</p>
+                
+                <pre><code>sudo dnf install k3</code></pre>
+                
+                <p>For Arch Linux:</p>
+                
+                <pre><code>sudo pacman -S k3</code></pre>
+                
+                <p>Alternatively, you can download and install the binary manually:</p>
+                
+                <ol>
+                    <li>Download the Linux tarball (.tar.gz) from the <a href="index.html#download">download page</a>.</li>
+                    <li>Extract it:</li>
+                </ol>
+                
+                <pre><code>tar -xzf k3-1.0.0-linux-x64.tar.gz</code></pre>
+                
+                <ol start="3">
+                    <li>Move to a directory in your PATH:</li>
+                </ol>
+                
+                <pre><code>sudo mv k3-1.0.0 /usr/local/k3
+sudo ln -s /usr/local/k3/bin/k3 /usr/local/bin/k3</code></pre>
+                
+                <ol start="4">
+                    <li>Verify the installation:</li>
+                </ol>
+                
+                <pre><code>k3 --version</code></pre>
+            </section>
+            
+            <section id="hello-world" class="docs-section">
+                <h2>Hello World</h2>
+                <p>Let's start with the traditional "Hello, World!" program in K3:</p>
+                
+                <pre><code>// hello.k3
+fn main() {
+    println("Hello, World!")
+}</code></pre>
+                
+                <p>Save this code to a file named <code>hello.k3</code>, then compile and run it:</p>
+                
+                <pre><code>k3 build hello.k3
+./hello</code></pre>
+                
+                <p>Alternatively, you can use the run command to compile and execute in one step:</p>
+                
+                <pre><code>k3 run hello.k3</code></pre>
+                
+                <p>You should see the following output:</p>
+                
+                <pre><code>Hello, World!</code></pre>
+                
+                <h3>Understanding the Code</h3>
+                <p>Let's break down the Hello World program:</p>
+                
+                <ul>
+                    <li><code>// hello.k3</code> - This is a comment indicating the filename.</li>
+                    <li><code>fn main() { ... }</code> - This defines the main function, which is the entry point of the program.</li>
+                    <li><code>println("Hello, World!")</code> - This calls the <code>println</code> function to print the string "Hello, World!" to the console.</li>
+                </ul>
+                
+                <h3>A More Interactive Example</h3>
+                <p>Let's create a slightly more interactive program that asks for the user's name and greets them:</p>
+                
+                <pre><code>// greeting.k3
+fn main() {
+    println("What is your name?")
+    
+    let name = readLine()
+    
+    if name.trim() == "" {
+        println("Hello, stranger!")
+    } else {
+        println("Hello, {}!", name.trim())
+    }
+}</code></pre>
+                
+                <p>Run this program with:</p>
+                
+                <pre><code>k3 run greeting.k3</code></pre>
+                
+                <div class="docs-tip">
+                    <p><strong>Tip:</strong> K3 uses string interpolation with curly braces <code>{}</code> to insert values into strings, similar to Rust's format strings.</p>
+                </div>
+            </section>
+            
+            <section id="editor-setup" class="docs-section">
+                <h2>Editor Setup</h2>
+                <p>K3 has excellent editor support for popular code editors and IDEs. Here's how to set up K3 in your favorite editor:</p>
+                
+                <h3>Visual Studio Code</h3>
+                <ol>
+                    <li>Install the <a href="#" target="_blank">K3 extension</a> from the VS Code marketplace.</li>
+                    <li>Open a K3 file or create a new one with a <code>.k3</code> extension.</li>
+                    <li>The extension provides syntax highlighting, code completion, error checking, and more.</li>
+                </ol>
+                
+                <h3>JetBrains IDEs (IntelliJ IDEA, WebStorm, etc.)</h3>
+                <ol>
+                    <li>Install the <a href="#" target="_blank">K3 plugin</a> from the JetBrains marketplace.</li>
+                    <li>Restart your IDE.</li>
+                    <li>Open a K3 file or create a new one with a <code>.k3</code> extension.</li>
+                </ol>
+                
+                <h3>Vim/Neovim</h3>
+                <p>For Vim or Neovim, you can use the K3 plugin:</p>
+                
+                <pre><code># For Vim with vim-plug
+Plug 'k3-lang/vim-k3'
+
+# For Neovim with packer.nvim
+use 'k3-lang/vim-k3'</code></pre>
+                
+                <h3>Emacs</h3>
+                <p>For Emacs, you can use the K3 mode:</p>
+                
+                <pre><code>;; Using use-package
+(use-package k3-mode
+  :ensure t)</code></pre>
+                
+                <h3>Sublime Text</h3>
+                <ol>
+                    <li>Install Package Control if you haven't already.</li>
+                    <li>Open the Command Palette (Ctrl+Shift+P or Cmd+Shift+P).</li>
+                    <li>Select "Package Control: Install Package".</li>
+                    <li>Search for "K3 Language" and install it.</li>
+                </ol>
+                
+                <div class="docs-note">
+                    <p><strong>Note:</strong> All these editor extensions provide syntax highlighting, code completion, and error checking. Some also provide debugging support, code formatting, and more advanced features.</p>
+                </div>
+            </section>
+            
+            <section id="syntax" class="docs-section">
+                <h2>Syntax Overview</h2>
+                <p>K3's syntax is designed to be clean, readable, and familiar to developers coming from languages like Rust, TypeScript, and Swift. This section provides a quick overview of K3's syntax.</p>
+                
+                <h3>Comments</h3>
+                <pre><code>// This is a single-line comment
+
+/* This is a
+   multi-line comment */
+
+/// Documentation comment for the following item
+fn documented_function() {
+    // Function body
+}</code></pre>
+                
+                <h3>Basic Structure</h3>
+                <pre><code>// Import statement
+import Math from "k3/math"
+
+// Function definition
+fn add(a: int, b: int) -> int {
+    return a + b
+}
+
+// Main function (entry point)
+fn main() {
+    let result = add(5, 3)
+    println("5 + 3 = {}", result)
+    
+    // Using an imported function
+    let sqrt = Math.sqrt(16)
+    println("Square root of 16 is {}", sqrt)
+}</code></pre>
+                
+                <h3>Variables and Constants</h3>
+                <pre><code>// Variable declaration with type inference
+let name = "Alice"
+
+// Variable declaration with explicit type
+let age: int = 30
+
+// Constants
+const PI: f64 = 3.14159
+const MAX_USERS: int = 1000
+
+// Mutability
+let mut counter = 0
+counter += 1  // OK, counter is mutable
+
+name = "Bob"  // Error, name is immutable</code></pre>
+                
+                <h3>Control Flow</h3>
+                <pre><code>// If-else statement
+if age >= 18 {
+    println("Adult")
+} else if age >= 13 {
+    println("Teenager")
+} else {
+    println("Child")
+}
+
+// For loop
+for i in 0..10 {
+    println("{}", i)
+}
+
+// While loop
+let mut i = 0
+while i < 10 {
+    println("{}", i)
+    i += 1
+}
+
+// Match statement (pattern matching)
+match status {
+    Status.Success => println("Operation succeeded"),
+    Status.Error(err) => println("Error: {}", err),
+    Status.Pending => println("Operation pending"),
+    _ => println("Unknown status")
+}</code></pre>
+                
+                <div class="docs-tip">
+                    <p><strong>Tip:</strong> K3's syntax is designed to be familiar to developers coming from languages like Rust, TypeScript, and Swift, making it easy to learn if you already know one of these languages.</p>
+                </div>
+            </section>
+            
+            <!-- More sections would continue here -->
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K3</h2>
+                <p>Fast, Safe, and Expressive</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="examples.html">Examples</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k3-lang/k3" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k3-lang" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k3_lang" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k3-lang" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="../legal/license.html" target="_blank">License</a></li>
+                        <li><a href="../legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="../legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K3 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for documentation links
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.docs-menu-item a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    document.querySelectorAll('.docs-menu-item a').forEach(l => {
+                        l.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.querySelector('.docs-search input');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                if (searchTerm.length < 2) {
+                    // Reset all menu items if search term is too short
+                    document.querySelectorAll('.docs-menu-item').forEach(item => {
+                        item.style.display = 'list-item';
+                    });
+                    
+                    document.querySelectorAll('.docs-menu-section').forEach(section => {
+                        section.style.display = 'block';
+                    });
+                    
+                    return;
+                }
+                
+                // Hide all sections initially
+                document.querySelectorAll('.docs-menu-section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Search through menu items
+                document.querySelectorAll('.docs-menu-item').forEach(item => {
+                    const link = item.querySelector('a');
+                    const text = link.textContent.toLowerCase();
+                    
+                    if (text.includes(searchTerm)) {
+                        item.style.display = 'list-item';
+                        item.closest('.docs-menu-section').style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
