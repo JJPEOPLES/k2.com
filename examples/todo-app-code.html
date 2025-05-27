@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App Code - Nahir UI Example - K2 Language</title>
+    <meta name="description" content="Source code for a simple todo list application built with Nahir UI and K2 language.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/modern-ui.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- JavaScript -->
+    <script src="../js/nahir-ui.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    
+    <style>
+        .code-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .code-window {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            margin-bottom: 30px;
+        }
+        
+        .code-header {
+            background-color: var(--code-header-bg);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        
+        .red { background-color: #ff5f56; }
+        .yellow { background-color: #ffbd2e; }
+        .green { background-color: #27c93f; }
+        
+        .filename {
+            margin-left: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+        
+        .code-content {
+            padding: 15px;
+            overflow-x: auto;
+        }
+        
+        pre {
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--code-color);
+        }
+        
+        .comment { color: var(--code-comment); }
+        .keyword { color: var(--code-keyword); }
+        .string { color: var(--code-string); }
+        .function { color: var(--code-function); }
+        
+        .explanation {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .explanation h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .explanation p {
+            margin-bottom: 15px;
+        }
+        
+        .explanation ul {
+            margin-bottom: 15px;
+        }
+        
+        .explanation li {
+            margin-bottom: 5px;
+        }
+        
+        .explanation code {
+            background-color: var(--code-inline-bg);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="animated-link">Home</a></li>
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="example-hero">
+        <div class="container">
+            <h1>Todo App Source Code</h1>
+            <p>Complete source code for the Todo App built with Nahir UI and K2</p>
+            <div class="hero-buttons">
+                <a href="todo-app.html" class="btn primary-btn">View Demo</a>
+                <a href="../nahir-docs.html" class="btn secondary-btn">Nahir UI Docs</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="code-section">
+        <div class="container">
+            <div class="code-container">
+                <div class="explanation">
+                    <h3>About This Example</h3>
+                    <p>This Todo App demonstrates how to build a complete application using Nahir UI, K2's component-based UI framework. The application includes:</p>
+                    <ul>
+                        <li>Component-based architecture</li>
+                        <li>State management</li>
+                        <li>Event handling</li>
+                        <li>Conditional rendering</li>
+                        <li>List rendering</li>
+                        <li>Filtering and sorting</li>
+                    </ul>
+                    <p>The application uses Nahir UI's ramdisk caching for ultra-fast state updates and rendering, making it responsive even with large todo lists.</p>
+                </div>
+                
+                <div class="code-window">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">todo_app.k2</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># Todo App Example using Nahir UI</span>
+<span class="keyword">import</span> NahirUI
+
+<span class="comment"># Define the Todo item component</span>
+<span class="keyword">component</span> <span class="function">TodoItem</span> {
+  <span class="keyword">props</span> = {
+    text: <span class="string">""</span>,
+    completed: <span class="keyword">false</span>,
+    onToggle: <span class="keyword">null</span>,
+    onDelete: <span class="keyword">null</span>
+  }
+  
+  <span class="keyword">render</span> {
+    <span class="keyword">element</span> = <span class="string">"div"</span>
+    <span class="keyword">className</span> = <span class="string">"todo-item"</span>
+    <span class="keyword">children</span> = [
+      {
+        <span class="keyword">element</span>: <span class="string">"input"</span>,
+        <span class="keyword">type</span>: <span class="string">"checkbox"</span>,
+        <span class="keyword">checked</span>: props.completed,
+        <span class="keyword">onChange</span>: props.onToggle
+      },
+      {
+        <span class="keyword">element</span>: <span class="string">"span"</span>,
+        <span class="keyword">className</span>: props.completed ? <span class="string">"todo-text completed"</span> : <span class="string">"todo-text"</span>,
+        <span class="keyword">content</span>: props.text
+      },
+      {
+        <span class="keyword">element</span>: <span class="string">"button"</span>,
+        <span class="keyword">className</span>: <span class="string">"delete-button"</span>,
+        <span class="keyword">onClick</span>: props.onDelete,
+        <span class="keyword">content</span>: <span class="string">"Delete"</span>
+      }
+    ]
+  }
+}
+
+<span class="comment"># Define the Todo App component</span>
+<span class="keyword">component</span> <span class="function">TodoApp</span> {
+  <span class="keyword">state</span> = {
+    todos: [],
+    newTodo: <span class="string">""</span>,
+    filter: <span class="string">"all"</span>
+  }
+  
+  <span class="comment"># Generate a unique ID for a todo</span>
+  <span class="keyword">function</span> <span class="function">generateId</span>() {
+    <span class="keyword">return</span> <span class="string">"todo-"</span> + Math.random().toString(36).substr(2, 9)
+  }
+  
+  <span class="comment"># Add a new todo</span>
+  <span class="keyword">function</span> <span class="function">addTodo</span>() {
+    <span class="keyword">if</span> (state.newTodo.trim() == <span class="string">""</span>) {
+      <span class="keyword">return</span>
+    }
+    
+    state.todos.push({
+      id: <span class="function">generateId</span>(),
+      text: state.newTodo,
+      completed: <span class="keyword">false</span>
+    })
+    
+    state.newTodo = <span class="string">""</span>
+    <span class="function">updateState</span>()
+  }
+  
+  <span class="comment"># Toggle a todo's completed status</span>
+  <span class="keyword">function</span> <span class="function">toggleTodo</span>(id) {
+    <span class="keyword">for</span> (todo <span class="keyword">in</span> state.todos) {
+      <span class="keyword">if</span> (todo.id == id) {
+        todo.completed = !todo.completed
+        <span class="keyword">break</span>
+      }
+    }
+    
+    <span class="function">updateState</span>()
+  }
+  
+  <span class="comment"># Delete a todo</span>
+  <span class="keyword">function</span> <span class="function">deleteTodo</span>(id) {
+    state.todos = state.todos.<span class="function">filter</span>(todo => todo.id != id)
+    <span class="function">updateState</span>()
+  }
+  
+  <span class="comment"># Clear completed todos</span>
+  <span class="keyword">function</span> <span class="function">clearCompleted</span>() {
+    state.todos = state.todos.<span class="function">filter</span>(todo => !todo.completed)
+    <span class="function">updateState</span>()
+  }
+  
+  <span class="comment"># Set the filter</span>
+  <span class="keyword">function</span> <span class="function">setFilter</span>(filter) {
+    state.filter = filter
+    <span class="function">updateState</span>()
+  }
+  
+  <span class="comment"># Get filtered todos</span>
+  <span class="keyword">function</span> <span class="function">getFilteredTodos</span>() {
+    <span class="keyword">if</span> (state.filter == <span class="string">"active"</span>) {
+      <span class="keyword">return</span> state.todos.<span class="function">filter</span>(todo => !todo.completed)
+    } <span class="keyword">else if</span> (state.filter == <span class="string">"completed"</span>) {
+      <span class="keyword">return</span> state.todos.<span class="function">filter</span>(todo => todo.completed)
+    } <span class="keyword">else</span> {
+      <span class="keyword">return</span> state.todos
+    }
+  }
+  
+  <span class="comment"># Get the count of active todos</span>
+  <span class="keyword">function</span> <span class="function">getActiveCount</span>() {
+    <span class="keyword">return</span> state.todos.<span class="function">filter</span>(todo => !todo.completed).length
+  }
+  
+  <span class="comment"># Update the component state</span>
+  <span class="keyword">function</span> <span class="function">updateState</span>() {
+    <span class="comment"># In Nahir UI, this triggers a re-render with ramdisk caching</span>
+    <span class="keyword">this</span>.setState(state)
+  }
+  
+  <span class="keyword">render</span> {
+    <span class="keyword">element</span> = <span class="string">"div"</span>
+    <span class="keyword">className</span> = <span class="string">"todo-app"</span>
+    <span class="keyword">children</span> = [
+      <span class="comment"># Header</span>
+      {
+        <span class="keyword">element</span>: <span class="string">"div"</span>,
+        <span class="keyword">className</span>: <span class="string">"todo-header"</span>,
+        <span class="keyword">children</span>: [
+          {
+            <span class="keyword">element</span>: <span class="string">"h2"</span>,
+            <span class="keyword">content</span>: <span class="string">"Nahir UI Todo App"</span>
+          },
+          {
+            <span class="keyword">element</span>: <span class="string">"span"</span>,
+            <span class="keyword">content</span>: <span class="string">"K2 Language"</span>
+          }
+        ]
+      },
+      
+      <span class="comment"># Input</span>
+      {
+        <span class="keyword">element</span>: <span class="string">"div"</span>,
+        <span class="keyword">className</span>: <span class="string">"todo-input-container"</span>,
+        <span class="keyword">children</span>: [
+          {
+            <span class="keyword">element</span>: <span class="string">"input"</span>,
+            <span class="keyword">className</span>: <span class="string">"todo-input"</span>,
+            <span class="keyword">placeholder</span>: <span class="string">"What needs to be done?"</span>,
+            <span class="keyword">value</span>: state.newTodo,
+            <span class="keyword">onChange</span>: (e) => { state.newTodo = e.target.value }
+          },
+          {
+            <span class="keyword">element</span>: <span class="string">"button"</span>,
+            <span class="keyword">className</span>: <span class="string">"add-button"</span>,
+            <span class="keyword">content</span>: <span class="string">"Add"</span>,
+            <span class="keyword">onClick</span>: <span class="function">addTodo</span>
+          }
+        ]
+      },
+      
+      <span class="comment"># Todo list</span>
+      {
+        <span class="keyword">element</span>: <span class="string">"ul"</span>,
+        <span class="keyword">className</span>: <span class="string">"todo-list"</span>,
+        <span class="keyword">children</span>: <span class="function">getFilteredTodos</span>().<span class="function">map</span>(todo => {
+          <span class="keyword">return</span> TodoItem.new({
+            text: todo.text,
+            completed: todo.completed,
+            onToggle: () => <span class="function">toggleTodo</span>(todo.id),
+            onDelete: () => <span class="function">deleteTodo</span>(todo.id)
+          })
+        })
+      },
+      
+      <span class="comment"># Footer</span>
+      {
+        <span class="keyword">element</span>: <span class="string">"div"</span>,
+        <span class="keyword">className</span>: <span class="string">"todo-footer"</span>,
+        <span class="keyword">children</span>: [
+          {
+            <span class="keyword">element</span>: <span class="string">"span"</span>,
+            <span class="keyword">className</span>: <span class="string">"todo-count"</span>,
+            <span class="keyword">content</span>: <span class="function">getActiveCount</span>() + <span class="string">" items left"</span>
+          },
+          {
+            <span class="keyword">element</span>: <span class="string">"div"</span>,
+            <span class="keyword">className</span>: <span class="string">"filter-buttons"</span>,
+            <span class="keyword">children</span>: [
+              {
+                <span class="keyword">element</span>: <span class="string">"button"</span>,
+                <span class="keyword">className</span>: state.filter == <span class="string">"all"</span> ? <span class="string">"filter-button active"</span> : <span class="string">"filter-button"</span>,
+                <span class="keyword">content</span>: <span class="string">"All"</span>,
+                <span class="keyword">onClick</span>: () => <span class="function">setFilter</span>(<span class="string">"all"</span>)
+              },
+              {
+                <span class="keyword">element</span>: <span class="string">"button"</span>,
+                <span class="keyword">className</span>: state.filter == <span class="string">"active"</span> ? <span class="string">"filter-button active"</span> : <span class="string">"filter-button"</span>,
+                <span class="keyword">content</span>: <span class="string">"Active"</span>,
+                <span class="keyword">onClick</span>: () => <span class="function">setFilter</span>(<span class="string">"active"</span>)
+              },
+              {
+                <span class="keyword">element</span>: <span class="string">"button"</span>,
+                <span class="keyword">className</span>: state.filter == <span class="string">"completed"</span> ? <span class="string">"filter-button active"</span> : <span class="string">"filter-button"</span>,
+                <span class="keyword">content</span>: <span class="string">"Completed"</span>,
+                <span class="keyword">onClick</span>: () => <span class="function">setFilter</span>(<span class="string">"completed"</span>)
+              }
+            ]
+          },
+          {
+            <span class="keyword">element</span>: <span class="string">"button"</span>,
+            <span class="keyword">className</span>: <span class="string">"clear-completed"</span>,
+            <span class="keyword">content</span>: <span class="string">"Clear completed"</span>,
+            <span class="keyword">onClick</span>: <span class="function">clearCompleted</span>
+          }
+        ]
+      }
+    ]
+  }
+}
+
+<span class="comment"># Initialize with some sample todos</span>
+<span class="keyword">function</span> <span class="function">initializeTodos</span>() {
+  <span class="keyword">return</span> [
+    {
+      id: <span class="string">"todo-1"</span>,
+      text: <span class="string">"Learn K2 language"</span>,
+      completed: <span class="keyword">false</span>
+    },
+    {
+      id: <span class="string">"todo-2"</span>,
+      text: <span class="string">"Install K2 compiler"</span>,
+      completed: <span class="keyword">true</span>
+    },
+    {
+      id: <span class="string">"todo-3"</span>,
+      text: <span class="string">"Build a Nahir UI application"</span>,
+      completed: <span class="keyword">false</span>
+    },
+    {
+      id: <span class="string">"todo-4"</span>,
+      text: <span class="string">"Deploy to production"</span>,
+      completed: <span class="keyword">false</span>
+    }
+  ]
+}
+
+<span class="comment"># Create and render the Todo App</span>
+app = TodoApp.new()
+app.state.todos = <span class="function">initializeTodos</span>()
+UI.render(app)
+</pre>
+                    </div>
+                </div>
+                
+                <div class="explanation">
+                    <h3>How It Works</h3>
+                    <p>The Todo App is built using two main components:</p>
+                    <ol>
+                        <li><strong>TodoItem</strong>: A reusable component that represents a single todo item with checkbox, text, and delete button.</li>
+                        <li><strong>TodoApp</strong>: The main application component that manages the state and renders the UI.</li>
+                    </ol>
+                    
+                    <h4>Key Features</h4>
+                    <ul>
+                        <li><strong>State Management</strong>: The app maintains a state object with todos, new todo text, and current filter.</li>
+                        <li><strong>Event Handling</strong>: Functions like <code>addTodo</code>, <code>toggleTodo</code>, and <code>deleteTodo</code> handle user interactions.</li>
+                        <li><strong>Filtering</strong>: The <code>getFilteredTodos</code> function filters todos based on the current filter (all, active, completed).</li>
+                        <li><strong>Ramdisk Caching</strong>: Nahir UI's ramdisk caching ensures ultra-fast rendering and state updates.</li>
+                    </ul>
+                    
+                    <h4>Performance Optimizations</h4>
+                    <p>The Todo App uses several performance optimizations:</p>
+                    <ul>
+                        <li><strong>Component Reuse</strong>: The TodoItem component is reused for each todo, reducing memory usage.</li>
+                        <li><strong>Efficient Rendering</strong>: Only the necessary parts of the UI are updated when the state changes.</li>
+                        <li><strong>Ramdisk Caching</strong>: Component states are cached in ramdisk for microsecond access times.</li>
+                        <li><strong>Lazy Evaluation</strong>: Filtered todos are only computed when needed.</li>
+                    </ul>
+                </div>
+                
+                <div class="explanation">
+                    <h3>Running This Example</h3>
+                    <p>To run this example on your machine:</p>
+                    <ol>
+                        <li>Install K2 language: <code>curl -sSL https://k2lang.org/install | bash</code></li>
+                        <li>Install Nahir UI: <code>k2 install nahir-ui</code></li>
+                        <li>Save the code above as <code>todo_app.k2</code></li>
+                        <li>Run the application: <code>k2 todo_app.k2</code></li>
+                    </ol>
+                    <p>The application will open in a window, or if you're in a terminal-only environment, it will render as text UI.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Build Your Own Nahir UI App?</h2>
+            <p>Get started with Nahir UI and build ultra-fast user interfaces for your K2 applications.</p>
+            <div class="cta-buttons">
+                <a href="../nahir-docs.html" class="btn primary-btn">Read the Docs</a>
+                <a href="../index.html#download" class="btn secondary-btn">Download K2</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>K2</h2>
+                    <p>Ultra-Fast Programming Language</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Product</h3>
+                        <ul>
+                            <li><a href="../index.html#features">Features</a></li>
+                            <li><a href="../index.html#performance">Performance</a></li>
+                            <li><a href="../index.html#examples">Examples</a></li>
+                            <li><a href="../index.html#download">Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="../docs.html">Documentation</a></li>
+                            <li><a href="../nahir-docs.html">Nahir UI</a></li>
+                            <li><a href="../forum.html">Community Forum</a></li>
+                            <li><a href="../try.html">Try Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="../about.html">About Us</a></li>
+                            <li><a href="../blog.html">Blog</a></li>
+                            <li><a href="../careers.html">Careers</a></li>
+                            <li><a href="../contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="../legal/terms-of-use.html">Terms of Use</a></li>
+                            <li><a href="../legal/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="../legal/licenses.html">Licenses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 K2 Language. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

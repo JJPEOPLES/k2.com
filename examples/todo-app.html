@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App - Nahir UI Example - K2 Language</title>
+    <meta name="description" content="A simple todo list application built with Nahir UI and K2 language.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/modern-ui.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- JavaScript -->
+    <script src="../js/nahir-ui.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    
+    <style>
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .todo-app {
+            width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .todo-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .todo-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .todo-input-container {
+            display: flex;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .todo-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+        }
+        
+        .add-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .todo-list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+        
+        .todo-checkbox {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .todo-text {
+            flex: 1;
+            font-size: 16px;
+        }
+        
+        .completed {
+            text-decoration: line-through;
+            color: var(--gray-color);
+        }
+        
+        .delete-button {
+            background-color: transparent;
+            color: var(--danger-color);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px 10px;
+        }
+        
+        .todo-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: var(--bg-light);
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .todo-count {
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .filter-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        .filter-button.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .clear-completed {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--danger-color);
+            padding: 5px 10px;
+        }
+        
+        .code-section {
+            margin-top: 40px;
+        }
+        
+        .code-window {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .code-header {
+            background-color: var(--code-header-bg);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        
+        .red { background-color: #ff5f56; }
+        .yellow { background-color: #ffbd2e; }
+        .green { background-color: #27c93f; }
+        
+        .filename {
+            margin-left: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+        
+        .code-content {
+            padding: 15px;
+            overflow-x: auto;
+        }
+        
+        pre {
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--code-color);
+        }
+        
+        .comment { color: var(--code-comment); }
+        .keyword { color: var(--code-keyword); }
+        .string { color: var(--code-string); }
+        .function { color: var(--code-function); }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="animated-link">Home</a></li>
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="example-hero">
+        <div class="container">
+            <h1>Todo App Example</h1>
+            <p>A simple todo list application built with Nahir UI and K2</p>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <div class="container">
+            <div class="demo-container">
+                <div class="todo-app">
+                    <div class="todo-header">
+                        <h2>Nahir UI Todo App</h2>
+                        <span>K2 Language</span>
+                    </div>
+                    <div class="todo-input-container">
+                        <input type="text" class="todo-input" placeholder="What needs to be done?">
+                        <button class="add-button">Add</button>
+                    </div>
+                    <ul class="todo-list">
+                        <li class="todo-item">
+                            <input type="checkbox" class="todo-checkbox">
+                            <span class="todo-text">Learn K2 language</span>
+                            <button class="delete-button"><i class="fas fa-trash"></i></button>
+                        </li>
+                        <li class="todo-item">
+                            <input type="checkbox" class="todo-checkbox" checked>
+                            <span class="todo-text completed">Install K2 compiler</span>
+                            <button class="delete-button"><i class="fas fa-trash"></i></button>
+                        </li>
+                        <li class="todo-item">
+                            <input type="checkbox" class="todo-checkbox">
+                            <span class="todo-text">Build a Nahir UI application</span>
+                            <button class="delete-button"><i class="fas fa-trash"></i></button>
+                        </li>
+                        <li class="todo-item">
+                            <input type="checkbox" class="todo-checkbox">
+                            <span class="todo-text">Deploy to production</span>
+                            <button class="delete-button"><i class="fas fa-trash"></i></button>
+                        </li>
+                    </ul>
+                    <div class="todo-footer">
+                        <span class="todo-count">3 items left</span>
+                        <div class="filter-buttons">
+                            <button class="filter-button active">All</button>
+                            <button class="filter-button">Active</button>
+                            <button class="filter-button">Completed</button>
+                        </div>
+                        <button class="clear-completed">Clear completed</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-section">
+                <h2>How It Works</h2>
+                <p>This Todo App is built using Nahir UI, a component-based UI framework for K2 language. The application uses ramdisk caching for ultra-fast state management and rendering.</p>
+                
+                <div class="code-window">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">todo_app.k2</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># Todo App Example using Nahir UI</span>
+<span class="keyword">import</span> NahirUI
+
+<span class="comment"># Define the Todo item component</span>
+<span class="keyword">component</span> <span class="function">TodoItem</span> {
+  <span class="keyword">props</span> = {
+    text: <span class="string">""</span>,
+    completed: <span class="keyword">false</span>,
+    onToggle: <span class="keyword">null</span>,
+    onDelete: <span class="keyword">null</span>
+  }
+  
+  <span class="keyword">render</span> {
+    <span class="keyword">element</span> = <span class="string">"div"</span>
+    <span class="keyword">className</span> = <span class="string">"todo-item"</span>
+    <span class="keyword">children</span> = [
+      {
+        <span class="keyword">element</span>: <span class="string">"input"</span>,
+        <span class="keyword">type</span>: <span class="string">"checkbox"</span>,
+        <span class="keyword">checked</span>: props.completed,
+        <span class="keyword">onChange</span>: props.onToggle
+      },
+      {
+        <span class="keyword">element</span>: <span class="string">"span"</span>,
+        <span class="keyword">className</span>: props.completed ? <span class="string">"todo-text completed"</span> : <span class="string">"todo-text"</span>,
+        <span class="keyword">content</span>: props.text
+      },
+      {
+        <span class="keyword">element</span>: <span class="string">"button"</span>,
+        <span class="keyword">className</span>: <span class="string">"delete-button"</span>,
+        <span class="keyword">onClick</span>: props.onDelete,
+        <span class="keyword">content</span>: <span class="string">"Delete"</span>
+      }
+    ]
+  }
+}
+
+<span class="comment"># Define the Todo App component</span>
+<span class="keyword">component</span> <span class="function">TodoApp</span> {
+  <span class="keyword">state</span> = {
+    todos: [],
+    newTodo: <span class="string">""</span>,
+    filter: <span class="string">"all"</span>
+  }
+  
+  <span class="comment"># Add a new todo</span>
+  <span class="keyword">function</span> <span class="function">addTodo</span>() {
+    <span class="keyword">if</span> (state.newTodo.trim() == <span class="string">""</span>) {
+      <span class="keyword">return</span>
+    }
+    
+    state.todos.push({
+      id: <span class="function">generateId</span>(),
+      text: state.newTodo,
+      completed: <span class="keyword">false</span>
+    })
+    
+    state.newTodo = <span class="string">""</span>
+    <span class="function">updateState</span>()
+  }
+  
+  <span class="comment"># Toggle a todo's completed status</span>
+  <span class="keyword">function</span> <span class="function">toggleTodo</span>(id) {
+    <span class="keyword">for</span> (todo <span class="keyword">in</span> state.todos) {
+      <span class="keyword">if</span> (todo.id == id) {
+        todo.completed = !todo.completed
+        <span class="keyword">break</span>
+      }
+    }
+    
+    <span class="function">updateState</span>()
+  }
+  
+  <span class="comment"># Delete a todo</span>
+  <span class="keyword">function</span> <span class="function">deleteTodo</span>(id) {
+    state.todos = state.todos.<span class="function">filter</span>(todo => todo.id != id)
+    <span class="function">updateState</span>()
+  }
+  
+  <span class="comment"># Clear completed todos</span>
+  <span class="keyword">function</span> <span class="function">clearCompleted</span>() {
+    state.todos = state.todos.<span class="function">filter</span>(todo => !todo.completed)
+    <span class="function">updateState</span>()
+  }
+  
+  <span class="comment"># Set the filter</span>
+  <span class="keyword">function</span> <span class="function">setFilter</span>(filter) {
+    state.filter = filter
+    <span class="function">updateState</span>()
+  }
+  
+  <span class="comment"># Get filtered todos</span>
+  <span class="keyword">function</span> <span class="function">getFilteredTodos</span>() {
+    <span class="keyword">if</span> (state.filter == <span class="string">"active"</span>) {
+      <span class="keyword">return</span> state.todos.<span class="function">filter</span>(todo => !todo.completed)
+    } <span class="keyword">else if</span> (state.filter == <span class="string">"completed"</span>) {
+      <span class="keyword">return</span> state.todos.<span class="function">filter</span>(todo => todo.completed)
+    } <span class="keyword">else</span> {
+      <span class="keyword">return</span> state.todos
+    }
+  }
+  
+  <span class="keyword">render</span> {
+    <span class="keyword">element</span> = <span class="string">"div"</span>
+    <span class="keyword">className</span> = <span class="string">"todo-app"</span>
+    <span class="keyword">children</span> = [
+      <span class="comment"># Header</span>
+      {
+        <span class="keyword">element</span>: <span class="string">"div"</span>,
+        <span class="keyword">className</span>: <span class="string">"todo-header"</span>,
+        <span class="keyword">children</span>: [
+          {
+            <span class="keyword">element</span>: <span class="string">"h2"</span>,
+            <span class="keyword">content</span>: <span class="string">"Nahir UI Todo App"</span>
+          }
+        ]
+      },
+      
+      <span class="comment"># Input</span>
+      {
+        <span class="keyword">element</span>: <span class="string">"div"</span>,
+        <span class="keyword">className</span>: <span class="string">"todo-input-container"</span>,
+        <span class="keyword">children</span>: [
+          {
+            <span class="keyword">element</span>: <span class="string">"input"</span>,
+            <span class="keyword">className</span>: <span class="string">"todo-input"</span>,
+            <span class="keyword">placeholder</span>: <span class="string">"What needs to be done?"</span>,
+            <span class="keyword">value</span>: state.newTodo,
+            <span class="keyword">onChange</span>: (e) => { state.newTodo = e.target.value }
+          },
+          {
+            <span class="keyword">element</span>: <span class="string">"button"</span>,
+            <span class="keyword">className</span>: <span class="string">"add-button"</span>,
+            <span class="keyword">content</span>: <span class="string">"Add"</span>,
+            <span class="keyword">onClick</span>: <span class="function">addTodo</span>
+          }
+        ]
+      },
+      
+      <span class="comment"># Todo list</span>
+      {
+        <span class="keyword">element</span>: <span class="string">"ul"</span>,
+        <span class="keyword">className</span>: <span class="string">"todo-list"</span>,
+        <span class="keyword">children</span>: <span class="function">getFilteredTodos</span>().<span class="function">map</span>(todo => {
+          <span class="keyword">return</span> TodoItem.new({
+            text: todo.text,
+            completed: todo.completed,
+            onToggle: () => <span class="function">toggleTodo</span>(todo.id),
+            onDelete: () => <span class="function">deleteTodo</span>(todo.id)
+          })
+        })
+      },
+      
+      <span class="comment"># Footer</span>
+      {
+        <span class="keyword">element</span>: <span class="string">"div"</span>,
+        <span class="keyword">className</span>: <span class="string">"todo-footer"</span>,
+        <span class="keyword">children</span>: [
+          {
+            <span class="keyword">element</span>: <span class="string">"span"</span>,
+            <span class="keyword">className</span>: <span class="string">"todo-count"</span>,
+            <span class="keyword">content</span>: <span class="function">getFilteredTodos</span>().<span class="function">length</span> + <span class="string">" items left"</span>
+          },
+          {
+            <span class="keyword">element</span>: <span class="string">"div"</span>,
+            <span class="keyword">className</span>: <span class="string">"filter-buttons"</span>,
+            <span class="keyword">children</span>: [
+              {
+                <span class="keyword">element</span>: <span class="string">"button"</span>,
+                <span class="keyword">className</span>: state.filter == <span class="string">"all"</span> ? <span class="string">"filter-button active"</span> : <span class="string">"filter-button"</span>,
+                <span class="keyword">content</span>: <span class="string">"All"</span>,
+                <span class="keyword">onClick</span>: () => <span class="function">setFilter</span>(<span class="string">"all"</span>)
+              },
+              {
+                <span class="keyword">element</span>: <span class="string">"button"</span>,
+                <span class="keyword">className</span>: state.filter == <span class="string">"active"</span> ? <span class="string">"filter-button active"</span> : <span class="string">"filter-button"</span>,
+                <span class="keyword">content</span>: <span class="string">"Active"</span>,
+                <span class="keyword">onClick</span>: () => <span class="function">setFilter</span>(<span class="string">"active"</span>)
+              },
+              {
+                <span class="keyword">element</span>: <span class="string">"button"</span>,
+                <span class="keyword">className</span>: state.filter == <span class="string">"completed"</span> ? <span class="string">"filter-button active"</span> : <span class="string">"filter-button"</span>,
+                <span class="keyword">content</span>: <span class="string">"Completed"</span>,
+                <span class="keyword">onClick</span>: () => <span class="function">setFilter</span>(<span class="string">"completed"</span>)
+              }
+            ]
+          },
+          {
+            <span class="keyword">element</span>: <span class="string">"button"</span>,
+            <span class="keyword">className</span>: <span class="string">"clear-completed"</span>,
+            <span class="keyword">content</span>: <span class="string">"Clear completed"</span>,
+            <span class="keyword">onClick</span>: <span class="function">clearCompleted</span>
+          }
+        ]
+      }
+    ]
+  }
+}
+
+<span class="comment"># Create and render the Todo App</span>
+app = TodoApp.new()
+UI.render(app)
+</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Build Your Own Nahir UI App?</h2>
+            <p>Get started with Nahir UI and build ultra-fast user interfaces for your K2 applications.</p>
+            <div class="cta-buttons">
+                <a href="../nahir-docs.html" class="btn primary-btn">Read the Docs</a>
+                <a href="../index.html#download" class="btn secondary-btn">Download K2</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>K2</h2>
+                    <p>Ultra-Fast Programming Language</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Product</h3>
+                        <ul>
+                            <li><a href="../index.html#features">Features</a></li>
+                            <li><a href="../index.html#performance">Performance</a></li>
+                            <li><a href="../index.html#examples">Examples</a></li>
+                            <li><a href="../index.html#download">Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="../docs.html">Documentation</a></li>
+                            <li><a href="../nahir-docs.html">Nahir UI</a></li>
+                            <li><a href="../forum.html">Community Forum</a></li>
+                            <li><a href="../try.html">Try Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="../about.html">About Us</a></li>
+                            <li><a href="../blog.html">Blog</a></li>
+                            <li><a href="../careers.html">Careers</a></li>
+                            <li><a href="../contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="../legal/terms-of-use.html">Terms of Use</a></li>
+                            <li><a href="../legal/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="../legal/licenses.html">Licenses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 K2 Language. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple interactivity for the Todo App demo
+        document.addEventListener('DOMContentLoaded', function() {
+            const todoInput = document.querySelector('.todo-input');
+            const addButton = document.querySelector('.add-button');
+            const todoList = document.querySelector('.todo-list');
+            const todoCount = document.querySelector('.todo-count');
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const clearCompletedButton = document.querySelector('.clear-completed');
+            
+            // Add a new todo
+            function addTodo() {
+                const text = todoInput.value.trim();
+                if (text === '') return;
+                
+                const todoItem = document.createElement('li');
+                todoItem.className = 'todo-item';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'todo-checkbox';
+                
+                const todoText = document.createElement('span');
+                todoText.className = 'todo-text';
+                todoText.textContent = text;
+                
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'delete-button';
+                deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+                
+                todoItem.appendChild(checkbox);
+                todoItem.appendChild(todoText);
+                todoItem.appendChild(deleteButton);
+                
+                todoList.appendChild(todoItem);
+                todoInput.value = '';
+                
+                updateCount();
+            }
+            
+            // Update the count of remaining todos
+            function updateCount() {
+                const remainingTodos = document.querySelectorAll('.todo-checkbox:not(:checked)').length;
+                todoCount.textContent = remainingTodos + ' items left';
+            }
+            
+            // Event listeners
+            addButton.addEventListener('click', addTodo);
+            
+            todoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addTodo();
+                }
+            });
+            
+            todoList.addEventListener('click', function(e) {
+                if (e.target.classList.contains('todo-checkbox')) {
+                    const todoText = e.target.nextElementSibling;
+                    if (e.target.checked) {
+                        todoText.classList.add('completed');
+                    } else {
+                        todoText.classList.remove('completed');
+                    }
+                    updateCount();
+                } else if (e.target.classList.contains('delete-button') || e.target.parentElement.classList.contains('delete-button')) {
+                    const todoItem = e.target.closest('.todo-item');
+                    todoList.removeChild(todoItem);
+                    updateCount();
+                }
+            });
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.textContent.toLowerCase();
+                    const todoItems = document.querySelectorAll('.todo-item');
+                    
+                    todoItems.forEach(item => {
+                        const isCompleted = item.querySelector('.todo-checkbox').checked;
+                        
+                        if (filter === 'all') {
+                            item.style.display = '';
+                        } else if (filter === 'active') {
+                            item.style.display = isCompleted ? 'none' : '';
+                        } else if (filter === 'completed') {
+                            item.style.display = isCompleted ? '' : 'none';
+                        }
+                    });
+                });
+            });
+            
+            clearCompletedButton.addEventListener('click', function() {
+                const completedItems = document.querySelectorAll('.todo-checkbox:checked');
+                completedItems.forEach(item => {
+                    todoList.removeChild(item.closest('.todo-item'));
+                });
+                updateCount();
+            });
+            
+            // Initialize
+            updateCount();
+        });
+    </script>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

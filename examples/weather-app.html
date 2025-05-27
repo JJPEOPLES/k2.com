@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard - Nahir UI Example - K2 Language</title>
+    <meta name="description" content="A weather dashboard application built with Nahir UI and K2 language.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/modern-ui.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- JavaScript -->
+    <script src="../js/nahir-ui.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    
+    <style>
+        .demo-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .weather-app {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            overflow: hidden;
+        }
+        
+        .weather-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .weather-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        .search-container {
+            display: flex;
+            padding: 20px;
+            background-color: var(--bg-light);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+        }
+        
+        .search-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .weather-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .current-weather {
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .weather-icon {
+            font-size: 64px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .temperature {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .weather-description {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        
+        .weather-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .weather-detail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .detail-label {
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+        
+        .detail-value {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .forecast {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        
+        .forecast-day {
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .forecast-date {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .forecast-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .forecast-temp {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .forecast-high {
+            font-weight: 600;
+        }
+        
+        .forecast-low {
+            color: var(--gray-color);
+        }
+        
+        .weather-map {
+            grid-column: span 2;
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-color);
+            font-size: 18px;
+            border: 1px dashed var(--border-color);
+        }
+        
+        .code-section {
+            margin-top: 40px;
+        }
+        
+        .code-window {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .code-header {
+            background-color: var(--code-header-bg);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        
+        .red { background-color: #ff5f56; }
+        .yellow { background-color: #ffbd2e; }
+        .green { background-color: #27c93f; }
+        
+        .filename {
+            margin-left: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+        
+        .code-content {
+            padding: 15px;
+            overflow-x: auto;
+        }
+        
+        pre {
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--code-color);
+        }
+        
+        .comment { color: var(--code-comment); }
+        .keyword { color: var(--code-keyword); }
+        .string { color: var(--code-string); }
+        .function { color: var(--code-function); }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="animated-link">Home</a></li>
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="example-hero">
+        <div class="container">
+            <h1>Weather Dashboard Example</h1>
+            <p>A weather dashboard application built with Nahir UI and K2</p>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <div class="container">
+            <div class="demo-container">
+                <div class="weather-app">
+                    <div class="weather-header">
+                        <h2>Weather Dashboard</h2>
+                        <span>Powered by Nahir UI</span>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Enter city name" value="New York">
+                        <button class="search-button">Search</button>
+                    </div>
+                    <div class="weather-content">
+                        <div class="current-weather">
+                            <div class="weather-icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <h2 class="temperature">72°F</h2>
+                            <p class="weather-description">Sunny</p>
+                            <p class="location">New York, US</p>
+                            <div class="weather-details">
+                                <div class="weather-detail">
+                                    <span class="detail-label">Humidity</span>
+                                    <span class="detail-value">65%</span>
+                                </div>
+                                <div class="weather-detail">
+                                    <span class="detail-label">Wind</span>
+                                    <span class="detail-value">5 mph</span>
+                                </div>
+                                <div class="weather-detail">
+                                    <span class="detail-label">Pressure</span>
+                                    <span class="detail-value">1015 hPa</span>
+                                </div>
+                                <div class="weather-detail">
+                                    <span class="detail-label">UV Index</span>
+                                    <span class="detail-value">3</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forecast">
+                            <div class="forecast-day">
+                                <div class="forecast-date">Mon</div>
+                                <div class="forecast-icon">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <div class="forecast-temp">
+                                    <span class="forecast-high">75°</span>
+                                    <span class="forecast-low">62°</span>
+                                </div>
+                            </div>
+                            <div class="forecast-day">
+                                <div class="forecast-date">Tue</div>
+                                <div class="forecast-icon">
+                                    <i class="fas fa-cloud-sun"></i>
+                                </div>
+                                <div class="forecast-temp">
+                                    <span class="forecast-high">70°</span>
+                                    <span class="forecast-low">60°</span>
+                                </div>
+                            </div>
+                            <div class="forecast-day">
+                                <div class="forecast-date">Wed</div>
+                                <div class="forecast-icon">
+                                    <i class="fas fa-cloud"></i>
+                                </div>
+                                <div class="forecast-temp">
+                                    <span class="forecast-high">68°</span>
+                                    <span class="forecast-low">58°</span>
+                                </div>
+                            </div>
+                            <div class="forecast-day">
+                                <div class="forecast-date">Thu</div>
+                                <div class="forecast-icon">
+                                    <i class="fas fa-cloud-rain"></i>
+                                </div>
+                                <div class="forecast-temp">
+                                    <span class="forecast-high">65°</span>
+                                    <span class="forecast-low">55°</span>
+                                </div>
+                            </div>
+                            <div class="forecast-day">
+                                <div class="forecast-date">Fri</div>
+                                <div class="forecast-icon">
+                                    <i class="fas fa-cloud-sun"></i>
+                                </div>
+                                <div class="forecast-temp">
+                                    <span class="forecast-high">70°</span>
+                                    <span class="forecast-low">60°</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="weather-map">
+                            Weather Map (Placeholder)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-section">
+                <h2>How It Works</h2>
+                <p>This Weather Dashboard is built using Nahir UI, a component-based UI framework for K2 language. The application fetches weather data from an API and uses ramdisk caching for ultra-fast rendering and data access.</p>
+                
+                <div class="code-window">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">weather_app.k2</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><span class="comment"># Weather Dashboard Example using Nahir UI</span>
+<span class="keyword">import</span> NahirUI
+<span class="keyword">import</span> HTTP
+
+<span class="comment"># API configuration</span>
+<span class="keyword">const</span> API_KEY = <span class="string">"your_api_key_here"</span>
+<span class="keyword">const</span> API_BASE_URL = <span class="string">"https://api.weatherapi.com/v1"</span>
+
+<span class="comment"># Weather Dashboard component</span>
+<span class="keyword">component</span> <span class="function">WeatherDashboard</span> {
+  <span class="keyword">state</span> = {
+    city: <span class="string">"New York"</span>,
+    currentWeather: <span class="keyword">null</span>,
+    forecast: [],
+    loading: <span class="keyword">false</span>,
+    error: <span class="keyword">null</span>
+  }
+  
+  <span class="comment"># Initialize component</span>
+  <span class="keyword">function</span> <span class="function">init</span>() {
+    <span class="function">fetchWeatherData</span>(state.city)
+  }
+  
+  <span class="comment"># Fetch weather data from API</span>
+  <span class="keyword">function</span> <span class="function">fetchWeatherData</span>(city) {
+    state.loading = <span class="keyword">true</span>
+    state.error = <span class="keyword">null</span>
+    <span class="function">updateState</span>()
+    
+    <span class="comment"># Check if data is in cache</span>
+    <span class="keyword">const</span> cacheKey = <span class="string">"weather_"</span> + city.toLowerCase()
+    <span class="keyword">const</span> cachedData = Cache.get(cacheKey)
+    
+    <span class="keyword">if</span> (cachedData && Date.now() - cachedData.timestamp < 3600000) {
+      <span class="comment"># Use cached data if less than 1 hour old</span>
+      state.currentWeather = cachedData.currentWeather
+      state.forecast = cachedData.forecast
+      state.loading = <span class="keyword">false</span>
+      <span class="function">updateState</span>()
+      <span class="keyword">return</span>
+    }
+    
+    <span class="comment"># Fetch from API if not in cache or cache is stale</span>
+    <span class="keyword">const</span> url = <span class="string">`${API_BASE_URL}/forecast.json?key=${API_KEY}&q=${city}&days=5`</span>
+    
+    HTTP.get(url)
+      .then(<span class="keyword">function</span>(response) {
+        <span class="keyword">if</span> (response.status == 200) {
+          <span class="keyword">const</span> data = response.json()
+          
+          <span class="comment"># Parse current weather</span>
+          state.currentWeather = {
+            temperature: data.current.temp_f,
+            condition: data.current.condition.text,
+            icon: <span class="function">getWeatherIcon</span>(data.current.condition.code),
+            humidity: data.current.humidity,
+            wind: data.current.wind_mph,
+            pressure: data.current.pressure_mb,
+            uv: data.current.uv,
+            location: data.location.name + <span class="string">", "</span> + data.location.country
+          }
+          
+          <span class="comment"># Parse forecast</span>
+          state.forecast = data.forecast.forecastday.map(<span class="keyword">function</span>(day) {
+            <span class="keyword">return</span> {
+              date: <span class="keyword">new</span> Date(day.date).toLocaleDateString(<span class="string">"en-US"</span>, { weekday: <span class="string">"short"</span> }),
+              icon: <span class="function">getWeatherIcon</span>(day.day.condition.code),
+              highTemp: day.day.maxtemp_f,
+              lowTemp: day.day.mintemp_f
+            }
+          })
+          
+          <span class="comment"># Cache the data</span>
+          Cache.set(cacheKey, {
+            currentWeather: state.currentWeather,
+            forecast: state.forecast,
+            timestamp: Date.now()
+          })
+          
+          state.loading = <span class="keyword">false</span>
+          <span class="function">updateState</span>()
+        } <span class="keyword">else</span> {
+          state.error = <span class="string">"Error fetching weather data"</span>
+          state.loading = <span class="keyword">false</span>
+          <span class="function">updateState</span>()
+        }
+      })
+      .catch(<span class="keyword">function</span>(error) {
+        state.error = error.message
+        state.loading = <span class="keyword">false</span>
+        <span class="function">updateState</span>()
+      })
+  }
+  
+  <span class="comment"># Map weather condition code to icon</span>
+  <span class="keyword">function</span> <span class="function">getWeatherIcon</span>(code) {
+    <span class="keyword">if</span> (code == 1000) <span class="keyword">return</span> <span class="string">"fa-sun"</span>
+    <span class="keyword">if</span> (code >= 1003 && code <= 1009) <span class="keyword">return</span> <span class="string">"fa-cloud-sun"</span>
+    <span class="keyword">if</span> (code >= 1030 && code <= 1039) <span class="keyword">return</span> <span class="string">"fa-smog"</span>
+    <span class="keyword">if</span> (code >= 1063 && code <= 1069) <span class="keyword">return</span> <span class="string">"fa-cloud-rain"</span>
+    <span class="keyword">if</span> (code >= 1114 && code <= 1117) <span class="keyword">return</span> <span class="string">"fa-snowflake"</span>
+    <span class="keyword">if</span> (code >= 1135 && code <= 1147) <span class="keyword">return</span> <span class="string">"fa-fog"</span>
+    <span class="keyword">if</span> (code >= 1150 && code <= 1201) <span class="keyword">return</span> <span class="string">"fa-cloud-showers-heavy"</span>
+    <span class="keyword">if</span> (code >= 1204 && code <= 1237) <span class="keyword">return</span> <span class="string">"fa-snowflake"</span>
+    <span class="keyword">if</span> (code >= 1240 && code <= 1246) <span class="keyword">return</span> <span class="string">"fa-cloud-rain"</span>
+    <span class="keyword">if</span> (code >= 1249 && code <= 1264) <span class="keyword">return</span> <span class="string">"fa-snowflake"</span>
+    <span class="keyword">if</span> (code >= 1273 && code <= 1282) <span class="keyword">return</span> <span class="string">"fa-bolt"</span>
+    <span class="keyword">return</span> <span class="string">"fa-cloud"</span>
+  }
+  
+  <span class="comment"># Handle search</span>
+  <span class="keyword">function</span> <span class="function">handleSearch</span>() {
+    <span class="function">fetchWeatherData</span>(state.city)
+  }
+  
+  <span class="comment"># Handle input change</span>
+  <span class="keyword">function</span> <span class="function">handleInputChange</span>(e) {
+    state.city = e.target.value
+    <span class="function">updateState</span>()
+  }
+  
+  <span class="comment"># Update component state</span>
+  <span class="keyword">function</span> <span class="function">updateState</span>() {
+    <span class="keyword">this</span>.setState(state)
+  }
+  
+  <span class="keyword">render</span> {
+    <span class="keyword">element</span> = <span class="string">"div"</span>
+    <span class="keyword">className</span> = <span class="string">"weather-app"</span>
+    <span class="keyword">children</span> = [
+      <span class="comment"># Header</span>
+      {
+        <span class="keyword">element</span>: <span class="string">"div"</span>,
+        <span class="keyword">className</span>: <span class="string">"weather-header"</span>,
+        <span class="keyword">children</span>: [
+          {
+            <span class="keyword">element</span>: <span class="string">"h2"</span>,
+            <span class="keyword">content</span>: <span class="string">"Weather Dashboard"</span>
+          },
+          {
+            <span class="keyword">element</span>: <span class="string">"span"</span>,
+            <span class="keyword">content</span>: <span class="string">"Powered by Nahir UI"</span>
+          }
+        ]
+      },
+      
+      <span class="comment"># Search</span>
+      {
+        <span class="keyword">element</span>: <span class="string">"div"</span>,
+        <span class="keyword">className</span>: <span class="string">"search-container"</span>,
+        <span class="keyword">children</span>: [
+          {
+            <span class="keyword">element</span>: <span class="string">"input"</span>,
+            <span class="keyword">className</span>: <span class="string">"search-input"</span>,
+            <span class="keyword">placeholder</span>: <span class="string">"Enter city name"</span>,
+            <span class="keyword">value</span>: state.city,
+            <span class="keyword">onChange</span>: <span class="function">handleInputChange</span>
+          },
+          {
+            <span class="keyword">element</span>: <span class="string">"button"</span>,
+            <span class="keyword">className</span>: <span class="string">"search-button"</span>,
+            <span class="keyword">content</span>: <span class="string">"Search"</span>,
+            <span class="keyword">onClick</span>: <span class="function">handleSearch</span>
+          }
+        ]
+      },
+      
+      <span class="comment"># Content</span>
+      {
+        <span class="keyword">element</span>: <span class="string">"div"</span>,
+        <span class="keyword">className</span>: <span class="string">"weather-content"</span>,
+        <span class="keyword">children</span>: state.loading ? [
+          <span class="comment"># Loading state</span>
+          {
+            <span class="keyword">element</span>: <span class="string">"div"</span>,
+            <span class="keyword">className</span>: <span class="string">"loading"</span>,
+            <span class="keyword">content</span>: <span class="string">"Loading weather data..."</span>
+          }
+        ] : state.error ? [
+          <span class="comment"># Error state</span>
+          {
+            <span class="keyword">element</span>: <span class="string">"div"</span>,
+            <span class="keyword">className</span>: <span class="string">"error"</span>,
+            <span class="keyword">content</span>: state.error
+          }
+        ] : [
+          <span class="comment"># Current weather</span>
+          {
+            <span class="keyword">element</span>: <span class="string">"div"</span>,
+            <span class="keyword">className</span>: <span class="string">"current-weather"</span>,
+            <span class="keyword">children</span>: [
+              {
+                <span class="keyword">element</span>: <span class="string">"div"</span>,
+                <span class="keyword">className</span>: <span class="string">"weather-icon"</span>,
+                <span class="keyword">children</span>: [
+                  {
+                    <span class="keyword">element</span>: <span class="string">"i"</span>,
+                    <span class="keyword">className</span>: <span class="string">"fas "</span> + state.currentWeather.icon
+                  }
+                ]
+              },
+              {
+                <span class="keyword">element</span>: <span class="string">"h2"</span>,
+                <span class="keyword">className</span>: <span class="string">"temperature"</span>,
+                <span class="keyword">content</span>: Math.round(state.currentWeather.temperature) + <span class="string">"°F"</span>
+              },
+              {
+                <span class="keyword">element</span>: <span class="string">"p"</span>,
+                <span class="keyword">className</span>: <span class="string">"weather-description"</span>,
+                <span class="keyword">content</span>: state.currentWeather.condition
+              },
+              {
+                <span class="keyword">element</span>: <span class="string">"p"</span>,
+                <span class="keyword">className</span>: <span class="string">"location"</span>,
+                <span class="keyword">content</span>: state.currentWeather.location
+              },
+              {
+                <span class="keyword">element</span>: <span class="string">"div"</span>,
+                <span class="keyword">className</span>: <span class="string">"weather-details"</span>,
+                <span class="keyword">children</span>: [
+                  <span class="comment"># Humidity</span>
+                  {
+                    <span class="keyword">element</span>: <span class="string">"div"</span>,
+                    <span class="keyword">className</span>: <span class="string">"weather-detail"</span>,
+                    <span class="keyword">children</span>: [
+                      {
+                        <span class="keyword">element</span>: <span class="string">"span"</span>,
+                        <span class="keyword">className</span>: <span class="string">"detail-label"</span>,
+                        <span class="keyword">content</span>: <span class="string">"Humidity"</span>
+                      },
+                      {
+                        <span class="keyword">element</span>: <span class="string">"span"</span>,
+                        <span class="keyword">className</span>: <span class="string">"detail-value"</span>,
+                        <span class="keyword">content</span>: state.currentWeather.humidity + <span class="string">"%"</span>
+                      }
+                    ]
+                  },
+                  <span class="comment"># Wind</span>
+                  {
+                    <span class="keyword">element</span>: <span class="string">"div"</span>,
+                    <span class="keyword">className</span>: <span class="string">"weather-detail"</span>,
+                    <span class="keyword">children</span>: [
+                      {
+                        <span class="keyword">element</span>: <span class="string">"span"</span>,
+                        <span class="keyword">className</span>: <span class="string">"detail-label"</span>,
+                        <span class="keyword">content</span>: <span class="string">"Wind"</span>
+                      },
+                      {
+                        <span class="keyword">element</span>: <span class="string">"span"</span>,
+                        <span class="keyword">className</span>: <span class="string">"detail-value"</span>,
+                        <span class="keyword">content</span>: state.currentWeather.wind + <span class="string">" mph"</span>
+                      }
+                    ]
+                  },
+                  <span class="comment"># Pressure</span>
+                  {
+                    <span class="keyword">element</span>: <span class="string">"div"</span>,
+                    <span class="keyword">className</span>: <span class="string">"weather-detail"</span>,
+                    <span class="keyword">children</span>: [
+                      {
+                        <span class="keyword">element</span>: <span class="string">"span"</span>,
+                        <span class="keyword">className</span>: <span class="string">"detail-label"</span>,
+                        <span class="keyword">content</span>: <span class="string">"Pressure"</span>
+                      },
+                      {
+                        <span class="keyword">element</span>: <span class="string">"span"</span>,
+                        <span class="keyword">className</span>: <span class="string">"detail-value"</span>,
+                        <span class="keyword">content</span>: state.currentWeather.pressure + <span class="string">" hPa"</span>
+                      }
+                    ]
+                  },
+                  <span class="comment"># UV Index</span>
+                  {
+                    <span class="keyword">element</span>: <span class="string">"div"</span>,
+                    <span class="keyword">className</span>: <span class="string">"weather-detail"</span>,
+                    <span class="keyword">children</span>: [
+                      {
+                        <span class="keyword">element</span>: <span class="string">"span"</span>,
+                        <span class="keyword">className</span>: <span class="string">"detail-label"</span>,
+                        <span class="keyword">content</span>: <span class="string">"UV Index"</span>
+                      },
+                      {
+                        <span class="keyword">element</span>: <span class="string">"span"</span>,
+                        <span class="keyword">className</span>: <span class="string">"detail-value"</span>,
+                        <span class="keyword">content</span>: state.currentWeather.uv
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          
+          <span class="comment"># Forecast</span>
+          {
+            <span class="keyword">element</span>: <span class="string">"div"</span>,
+            <span class="keyword">className</span>: <span class="string">"forecast"</span>,
+            <span class="keyword">children</span>: state.forecast.map(<span class="keyword">function</span>(day) {
+              <span class="keyword">return</span> {
+                <span class="keyword">element</span>: <span class="string">"div"</span>,
+                <span class="keyword">className</span>: <span class="string">"forecast-day"</span>,
+                <span class="keyword">children</span>: [
+                  {
+                    <span class="keyword">element</span>: <span class="string">"div"</span>,
+                    <span class="keyword">className</span>: <span class="string">"forecast-date"</span>,
+                    <span class="keyword">content</span>: day.date
+                  },
+                  {
+                    <span class="keyword">element</span>: <span class="string">"div"</span>,
+                    <span class="keyword">className</span>: <span class="string">"forecast-icon"</span>,
+                    <span class="keyword">children</span>: [
+                      {
+                        <span class="keyword">element</span>: <span class="string">"i"</span>,
+                        <span class="keyword">className</span>: <span class="string">"fas "</span> + day.icon
+                      }
+                    ]
+                  },
+                  {
+                    <span class="keyword">element</span>: <span class="string">"div"</span>,
+                    <span class="keyword">className</span>: <span class="string">"forecast-temp"</span>,
+                    <span class="keyword">children</span>: [
+                      {
+                        <span class="keyword">element</span>: <span class="string">"span"</span>,
+                        <span class="keyword">className</span>: <span class="string">"forecast-high"</span>,
+                        <span class="keyword">content</span>: Math.round(day.highTemp) + <span class="string">"°"</span>
+                      },
+                      {
+                        <span class="keyword">element</span>: <span class="string">"span"</span>,
+                        <span class="keyword">className</span>: <span class="string">"forecast-low"</span>,
+                        <span class="keyword">content</span>: Math.round(day.lowTemp) + <span class="string">"°"</span>
+                      }
+                    ]
+                  }
+                ]
+              }
+            })
+          },
+          
+          <span class="comment"># Weather Map</span>
+          {
+            <span class="keyword">element</span>: <span class="string">"div"</span>,
+            <span class="keyword">className</span>: <span class="string">"weather-map"</span>,
+            <span class="keyword">content</span>: <span class="string">"Weather Map (Placeholder)"</span>
+          }
+        ]
+      }
+    ]
+  }
+}
+
+<span class="comment"># Create and render the Weather Dashboard</span>
+dashboard = WeatherDashboard.new()
+dashboard.init()
+UI.render(dashboard)
+</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Build Your Own Nahir UI App?</h2>
+            <p>Get started with Nahir UI and build ultra-fast user interfaces for your K2 applications.</p>
+            <div class="cta-buttons">
+                <a href="../nahir-docs.html" class="btn primary-btn">Read the Docs</a>
+                <a href="../index.html#download" class="btn secondary-btn">Download K2</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>K2</h2>
+                    <p>Ultra-Fast Programming Language</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Product</h3>
+                        <ul>
+                            <li><a href="../index.html#features">Features</a></li>
+                            <li><a href="../index.html#performance">Performance</a></li>
+                            <li><a href="../index.html#examples">Examples</a></li>
+                            <li><a href="../index.html#download">Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="../docs.html">Documentation</a></li>
+                            <li><a href="../nahir-docs.html">Nahir UI</a></li>
+                            <li><a href="../forum.html">Community Forum</a></li>
+                            <li><a href="../try.html">Try Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="../about.html">About Us</a></li>
+                            <li><a href="../blog.html">Blog</a></li>
+                            <li><a href="../careers.html">Careers</a></li>
+                            <li><a href="../contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="../legal/terms-of-use.html">Terms of Use</a></li>
+                            <li><a href="../legal/privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="../legal/licenses.html">Licenses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 K2 Language. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
