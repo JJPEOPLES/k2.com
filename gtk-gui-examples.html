@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K2 GTK GUI Examples - K2 Programming Language</title>
+    <meta name="description" content="Examples for the K2 GTK GUI library, a powerful native GUI toolkit for the K2 programming language.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="index.html#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="index.html#gtk-gui" class="animated-link">GTK GUI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="examples-page">
+        <div class="examples-header">
+            <h1>K2 GTK GUI Examples</h1>
+            <p>Explore these examples to learn how to build GUI applications with K2 GTK GUI.</p>
+        </div>
+        
+        <div class="examples-container">
+            <div class="examples-grid">
+                <div class="example-card">
+                    <h2>Hello World</h2>
+                    <p>A simple application with a button that shows a message when clicked.</p>
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">hello_world.k2</span>
+                        </div>
+                        <pre><code># K2 GTK GUI - Hello World Example
+import GtkGui
+
+# Create a new application
+app = GtkGui.Application.new("org.k2lang.gtkgui.hello", "Hello World")
+
+# Create a window
+window = GtkGui.Window.new(app, "Hello World", 400, 300)
+
+# Create a vertical layout container
+layout = GtkGui.Box.new()
+layout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
+layout.setSpacing(20)
+layout.setMargin(20)
+
+# Create a heading label
+heading = GtkGui.Label.new()
+heading.setText("Hello, World!")
+heading.setProperty("markup", "&lt;span size='xx-large' weight='bold'&gt;Hello, World!&lt;/span&gt;")
+
+# Create a button
+button = GtkGui.Button.new()
+button.setLabel("Click Me")
+
+# Add event listener to the button
+button.setCallback("clicked", function(widget) {
+  GtkGui.Dialog.showMessage(window, "Hello", "You clicked the button!")
+})
+
+# Add components to the layout
+layout.add(heading)
+layout.add(button)
+
+# Set the window content
+window.setContent(layout)
+
+# Show the window
+window.show()
+
+# Start the application
+app.run()</code></pre>
+                    </div>
+                    <div class="example-links">
+                        <a href="examples/gtk-gui/hello_world.k2" class="btn secondary-btn">Download</a>
+                        <a href="examples/gtk-gui-demo.html#hello-world" class="btn primary-btn">Run Demo</a>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <h2>Calculator</h2>
+                    <p>A functional calculator application with a grid layout and event handling.</p>
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">calculator.k2</span>
+                        </div>
+                        <pre><code># K2 GTK GUI - Calculator Example
+# This example demonstrates a simple calculator application with K2 GTK GUI.
+
+import GtkGui
+
+# Create a new application
+app = GtkGui.Application.new("org.k2lang.gtkgui.calculator", "Calculator")
+
+# Create a window
+window = GtkGui.Window.new(app, "Calculator", 300, 400)
+
+# Create a vertical layout container for the main layout
+mainLayout = GtkGui.Box.new()
+mainLayout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
+mainLayout.setSpacing(10)
+mainLayout.setMargin(10)
+
+# Create a display for the calculator
+display = GtkGui.Entry.new()
+display.setProperty("editable", "false")
+display.setProperty("xalign", "1.0") # Right-align text
+display.setProperty("placeholder", "0")
+display.setProperty("fontSize", "24")
+
+# Create a grid for the calculator buttons
+buttonsGrid = GtkGui.Grid.new()
+buttonsGrid.setColumnSpacing(5)
+buttonsGrid.setRowSpacing(5)
+
+# Define button labels
+buttonLabels = [
+  ["7", "8", "9", "/"],
+  ["4", "5", "6", "*"],
+  ["1", "2", "3", "-"],
+  ["0", ".", "=", "+"],
+  ["C", "CE", "(", ")"]
+]
+
+# Current calculation state
+currentValue = ""
+
+# Function to update the display
+function updateDisplay(value) {
+  display.setText(value)
+  currentValue = value
+}
+
+# Function to handle button clicks
+function onButtonClick(label) {
+  if (label == "=") {
+    # Evaluate the expression
+    try {
+      result = eval(currentValue)
+      updateDisplay(result.toString())
+    } catch (error) {
+      updateDisplay("Error")
+    }
+  } else if (label == "C") {
+    # Clear all
+    updateDisplay("")
+  } else if (label == "CE") {
+    # Clear entry (last character)
+    if (currentValue.length() > 0) {
+      updateDisplay(currentValue.substring(0, currentValue.length() - 1))
+    }
+  } else {
+    # Append the button label to the current value
+    updateDisplay(currentValue + label)
+  }
+}
+
+# Create buttons and add them to the grid
+for (row = 0; row < buttonLabels.length(); row++) {
+  for (col = 0; col < buttonLabels[row].length(); col++) {
+    label = buttonLabels[row][col]
+    button = GtkGui.Button.new()
+    button.setLabel(label)
+    
+    # Special styling for operator buttons
+    if (label == "+" || label == "-" || label == "*" || label == "/" || label == "=") {
+      button.setProperty("background", "#4CAF50")
+      button.setProperty("foreground", "white")
+    } else if (label == "C" || label == "CE") {
+      button.setProperty("background", "#F44336")
+      button.setProperty("foreground", "white")
+    }
+    
+    # Set button click handler
+    button.setCallback("clicked", function(widget) {
+      onButtonClick(label)
+    })
+    
+    # Add button to the grid
+    buttonsGrid.attach(button, col, row, 1, 1)
+  }
+}
+
+# Add components to the main layout
+mainLayout.add(display)
+mainLayout.add(buttonsGrid)
+
+# Set the window content
+window.setContent(mainLayout)
+
+# Show the window
+window.show()
+
+# Start the application
+app.run()</code></pre>
+                    </div>
+                    <div class="example-links">
+                        <a href="examples/gtk-gui/calculator.k2" class="btn secondary-btn">Download</a>
+                        <a href="examples/gtk-gui-demo.html#calculator" class="btn primary-btn">Run Demo</a>
+                    </div>
+                </div>
+                
+                <div class="example-card">
+                    <h2>Text Editor</h2>
+                    <p>A simple text editor with file operations, a toolbar, and a status bar.</p>
+                    <div class="code-window">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="filename">text_editor.k2</span>
+                        </div>
+                        <pre><code># K2 GTK GUI - Text Editor Example
+# This example demonstrates a simple text editor application with K2 GTK GUI.
+
+import GtkGui
+import FileSystem
+
+# Create a new application
+app = GtkGui.Application.new("org.k2lang.gtkgui.texteditor", "Text Editor")
+
+# Create a window
+window = GtkGui.Window.new(app, "Text Editor", 800, 600)
+
+# Current file path
+currentFilePath = null
+
+# Create a vertical layout container for the main layout
+mainLayout = GtkGui.Box.new()
+mainLayout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
+mainLayout.setSpacing(0)
+
+# Create a toolbar
+toolbar = GtkGui.Box.new()
+toolbar.setOrientation(GtkGui.ORIENTATION_HORIZONTAL)
+toolbar.setSpacing(5)
+toolbar.setMargin(5)
+
+# Create toolbar buttons
+newButton = GtkGui.Button.new()
+newButton.setLabel("New")
+
+openButton = GtkGui.Button.new()
+openButton.setLabel("Open")
+
+saveButton = GtkGui.Button.new()
+saveButton.setLabel("Save")
+
+saveAsButton = GtkGui.Button.new()
+saveAsButton.setLabel("Save As")
+
+# Create text area
+textArea = GtkGui.TextArea.new()
+textArea.setProperty("monospace", "true")
+textArea.setProperty("wrapMode", "word")
+textArea.setProperty("margin", "10")
+
+# Create status bar
+statusBar = GtkGui.Label.new()
+statusBar.setText("Ready")
+statusBar.setProperty("xalign", "0") # Left-align text
+statusBar.setProperty("margin", "5")
+
+# Function to update the window title
+function updateWindowTitle() {
+  if (currentFilePath) {
+    window.setTitle("Text Editor - " + currentFilePath)
+  } else {
+    window.setTitle("Text Editor - Untitled")
+  }
+}
+
+# Function to create a new document
+function newDocument() {
+  if (textArea.getText().length() > 0) {
+    if (GtkGui.Dialog.showQuestion(window, "New Document", "Do you want to save changes to the current document?")) {
+      saveDocument()
+    }
+  }
+  
+  textArea.setText("")
+  currentFilePath = null
+  updateWindowTitle()
+  statusBar.setText("New document created")
+}
+
+# Function to open a document
+function openDocument() {
+  filePath = GtkGui.Dialog.showFileOpen(window, "Open Document")
+  if (filePath) {
+    try {
+      content = FileSystem.readFile(filePath)
+      textArea.setText(content)
+      currentFilePath = filePath
+      updateWindowTitle()
+      statusBar.setText("Opened: " + filePath)
+    } catch (error) {
+      GtkGui.Dialog.showMessage(window, "Error", "Could not open file: " + error.message)
+      statusBar.setText("Error opening file")
+    }
+  }
+}
+
+# Function to save the current document
+function saveDocument() {
+  if (!currentFilePath) {
+    saveDocumentAs()
+  } else {
+    try {
+      content = textArea.getText()
+      FileSystem.writeFile(currentFilePath, content)
+      statusBar.setText("Saved: " + currentFilePath)
+    } catch (error) {
+      GtkGui.Dialog.showMessage(window, "Error", "Could not save file: " + error.message)
+      statusBar.setText("Error saving file")
+    }
+  }
+}
+
+# Function to save the document as a new file
+function saveDocumentAs() {
+  filePath = GtkGui.Dialog.showFileSave(window, "Save Document", "untitled.txt")
+  if (filePath) {
+    currentFilePath = filePath
+    updateWindowTitle()
+    saveDocument()
+  }
+}
+
+# Set up button click handlers
+newButton.setCallback("clicked", function(widget) {
+  newDocument()
+})
+
+openButton.setCallback("clicked", function(widget) {
+  openDocument()
+})
+
+saveButton.setCallback("clicked", function(widget) {
+  saveDocument()
+})
+
+saveAsButton.setCallback("clicked", function(widget) {
+  saveDocumentAs()
+})
+
+# Add buttons to the toolbar
+toolbar.add(newButton)
+toolbar.add(openButton)
+toolbar.add(saveButton)
+toolbar.add(saveAsButton)
+
+# Add components to the main layout
+mainLayout.add(toolbar)
+mainLayout.add(textArea)
+mainLayout.add(statusBar)
+
+# Set the window content
+window.setContent(mainLayout)
+
+# Initialize the window title
+updateWindowTitle()
+
+# Show the window
+window.show()
+
+# Start the application
+app.run()</code></pre>
+                    </div>
+                    <div class="example-links">
+                        <a href="examples/gtk-gui/text_editor.k2" class="btn secondary-btn">Download</a>
+                        <a href="examples/gtk-gui-demo.html#text-editor" class="btn primary-btn">Run Demo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K2</h2>
+                <p>Ultra-Fast Programming Language</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="index.html#examples">Examples</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k2-language/k2" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k2-language" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k2_language" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k2-language" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="legal/license.html" target="_blank">License</a></li>
+                        <li><a href="legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K2 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

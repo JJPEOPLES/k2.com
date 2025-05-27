@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K2 GTK GUI Documentation - K2 Programming Language</title>
+    <meta name="description" content="Documentation for the K2 GTK GUI library, a powerful native GUI toolkit for the K2 programming language.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="index.html#nahir" class="animated-link nahir-link">Nahir UI</a></li>
+                <li><a href="index.html#gtk-gui" class="animated-link">GTK GUI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="docs-page">
+        <div class="docs-container">
+            <aside class="docs-sidebar">
+                <div class="docs-nav">
+                    <h3>GTK GUI Documentation</h3>
+                    <ul>
+                        <li><a href="#introduction" class="active">Introduction</a></li>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#getting-started">Getting Started</a></li>
+                        <li><a href="#application">Application</a></li>
+                        <li><a href="#window">Window</a></li>
+                        <li><a href="#layouts">Layouts</a></li>
+                        <li><a href="#widgets">Widgets</a></li>
+                        <li><a href="#events">Event Handling</a></li>
+                        <li><a href="#dialogs">Dialogs</a></li>
+                        <li><a href="#file-operations">File Operations</a></li>
+                        <li><a href="#styling">Styling</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                    </ul>
+                </div>
+            </aside>
+            
+            <div class="docs-content">
+                <section id="introduction" class="docs-section">
+                    <h1>K2 GTK GUI Documentation</h1>
+                    <p>K2 GTK GUI is a powerful library that allows you to create native, cross-platform graphical user interfaces using the K2 programming language. Built on top of GTK4, it provides a simple and intuitive API while leveraging the power and flexibility of one of the most popular GUI toolkits.</p>
+                    
+                    <h2>Features</h2>
+                    <ul>
+                        <li>Native performance on Linux, Windows, and macOS</li>
+                        <li>Simple, intuitive API designed specifically for K2</li>
+                        <li>Comprehensive set of UI components and layouts</li>
+                        <li>Event-driven programming with callbacks</li>
+                        <li>Dialog and file operation support</li>
+                        <li>Cross-platform compatibility</li>
+                    </ul>
+                </section>
+                
+                <section id="installation" class="docs-section">
+                    <h2>Installation</h2>
+                    
+                    <h3>Prerequisites</h3>
+                    <p>Before installing K2 GTK GUI, make sure you have the following prerequisites:</p>
+                    <ul>
+                        <li>K2 programming language</li>
+                        <li>GTK4 development libraries</li>
+                    </ul>
+                    
+                    <p>On Debian/Ubuntu-based systems, you can install the GTK4 development libraries with:</p>
+                    <div class="code-block">
+                        <pre><code>sudo apt-get install libgtk-4-dev</code></pre>
+                    </div>
+                    
+                    <h3>Building from Source</h3>
+                    <div class="code-block">
+                        <pre><code># Clone the repository
+git clone https://github.com/k2lang/k2-gtk-gui.git
+
+# Build and install
+cd k2-gtk-gui
+./install.sh</code></pre>
+                    </div>
+                    
+                    <h3>Using Pre-built Packages</h3>
+                    <p>You can also download pre-built packages for your platform:</p>
+                    <ul>
+                        <li><a href="downloads/k2-gtk-gui-linux.zip">Download for Linux</a></li>
+                        <li><a href="downloads/k2-gtk-gui-windows.zip">Download for Windows</a></li>
+                        <li><a href="downloads/k2-gtk-gui-macos.zip">Download for macOS</a></li>
+                    </ul>
+                </section>
+                
+                <section id="getting-started" class="docs-section">
+                    <h2>Getting Started</h2>
+                    
+                    <p>Here's a simple "Hello World" example to get you started with K2 GTK GUI:</p>
+                    
+                    <div class="code-block">
+                        <pre><code># K2 GTK GUI - Hello World Example
+import GtkGui
+
+# Create a new application
+app = GtkGui.Application.new("org.k2lang.gtkgui.hello", "Hello World")
+
+# Create a window
+window = GtkGui.Window.new(app, "Hello World", 400, 300)
+
+# Create a vertical layout container
+layout = GtkGui.Box.new()
+layout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
+layout.setSpacing(20)
+layout.setMargin(20)
+
+# Create a heading label
+heading = GtkGui.Label.new()
+heading.setText("Hello, World!")
+heading.setProperty("markup", "&lt;span size='xx-large' weight='bold'&gt;Hello, World!&lt;/span&gt;")
+
+# Create a button
+button = GtkGui.Button.new()
+button.setLabel("Click Me")
+
+# Add event listener to the button
+button.setCallback("clicked", function(widget) {
+  GtkGui.Dialog.showMessage(window, "Hello", "You clicked the button!")
+})
+
+# Add components to the layout
+layout.add(heading)
+layout.add(button)
+
+# Set the window content
+window.setContent(layout)
+
+# Show the window
+window.show()
+
+# Start the application
+app.run()</code></pre>
+                    </div>
+                    
+                    <p>Save this code to a file (e.g., <code>hello_world.k2</code>) and run it with the K2 interpreter:</p>
+                    
+                    <div class="code-block">
+                        <pre><code>k2 hello_world.k2</code></pre>
+                    </div>
+                </section>
+                
+                <section id="application" class="docs-section">
+                    <h2>Application</h2>
+                    
+                    <p>The <code>GtkGui.Application</code> class is the entry point for creating a GTK GUI application. It manages the application lifecycle and provides methods for creating windows and handling application-level events.</p>
+                    
+                    <h3>Creating an Application</h3>
+                    <div class="code-block">
+                        <pre><code># Create a new application
+app = GtkGui.Application.new(appId, appName)</code></pre>
+                    </div>
+                    
+                    <p>Parameters:</p>
+                    <ul>
+                        <li><code>appId</code> - A unique identifier for the application (e.g., "org.k2lang.myapp")</li>
+                        <li><code>appName</code> - The display name of the application</li>
+                    </ul>
+                    
+                    <h3>Running the Application</h3>
+                    <div class="code-block">
+                        <pre><code># Start the application main loop
+app.run()</code></pre>
+                    </div>
+                    
+                    <h3>Quitting the Application</h3>
+                    <div class="code-block">
+                        <pre><code># Quit the application
+app.quit()</code></pre>
+                    </div>
+                </section>
+                
+                <section id="window" class="docs-section">
+                    <h2>Window</h2>
+                    
+                    <p>The <code>GtkGui.Window</code> class represents a top-level window in your application. You can create multiple windows in a single application.</p>
+                    
+                    <h3>Creating a Window</h3>
+                    <div class="code-block">
+                        <pre><code># Create a new window
+window = GtkGui.Window.new(app, title, width, height)</code></pre>
+                    </div>
+                    
+                    <p>Parameters:</p>
+                    <ul>
+                        <li><code>app</code> - The GtkGui.Application instance</li>
+                        <li><code>title</code> - The window title</li>
+                        <li><code>width</code> - The window width in pixels</li>
+                        <li><code>height</code> - The window height in pixels</li>
+                    </ul>
+                    
+                    <h3>Window Methods</h3>
+                    <div class="code-block">
+                        <pre><code># Set the window title
+window.setTitle(title)
+
+# Set the window size
+window.setSize(width, height)
+
+# Set whether the window is resizable
+window.setResizable(boolean)
+
+# Set the window content
+window.setContent(widget)
+
+# Show the window
+window.show()
+
+# Hide the window
+window.hide()
+
+# Close the window
+window.close()</code></pre>
+                    </div>
+                </section>
+                
+                <section id="layouts" class="docs-section">
+                    <h2>Layouts</h2>
+                    
+                    <p>K2 GTK GUI provides several layout containers for organizing widgets in your user interface.</p>
+                    
+                    <h3>Box Layout</h3>
+                    <p>The <code>GtkGui.Box</code> class is a layout container that arranges widgets in a single row or column.</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Create a new box layout
+box = GtkGui.Box.new()
+
+# Set the orientation (vertical or horizontal)
+box.setOrientation(GtkGui.ORIENTATION_VERTICAL)  # or ORIENTATION_HORIZONTAL
+
+# Set the spacing between widgets
+box.setSpacing(pixels)
+
+# Set the margin around the box
+box.setMargin(pixels)
+
+# Add a widget to the box
+box.add(widget)
+
+# Remove a widget from the box
+box.remove(widget)</code></pre>
+                    </div>
+                    
+                    <h3>Grid Layout</h3>
+                    <p>The <code>GtkGui.Grid</code> class is a layout container that arranges widgets in a grid of rows and columns.</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Create a new grid layout
+grid = GtkGui.Grid.new()
+
+# Set the spacing between columns
+grid.setColumnSpacing(pixels)
+
+# Set the spacing between rows
+grid.setRowSpacing(pixels)
+
+# Attach a widget to the grid
+grid.attach(widget, column, row, width, height)
+
+# Remove a widget from the grid
+grid.remove(widget)</code></pre>
+                    </div>
+                </section>
+                
+                <section id="widgets" class="docs-section">
+                    <h2>Widgets</h2>
+                    
+                    <p>K2 GTK GUI provides a variety of widgets for building user interfaces.</p>
+                    
+                    <h3>Label</h3>
+                    <p>The <code>GtkGui.Label</code> class displays text.</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Create a new label
+label = GtkGui.Label.new()
+
+# Set the label text
+label.setText(text)
+
+# Set markup (HTML-like formatting)
+label.setProperty("markup", "&lt;span size='large' weight='bold'&gt;Bold Text&lt;/span&gt;")</code></pre>
+                    </div>
+                    
+                    <h3>Button</h3>
+                    <p>The <code>GtkGui.Button</code> class is a clickable button.</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Create a new button
+button = GtkGui.Button.new()
+
+# Set the button label
+button.setLabel(text)
+
+# Set a click callback
+button.setCallback("clicked", function(widget) {
+  # Handle button click
+})</code></pre>
+                    </div>
+                    
+                    <h3>Entry</h3>
+                    <p>The <code>GtkGui.Entry</code> class is a single-line text input field.</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Create a new entry
+entry = GtkGui.Entry.new()
+
+# Set the entry text
+entry.setText(text)
+
+# Get the entry text
+text = entry.getText()
+
+# Set a placeholder text
+entry.setProperty("placeholder-text", "Enter text here...")
+
+# Set a change callback
+entry.setCallback("changed", function(widget) {
+  # Handle text change
+})</code></pre>
+                    </div>
+                    
+                    <h3>TextArea</h3>
+                    <p>The <code>GtkGui.TextArea</code> class is a multi-line text input field.</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Create a new text area
+textArea = GtkGui.TextArea.new()
+
+# Set the text area content
+textArea.setText(text)
+
+# Get the text area content
+text = textArea.getText()
+
+# Set monospace font
+textArea.setProperty("monospace", "true")
+
+# Set word wrap mode
+textArea.setProperty("wrapMode", "word")</code></pre>
+                    </div>
+                    
+                    <h3>Image</h3>
+                    <p>The <code>GtkGui.Image</code> class displays an image.</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Create a new image
+image = GtkGui.Image.new()
+
+# Load an image from file
+image.loadFromFile(filePath)
+
+# Set the image size
+image.setSize(width, height)</code></pre>
+                    </div>
+                </section>
+                
+                <section id="events" class="docs-section">
+                    <h2>Event Handling</h2>
+                    
+                    <p>K2 GTK GUI uses a callback-based event handling system. You can register callback functions to be called when specific events occur.</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Set a callback for an event
+widget.setCallback(eventName, callbackFunction)
+
+# Example: Button click event
+button.setCallback("clicked", function(widget) {
+  # This function will be called when the button is clicked
+  print("Button clicked!")
+})
+
+# Example: Entry text change event
+entry.setCallback("changed", function(widget) {
+  # This function will be called when the entry text changes
+  print("Text changed: " + entry.getText())
+})</code></pre>
+                    </div>
+                    
+                    <h3>Common Events</h3>
+                    <ul>
+                        <li><code>clicked</code> - Button click</li>
+                        <li><code>changed</code> - Text input change</li>
+                        <li><code>activate</code> - Entry activation (e.g., pressing Enter)</li>
+                        <li><code>focus-in-event</code> - Widget gains focus</li>
+                        <li><code>focus-out-event</code> - Widget loses focus</li>
+                    </ul>
+                </section>
+                
+                <section id="dialogs" class="docs-section">
+                    <h2>Dialogs</h2>
+                    
+                    <p>K2 GTK GUI provides several dialog types for interacting with the user.</p>
+                    
+                    <h3>Message Dialog</h3>
+                    <div class="code-block">
+                        <pre><code># Show a message dialog
+GtkGui.Dialog.showMessage(parentWindow, title, message)</code></pre>
+                    </div>
+                    
+                    <h3>Question Dialog</h3>
+                    <div class="code-block">
+                        <pre><code># Show a question dialog
+result = GtkGui.Dialog.showQuestion(parentWindow, title, message)
+
+# result is true if the user clicked "Yes", false otherwise
+if (result) {
+  # User clicked "Yes"
+} else {
+  # User clicked "No"
+}</code></pre>
+                    </div>
+                    
+                    <h3>Input Dialog</h3>
+                    <div class="code-block">
+                        <pre><code># Show an input dialog
+text = GtkGui.Dialog.showInput(parentWindow, title, message, defaultValue)
+
+# text is the entered text, or null if the user cancelled
+if (text != null) {
+  # User entered text
+} else {
+  # User cancelled
+}</code></pre>
+                    </div>
+                </section>
+                
+                <section id="file-operations" class="docs-section">
+                    <h2>File Operations</h2>
+                    
+                    <p>K2 GTK GUI provides dialogs for file operations.</p>
+                    
+                    <h3>File Open Dialog</h3>
+                    <div class="code-block">
+                        <pre><code># Show a file open dialog
+filePath = GtkGui.Dialog.showFileOpen(parentWindow, title)
+
+# filePath is the selected file path, or null if the user cancelled
+if (filePath != null) {
+  # User selected a file
+  content = FileSystem.readFile(filePath)
+} else {
+  # User cancelled
+}</code></pre>
+                    </div>
+                    
+                    <h3>File Save Dialog</h3>
+                    <div class="code-block">
+                        <pre><code># Show a file save dialog
+filePath = GtkGui.Dialog.showFileSave(parentWindow, title, defaultName)
+
+# filePath is the selected file path, or null if the user cancelled
+if (filePath != null) {
+  # User selected a file
+  FileSystem.writeFile(filePath, content)
+} else {
+  # User cancelled
+}</code></pre>
+                    </div>
+                </section>
+                
+                <section id="styling" class="docs-section">
+                    <h2>Styling</h2>
+                    
+                    <p>You can customize the appearance of widgets using properties.</p>
+                    
+                    <div class="code-block">
+                        <pre><code># Set a widget property
+widget.setProperty(propertyName, value)
+
+# Examples
+label.setProperty("color", "#ff0000")  # Red text
+button.setProperty("background", "#4CAF50")  # Green background
+button.setProperty("foreground", "white")  # White text
+entry.setProperty("font", "Sans 14")  # Custom font</code></pre>
+                    </div>
+                </section>
+                
+                <section id="examples" class="docs-section">
+                    <h2>Examples</h2>
+                    
+                    <p>Check out these examples to learn more about K2 GTK GUI:</p>
+                    
+                    <ul>
+                        <li><a href="examples/gtk-gui/hello_world.k2">Hello World</a> - A simple application with a button</li>
+                        <li><a href="examples/gtk-gui/calculator.k2">Calculator</a> - A functional calculator application</li>
+                        <li><a href="examples/gtk-gui/text_editor.k2">Text Editor</a> - A simple text editor with file operations</li>
+                    </ul>
+                    
+                    <p>For more examples, visit the <a href="gtk-gui-examples.html">Examples page</a>.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h2>K2</h2>
+                <p>Ultra-Fast Programming Language</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="index.html#examples">Examples</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="https://github.com/k2-language/k2" target="_blank">GitHub</a></li>
+                        <li><a href="https://discord.gg/k2-language" target="_blank">Discord</a></li>
+                        <li><a href="https://twitter.com/k2_language" target="_blank">Twitter</a></li>
+                        <li><a href="https://stackoverflow.com/questions/tagged/k2-language" target="_blank">Stack Overflow</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="legal/license.html" target="_blank">License</a></li>
+                        <li><a href="legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 K2 Language. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

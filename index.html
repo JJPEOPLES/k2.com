@@ -34,7 +34,7 @@
                 <li><a href="#performance" class="animated-link">Performance</a></li>
                 <li><a href="#examples" class="animated-link">Examples</a></li>
                 <li><a href="#nahir" class="animated-link nahir-link">Nahir UI</a></li>
-                <li><a href="#talanolius" class="animated-link">Talanolius GUI</a></li>
+                <li><a href="#gtk-gui" class="animated-link">GTK GUI</a></li>
                 <li><a href="try.html" class="animated-link">Try Online</a></li>
                 <li><a href="docs.html" class="animated-link">Documentation</a></li>
                 <li><a href="forum.html" class="animated-link">Forum</a></li>
@@ -301,98 +301,87 @@ UI.render(myButton)</code></pre>
         </div>
     </section>
 
-    <section id="talanolius" class="talanolius">
-        <h2>Talanolius GUI Framework</h2>
-        <p class="section-intro">Build powerful desktop applications with our high-performance Talanolius GUI framework.</p>
+    <section id="gtk-gui" class="gtk-gui">
+        <h2>K2 GTK GUI Library</h2>
+        <p class="section-intro">Build powerful native desktop applications with our high-performance GTK4-based GUI library.</p>
         
-        <div class="talanolius-features">
-            <div class="talanolius-feature-card">
-                <div class="talanolius-icon">
-                    <i class="fas fa-desktop"></i>
+        <div class="gtk-features">
+            <div class="gtk-feature-card">
+                <div class="gtk-icon">
+                    <i class="fas fa-window-maximize"></i>
                 </div>
-                <h3>Native Desktop Apps</h3>
-                <p>Create native desktop applications that look and feel like they belong on each platform.</p>
+                <h3>Native Performance</h3>
+                <p>Create applications that look and feel native on Linux, Windows, and macOS with the performance of compiled code.</p>
             </div>
             
-            <div class="talanolius-feature-card">
-                <div class="talanolius-icon">
-                    <i class="fas fa-paint-brush"></i>
+            <div class="gtk-feature-card">
+                <div class="gtk-icon">
+                    <i class="fas fa-code"></i>
                 </div>
-                <h3>Beautiful UI Components</h3>
-                <p>Over 50 pre-built UI components with customizable themes and styles for any application.</p>
+                <h3>Simple API</h3>
+                <p>Designed specifically for K2, the API is intuitive and easy to learn, making GUI development accessible to everyone.</p>
             </div>
             
-            <div class="talanolius-feature-card">
-                <div class="talanolius-icon">
-                    <i class="fas fa-memory"></i>
+            <div class="gtk-feature-card">
+                <div class="gtk-icon">
+                    <i class="fas fa-th"></i>
                 </div>
-                <h3>Memory Pooling</h3>
-                <p>Advanced memory pooling minimizes allocations and reduces garbage collection pauses.</p>
+                <h3>Flexible Layouts</h3>
+                <p>Create complex user interfaces with flexible box and grid layouts that adapt to different screen sizes.</p>
             </div>
             
-            <div class="talanolius-feature-card">
-                <div class="talanolius-icon">
-                    <i class="fas fa-laptop-code"></i>
+            <div class="gtk-feature-card">
+                <div class="gtk-icon">
+                    <i class="fas fa-mouse-pointer"></i>
                 </div>
-                <h3>Cross-Platform</h3>
-                <p>Works seamlessly across Windows, macOS, Linux, and embedded systems with a single codebase.</p>
+                <h3>Event Handling</h3>
+                <p>Respond to user interactions with a simple callback system that makes event handling straightforward.</p>
             </div>
         </div>
         
-        <div class="talanolius-demo">
-            <div class="talanolius-code">
+        <div class="gtk-demo">
+            <div class="gtk-code">
                 <div class="code-window">
                     <div class="code-header">
                         <span class="dot red"></span>
                         <span class="dot yellow"></span>
                         <span class="dot green"></span>
-                        <span class="filename">talanolius-example.k2</span>
+                        <span class="filename">gtk-example.k2</span>
                     </div>
-                    <pre><code># Talanolius GUI Example
-import Talanolius
+                    <pre><code># K2 GTK GUI - Hello World Example
+import GtkGui
 
 # Create a new application
-app = Talanolius.Application.new("Hello Talanolius")
+app = GtkGui.Application.new("org.k2lang.gtkgui.hello", "Hello World")
 
 # Create a window
-window = Talanolius.Window.new({
-  title: "My First Talanolius App",
-  width: 400,
-  height: 300,
-  resizable: true
+window = GtkGui.Window.new(app, "Hello World", 400, 300)
+
+# Create a vertical layout container
+layout = GtkGui.Box.new()
+layout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
+layout.setSpacing(20)
+layout.setMargin(20)
+
+# Create a heading label
+heading = GtkGui.Label.new()
+heading.setText("Hello, World!")
+heading.setProperty("markup", "<span size='xx-large' weight='bold'>Hello, World!</span>")
+
+# Create a button
+button = GtkGui.Button.new()
+button.setLabel("Click Me")
+
+# Add event listener to the button
+button.setCallback("clicked", function(widget) {
+  GtkGui.Dialog.showMessage(window, "Hello", "You clicked the button!")
 })
 
-# Create a layout
-layout = Talanolius.VBox.new({
-  spacing: 20,
-  padding: 20
-})
-
-# Add a heading
-heading = Talanolius.Label.new({
-  text: "Welcome to Talanolius GUI",
-  fontSize: 24,
-  fontWeight: "bold"
-})
-
-# Add a button
-button = Talanolius.Button.new({
-  text: "Click Me",
-  primary: true,
-  onClick: function() {
-    Talanolius.Dialog.show({
-      title: "Hello",
-      message: "Hello, World!",
-      type: "info"
-    })
-  }
-})
-
-# Add components to layout
+# Add components to the layout
 layout.add(heading)
 layout.add(button)
 
-# Set window content
+# Set the window content
 window.setContent(layout)
 
 # Show the window
@@ -402,31 +391,31 @@ window.show()
 app.run()</code></pre>
                 </div>
             </div>
-            <div class="talanolius-preview">
-                <h3>Desktop Application</h3>
-                <div class="talanolius-preview-container">
-                    <div class="talanolius-window">
-                        <div class="talanolius-window-header">
-                            <div class="talanolius-window-controls">
-                                <span class="talanolius-window-close"></span>
-                                <span class="talanolius-window-minimize"></span>
-                                <span class="talanolius-window-maximize"></span>
+            <div class="gtk-preview">
+                <h3>Native GTK Application</h3>
+                <div class="gtk-preview-container">
+                    <div class="gtk-window">
+                        <div class="gtk-window-header">
+                            <div class="gtk-window-controls">
+                                <span class="gtk-window-close"></span>
+                                <span class="gtk-window-minimize"></span>
+                                <span class="gtk-window-maximize"></span>
                             </div>
-                            <div class="talanolius-window-title">My First Talanolius App</div>
+                            <div class="gtk-window-title">Hello World</div>
                         </div>
-                        <div class="talanolius-window-content">
-                            <div class="talanolius-heading">Welcome to Talanolius GUI</div>
-                            <button class="talanolius-button">Click Me</button>
+                        <div class="gtk-window-content">
+                            <div class="gtk-heading">Hello, World!</div>
+                            <button class="gtk-button">Click Me</button>
                         </div>
                     </div>
                 </div>
-                <p class="talanolius-caption">Preview of a native desktop application built with Talanolius GUI</p>
+                <p class="gtk-caption">Preview of a native desktop application built with K2 GTK GUI</p>
             </div>
         </div>
         
-        <div class="talanolius-cta">
-            <a href="talanolius-docs.html" class="btn primary-btn">Explore Talanolius GUI</a>
-            <a href="examples/talanolius-demo.html" class="btn secondary-btn">View Demo</a>
+        <div class="gtk-cta">
+            <a href="gtk-gui-docs.html" class="btn primary-btn">Explore K2 GTK GUI</a>
+            <a href="examples/gtk-gui-demo.html" class="btn secondary-btn">View Demo</a>
         </div>
     </section>
 
