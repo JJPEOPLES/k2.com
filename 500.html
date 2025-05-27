@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>500 – Internal Server Error</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'JetBrains Mono', monospace;
+      background-color: #0f172a;
+      color: #e2e8f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .code-block {
+      background: #1e293b;
+      padding: 2rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      max-width: 600px;
+      margin-top: 2rem;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin: 0;
+      color: #ef4444;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #94a3b8;
+    }
+
+    .btn {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #3b82f6;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>500</h1>
+  <p>Something broke. Even K2 can't compute that fast under server pressure.</p>
+
+  <div class="code-block">
+<pre>
+# error.k2
+
+status = 500
+message = "Internal Server Error"
+print status
+print message
+
+# Execution stopped
+</pre>
+  </div>
+
+  <a href="/" class="btn">Go to Homepage</a>
+</body>
+</html>
