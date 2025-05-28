@@ -210,7 +210,7 @@
                 <div class="example-title">Simple Hello World</div>
                 <div class="example-content">
                     <div class="example-description">
-                        <p>This is the most basic Hello World program in K3. It defines a <code>main</code> function that prints "Hello, World!" to the console.</p>
+                        <p>This is the most basic Hello World program in K3. It defines a <code></code>main</code> function that prints "Hello, World!" to the console.</p>
                     </div>
                     
                     <div class="code-window">
@@ -220,7 +220,7 @@
                             <span class="dot green"></span>
                             <span class="filename">hello.k3</span>
                         </div>
-                        <pre><code>// Hello World in K3
+                        <pre><code></code>// Hello World in K3
 fn main() {
     println("Hello, World!")
 }</code></pre>
@@ -231,7 +231,7 @@ fn main() {
                     </div>
                     
                     <div class="example-note">
-                        <p><strong>Note:</strong> The <code>main</code> function is the entry point of a K3 program. When you run a K3 program, the <code>main</code> function is automatically called.</p>
+                        <p><strong>Note:</strong> The <code></code>main</code> function is the entry point of a K3 program. When you run a K3 program, the <code></code>main</code> function is automatically called.</p>
                     </div>
                     
                     <a href="../try.html?code=fn%20main()%20%7B%0A%20%20%20%20println(%22Hello%2C%20World!%22)%0A%7D" class="try-button">Try it online</a>
@@ -252,7 +252,7 @@ fn main() {
                             <span class="dot green"></span>
                             <span class="filename">hello_args.k3</span>
                         </div>
-                        <pre><code>// Hello World with command-line arguments
+                        <pre><code></code>// Hello World with command-line arguments
 fn main(args: []string) {
     if args.length > 1 {
         println("Hello, {}!", args[1])
@@ -271,7 +271,7 @@ Hello, Alice!</pre>
                     </div>
                     
                     <div class="example-tip">
-                        <p><strong>Tip:</strong> In K3, <code>args[0]</code> is the name of the program itself, and <code>args[1]</code> is the first actual argument provided by the user.</p>
+                        <p><strong>Tip:</strong> In K3, <code></code>args[0]</code> is the name of the program itself, and <code></code>args[1]</code> is the first actual argument provided by the user.</p>
                     </div>
                     
                     <a href="../try.html?code=fn%20main(args%3A%20%5B%5Dstring)%20%7B%0A%20%20%20%20if%20args.length%20%3E%201%20%7B%0A%20%20%20%20%20%20%20%20println(%22Hello%2C%20%7B%7D!%22%2C%20args%5B1%5D)%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20println(%22Hello%2C%20World!%22)%0A%20%20%20%20%7D%0A%7D" class="try-button">Try it online</a>
@@ -297,7 +297,7 @@ Hello, Alice!</pre>
                             <span class="dot green"></span>
                             <span class="filename">hello_input.k3</span>
                         </div>
-                        <pre><code>// Hello World with user input
+                        <pre><code></code>// Hello World with user input
 fn main() {
     println("What is your name?")
     
@@ -318,7 +318,7 @@ Hello, Alice!</pre>
                     </div>
                     
                     <div class="example-note">
-                        <p><strong>Note:</strong> The <code>readLine()</code> function reads a line of text from standard input. The <code>trim()</code> method removes whitespace from the beginning and end of the string.</p>
+                        <p><strong>Note:</strong> The <code></code>readLine()</code> function reads a line of text from standard input. The <code></code>trim()</code> method removes whitespace from the beginning and end of the string.</p>
                     </div>
                     
                     <a href="../try.html?code=fn%20main()%20%7B%0A%20%20%20%20println(%22What%20is%20your%20name%3F%22)%0A%20%20%20%20%0A%20%20%20%20let%20name%20%3D%20readLine()%0A%20%20%20%20%0A%20%20%20%20if%20name.trim()%20%3D%3D%20%22%22%20%7B%0A%20%20%20%20%20%20%20%20println(%22Hello%2C%20stranger!%22)%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20println(%22Hello%2C%20%7B%7D!%22%2C%20name.trim())%0A%20%20%20%20%7D%0A%7D" class="try-button">Try it online</a>
@@ -344,7 +344,7 @@ Hello, Alice!</pre>
                             <span class="dot green"></span>
                             <span class="filename">hello_web.k3</span>
                         </div>
-                        <pre><code>// Hello World web server
+                        <pre><code></code>// Hello World web server
 import Http from "k3/http"
 
 fn main() {
@@ -365,7 +365,7 @@ fn main() {
                     </div>
                     
                     <div class="example-tip">
-                        <p><strong>Tip:</strong> When you run this program, you can open your web browser and navigate to <code>http://localhost:8080</code> to see the "Hello, World!" message.</p>
+                        <p><strong>Tip:</strong> When you run this program, you can open your web browser and navigate to <code></code>http://localhost:8080</code> to see the "Hello, World!" message.</p>
                     </div>
                     
                     <a href="../try.html?code=import%20Http%20from%20%22k3%2Fhttp%22%0A%0Afn%20main()%20%7B%0A%20%20%20%20let%20server%20%3D%20Http.createServer((req%2C%20res)%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20res.setHeader(%22Content-Type%22%2C%20%22text%2Fhtml%22)%0A%20%20%20%20%20%20%20%20res.write(%22%3Ch1%3EHello%2C%20World!%3C%2Fh1%3E%22)%0A%20%20%20%20%20%20%20%20res.end()%0A%20%20%20%20%7D)%0A%20%20%20%20%0A%20%20%20%20server.listen(8080%2C%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20println(%22Server%20running%20at%20http%3A%2F%2Flocalhost%3A8080%22)%0A%20%20%20%20%7D)%0A%7D" class="try-button">Try it online</a>
@@ -386,7 +386,7 @@ fn main() {
                             <span class="dot green"></span>
                             <span class="filename">hello_stellar.k3</span>
                         </div>
-                        <pre><code>// Hello World with Stellar UI
+                        <pre><code></code>// Hello World with Stellar UI
 import Stellar from "stellar/ui"
 
 class Greeting extends Stellar.Component {
