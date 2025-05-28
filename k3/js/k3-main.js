@@ -57,7 +57,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     codeBlocks.forEach(block => {
         const rawCode = block.textContent;
-        const lines = rawCode.split('\n');
+        const lines = rawCode.split('
+');
+
+function safeHighlight(line) {
+  // Avoid highlighting inside tags
+  return line.replace(/(color|state|return|let|input|name|value)/g, function(match) {
+    // Do not highlight inside existing span or tag
+    if (/<[^>]*$/.test(line)) return match;
+    return '<span style="color: #CE9178;">' + match + '</span>';
+  });
+}
+
         let highlightedCode = '';
         
         lines.forEach(line => {
@@ -69,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             keywords.forEach(keyword => {
                 const regex = new RegExp(`\\b${keyword}\\b`, 'g');
-                line = line.replace(regex, `<span style="color: #569CD6;">${keyword}</span>`);
+                line = safeHighlight(line);
             });
             
             // Highlight strings
