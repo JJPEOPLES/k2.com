@@ -2,13 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-function escapeHTML(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
     // Theme toggle functionality
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = themeToggle.querySelector('i');
@@ -63,7 +56,8 @@ function escapeHTML(str) {
     const codeBlocks = document.querySelectorAll('pre code');
     
     codeBlocks.forEach(block => {
-        const lines = escapeHTML(block.innerHTML).split('\n');
+        const rawCode = block.textContent;
+        const lines = rawCode.split('\n');
         let highlightedCode = '';
         
         lines.forEach(line => {
