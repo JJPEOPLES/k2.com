@@ -1292,6 +1292,50 @@ sudo pacman -S k3</code></pre>
             });
         });
     </script>
+
+<section id="about" class="about-section" style="padding: 4rem 2rem; text-align: center;">
+  <h2 style="font-size: 2rem; margin-bottom: 1rem;">About Prime</h2>
+  <p style="max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+    Prime (also known as Tera) is the creator of the K2 and K3 programming languages. A passionate developer and systems thinker, Prime focuses on building ultra-fast, minimal, and expressive tools for the next generation of programmers. From compiler design to full-stack deployment, Prime engineers every piece with care, precision, and blazing performance in mind.
+  </p>
+</section>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleButton = document.createElement("button");
+  toggleButton.textContent = "🌙";
+  toggleButton.style.position = "fixed";
+  toggleButton.style.top = "1rem";
+  toggleButton.style.right = "1rem";
+  toggleButton.style.zIndex = "9999";
+  toggleButton.style.padding = "0.5rem";
+  toggleButton.style.border = "none";
+  toggleButton.style.borderRadius = "5px";
+  toggleButton.style.cursor = "pointer";
+  toggleButton.style.fontSize = "1.2rem";
+  toggleButton.title = "Toggle dark/light mode";
+  document.body.appendChild(toggleButton);
+
+  const currentTheme = localStorage.getItem("theme");
+  if (currentTheme === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+
+  toggleButton.addEventListener("click", function () {
+    if (document.documentElement.getAttribute("data-theme") === "dark") {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "light");
+      toggleButton.textContent = "🌙";
+    } else {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+      toggleButton.textContent = "☀️";
+    }
+  });
+});
+</script>
+
 </body>
 </html><!DOCTYPE html>
 <html lang="en">
@@ -2491,5 +2535,49 @@ sudo pacman -S k3</code></pre>
             });
         });
     </script>
+
+<section id="about" class="about-section" style="padding: 4rem 2rem; text-align: center;">
+  <h2 style="font-size: 2rem; margin-bottom: 1rem;">About Prime</h2>
+  <p style="max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+    Prime (also known as Tera) is the creator of the K2 and K3 programming languages. A passionate developer and systems thinker, Prime focuses on building ultra-fast, minimal, and expressive tools for the next generation of programmers. From compiler design to full-stack deployment, Prime engineers every piece with care, precision, and blazing performance in mind.
+  </p>
+</section>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleButton = document.createElement("button");
+  toggleButton.textContent = "🌙";
+  toggleButton.style.position = "fixed";
+  toggleButton.style.top = "1rem";
+  toggleButton.style.right = "1rem";
+  toggleButton.style.zIndex = "9999";
+  toggleButton.style.padding = "0.5rem";
+  toggleButton.style.border = "none";
+  toggleButton.style.borderRadius = "5px";
+  toggleButton.style.cursor = "pointer";
+  toggleButton.style.fontSize = "1.2rem";
+  toggleButton.title = "Toggle dark/light mode";
+  document.body.appendChild(toggleButton);
+
+  const currentTheme = localStorage.getItem("theme");
+  if (currentTheme === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+
+  toggleButton.addEventListener("click", function () {
+    if (document.documentElement.getAttribute("data-theme") === "dark") {
+      document.documentElement.removeAttribute("data-theme");
+      localStorage.setItem("theme", "light");
+      toggleButton.textContent = "🌙";
+    } else {
+      document.documentElement.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+      toggleButton.textContent = "☀️";
+    }
+  });
+});
+</script>
+
 </body>
 </html>
