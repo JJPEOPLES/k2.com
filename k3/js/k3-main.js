@@ -1,6 +1,14 @@
 // K3 Language Website JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
+
+function escapeHTML(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
     // Theme toggle functionality
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = themeToggle.querySelector('i');
@@ -55,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const codeBlocks = document.querySelectorAll('pre code');
     
     codeBlocks.forEach(block => {
-        const lines = block.innerHTML.split('\n');
+        const lines = escapeHTML(block.innerHTML).split('\n');
         let highlightedCode = '';
         
         lines.forEach(line => {
