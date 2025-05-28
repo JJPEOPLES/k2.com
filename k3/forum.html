@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K3 Forum | K3 Programming Language</title>
+    <meta name="description" content="Join the K3 programming language community forum to discuss features, share projects, and get help.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/k3-styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- JavaScript -->
+    <script src="js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    
+    <style>
+        .forum-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .forum-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .forum-title {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .forum-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .forum-search {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+        
+        .forum-search input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem 0 0 0.5rem;
+            font-size: 1rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        .forum-search button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--k3-primary);
+            color: white;
+            border: none;
+            border-radius: 0 0.5rem 0.5rem 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .forum-search button:hover {
+            background-color: var(--k3-primary-dark);
+        }
+        
+        .forum-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .category-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+        
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--k3-primary);
+        }
+        
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-description {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .category-stats {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+        
+        .forum-topics {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .topics-header {
+            background-color: var(--k3-primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .topics-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .topics-filter {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .filter-button {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .filter-button:hover, .filter-button.active {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .topics-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .topic-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .topic-item:hover {
+            background-color: rgba(76, 110, 245, 0.05);
+        }
+        
+        .topic-item:last-child {
+            border-bottom: none;
+        }
+        
+        .topic-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--k3-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+        
+        .topic-content {
+            flex: 1;
+        }
+        
+        .topic-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        
+        .topic-title:hover {
+            color: var(--k3-primary);
+        }
+        
+        .topic-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .topic-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .topic-tag {
+            background-color: rgba(76, 110, 245, 0.1);
+            color: var(--k3-primary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            text-decoration: none;
+        }
+        
+        .topic-tag:hover {
+            background-color: rgba(76, 110, 245, 0.2);
+        }
+        
+        .topic-stats {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+        }
+        
+        .stats-replies, .stats-views {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats-number {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .stats-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .topic-last-reply {
+            min-width: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .last-reply-user {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .last-reply-time {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+        
+        .pagination-item {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.25rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-item:hover, .pagination-item.active {
+            background-color: var(--k3-primary);
+            color: white;
+        }
+        
+        .pagination-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-item.disabled:hover {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+        
+        @media (max-width: 768px) {
+            .forum-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .topic-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .topic-stats {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 2rem;
+            }
+            
+            .topic-last-reply {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="try.html" class="animated-link">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link active">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="forum-container">
+        <div class="forum-header">
+            <h1 class="forum-title">K3 Community Forum</h1>
+            <div class="forum-actions">
+                <a href="#" class="btn primary-btn">New Topic</a>
+                <a href="#" class="btn secondary-btn">Sign In</a>
+            </div>
+        </div>
+        
+        <div class="forum-search">
+            <input type="text" placeholder="Search the forum...">
+            <button type="submit">Search</button>
+        </div>
+        
+        <div class="forum-categories">
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <h3 class="category-title">Announcements</h3>
+                <p class="category-description">Official announcements about K3 language updates, releases, and events.</p>
+                <div class="category-stats">
+                    <span>12 topics</span>
+                    <span>42 posts</span>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3 class="category-title">Help & Support</h3>
+                <p class="category-description">Get help with K3 language features, compiler issues, and general questions.</p>
+                <div class="category-stats">
+                    <span>156 topics</span>
+                    <span>723 posts</span>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <h3 class="category-title">Show & Tell</h3>
+                <p class="category-description">Share your K3 projects, libraries, and tools with the community.</p>
+                <div class="category-stats">
+                    <span>87 topics</span>
+                    <span>342 posts</span>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="category-title">Ideas & Suggestions</h3>
+                <p class="category-description">Propose and discuss new features and improvements for the K3 language.</p>
+                <div class="category-stats">
+                    <span>64 topics</span>
+                    <span>289 posts</span>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <h3 class="category-title">Bug Reports</h3>
+                <p class="category-description">Report bugs and issues with the K3 compiler, standard library, or tools.</p>
+                <div class="category-stats">
+                    <span>43 topics</span>
+                    <span>176 posts</span>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <h3 class="category-title">Stellar UI</h3>
+                <p class="category-description">Discussions about the Stellar UI framework for K3.</p>
+                <div class="category-stats">
+                    <span>38 topics</span>
+                    <span>145 posts</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="forum-topics">
+            <div class="topics-header">
+                <div class="topics-title">Recent Topics</div>
+                <div class="topics-filter">
+                    <button class="filter-button active">All</button>
+                    <button class="filter-button">Popular</button>
+                    <button class="filter-button">Unanswered</button>
+                </div>
+            </div>
+            
+            <ul class="topics-list">
+                <li class="topic-item">
+                    <div class="topic-avatar">JD</div>
+                    <div class="topic-content">
+                        <a href="#" class="topic-title">How to implement generic constraints in K3?</a>
+                        <div class="topic-meta">
+                            <span>Posted by <strong>JohnDoe</strong></span>
+                            <span>2 hours ago</span>
+                        </div>
+                        <div class="topic-tags">
+                            <a href="#" class="topic-tag">generics</a>
+                            <a href="#" class="topic-tag">type-system</a>
+                            <a href="#" class="topic-tag">help</a>
+                        </div>
+                    </div>
+                    <div class="topic-stats">
+                        <div class="stats-replies">
+                            <span class="stats-number">8</span>
+                            <span class="stats-label">Replies</span>
+                        </div>
+                        <div class="stats-views">
+                            <span class="stats-number">42</span>
+                            <span class="stats-label">Views</span>
+                        </div>
+                    </div>
+                    <div class="topic-last-reply">
+                        <div class="last-reply-user">AliceSmith</div>
+                        <div class="last-reply-time">30 minutes ago</div>
+                    </div>
+                </li>
+                
+                <li class="topic-item">
+                    <div class="topic-avatar">AS</div>
+                    <div class="topic-content">
+                        <a href="#" class="topic-title">[Announcement] K3 v0.1.0 Preview Release</a>
+                        <div class="topic-meta">
+                            <span>Posted by <strong>AliceSmith</strong></span>
+                            <span>1 day ago</span>
+                        </div>
+                        <div class="topic-tags">
+                            <a href="#" class="topic-tag">announcement</a>
+                            <a href="#" class="topic-tag">release</a>
+                            <a href="#" class="topic-tag">official</a>
+                        </div>
+                    </div>
+                    <div class="topic-stats">
+                        <div class="stats-replies">
+                            <span class="stats-number">24</span>
+                            <span class="stats-label">Replies</span>
+                        </div>
+                        <div class="stats-views">
+                            <span class="stats-number">156</span>
+                            <span class="stats-label">Views</span>
+                        </div>
+                    </div>
+                    <div class="topic-last-reply">
+                        <div class="last-reply-user">BobJohnson</div>
+                        <div class="last-reply-time">3 hours ago</div>
+                    </div>
+                </li>
+                
+                <li class="topic-item">
+                    <div class="topic-avatar">BJ</div>
+                    <div class="topic-content">
+                        <a href="#" class="topic-title">Show & Tell: I built a web server in K3</a>
+                        <div class="topic-meta">
+                            <span>Posted by <strong>BobJohnson</strong></span>
+                            <span>3 days ago</span>
+                        </div>
+                        <div class="topic-tags">
+                            <a href="#" class="topic-tag">show-and-tell</a>
+                            <a href="#" class="topic-tag">web</a>
+                            <a href="#" class="topic-tag">server</a>
+                            <a href="#" class="topic-tag">project</a>
+                        </div>
+                    </div>
+                    <div class="topic-stats">
+                        <div class="stats-replies">
+                            <span class="stats-number">16</span>
+                            <span class="stats-label">Replies</span>
+                        </div>
+                        <div class="stats-views">
+                            <span class="stats-number">89</span>
+                            <span class="stats-label">Views</span>
+                        </div>
+                    </div>
+                    <div class="topic-last-reply">
+                        <div class="last-reply-user">EmilyWong</div>
+                        <div class="last-reply-time">12 hours ago</div>
+                    </div>
+                </li>
+                
+                <li class="topic-item">
+                    <div class="topic-avatar">EW</div>
+                    <div class="topic-content">
+                        <a href="#" class="topic-title">Bug: Compiler crash with nested generics</a>
+                        <div class="topic-meta">
+                            <span>Posted by <strong>EmilyWong</strong></span>
+                            <span>4 days ago</span>
+                        </div>
+                        <div class="topic-tags">
+                            <a href="#" class="topic-tag">bug</a>
+                            <a href="#" class="topic-tag">compiler</a>
+                            <a href="#" class="topic-tag">generics</a>
+                        </div>
+                    </div>
+                    <div class="topic-stats">
+                        <div class="stats-replies">
+                            <span class="stats-number">7</span>
+                            <span class="stats-label">Replies</span>
+                        </div>
+                        <div class="stats-views">
+                            <span class="stats-number">53</span>
+                            <span class="stats-label">Views</span>
+                        </div>
+                    </div>
+                    <div class="topic-last-reply">
+                        <div class="last-reply-user">DavidLee</div>
+                        <div class="last-reply-time">1 day ago</div>
+                    </div>
+                </li>
+                
+                <li class="topic-item">
+                    <div class="topic-avatar">DL</div>
+                    <div class="topic-content">
+                        <a href="#" class="topic-title">Stellar UI: Creating custom components</a>
+                        <div class="topic-meta">
+                            <span>Posted by <strong>DavidLee</strong></span>
+                            <span>1 week ago</span>
+                        </div>
+                        <div class="topic-tags">
+                            <a href="#" class="topic-tag">stellar</a>
+                            <a href="#" class="topic-tag">ui</a>
+                            <a href="#" class="topic-tag">components</a>
+                            <a href="#" class="topic-tag">tutorial</a>
+                        </div>
+                    </div>
+                    <div class="topic-stats">
+                        <div class="stats-replies">
+                            <span class="stats-number">12</span>
+                            <span class="stats-label">Replies</span>
+                        </div>
+                        <div class="stats-views">
+                            <span class="stats-number">78</span>
+                            <span class="stats-label">Views</span>
+                        </div>
+                    </div>
+                    <div class="topic-last-reply">
+                        <div class="last-reply-user">JohnDoe</div>
+                        <div class="last-reply-time">2 days ago</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="pagination">
+            <a href="#" class="pagination-item disabled"><i class="fas fa-chevron-left"></i></a>
+            <a href="#" class="pagination-item active">1</a>
+            <a href="#" class="pagination-item">2</a>
+            <a href="#" class="pagination-item">3</a>
+            <a href="#" class="pagination-item">4</a>
+            <a href="#" class="pagination-item">5</a>
+            <a href="#" class="pagination-item"><i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+
+    <script>
+        // Filter buttons functionality
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // In a real application, this would filter the topics
+                // For this demo, we'll just show a message
+                const filter = this.textContent;
+                console.log(`Filtering by: ${filter}`);
+            });
+        });
+    </script>
+</body>
+</html>
