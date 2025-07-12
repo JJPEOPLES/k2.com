@@ -1,0 +1,27 @@
+# K3 Hello World Example
+
+# Define a greeting variable
+greeting = "Hello, World from K3!"
+
+# Print the greeting
+print greeting
+
+# Define a function (K3 syntax)
+function sayHello(name) {
+    message = "Hello, " + name + "!"
+    print message
+}
+
+# Call the function
+sayHello("K3 User")
+
+# Demonstrate some K3 features
+count = 5
+print "Counting down:"
+
+while count > 0 {
+    print count
+    count = count - 1
+}
+
+print "Blast off!"

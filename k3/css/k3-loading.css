@@ -1,0 +1,76 @@
+/* K3 Website Loading Bar Styles */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color, #ffffff);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+[data-theme="dark"] .loading-overlay {
+    background-color: var(--bg-color, #121212);
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    width: 80%;
+}
+
+.loading-logo {
+    margin-bottom: 2rem;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--primary-color, #15AABF);
+}
+
+.loading-logo span {
+    background: linear-gradient(135deg, #15AABF, #4C6EF5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: pulse 2s infinite;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 6px;
+    background-color: var(--border-color, #e2e8f0);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.loading-progress {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #15AABF, #4C6EF5);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.loading-text {
+    font-size: 1rem;
+    color: var(--text-secondary, #64748b);
+    text-align: center;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
