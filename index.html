@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K2 Language - Ultra-Fast Programming</title>
-    <meta name="description" content="K2 is an ultra-fast programming language with execution times between 70 nanoseconds and 9 milliseconds.">
+    <title>K2 Programming Language</title>
+    <meta name="description" content="K2 is a modern, high-performance programming language designed for building everything from system utilities to web applications.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,31 +20,22 @@
     <!-- JavaScript -->
     <script src="js/loading.js"></script>
     <script src="js/nahir-ui.js" defer></script>
-    
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">
-                <h1>K2</h1>
-                <span class="tagline">Ultra-Fast Programming</span>
+                <a href="index.html">K2</a>
             </div>
             <ul class="nav-links">
-                <li><a href="#features" class="animated-link">Features</a></li>
-                <li><a href="#performance" class="animated-link">Performance</a></li>
-                <li><a href="#examples" class="animated-link">Examples</a></li>
-                <li><a href="#nahir" class="animated-link nahir-link">Nahir UI</a></li>
-                <li><a href="#gtk-gui" class="animated-link">GTK GUI</a></li>
-                <li><a href="try.html" class="animated-link">Try Online</a></li>
-                <li><a href="docs.html" class="animated-link">Documentation</a></li>
-                <li><a href="forum.html" class="animated-link">Forum</a></li>
-                <li><a href="/k3/index.html" class="animated-link" style="color: #4C6EF5; font-weight: 500;">K3 <span style="font-size: 0.7em; vertical-align: super; color: #51CF66;">NEW</span></a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#performance">Performance</a></li>
+                <li><a href="#examples">Examples</a></li>
+                <li><a href="#nahir">Nahir UI</a></li>
+                <li><a href="try.html">Try Online</a></li>
+                <li><a href="docs.html">Documentation</a></li>
+                <li><a href="k3/index.html">K3 Preview</a></li>
                 <li><a href="#download" class="download-btn">Download</a></li>
-                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-                    <i class="fas fa-moon"></i>
-                </button></li>
             </ul>
             <div class="burger">
                 <div class="line1"></div>
@@ -56,9 +47,8 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>K2 Language</h1>
-            <h2>Execution in <span class="highlight">Nanoseconds</span></h2>
-            <p>A minimalist programming language designed for ultra-fast execution with operations completing in 70 nanoseconds to 9 milliseconds.</p>
+            <h1>K2 Programming Language</h1>
+            <p>A modern, high-performance language designed for building everything from system utilities to web applications.</p>
             <div class="hero-buttons">
                 <a href="#download" class="btn primary-btn">Download K2</a>
                 <a href="try.html" class="btn secondary-btn">Try Online</a>
@@ -70,134 +60,282 @@
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
-                    <span class="filename">example.k2</span>
+                    <span class="filename">hello.k2</span>
                 </div>
-                <pre><code># K2 Example
-x = 10
-y = 20
-sum = x + y
-print sum
-
-# Execution time: 70 nanoseconds</code></pre>
+                <div class="code-body">
+                    <pre><code>// Hello World in K2
+function main() {
+    print("Hello, World!");
+    
+    // Variables
+    var name = "K2";
+    var version = 2.0;
+    
+    print("Welcome to " + name + " " + version);
+    
+    // Arrays
+    var languages = ["K2", "Python", "JavaScript"];
+    for (var i = 0; i < languages.length; i++) {
+        print("I love " + languages[i]);
+    }
+    
+    return 0;
+}</code></pre>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="features" class="features">
-        <h2>Features</h2>
+        <h2>Key Features</h2>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-bolt"></i>
                 </div>
-                <h3>Ultra-Fast</h3>
-                <p>Execute operations in 70-9000 nanoseconds, making K2 one of the fastest interpreted languages.</p>
+                <h3>High Performance</h3>
+                <p>K2 is designed for speed with a highly optimized runtime and efficient memory management.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-feather"></i>
                 </div>
                 <h3>Lightweight</h3>
-                <p>Minimal footprint with the entire interpreter under 30KB, perfect for resource-constrained environments.</p>
+                <p>The entire K2 runtime is less than 1MB, making it perfect for embedded systems and microservices.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-code"></i>
                 </div>
-                <h3>Simple Syntax</h3>
-                <p>Clean, intuitive syntax that's easy to learn and use, focusing on readability and performance.</p>
+                <h3>Clean Syntax</h3>
+                <p>K2's syntax is designed to be familiar to developers coming from C-like languages while removing unnecessary complexity.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-stopwatch"></i>
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-                <h3>Built-in Timing</h3>
-                <p>Integrated execution time measurement for performance monitoring and optimization.</p>
+                <h3>Memory Safe</h3>
+                <p>K2's memory management prevents common bugs like buffer overflows and memory leaks.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <h3>Extensible</h3>
+                <p>Easily extend K2 with modules written in K2, C, or any language that supports C ABI.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-terminal"></i>
                 </div>
-                <h3>Command Line</h3>
-                <p>Run programs from files or execute single expressions directly from the command line.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-cogs"></i>
-                </div>
-                <h3>No Dependencies</h3>
-                <p>Zero external dependencies, making installation and deployment simple across platforms.</p>
+                <h3>Cross-Platform</h3>
+                <p>K2 runs on Windows, macOS, Linux, and embedded platforms with consistent behavior.</p>
             </div>
         </div>
     </section>
 
     <section id="performance" class="performance">
         <h2>Performance</h2>
-        <p class="section-intro">K2 is designed for speed. Here's how it compares to other languages:</p>
+        <p class="section-intro">K2 is designed for high performance across a wide range of workloads.</p>
         
         <div class="performance-chart">
-            <div class="chart-container">
-                <canvas id="performanceChart"></canvas>
-            </div>
-            <div class="performance-stats">
-                <div class="stat-card">
-                    <h3>70 ns</h3>
-                    <p>Fastest operation</p>
+            <h3>Benchmark: Fibonacci Sequence (n=40)</h3>
+            <div class="chart">
+                <div class="chart-bar">
+                    <div class="bar-label">K2</div>
+                    <div class="bar" style="width: 30%;">0.8s</div>
                 </div>
-                <div class="stat-card">
-                    <h3>~500 ns</h3>
-                    <p>Average operation</p>
+                <div class="chart-bar">
+                    <div class="bar-label">Python</div>
+                    <div class="bar" style="width: 100%;">2.7s</div>
                 </div>
-                <div class="stat-card">
-                    <h3>9 ms</h3>
-                    <p>Complex operations</p>
+                <div class="chart-bar">
+                    <div class="bar-label">JavaScript</div>
+                    <div class="bar" style="width: 60%;">1.6s</div>
+                </div>
+                <div class="chart-bar">
+                    <div class="bar-label">Ruby</div>
+                    <div class="bar" style="width: 85%;">2.3s</div>
                 </div>
             </div>
         </div>
         
-        <div class="benchmark-table">
-            <h3>Benchmark Results</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Operation</th>
-                        <th>K2</th>
-                        <th>Python</th>
-                        <th>JavaScript</th>
-                        <th>Ruby</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Variable assignment</td>
-                        <td>100-400 ns</td>
-                        <td>~10,000 ns</td>
-                        <td>~5,000 ns</td>
-                        <td>~15,000 ns</td>
-                    </tr>
-                    <tr>
-                        <td>Integer addition</td>
-                        <td>70-200 ns</td>
-                        <td>~8,000 ns</td>
-                        <td>~3,000 ns</td>
-                        <td>~12,000 ns</td>
-                    </tr>
-                    <tr>
-                        <td>Print operation</td>
-                        <td>1,000-2,000 ns</td>
-                        <td>~50,000 ns</td>
-                        <td>~30,000 ns</td>
-                        <td>~60,000 ns</td>
-                    </tr>
-                    <tr>
-                        <td>Complex expression</td>
-                        <td>300-5,000 ns</td>
-                        <td>~100,000 ns</td>
-                        <td>~80,000 ns</td>
-                        <td>~150,000 ns</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="performance-chart">
+            <h3>Benchmark: JSON Parsing (10MB file)</h3>
+            <div class="chart">
+                <div class="chart-bar">
+                    <div class="bar-label">K2</div>
+                    <div class="bar" style="width: 25%;">0.3s</div>
+                </div>
+                <div class="chart-bar">
+                    <div class="bar-label">Python</div>
+                    <div class="bar" style="width: 75%;">0.9s</div>
+                </div>
+                <div class="chart-bar">
+                    <div class="bar-label">JavaScript</div>
+                    <div class="bar" style="width: 42%;">0.5s</div>
+                </div>
+                <div class="chart-bar">
+                    <div class="bar-label">Ruby</div>
+                    <div class="bar" style="width: 100%;">1.2s</div>
+                </div>
+            </div>
+        </div>
+        
+        <table class="performance-table">
+            <thead>
+                <tr>
+                    <th>Benchmark</th>
+                    <th>K2</th>
+                    <th>Python</th>
+                    <th>JavaScript</th>
+                    <th>Ruby</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Binary Tree</td>
+                    <td>1.2s</td>
+                    <td>3.5s</td>
+                    <td>2.1s</td>
+                    <td>4.2s</td>
+                </tr>
+                <tr>
+                    <td>Regex</td>
+                    <td>0.4s</td>
+                    <td>0.9s</td>
+                    <td>0.6s</td>
+                    <td>1.3s</td>
+                </tr>
+                <tr>
+                    <td>Matrix Mult.</td>
+                    <td>0.7s</td>
+                    <td>2.2s</td>
+                    <td>1.5s</td>
+                    <td>2.8s</td>
+                </tr>
+                <tr>
+                    <td>File I/O</td>
+                    <td>0.3s</td>
+                    <td>0.8s</td>
+                    <td>0.7s</td>
+                    <td>1.1s</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="examples" class="examples">
+        <h2>Code Examples</h2>
+        <p class="section-intro">K2's clean syntax makes it easy to write and understand code.</p>
+        
+        <div class="examples-container">
+            <div class="example-tabs">
+                <button class="example-tab active" data-tab="hello">Hello World</button>
+                <button class="example-tab" data-tab="fibonacci">Fibonacci</button>
+                <button class="example-tab" data-tab="webserver">Web Server</button>
+                <button class="example-tab" data-tab="gui">GUI App</button>
+            </div>
+            
+            <div class="example-content">
+                <div class="code-window active" id="hello-example">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">hello.k2</span>
+                    </div>
+                    <div class="code-body">
+                        <pre><code>// Hello World in K2
+function main() {
+    print("Hello, World!");
+    return 0;
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="code-window" id="fibonacci-example">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">fibonacci.k2</span>
+                    </div>
+                    <div class="code-body">
+                        <pre><code>// Fibonacci sequence in K2
+function fibonacci(n) {
+    if (n <= 1) {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+function main() {
+    for (var i = 0; i < 10; i++) {
+        print("Fibonacci(" + i + ") = " + fibonacci(i));
+    }
+    return 0;
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="code-window" id="webserver-example">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">webserver.k2</span>
+                    </div>
+                    <div class="code-body">
+                        <pre><code>// Simple web server in K2
+import http
+
+function handleRequest(request, response) {
+    response.setHeader("Content-Type", "text/html");
+    response.write("&lt;html&gt;&lt;body&gt;");
+    response.write("&lt;h1&gt;Hello from K2!&lt;/h1&gt;");
+    response.write("&lt;p&gt;You requested: " + request.url + "&lt;/p&gt;");
+    response.write("&lt;/body&gt;&lt;/html&gt;");
+    response.end();
+}
+
+function main() {
+    var server = http.createServer(handleRequest);
+    server.listen(8080);
+    print("Server running at http://localhost:8080/");
+    return 0;
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="code-window" id="gui-example">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="filename">gui.k2</span>
+                    </div>
+                    <div class="code-body">
+                        <pre><code>// Simple GUI application in K2
+import gui
+
+function main() {
+    var window = gui.createWindow("K2 GUI Example", 400, 300);
+    
+    var button = gui.createButton("Click Me!", 150, 120, 100, 30);
+    button.onClick(function() {
+        gui.showMessage("Hello!", "You clicked the button!");
+    });
+    
+    window.add(button);
+    window.show();
+    
+    gui.runMainLoop();
+    return 0;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -248,508 +386,66 @@ print sum
                         <span class="dot green"></span>
                         <span class="filename">nahir-example.k2</span>
                     </div>
-                    <pre><code># Nahir UI Component Example
-component Button {
-  props = {
-    text: "Click Me",
-    color: "blue",
-    onClick: null
-  }
-  
-  render {
-    element = "button"
-    style = {
-      background: props.color,
-      padding: "10px 20px",
-      borderRadius: "4px"
-    }
-    content = props.text
-    events = {
-      click: props.onClick
-    }
-  }
-}
+                    <div class="code-body">
+                        <pre><code>// Nahir UI Example
+import nahir
 
-# Create and render a button
-myButton = Button.new({
-  text: "Submit",
-  color: "green",
-  onClick: function() {
-    print "Button clicked!"
-  }
-})
-
-UI.render(myButton)</code></pre>
+function main() {
+    // Create a new Nahir application
+    var app = nahir.createApp("My Nahir App");
+    
+    // Define the app state
+    var state = {
+        counter: 0,
+        theme: "light"
+    };
+    
+    // Create a component
+    var counterComponent = nahir.component("counter", function(props) {
+        return nahir.div({ class: "counter-container" }, [
+            nahir.h2({}, "Counter: " + props.value),
+            nahir.button({
+                onClick: function() { props.onIncrement(); }
+            }, "Increment"),
+            nahir.button({
+                onClick: function() { props.onReset(); }
+            }, "Reset")
+        ]);
+    });
+    
+    // Render the application
+    app.render(function() {
+        return nahir.div({ class: "app" }, [
+            nahir.h1({}, "Nahir UI Example"),
+            counterComponent({
+                value: state.counter,
+                onIncrement: function() { state.counter++; },
+                onReset: function() { state.counter = 0; }
+            }),
+            nahir.button({
+                onClick: function() {
+                    state.theme = state.theme === "light" ? "dark" : "light";
+                    document.body.className = state.theme;
+                }
+            }, "Toggle Theme")
+        ]);
+    });
+    
+    // Start the application
+    app.mount("#app");
+}</code></pre>
+                    </div>
                 </div>
             </div>
             <div class="nahir-preview">
-                <h3>Live Preview</h3>
-                <div class="nahir-preview-container">
-                    <button class="nahir-button">Submit</button>
-                    <div class="nahir-console">
-                        <div class="nahir-console-header">Console</div>
-                        <div class="nahir-console-content">
-                            <div class="nahir-console-line">Button clicked!</div>
-                            <div class="nahir-console-line">Execution time: 85 nanoseconds</div>
-                        </div>
+                <div class="nahir-app">
+                    <h1>Nahir UI Example</h1>
+                    <div class="counter-container">
+                        <h2>Counter: <span id="counter-value">0</span></h2>
+                        <button id="increment-btn">Increment</button>
+                        <button id="reset-btn">Reset</button>
                     </div>
-                </div>
-                <p class="nahir-caption">Interactive preview of the Nahir UI component system</p>
-            </div>
-        </div>
-        
-        <div class="nahir-cta">
-            <a href="nahir-docs.html" class="btn primary-btn">Explore Nahir UI</a>
-            <a href="nahir-examples.html" class="btn secondary-btn">View Examples</a>
-        </div>
-    </section>
-
-    <section id="gtk-gui" class="gtk-gui">
-        <h2>K2 GTK GUI Library</h2>
-        <p class="section-intro">Build powerful native desktop applications with our high-performance GTK4-based GUI library.</p>
-        
-        <div class="gtk-features">
-            <div class="gtk-feature-card">
-                <div class="gtk-icon">
-                    <i class="fas fa-window-maximize"></i>
-                </div>
-                <h3>Native Performance</h3>
-                <p>Create applications that look and feel native on Linux, Windows, and macOS with the performance of compiled code.</p>
-            </div>
-            
-            <div class="gtk-feature-card">
-                <div class="gtk-icon">
-                    <i class="fas fa-code"></i>
-                </div>
-                <h3>Simple API</h3>
-                <p>Designed specifically for K2, the API is intuitive and easy to learn, making GUI development accessible to everyone.</p>
-            </div>
-            
-            <div class="gtk-feature-card">
-                <div class="gtk-icon">
-                    <i class="fas fa-th"></i>
-                </div>
-                <h3>Flexible Layouts</h3>
-                <p>Create complex user interfaces with flexible box and grid layouts that adapt to different screen sizes.</p>
-            </div>
-            
-            <div class="gtk-feature-card">
-                <div class="gtk-icon">
-                    <i class="fas fa-mouse-pointer"></i>
-                </div>
-                <h3>Event Handling</h3>
-                <p>Respond to user interactions with a simple callback system that makes event handling straightforward.</p>
-            </div>
-        </div>
-        
-        <div class="gtk-demo">
-            <div class="gtk-code">
-                <div class="code-window">
-                    <div class="code-header">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
-                        <span class="filename">gtk-example.k2</span>
-                    </div>
-                    <pre><code># K2 GTK GUI - Hello World Example
-import GtkGui
-
-# Create a new application
-app = GtkGui.Application.new("org.k2lang.gtkgui.hello", "Hello World")
-
-# Create a window
-window = GtkGui.Window.new(app, "Hello World", 400, 300)
-
-# Create a vertical layout container
-layout = GtkGui.Box.new()
-layout.setOrientation(GtkGui.ORIENTATION_VERTICAL)
-layout.setSpacing(20)
-layout.setMargin(20)
-
-# Create a heading label
-heading = GtkGui.Label.new()
-heading.setText("Hello, World!")
-heading.setProperty("markup", "<span size='xx-large' weight='bold'>Hello, World!</span>")
-
-# Create a button
-button = GtkGui.Button.new()
-button.setLabel("Click Me")
-
-# Add event listener to the button
-button.setCallback("clicked", function(widget) {
-  GtkGui.Dialog.showMessage(window, "Hello", "You clicked the button!")
-})
-
-# Add components to the layout
-layout.add(heading)
-layout.add(button)
-
-# Set the window content
-window.setContent(layout)
-
-# Show the window
-window.show()
-
-# Start the application
-app.run()</code></pre>
-                </div>
-            </div>
-            <div class="gtk-preview">
-                <h3>Native GTK Application</h3>
-                <div class="gtk-preview-container">
-                    <div class="gtk-window">
-                        <div class="gtk-window-header">
-                            <div class="gtk-window-controls">
-                                <span class="gtk-window-close"></span>
-                                <span class="gtk-window-minimize"></span>
-                                <span class="gtk-window-maximize"></span>
-                            </div>
-                            <div class="gtk-window-title">Hello World</div>
-                        </div>
-                        <div class="gtk-window-content">
-                            <div class="gtk-heading">Hello, World!</div>
-                            <button class="gtk-button">Click Me</button>
-                        </div>
-                    </div>
-                </div>
-                <p class="gtk-caption">Preview of a native desktop application built with K2 GTK GUI</p>
-            </div>
-        </div>
-        
-        <div class="gtk-cta">
-            <a href="gtk-gui-docs.html" class="btn primary-btn">Explore K2 GTK GUI</a>
-            <a href="examples/gtk-gui-demo.html" class="btn secondary-btn">View Demo</a>
-        </div>
-    </section>
-
-    <section id="examples" class="examples">
-        <h2>Examples</h2>
-        <div class="examples-container">
-            <div class="example-tabs">
-                <button class="tab-btn active" data-tab="basic">Basic</button>
-                <button class="tab-btn" data-tab="arithmetic">Arithmetic</button>
-                <button class="tab-btn" data-tab="fibonacci">Fibonacci</button>
-                <button class="tab-btn" data-tab="timing">Timing</button>
-            </div>
-            
-            <div class="example-content">
-                <div class="tab-content active" id="basic-content">
-                    <div class="code-window">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="filename">basic.k2</span>
-                        </div>
-                        <pre><code># Basic K2 program
-x = 42
-print x</code></pre>
-                    </div>
-                    <div class="example-output">
-                        <h4>Output:</h4>
-                        <pre>42
-Execution time: 1230 nanoseconds</pre>
-                    </div>
-                    <p class="example-description">
-                        This simple example shows variable assignment and printing. K2 automatically displays execution time.
-                    </p>
-                </div>
-                
-                <div class="tab-content" id="arithmetic-content">
-                    <div class="code-window">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="filename">arithmetic.k2</span>
-                        </div>
-                        <pre><code># Arithmetic operations
-a = 10
-b = 5
-
-sum = a + b
-diff = a - b
-product = a * b
-quotient = a / b
-
-print sum
-print diff
-print product
-print quotient</code></pre>
-                    </div>
-                    <div class="example-output">
-                        <h4>Output:</h4>
-                        <pre>15
-Execution time: 1150 nanoseconds
-5
-Execution time: 1120 nanoseconds
-50
-Execution time: 1130 nanoseconds
-2
-Execution time: 1140 nanoseconds</pre>
-                    </div>
-                    <p class="example-description">
-                        K2 supports all basic arithmetic operations with extremely fast execution times.
-                    </p>
-                </div>
-                
-                <div class="tab-content" id="fibonacci-content">
-                    <div class="code-window">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="filename">fibonacci.k2</span>
-                        </div>
-                        <pre><code># Fibonacci sequence
-a = 0
-b = 1
-
-print a
-print b
-
-c = a + b
-print c
-a = b
-b = c
-
-c = a + b
-print c
-a = b
-b = c
-
-c = a + b
-print c</code></pre>
-                    </div>
-                    <div class="example-output">
-                        <h4>Output:</h4>
-                        <pre>0
-1
-1
-2
-3</pre>
-                    </div>
-                    <p class="example-description">
-                        This example calculates the first few numbers in the Fibonacci sequence, demonstrating variable reassignment.
-                    </p>
-                </div>
-                
-                <div class="tab-content" id="timing-content">
-                    <div class="code-window">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="filename">timing.k2</span>
-                        </div>
-                        <pre><code># Execution time control
-x = 100
-y = 200
-
-# Show execution time
-print x + y
-
-# Disable execution time display
-show_exec_time off
-print x * y
-
-# Enable execution time display
-show_exec_time on
-print x - y</code></pre>
-                    </div>
-                    <div class="example-output">
-                        <h4>Output:</h4>
-                        <pre>300
-Execution time: 1250 nanoseconds
-20000
--100
-Execution time: 1180 nanoseconds</pre>
-                    </div>
-                    <p class="example-description">
-                        K2 allows you to toggle execution time display, which is useful for benchmarking and performance analysis.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="runner" class="runner">
-        <h2 class="section-title">Online K2 Runner</h2>
-        <p class="section-intro">Try K2 directly in your browser without installing anything. Write your code and see the results instantly.</p>
-        
-        <div class="runner-container">
-            <div class="editor-container">
-                <div class="editor-header">
-                    <div class="editor-title">K2 Code Editor</div>
-                    <div class="editor-actions">
-                        <button id="run-code" class="run-btn"><i class="fas fa-play"></i> Run</button>
-                        <button id="clear-code" class="clear-btn"><i class="fas fa-trash"></i> Clear</button>
-                        <button id="copy-code" class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                </div>
-                <div class="editor-wrapper">
-                    <textarea id="code-editor" class="code-input" spellcheck="false" placeholder="// Write your K2 code here
-                    
-var greeting = 'Hello, World!';
-print(greeting);
-
-// Try more complex operations
-var a = 10;
-var b = 20;
-print('Sum: ' + (a + b));
-"></textarea>
-                </div>
-            </div>
-            <div class="output-container">
-                <div class="output-header">
-                    <div class="output-title">Output</div>
-                    <button id="clear-output" class="clear-btn"><i class="fas fa-trash"></i> Clear</button>
-                </div>
-                <div class="output-wrapper">
-                    <pre id="code-output" class="code-output">// Output will appear here when you run your code</pre>
-                </div>
-                <div class="execution-info">
-                    <div class="execution-time">
-                        <span>Execution time: </span>
-                        <span id="execution-time-value">0 ns</span>
-                    </div>
-                    <div class="memory-usage">
-                        <span>Memory usage: </span>
-                        <span id="memory-usage-value">0 KB</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="runner-examples">
-            <h3>Example Snippets</h3>
-            <div class="example-buttons">
-                <button class="example-btn" data-example="hello">Hello World</button>
-                <button class="example-btn" data-example="fibonacci">Fibonacci</button>
-                <button class="example-btn" data-example="factorial">Factorial</button>
-                <button class="example-btn" data-example="sorting">Sorting</button>
-            </div>
-        </div>
-        
-        <div class="runner-info">
-            <div class="info-card">
-                <div class="info-icon">
-                    <i class="fas fa-microchip"></i>
-                </div>
-                <div class="info-content">
-                    <h4>Native x86_64 Execution</h4>
-                    <p>This online runner executes your K2 code using the same precompiled x86_64 binary that powers the desktop version, providing authentic performance metrics.</p>
-                </div>
-            </div>
-            <div class="info-card">
-                <div class="info-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <div class="info-content">
-                    <h4>Ultra-Fast Performance</h4>
-                    <p>Experience K2's nanosecond-level execution speed directly in your browser. The code is executed on our servers using optimized native binaries.</p>
-                </div>
-            </div>
-            <div class="info-card">
-                <div class="info-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <div class="info-content">
-                    <h4>Secure Sandbox Environment</h4>
-                    <p>All code is executed in an isolated environment with strict resource limits and security controls to ensure safety.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="documentation" class="documentation">
-        <h2>Documentation</h2>
-        <div class="docs-container">
-            <div class="docs-sidebar">
-                <ul>
-                    <li><a href="#installation" class="active">Installation</a></li>
-                    <li><a href="#usage">Usage</a></li>
-                    <li><a href="#syntax">Syntax</a></li>
-                    <li><a href="#variables">Variables</a></li>
-                    <li><a href="#operations">Operations</a></li>
-                    <li><a href="#commands">Commands</a></li>
-                </ul>
-            </div>
-            <div class="docs-content">
-                <div class="docs-section active" id="installation">
-                    <h3>Installation</h3>
-                    <p>Installing K2 is simple and straightforward:</p>
-                    <div class="code-block">
-                        <pre><code># Download the package
-git clone https://github.com/JJPEOPLES/k2lang.git
-cd k2lang
-
-# Compile
-g++ -std=c++17 -O3 k2.cpp -o k2
-
-# Install globally (optional)
-sudo cp k2 /usr/local/bin/</code></pre>
-                    </div>
-                    <p>For Debian/Ubuntu/Kali Linux users, you can use the provided Debian package:</p>
-                    <div class="code-block">
-                        <pre><code>sudo dpkg -i k2-language_1.0.0-1_amd64.deb</code></pre>
-                    </div>
-                </div>
-                
-                <div class="docs-section" id="usage">
-                    <h3>Usage</h3>
-                    <p>Running K2 programs is easy:</p>
-                    <div class="code-block">
-                        <pre><code># Run a K2 program file
-k2 program.k2
-
-# Execute a single expression
-k2 -e "print 100 + 200"</code></pre>
-                    </div>
-                </div>
-                
-                <div class="docs-section" id="syntax">
-                    <h3>Syntax</h3>
-                    <p>K2 has a clean, minimal syntax:</p>
-                    <ul class="docs-list">
-                        <li><strong>Comments</strong> start with <code>#</code></li>
-                        <li><strong>Statements</strong> are written one per line</li>
-                        <li><strong>Variables</strong> are assigned with <code>=</code></li>
-                        <li><strong>Output</strong> is done with <code>print</code></li>
-                    </ul>
-                </div>
-                
-                <div class="docs-section" id="variables">
-                    <h3>Variables</h3>
-                    <p>Variables in K2 store integer values:</p>
-                    <div class="code-block">
-                        <pre><code># Variable assignment
-x = 10
-y = 20
-
-# Using variables
-z = x + y</code></pre>
-                    </div>
-                </div>
-                
-                <div class="docs-section" id="operations">
-                    <h3>Operations</h3>
-                    <p>K2 supports these arithmetic operations:</p>
-                    <ul class="docs-list">
-                        <li><strong>Addition</strong>: <code>a + b</code></li>
-                        <li><strong>Subtraction</strong>: <code>a - b</code></li>
-                        <li><strong>Multiplication</strong>: <code>a * b</code></li>
-                        <li><strong>Division</strong>: <code>a / b</code></li>
-                    </ul>
-                </div>
-                
-                <div class="docs-section" id="commands">
-                    <h3>Commands</h3>
-                    <p>Special commands in K2:</p>
-                    <ul class="docs-list">
-                        <li><strong>print</strong>: Outputs a value</li>
-                        <li><strong>show_exec_time</strong>: Controls execution time display (on/off)</li>
-                    </ul>
+                    <button id="theme-toggle-btn">Toggle Theme</button>
                 </div>
             </div>
         </div>
@@ -765,6 +461,15 @@ z = x + y</code></pre>
                 <h3>Source Code</h3>
                 <p>Get the latest source code from GitHub</p>
                 <a href="https://github.com/JJPEOPLES/k2lang" class="btn download-btn" target="_blank">Download Source</a>
+            </div>
+            
+            <div class="download-card">
+                <div class="download-icon">
+                    <i class="fab fa-windows"></i>
+                </div>
+                <h3>Windows Installer</h3>
+                <p>Windows 10/11 installer with GUI support</p>
+                <a href="/downloads/k2_installer.zip" class="btn download-btn" download>Download Installer</a>
             </div>
             
             <div class="download-card">
@@ -789,6 +494,15 @@ z = x + y</code></pre>
         <div class="download-options" style="margin-top: 2rem;">
             <div class="download-card">
                 <div class="download-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>K2 Turbo</h3>
+                <p>High-performance K2 interpreter</p>
+                <a href="/downloads/k2_turbo.exe" class="btn download-btn" download>Download Turbo</a>
+            </div>
+            
+            <div class="download-card">
+                <div class="download-icon">
                     <i class="fas fa-book"></i>
                 </div>
                 <h3>Documentation</h3>
@@ -804,131 +518,104 @@ z = x + y</code></pre>
                 <p>Collection of K2 example programs</p>
                 <a href="/downloads/k2-examples.zip" class="btn download-btn" download>Download Examples</a>
             </div>
-            
-            <div class="download-card">
-                <div class="download-icon">
-                    <i class="fas fa-terminal"></i>
-                </div>
-                <h3>Installation Script</h3>
-                <p>Automated installation script for Linux</p>
-                <a href="/downloads/install.sh" class="btn download-btn" download>Download Script</a>
-            </div>
-        </div>
-        
-        <div class="download-options" style="margin-top: 2rem;">
-            <div class="download-card" style="background-color: #f0f5ff; border: 2px solid #4C6EF5; grid-column: 1 / -1;">
-                <div class="download-icon" style="color: #4C6EF5;">
-                    <i class="fas fa-rocket"></i>
-                </div>
-                <h3 style="color: #4C6EF5;">Try K3 - The Next Generation</h3>
-                <p>Experience the next evolution of K2 with improved performance, memory safety, and the Stellar UI framework</p>
-                <a href="/k3/index.html" class="btn download-btn" style="background-color: #4C6EF5;">Explore K3</a>
-            </div>
         </div>
     </section>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h2>K2</h2>
-                    <p>Ultra-Fast Programming Language</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-links-column">
-                        <h3>Product</h3>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="try.html">Try Online</a></li>
-                            <li><a href="#download">Download</a></li>
-                            <li><a href="/k3/index.html" style="color: #4C6EF5; font-weight: 500;">K3 - Next Generation</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-links-column">
-                        <h3>Resources</h3>
-                        <ul>
-                            <li><a href="docs.html">Documentation</a></li>
-                            <li><a href="#examples">Examples</a></li>
-                            <li><a href="forum.html">Community Forum</a></li>
-                            <li><a href="#">Blog</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-links-column">
-                        <h3>Community</h3>
-                        <ul>
-                            <li><a href="https://github.com/JJPEOPLES/k2" target="_blank">GitHub</a></li>
-                            <li><a href="#">Discord</a></li>
-                            <li><a href="#">Twitter</a></li>
-                            <li><a href="#">YouTube</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-links-column">
-                        <h3>Legal</h3>
-                        <ul>
-                            <li><a href="/downloads/LICENSE.txt" target="_blank">License</a></li>
-                            <li><a href="/legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
-                            <li><a href="/legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
-                        </ul>
-                    </div>
-                </div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>K2 Language</h3>
+                <p>A modern, high-performance programming language designed for building everything from system utilities to web applications.</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 K2 Programming Language. All rights reserved.</p>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#performance">Performance</a></li>
+                    <li><a href="#examples">Examples</a></li>
+                    <li><a href="#nahir">Nahir UI</a></li>
+                    <li><a href="#download">Download</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="docs.html">Documentation</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="examples.html">Example Projects</a></li>
+                    <li><a href="community.html">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
                 <div class="social-links">
-                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://github.com/JJPEOPLES/k2lang" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://twitter.com/k2lang" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://discord.gg/k2lang" target="_blank"><i class="fab fa-discord"></i></a>
                 </div>
             </div>
         </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 K2 Language. All rights reserved.</p>
+        </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/script.js"></script>
-
-<section id="about" class="about-section" style="padding: 4rem 2rem; text-align: center;">
-  <h2 style="font-size: 2rem; margin-bottom: 1rem;">About Prime</h2>
-  <p style="max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
-    Prime (also known as Tera) is the creator of the K2 and K3 programming languages. A passionate developer and systems thinker, Prime focuses on building ultra-fast, minimal, and expressive tools for the next generation of programmers. From compiler design to full-stack deployment, Prime engineers every piece with care, precision, and blazing performance in mind.
-  </p>
-</section>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const toggleButton = document.createElement("button");
-  toggleButton.textContent = "🌙";
-  toggleButton.style.position = "fixed";
-  toggleButton.style.top = "1rem";
-  toggleButton.style.right = "1rem";
-  toggleButton.style.zIndex = "9999";
-  toggleButton.style.padding = "0.5rem";
-  toggleButton.style.border = "none";
-  toggleButton.style.borderRadius = "5px";
-  toggleButton.style.cursor = "pointer";
-  toggleButton.style.fontSize = "1.2rem";
-  toggleButton.title = "Toggle dark/light mode";
-  document.body.appendChild(toggleButton);
-
-  const currentTheme = localStorage.getItem("theme");
-  if (currentTheme === "dark") {
-    document.documentElement.setAttribute("data-theme", "dark");
-  }
-
-  toggleButton.addEventListener("click", function () {
-    if (document.documentElement.getAttribute("data-theme") === "dark") {
-      document.documentElement.removeAttribute("data-theme");
-      localStorage.setItem("theme", "light");
-      toggleButton.textContent = "🌙";
-    } else {
-      document.documentElement.setAttribute("data-theme", "dark");
-      localStorage.setItem("theme", "dark");
-      toggleButton.textContent = "☀️";
-    }
-  });
-});
-</script>
-
+    <script>
+        // Counter demo for Nahir UI preview
+        document.addEventListener('DOMContentLoaded', function() {
+            var counterValue = document.getElementById('counter-value');
+            var incrementBtn = document.getElementById('increment-btn');
+            var resetBtn = document.getElementById('reset-btn');
+            var themeToggleBtn = document.getElementById('theme-toggle-btn');
+            var count = 0;
+            
+            incrementBtn.addEventListener('click', function() {
+                count++;
+                counterValue.textContent = count;
+            });
+            
+            resetBtn.addEventListener('click', function() {
+                count = 0;
+                counterValue.textContent = count;
+            });
+            
+            themeToggleBtn.addEventListener('click', function() {
+                document.body.classList.toggle('dark-theme');
+            });
+            
+            // Example tabs
+            var tabs = document.querySelectorAll('.example-tab');
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabs.forEach(function(t) {
+                        t.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Hide all code windows
+                    var codeWindows = document.querySelectorAll('.example-content .code-window');
+                    codeWindows.forEach(function(window) {
+                        window.classList.remove('active');
+                    });
+                    
+                    // Show the corresponding code window
+                    var tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId + '-example').classList.add('active');
+                });
+            });
+            
+            // Mobile navigation
+            var burger = document.querySelector('.burger');
+            var nav = document.querySelector('.nav-links');
+            
+            burger.addEventListener('click', function() {
+                nav.classList.toggle('nav-active');
+                burger.classList.toggle('toggle');
+            });
+        });
+    </script>
 </body>
 </html>

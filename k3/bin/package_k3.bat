@@ -133,12 +133,12 @@ echo SOFTWARE. >> "%TEMP_DIR%\license.txt"
 
 :: Create Linux ZIP file
 echo Creating Linux package...
-powershell -Command "Compress-Archive -Path '%TEMP_DIR%\*' -DestinationPath '..\downloads\k3-1.0.0-linux-x64.tar.gz' -Force"
+powershell -Command "Compress-Archive -Path '%TEMP_DIR%\*' -DestinationPath '..\downloads\k3-1.0.0-linux-x64.zip' -Force"
 
 :: Clean up
 echo Cleaning up...
 rmdir /S /Q "%TEMP_DIR%"
 
-echo Done! K3 Linux package created: ..\downloads\k3-1.0.0-linux-x64.tar.gz
+echo Done! K3 Linux package created: ..\downloads\k3-1.0.0-linux-x64.zip
 
 echo All K3 packages created successfully!
