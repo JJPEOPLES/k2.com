@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try K2 Online - K2 Programming Language</title>
+    <meta name="description" content="Try the K2 programming language directly in your browser without installing anything.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/modern-ui.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K2</h1>
+                <span class="tagline">Ultra-Fast Programming</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="animated-link">Home</a></li>
+                <li><a href="index.html#features" class="animated-link">Features</a></li>
+                <li><a href="try.html" class="animated-link active">Try Online</a></li>
+                <li><a href="docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="forum.html" class="animated-link">Forum</a></li>
+                <li><a href="index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="notifications"></div>
+
+            <section id="try-k2-section">
+                <h2>Try K2 Online</h2>
+                
+
+                
+                <div class="code-runner">
+                    <div class="editor-section">
+                        <div class="editor-header">
+                            <h3>K2 Code Editor</h3>
+                            <div class="editor-controls">
+                                <button id="run-code" class="run-btn"><i class="fas fa-play"></i> Run</button>
+                                <button id="clear-code" class="clear-btn"><i class="fas fa-trash"></i> Clear</button>
+                                <button id="copy-code" class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                        </div>
+                        <div class="editor-wrapper">
+                            <textarea id="code-editor" class="code-input" spellcheck="false" placeholder="// Write your K2 code here
+
+var greeting = 'Hello, World!';
+print(greeting);
+
+// Try more complex operations
+var a = 10;
+var b = 20;
+print('Sum: ' + (a + b));"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="output-section">
+                        <div class="output-header">
+                            <h3>Output</h3>
+                            <div class="output-controls">
+                                <button id="clear-output" class="clear-btn"><i class="fas fa-trash"></i> Clear</button>
+                            </div>
+                        </div>
+                        <div class="output-wrapper">
+                            <pre id="code-output" class="code-output">// Output will appear here when you run your code</pre>
+                        </div>
+                        <div class="execution-metrics">
+                            <div class="metric">
+                                <span class="metric-label">Execution Time:</span>
+                                <span id="execution-time-value" class="metric-value">0 ns</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Memory Usage:</span>
+                                <span id="memory-usage-value" class="metric-value">0 KB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="examples-section">
+                    <h3>Example Programs</h3>
+                    <div class="example-buttons">
+                        <button class="example-btn" data-example="hello">Hello World</button>
+                        <button class="example-btn" data-example="fibonacci">Fibonacci</button>
+                        <button class="example-btn" data-example="factorial">Factorial</button>
+                        <button class="example-btn" data-example="sorting">Sorting</button>
+                    </div>
+                </div>
+                
+
+            </section>
+            
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>K2</h2>
+                    <p>Ultra-Fast Programming Language</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Product</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="try.html">Try Online</a></li>
+                            <li><a href="index.html#download">Download</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="docs.html">Documentation</a></li>
+                            <li><a href="index.html#examples">Examples</a></li>
+                            <li><a href="forum.html">Community Forum</a></li>
+                            <li><a href="#">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Community</h3>
+                        <ul>
+                            <li><a href="https://github.com/JJPEOPLES/k2" target="_blank">GitHub</a></li>
+                            <li><a href="#">Discord</a></li>
+                            <li><a href="#">Twitter</a></li>
+                            <li><a href="#">YouTube</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="/downloads/LICENSE.txt" target="_blank">License</a></li>
+                            <li><a href="/legal/privacy-policy.html" target="_blank">Privacy Policy</a></li>
+                            <li><a href="/legal/terms-of-use.html" target="_blank">Terms of Use</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 K2 Programming Language. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/k2editor.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Additional Try page specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize editor functionality
+            if (window.K2Editor) {
+                window.K2Editor.init();
+            }
+            
+            // Set up example buttons
+            const exampleButtons = document.querySelectorAll('.example-btn');
+            exampleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const exampleType = this.getAttribute('data-example');
+                    loadExample(exampleType);
+                });
+            });
+            
+            function loadExample(type) {
+                let code = '';
+                switch(type) {
+                    case 'hello':
+                        code = '# Hello World Example\nx = "Hello, World!"\nprint x';
+                        break;
+                    case 'fibonacci':
+                        code = '# Fibonacci Sequence\na = 0\nb = 1\n\nprint a\nprint b\n\n# Calculate next 8 numbers\nc = a + b\nprint c\na = b\nb = c\n\nc = a + b\nprint c\na = b\nb = c\n\nc = a + b\nprint c';
+                        break;
+                    case 'factorial':
+                        code = '# Factorial calculation\nn = 5\nresult = 1\n\n# Calculate n! using iteration\nwhile n > 0\n  result = result * n\n  n = n - 1\nend\n\nprint result';
+                        break;
+                    case 'sorting':
+                        code = '# Simple sorting algorithm\n# Initialize array\na = [5, 3, 8, 1, 2, 7, 4, 6]\n\n# Bubble sort implementation\nfor i = 0 to length(a) - 1\n  for j = 0 to length(a) - i - 2\n    if a[j] > a[j+1]\n      # Swap elements\n      temp = a[j]\n      a[j] = a[j+1]\n      a[j+1] = temp\n    end\n  end\nend\n\n# Print sorted array\nprint a';
+                        break;
+                }
+                
+                if (window.K2Editor && window.K2Editor.setCode) {
+                    window.K2Editor.setCode(code);
+                } else if (document.getElementById('code-editor')) {
+                    document.getElementById('code-editor').value = code;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
