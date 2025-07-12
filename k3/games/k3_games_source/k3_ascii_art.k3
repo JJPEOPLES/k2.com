@@ -1,0 +1,136 @@
+// K3 ASCII Art Generator
+// Run with: k3 k3_ascii_art.k3
+
+fn main() {
+    println("K3 ASCII Art Generator")
+    println("======================")
+    println("")
+    
+    // Display a cool K3 logo
+    display_k3_logo()
+    
+    println("\nPress Enter to see more ASCII art...")
+    let _ = input()
+    
+    // Display a rocket
+    display_rocket()
+    
+    println("\nPress Enter to see an animated ASCII art...")
+    let _ = input()
+    
+    // Display animated ASCII art
+    animate_ascii()
+}
+
+fn display_k3_logo() {
+    println("  _  __  ____  ")
+    println(" | |/ / |___ \\ ")
+    println(" | ' /    __) |")
+    println(" | . \\   |__ < ")
+    println(" |_|\\_\\  |___/ ")
+    println("")
+    println("The Fast, Safe, and Expressive Programming Language")
+}
+
+fn display_rocket() {
+    println("       /\\")
+    println("      /  \\")
+    println("     /    \\")
+    println("    /      \\")
+    println("   /        \\")
+    println("  /          \\")
+    println(" /_____________\\")
+    println(" |             |")
+    println(" |   K3 LANG   |")
+    println(" |             |")
+    println(" |             |")
+    println(" |             |")
+    println(" |_____________|")
+    println(" |             |")
+    println(" |             |")
+    println(" |             |")
+    println(" |_____________|")
+    println("  /|         |\\")
+    println(" / |         | \\")
+    println("/__|_________|__\\")
+    println("    |       |")
+    println("    |       |")
+    println("    |       |")
+    println("   /|\\     /|\\")
+    println("  / | \\   / | \\")
+    println(" /  |  \\ /  |  \\")
+    println("/   |   V   |   \\")
+    println("    |       |")
+    println("    |       |")
+    println("    |       |")
+    println("    V       V")
+}
+
+fn animate_ascii() {
+    // Animation frames for a simple spinner
+    let frames = [
+        "|",
+        "/",
+        "-",
+        "\\",
+        "|",
+        "/",
+        "-",
+        "\\"
+    ]
+    
+    println("Loading K3 Turbo Engine...")
+    
+    // Display each frame with a delay
+    for i in 0..40 {
+        // Clear the line and print the current frame
+        print("\r[{}] Loading... {}%", frames[i % 8], i * 2.5)
+        
+        // Simulate a delay (in a real K3 program, we'd use sleep)
+        for _ in 0..10000000 {
+            // Busy wait to simulate delay
+        }
+    }
+    
+    println("\r[*] Loading complete! 100%")
+    println("\nK3 Turbo Engine is ready!")
+    
+    // Display a simple animated wave
+    println("\nAnimated wave:")
+    
+    let wave_frames = [
+        "~~~~~~~~~",
+        "~~~~~~~-~",
+        "~~~~~-~~~",
+        "~~~-~~~~~",
+        "~-~~~~~~~",
+        "-~~~~~~~~",
+        "~-~~~~~~~",
+        "~~~-~~~~~",
+        "~~~~~-~~~",
+        "~~~~~~~-~"
+    ]
+    
+    for i in 0..30 {
+        print("\r{}  K3 is awesome!  {}", wave_frames[i % 10], wave_frames[(i + 5) % 10])
+        
+        // Simulate a delay
+        for _ in 0..10000000 {
+            // Busy wait
+        }
+    }
+    
+    println("\n\nASCII art demonstration complete!")
+}
+
+fn input() -> String {
+    // In a real K3 implementation, this would read from stdin
+    // For this example, we'll just return an empty string
+    return ""
+}
+
+fn print(format_string: String, args...) {
+    // In a real K3 implementation, this would format and print without a newline
+    // For this example, we'll just use println
+    println(format_string)
+}

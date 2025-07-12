@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K3 Maze Game - K3 Games</title>
+    <meta name="description" content="Navigate through a maze to reach the exit in this ASCII maze game built with K3. Avoid traps and find the shortest path to freedom!">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/modern-ui.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../../js/nahir-ui.js" defer></script>
+    <script src="../js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 0;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+            font-size: 16px;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+        
+        .game-info {
+            margin: 20px 0;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .game-info h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .game-info p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .direction-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 5px;
+            width: 150px;
+            margin: 0 auto;
+        }
+        
+        .direction-controls button {
+            padding: 10px;
+            margin: 0;
+        }
+        
+        .up {
+            grid-column: 2;
+            grid-row: 1;
+        }
+        
+        .left {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        
+        .down {
+            grid-column: 2;
+            grid-row: 3;
+        }
+        
+        .right {
+            grid-column: 3;
+            grid-row: 2;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .status {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="../index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="../index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="index.html" class="animated-link">Games</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>K3 ASCII Maze Game</h1>
+        
+        <div class="game-info">
+            <h2>How to Play</h2>
+            <p>Navigate through the maze to reach the exit (E).</p>
+            <p>Use the buttons below or keyboard (W, A, S, D) to move your character (P).</p>
+            <p>Avoid traps (T) or you'll lose!</p>
+        </div>
+        
+        <pre id="maze-display"></pre>
+        
+        <div class="direction-controls">
+            <button class="up" id="up-btn">W</button>
+            <button class="left" id="left-btn">A</button>
+            <button class="down" id="down-btn">S</button>
+            <button class="right" id="right-btn">D</button>
+        </div>
+        
+        <div class="controls">
+            <button id="restart-btn">Restart Game</button>
+        </div>
+        
+        <div id="status" class="status">Use controls to start moving</div>
+        
+        <a href="index.html" class="back-link">← Back to Games</a>
+    </div>
+    
+    <script>
+        // Game state
+        const game = {
+            maze: [
+                "#############",
+                "#P    #     #",
+                "# ### # ### #",
+                "#   #   #   #",
+                "### ##### ###",
+                "#     # #   #",
+                "# ### # # # #",
+                "#   #   # # #",
+                "### ####### #",
+                "#T        #T#",
+                "# ####### # #",
+                "#       #   #",
+                "#########E###"
+            ],
+            playerRow: 1,
+            playerCol: 1,
+            isGameOver: false,
+            hasWon: false,
+            moves: 0,
+            
+            // Initialize the game
+            init() {
+                this.playerRow = 1;
+                this.playerCol = 1;
+                this.isGameOver = false;
+                this.hasWon = false;
+                this.moves = 0;
+                this.render();
+            },
+            
+            // Render the maze
+            render() {
+                const mazeDisplay = document.getElementById('maze-display');
+                const status = document.getElementById('status');
+                
+                let mazeOutput = `Moves: ${this.moves}\n\n`;
+                
+                for (let i = 0; i < this.maze.length; i++) {
+                    for (let j = 0; j < this.maze[i].length; j++) {
+                        if (i === this.playerRow && j === this.playerCol) {
+                            mazeOutput += 'P';
+                        } else {
+                            mazeOutput += this.maze[i][j];
+                        }
+                    }
+                    mazeOutput += '\n';
+                }
+                
+                mazeDisplay.textContent = mazeOutput;
+                
+                if (this.isGameOver) {
+                    if (this.hasWon) {
+                        status.textContent = "Congratulations! You've escaped the maze!";
+                        status.style.color = "#4ade80"; // Green
+                    } else {
+                        status.textContent = "Game over! You fell into a trap!";
+                        status.style.color = "#ef4444"; // Red
+                    }
+                } else {
+                    status.textContent = `Use controls to navigate the maze. Moves: ${this.moves}`;
+                    status.style.color = "var(--text-color)";
+                }
+            },
+            
+            // Move the player
+            movePlayer(rowDelta, colDelta) {
+                if (this.isGameOver) return;
+                
+                const newRow = this.playerRow + rowDelta;
+                const newCol = this.playerCol + colDelta;
+                
+                // Check if the new position is valid
+                if (newRow >= 0 && newRow < this.maze.length && 
+                    newCol >= 0 && newCol < this.maze[0].length) {
+                    
+                    const cell = this.maze[newRow][newCol];
+                    
+                    switch (cell) {
+                        case '#':
+                            // Wall - can't move
+                            status.textContent = "You can't move through walls!";
+                            break;
+                        case 'E':
+                            // Exit - win the game
+                            this.playerRow = newRow;
+                            this.playerCol = newCol;
+                            this.isGameOver = true;
+                            this.hasWon = true;
+                            this.moves++;
+                            this.render();
+                            break;
+                        case 'T':
+                            // Trap - lose the game
+                            this.playerRow = newRow;
+                            this.playerCol = newCol;
+                            this.isGameOver = true;
+                            this.hasWon = false;
+                            this.moves++;
+                            this.render();
+                            break;
+                        case ' ':
+                            // Empty space - move
+                            this.playerRow = newRow;
+                            this.playerCol = newCol;
+                            this.moves++;
+                            this.render();
+                            break;
+                    }
+                }
+            }
+        };
+        
+        // Initialize the game
+        game.init();
+        
+        // Event listeners for buttons
+        document.getElementById('up-btn').addEventListener('click', () => {
+            game.movePlayer(-1, 0);
+        });
+        
+        document.getElementById('left-btn').addEventListener('click', () => {
+            game.movePlayer(0, -1);
+        });
+        
+        document.getElementById('down-btn').addEventListener('click', () => {
+            game.movePlayer(1, 0);
+        });
+        
+        document.getElementById('right-btn').addEventListener('click', () => {
+            game.movePlayer(0, 1);
+        });
+        
+        document.getElementById('restart-btn').addEventListener('click', () => {
+            game.init();
+        });
+        
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            switch (e.key.toLowerCase()) {
+                case 'w':
+                    game.movePlayer(-1, 0);
+                    break;
+                case 'a':
+                    game.movePlayer(0, -1);
+                    break;
+                case 's':
+                    game.movePlayer(1, 0);
+                    break;
+                case 'd':
+                    game.movePlayer(0, 1);
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

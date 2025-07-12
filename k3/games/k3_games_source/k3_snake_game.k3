@@ -1,0 +1,290 @@
+// K3 ASCII Snake Game
+// Run with: k3 k3_snake_game.k3
+
+fn main() {
+    println("K3 ASCII Snake Game")
+    println("==================")
+    println("Eat the food (*) to grow your snake")
+    println("Controls: W (up), A (left), S (down), D (right), Q (quit)")
+    println("Press Enter to start...")
+    let _ = input()
+    
+    // Initialize game
+    let mut game = SnakeGame::new(20, 20)
+    
+    // Main game loop
+    while !game.is_game_over {
+        // Clear screen
+        clear_screen()
+        
+        // Update game state
+        game.update()
+        
+        // Render the game
+        game.render()
+        
+        // Get player input
+        println("Enter direction (W/A/S/D) or Q to quit: ")
+        let direction = input()
+        
+        if direction.len() > 0 {
+            let command = direction.chars()[0]
+            
+            match command {
+                'W' | 'w' => game.change_direction(Direction::Up),
+                'A' | 'a' => game.change_direction(Direction::Left),
+                'S' | 's' => game.change_direction(Direction::Down),
+                'D' | 'd' => game.change_direction(Direction::Right),
+                'Q' | 'q' => game.is_game_over = true,
+                _ => {}
+            }
+        }
+        
+        // Simulate a delay (in a real game, we'd use sleep)
+        for _ in 0..5000000 {
+            // Busy wait
+        }
+    }
+    
+    // Game over message
+    println("\nGame Over!")
+    println("Final Score: {}", game.score)
+    println("Snake Length: {}", game.snake.len())
+}
+
+// Direction enum
+enum Direction {
+    Up,
+    Down,
+    Left,
+    Right
+}
+
+// Position struct
+struct Position {
+    row: i32,
+    col: i32
+}
+
+impl Position {
+    fn new(row: i32, col: i32) -> Position {
+        Position { row, col }
+    }
+}
+
+// Snake Game struct
+struct SnakeGame {
+    width: i32,
+    height: i32,
+    snake: Vec<Position>,
+    direction: Direction,
+    food: Position,
+    is_game_over: bool,
+    score: u32
+}
+
+impl SnakeGame {
+    fn new(width: i32, height: i32) -> SnakeGame {
+        // Create initial snake with 3 segments
+        let mut snake = Vec::new()
+        snake.push(Position::new(height / 2, width / 2))     // Head
+        snake.push(Position::new(height / 2, width / 2 - 1)) // Body
+        snake.push(Position::new(height / 2, width / 2 - 2)) // Tail
+        
+        // Create initial food
+        let food = Position::new(height / 4, width / 4)
+        
+        SnakeGame {
+            width,
+            height,
+            snake,
+            direction: Direction::Right,
+            food,
+            is_game_over: false,
+            score: 0
+        }
+    }
+    
+    fn update(&mut self) {
+        if self.is_game_over {
+            return
+        }
+        
+        // Get the current head position
+        let head = &self.snake[0]
+        
+        // Calculate new head position based on direction
+        let mut new_head = Position::new(head.row, head.col)
+        
+        match self.direction {
+            Direction::Up => new_head.row -= 1,
+            Direction::Down => new_head.row += 1,
+            Direction::Left => new_head.col -= 1,
+            Direction::Right => new_head.col += 1
+        }
+        
+        // Check for collisions with walls
+        if new_head.row < 0 || new_head.row >= self.height || 
+           new_head.col < 0 || new_head.col >= self.width {
+            self.is_game_over = true
+            return
+        }
+        
+        // Check for collisions with self
+        for segment in &self.snake {
+            if new_head.row == segment.row && new_head.col == segment.col {
+                self.is_game_over = true
+                return
+            }
+        }
+        
+        // Check if snake eats food
+        let ate_food = new_head.row == self.food.row && new_head.col == self.food.col
+        
+        // Move the snake
+        self.snake.insert(0, new_head)
+        
+        if ate_food {
+            // Grow the snake (don't remove the tail)
+            self.score += 10
+            
+            // Generate new food
+            self.generate_food()
+        } else {
+            // Remove the tail
+            self.snake.pop()
+        }
+    }
+    
+    fn render(&self) {
+        println("Score: {}", self.score)
+        println("")
+        
+        // Create a grid
+        let mut grid = Vec::new()
+        for _ in 0..self.height {
+            let mut row = Vec::new()
+            for _ in 0..self.width {
+                row.push(' ')
+            }
+            grid.push(row)
+        }
+        
+        // Place the snake on the grid
+        for (i, segment) in self.snake.iter().enumerate() {
+            if segment.row >= 0 && segment.row < self.height && 
+               segment.col >= 0 && segment.col < self.width {
+                if i == 0 {
+                    grid[segment.row as usize][segment.col as usize] = 'O' // Head
+                } else {
+                    grid[segment.row as usize][segment.col as usize] = 'o' // Body
+                }
+            }
+        }
+        
+        // Place the food on the grid
+        if self.food.row >= 0 && self.food.row < self.height && 
+           self.food.col >= 0 && self.food.col < self.width {
+            grid[self.food.row as usize][self.food.col as usize] = '*'
+        }
+        
+        // Draw the top border
+        print("+")
+        for _ in 0..self.width {
+            print("-")
+        }
+        println("+")
+        
+        // Draw the grid
+        for row in grid {
+            print("|")
+            for cell in row {
+                print("{}", cell)
+            }
+            println("|")
+        }
+        
+        // Draw the bottom border
+        print("+")
+        for _ in 0..self.width {
+            print("-")
+        }
+        println("+")
+    }
+    
+    fn change_direction(&mut self, new_direction: Direction) {
+        // Prevent 180-degree turns
+        match (&self.direction, &new_direction) {
+            (Direction::Up, Direction::Down) => return,
+            (Direction::Down, Direction::Up) => return,
+            (Direction::Left, Direction::Right) => return,
+            (Direction::Right, Direction::Left) => return,
+            _ => self.direction = new_direction
+        }
+    }
+    
+    fn generate_food(&mut self) {
+        // Simple random food generation
+        // In a real game, we'd use a proper random number generator
+        let mut row = (self.food.row + 7) % self.height
+        let mut col = (self.food.col + 5) % self.width
+        
+        // Make sure food doesn't appear on the snake
+        let mut is_on_snake = true
+        while is_on_snake {
+            is_on_snake = false
+            for segment in &self.snake {
+                if segment.row == row && segment.col == col {
+                    is_on_snake = true
+                    row = (row + 1) % self.height
+                    col = (col + 1) % self.width
+                    break
+                }
+            }
+        }
+        
+        self.food = Position::new(row, col)
+    }
+}
+
+fn clear_screen() {
+    // In a real terminal application, this would clear the screen
+    // For Windows: system("cls")
+    // For Unix/Linux: system("clear")
+    
+    // For this example, we'll just print some newlines
+    for _ in 0..10 {
+        println("")
+    }
+}
+
+fn input() -> String {
+    // In a real K3 implementation, this would read from stdin
+    // For this example, we'll simulate it with a predefined sequence
+    
+    // Simulate a sequence of moves to play the snake game
+    static mut MOVE_INDEX: usize = 0
+    static MOVES: [&str; 30] = [
+        "d", "d", "d", "s", "s", "a", "a", "a", 
+        "w", "w", "d", "d", "d", "d", "s", "s", 
+        "a", "a", "a", "a", "w", "w", "d", "d", 
+        "d", "s", "s", "a", "a", "q"
+    ]
+    
+    unsafe {
+        if MOVE_INDEX < MOVES.len() {
+            let move_str = MOVES[MOVE_INDEX]
+            MOVE_INDEX += 1
+            return move_str.to_string()
+        } else {
+            return "q".to_string()
+        }
+    }
+}
+
+fn print(format_string: String, args...) {
+    // In a real K3 implementation, this would format and print without a newline
+    // For this example, we'll just use println without a newline
+    // This simulates print without newline
+    println(format_string)
+}

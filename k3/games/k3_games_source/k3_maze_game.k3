@@ -1,0 +1,216 @@
+// K3 ASCII Maze Game
+// Run with: k3 k3_maze_game.k3
+
+fn main() {
+    println("K3 ASCII Maze Game")
+    println("=================")
+    println("Navigate through the maze to reach the exit (E)")
+    println("Controls: W (up), A (left), S (down), D (right), Q (quit)")
+    println("Press Enter to start...")
+    let _ = input()
+    
+    // Initialize game state
+    let mut game = Game::new()
+    
+    // Main game loop
+    while !game.is_game_over {
+        // Clear screen (in a real terminal this would work)
+        clear_screen()
+        
+        // Display the maze
+        game.display()
+        
+        // Get player input
+        println("Enter move (W/A/S/D) or Q to quit: ")
+        let move_input = input()
+        
+        // Process the move
+        if move_input.len() > 0 {
+            let command = move_input.chars()[0]
+            
+            match command {
+                'W' | 'w' => game.move_player(-1, 0),  // Up
+                'A' | 'a' => game.move_player(0, -1),  // Left
+                'S' | 's' => game.move_player(1, 0),   // Down
+                'D' | 'd' => game.move_player(0, 1),   // Right
+                'Q' | 'q' => game.is_game_over = true, // Quit
+                _ => println("Invalid move! Use W, A, S, D to move or Q to quit.")
+            }
+        }
+    }
+    
+    // Game over message
+    if game.has_won {
+        println("\nCongratulations! You've escaped the maze!")
+    } else {
+        println("\nGame over! Better luck next time!")
+    }
+}
+
+struct Game {
+    maze: Vec<Vec<char>>,
+    player_row: usize,
+    player_col: usize,
+    is_game_over: bool,
+    has_won: bool,
+    moves: u32
+}
+
+impl Game {
+    fn new() -> Game {
+        // Create a simple maze
+        // # = wall, ' ' = path, P = player, E = exit, T = trap
+        let maze_data = [
+            "#############",
+            "#P    #     #",
+            "# ### # ### #",
+            "#   #   #   #",
+            "### ##### ###",
+            "#     # #   #",
+            "# ### # # # #",
+            "#   #   # # #",
+            "### ####### #",
+            "#T        #T#",
+            "# ####### # #",
+            "#       #   #",
+            "#########E###"
+        ]
+        
+        // Convert to Vec<Vec<char>>
+        let mut maze = Vec::new()
+        for row in maze_data {
+            maze.push(row.chars().collect())
+        }
+        
+        // Find player position
+        let mut player_row = 0
+        let mut player_col = 0
+        
+        for i in 0..maze.len() {
+            for j in 0..maze[i].len() {
+                if maze[i][j] == 'P' {
+                    player_row = i
+                    player_col = j
+                    // Replace player position with empty space in the maze
+                    maze[i][j] = ' '
+                    break
+                }
+            }
+        }
+        
+        Game {
+            maze,
+            player_row,
+            player_col,
+            is_game_over: false,
+            has_won: false,
+            moves: 0
+        }
+    }
+    
+    fn display(&self) {
+        println("Moves: {}", self.moves)
+        println("")
+        
+        for i in 0..self.maze.len() {
+            for j in 0..self.maze[i].len() {
+                if i == self.player_row && j == self.player_col {
+                    print("P") // Player
+                } else {
+                    print("{}", self.maze[i][j])
+                }
+            }
+            println("")
+        }
+        println("")
+    }
+    
+    fn move_player(&mut self, row_delta: i32, col_delta: i32) {
+        let new_row = (self.player_row as i32 + row_delta) as usize
+        let new_col = (self.player_col as i32 + col_delta) as usize
+        
+        // Check if the new position is valid
+        if new_row < self.maze.len() && new_col < self.maze[0].len() {
+            let cell = self.maze[new_row][new_col]
+            
+            match cell {
+                '#' => {
+                    // Wall - can't move
+                    println("You can't move through walls!")
+                },
+                'E' => {
+                    // Exit - win the game
+                    self.player_row = new_row
+                    self.player_col = new_col
+                    self.is_game_over = true
+                    self.has_won = true
+                    self.moves += 1
+                },
+                'T' => {
+                    // Trap - lose the game
+                    self.player_row = new_row
+                    self.player_col = new_col
+                    self.is_game_over = true
+                    self.has_won = false
+                    self.moves += 1
+                    println("Oh no! You fell into a trap!")
+                },
+                ' ' => {
+                    // Empty space - move
+                    self.player_row = new_row
+                    self.player_col = new_col
+                    self.moves += 1
+                },
+                _ => {
+                    // Unknown cell type
+                    println("Unknown cell type: {}", cell)
+                }
+            }
+        } else {
+            println("You can't move outside the maze!")
+        }
+    }
+}
+
+fn clear_screen() {
+    // In a real terminal application, this would clear the screen
+    // For Windows: system("cls")
+    // For Unix/Linux: system("clear")
+    
+    // For this example, we'll just print some newlines
+    for _ in 0..10 {
+        println("")
+    }
+}
+
+fn input() -> String {
+    // In a real K3 implementation, this would read from stdin
+    // For this example, we'll simulate it with a predefined sequence
+    // This is just for demonstration - in a real game, you'd get actual user input
+    
+    // Simulate a sequence of moves to solve the maze
+    static mut MOVE_INDEX: usize = 0
+    static MOVES: [&str; 20] = [
+        "d", "d", "d", "d", "s", "s", 
+        "d", "d", "d", "d", "d", "s", 
+        "s", "s", "s", "s", "s", "s", 
+        "d", "d"
+    ]
+    
+    unsafe {
+        if MOVE_INDEX < MOVES.len() {
+            let move_str = MOVES[MOVE_INDEX]
+            MOVE_INDEX += 1
+            return move_str.to_string()
+        } else {
+            return "q".to_string()
+        }
+    }
+}
+
+fn print(format_string: String, args...) {
+    // In a real K3 implementation, this would format and print without a newline
+    // For this example, we'll just use println without a newline
+    // This simulates print without newline
+    println(format_string)
+}

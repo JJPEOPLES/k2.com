@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K3 Games - Fun ASCII Games and Demos</title>
+    <meta name="description" content="Play fun ASCII games and demos built with K3. Explore maze games, snake games, and ASCII art generators.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/modern-ui.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../../js/nahir-ui.js" defer></script>
+    <script src="../js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    
+    <style>
+        /* Games page specific styles */
+        .games-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .games-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .games-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .games-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+        
+        .game-image {
+            width: 100%;
+            height: 200px;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .game-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        
+        .game-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .game-link {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-align: center;
+        }
+        
+        .game-link:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .source-code {
+            margin-top: 4rem;
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .source-code h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .source-code p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        
+        .code-block {
+            background-color: var(--code-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            color: var(--code-text);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .download-source {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .download-source:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="../index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="../index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="index.html" class="animated-link">Games</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="games-container">
+        <div class="games-header">
+            <h1>K3 ASCII Games</h1>
+            <p>Have fun with these ASCII games and demos built with K3. These games showcase the power and expressiveness of the K3 programming language.</p>
+        </div>
+        
+        <div class="games-grid">
+            <div class="game-card">
+                <div class="game-image">
+                    <i class="fas fa-font"></i>
+                </div>
+                <div class="game-content">
+                    <h2 class="game-title">ASCII Art Generator</h2>
+                    <p class="game-description">Create and view cool ASCII art animations including a K3 logo, rocket ship, and animated loading screens. A fun way to see what you can do with text-based graphics in K3.</p>
+                    <a href="ascii_art.html" class="game-link">Play Now</a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-image">
+                    <i class="fas fa-maze"></i>
+                </div>
+                <div class="game-content">
+                    <h2 class="game-title">Maze Game</h2>
+                    <p class="game-description">Navigate through a maze to reach the exit. Avoid traps and find the shortest path to freedom! This game demonstrates K3's capabilities for game logic and state management.</p>
+                    <a href="maze_game.html" class="game-link">Play Now</a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-image">
+                    <i class="fas fa-snake"></i>
+                </div>
+                <div class="game-content">
+                    <h2 class="game-title">Snake Game</h2>
+                    <p class="game-description">Control a snake to eat food and grow longer. Don't hit the walls or yourself! This classic game shows how K3 can be used to create interactive experiences with simple but engaging gameplay.</p>
+                    <a href="snake_game.html" class="game-link">Play Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="source-code">
+            <h2>Learn from the Source Code</h2>
+            <p>These games are great examples of what you can build with K3. Check out the source code to learn how they work and how to create your own games.</p>
+            
+            <div class="code-block">
+                <pre>// K3 Snake Game - Simplified Example
+fn main() {
+    let mut game = SnakeGame::new(20, 20)
+    
+    // Main game loop
+    while !game.is_game_over {
+        // Clear screen
+        clear_screen()
+        
+        // Update game state
+        game.update()
+        
+        // Render the game
+        game.render()
+        
+        // Get player input
+        let direction = input()
+        
+        // Process input
+        match direction.chars()[0] {
+            'W' | 'w' => game.change_direction(Direction::Up),
+            'A' | 'a' => game.change_direction(Direction::Left),
+            'S' | 's' => game.change_direction(Direction::Down),
+            'D' | 'd' => game.change_direction(Direction::Right),
+            'Q' | 'q' => game.is_game_over = true,
+            _ => {}
+        }
+    }
+    
+    println("\nGame Over!")
+    println("Final Score: {}", game.score)
+}</pre>
+            </div>
+            
+            <p>Want to see the full source code and run these games locally? Download the K3 source files:</p>
+            <a href="k3_games_source.zip" class="download-source">Download Source Code</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>K3 Language</h3>
+                <p>A modern, high-performance programming language designed for building everything from system utilities to web applications.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../docs.html">Documentation</a></li>
+                    <li><a href="../try.html">Try Online</a></li>
+                    <li><a href="index.html">Games</a></li>
+                    <li><a href="../forum.html">Community Forum</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="../docs.html#tutorials">Tutorials</a></li>
+                    <li><a href="../docs.html#api">API Reference</a></li>
+                    <li><a href="../docs.html#examples">Code Examples</a></li>
+                    <li><a href="../index.html#download">Download</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-reddit"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 K3 Language. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

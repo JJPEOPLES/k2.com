@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K3 Snake Game - K3 Games</title>
+    <meta name="description" content="Play the classic Snake game built with K3. Control a snake to eat food and grow longer without hitting walls or yourself.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/modern-ui.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../../js/nahir-ui.js" defer></script>
+    <script src="../js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 0;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+            font-size: 16px;
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+        
+        .game-info {
+            margin: 20px 0;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .game-info h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .game-info p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .direction-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 5px;
+            width: 150px;
+            margin: 0 auto;
+        }
+        
+        .direction-controls button {
+            padding: 10px;
+            margin: 0;
+        }
+        
+        .up {
+            grid-column: 2;
+            grid-row: 1;
+        }
+        
+        .left {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        
+        .down {
+            grid-column: 2;
+            grid-row: 3;
+        }
+        
+        .right {
+            grid-column: 3;
+            grid-row: 2;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .status {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="../index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="../index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="index.html" class="animated-link">Games</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>K3 ASCII Snake Game</h1>
+        
+        <div class="game-info">
+            <h2>How to Play</h2>
+            <p>Control the snake (O) to eat food (*) and grow longer.</p>
+            <p>Use the buttons below or keyboard (W, A, S, D) to change direction.</p>
+            <p>Don't hit the walls or yourself!</p>
+            <p>Press Space to pause/resume the game.</p>
+        </div>
+        
+        <pre id="game-display"></pre>
+        
+        <div class="direction-controls">
+            <button class="up" id="up-btn">W</button>
+            <button class="left" id="left-btn">A</button>
+            <button class="down" id="down-btn">S</button>
+            <button class="right" id="right-btn">D</button>
+        </div>
+        
+        <div class="controls">
+            <button id="start-btn">Start Game</button>
+            <button id="pause-btn">Pause</button>
+        </div>
+        
+        <div id="status" class="status">Press Start to begin</div>
+        
+        <a href="index.html" class="back-link">← Back to Games</a>
+    </div>
+    
+    <script>
+        // Direction enum
+        const Direction = {
+            UP: 'up',
+            DOWN: 'down',
+            LEFT: 'left',
+            RIGHT: 'right'
+        };
+        
+        // Game state
+        const game = {
+            width: 20,
+            height: 20,
+            snake: [],
+            direction: Direction.RIGHT,
+            food: { row: 0, col: 0 },
+            isGameOver: false,
+            isPaused: true,
+            score: 0,
+            speed: 150, // milliseconds between moves
+            gameInterval: null,
+            
+            // Initialize the game
+            init() {
+                // Clear any existing interval
+                if (this.gameInterval) {
+                    clearInterval(this.gameInterval);
+                    this.gameInterval = null;
+                }
+                
+                // Reset game state
+                this.snake = [
+                    { row: Math.floor(this.height / 2), col: Math.floor(this.width / 2) },
+                    { row: Math.floor(this.height / 2), col: Math.floor(this.width / 2) - 1 },
+                    { row: Math.floor(this.height / 2), col: Math.floor(this.width / 2) - 2 }
+                ];
+                this.direction = Direction.RIGHT;
+                this.isGameOver = false;
+                this.isPaused = true;
+                this.score = 0;
+                
+                // Generate initial food
+                this.generateFood();
+                
+                // Render initial state
+                this.render();
+                
+                // Update status
+                document.getElementById('status').textContent = 'Press Start to begin';
+                document.getElementById('status').style.color = 'var(--text-color)';
+            },
+            
+            // Start the game
+            start() {
+                if (this.isGameOver) {
+                    this.init();
+                }
+                
+                this.isPaused = false;
+                document.getElementById('status').textContent = 'Game running - Score: ' + this.score;
+                
+                // Start game loop
+                if (!this.gameInterval) {
+                    this.gameInterval = setInterval(() => this.update(), this.speed);
+                }
+            },
+            
+            // Pause the game
+            pause() {
+                this.isPaused = true;
+                document.getElementById('status').textContent = 'Game paused - Score: ' + this.score;
+                
+                // Clear interval
+                if (this.gameInterval) {
+                    clearInterval(this.gameInterval);
+                    this.gameInterval = null;
+                }
+            },
+            
+            // Update game state
+            update() {
+                if (this.isGameOver || this.isPaused) return;
+                
+                // Get current head position
+                const head = this.snake[0];
+                
+                // Calculate new head position based on direction
+                let newHead = { row: head.row, col: head.col };
+                
+                switch (this.direction) {
+                    case Direction.UP:
+                        newHead.row--;
+                        break;
+                    case Direction.DOWN:
+                        newHead.row++;
+                        break;
+                    case Direction.LEFT:
+                        newHead.col--;
+                        break;
+                    case Direction.RIGHT:
+                        newHead.col++;
+                        break;
+                }
+                
+                // Check for collisions with walls
+                if (newHead.row < 0 || newHead.row >= this.height || 
+                    newHead.col < 0 || newHead.col >= this.width) {
+                    this.gameOver();
+                    return;
+                }
+                
+                // Check for collisions with self
+                for (const segment of this.snake) {
+                    if (newHead.row === segment.row && newHead.col === segment.col) {
+                        this.gameOver();
+                        return;
+                    }
+                }
+                
+                // Check if snake eats food
+                const ateFood = newHead.row === this.food.row && newHead.col === this.food.col;
+                
+                // Move the snake
+                this.snake.unshift(newHead);
+                
+                if (ateFood) {
+                    // Grow the snake (don't remove the tail)
+                    this.score += 10;
+                    document.getElementById('status').textContent = 'Game running - Score: ' + this.score;
+                    
+                    // Generate new food
+                    this.generateFood();
+                    
+                    // Increase speed slightly
+                    if (this.speed > 50) {
+                        this.speed -= 2;
+                        clearInterval(this.gameInterval);
+                        this.gameInterval = setInterval(() => this.update(), this.speed);
+                    }
+                } else {
+                    // Remove the tail
+                    this.snake.pop();
+                }
+                
+                // Render the updated state
+                this.render();
+            },
+            
+            // Render the game
+            render() {
+                const gameDisplay = document.getElementById('game-display');
+                
+                // Create a grid
+                let grid = [];
+                for (let i = 0; i < this.height; i++) {
+                    let row = [];
+                    for (let j = 0; j < this.width; j++) {
+                        row.push(' ');
+                    }
+                    grid.push(row);
+                }
+                
+                // Place the snake on the grid
+                for (let i = 0; i < this.snake.length; i++) {
+                    const segment = this.snake[i];
+                    if (segment.row >= 0 && segment.row < this.height && 
+                        segment.col >= 0 && segment.col < this.width) {
+                        grid[segment.row][segment.col] = i === 0 ? 'O' : 'o';
+                    }
+                }
+                
+                // Place the food on the grid
+                if (this.food.row >= 0 && this.food.row < this.height && 
+                    this.food.col >= 0 && this.food.col < this.width) {
+                    grid[this.food.row][this.food.col] = '*';
+                }
+                
+                // Build the output string
+                let output = `Score: ${this.score}\n\n`;
+                
+                // Draw the top border
+                output += '+';
+                for (let i = 0; i < this.width; i++) {
+                    output += '-';
+                }
+                output += '+\n';
+                
+                // Draw the grid
+                for (const row of grid) {
+                    output += '|';
+                    for (const cell of row) {
+                        output += cell;
+                    }
+                    output += '|\n';
+                }
+                
+                // Draw the bottom border
+                output += '+';
+                for (let i = 0; i < this.width; i++) {
+                    output += '-';
+                }
+                output += '+';
+                
+                gameDisplay.textContent = output;
+            },
+            
+            // Change direction
+            changeDirection(newDirection) {
+                // Prevent 180-degree turns
+                if ((this.direction === Direction.UP && newDirection === Direction.DOWN) ||
+                    (this.direction === Direction.DOWN && newDirection === Direction.UP) ||
+                    (this.direction === Direction.LEFT && newDirection === Direction.RIGHT) ||
+                    (this.direction === Direction.RIGHT && newDirection === Direction.LEFT)) {
+                    return;
+                }
+                
+                this.direction = newDirection;
+            },
+            
+            // Generate food
+            generateFood() {
+                let row, col;
+                let isOnSnake;
+                
+                do {
+                    row = Math.floor(Math.random() * this.height);
+                    col = Math.floor(Math.random() * this.width);
+                    
+                    isOnSnake = false;
+                    for (const segment of this.snake) {
+                        if (segment.row === row && segment.col === col) {
+                            isOnSnake = true;
+                            break;
+                        }
+                    }
+                } while (isOnSnake);
+                
+                this.food = { row, col };
+            },
+            
+            // Game over
+            gameOver() {
+                this.isGameOver = true;
+                
+                if (this.gameInterval) {
+                    clearInterval(this.gameInterval);
+                    this.gameInterval = null;
+                }
+                
+                document.getElementById('status').textContent = `Game Over! Final Score: ${this.score}`;
+                document.getElementById('status').style.color = '#ef4444';
+            }
+        };
+        
+        // Initialize the game
+        game.init();
+        
+        // Event listeners for buttons
+        document.getElementById('up-btn').addEventListener('click', () => {
+            game.changeDirection(Direction.UP);
+        });
+        
+        document.getElementById('left-btn').addEventListener('click', () => {
+            game.changeDirection(Direction.LEFT);
+        });
+        
+        document.getElementById('down-btn').addEventListener('click', () => {
+            game.changeDirection(Direction.DOWN);
+        });
+        
+        document.getElementById('right-btn').addEventListener('click', () => {
+            game.changeDirection(Direction.RIGHT);
+        });
+        
+        document.getElementById('start-btn').addEventListener('click', () => {
+            game.start();
+        });
+        
+        document.getElementById('pause-btn').addEventListener('click', () => {
+            game.pause();
+        });
+        
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            switch (e.key.toLowerCase()) {
+                case 'w':
+                    game.changeDirection(Direction.UP);
+                    break;
+                case 'a':
+                    game.changeDirection(Direction.LEFT);
+                    break;
+                case 's':
+                    game.changeDirection(Direction.DOWN);
+                    break;
+                case 'd':
+                    game.changeDirection(Direction.RIGHT);
+                    break;
+                case ' ':
+                    if (game.isPaused) {
+                        game.start();
+                    } else {
+                        game.pause();
+                    }
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

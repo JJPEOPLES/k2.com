@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K3 ASCII Art Generator - K3 Games</title>
+    <meta name="description" content="Create and view cool ASCII art animations with the K3 ASCII Art Generator. See K3 logo, rocket ship, and animated loading screens.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../css/modern-ui.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/k3-styles.css">
+    
+    <!-- JavaScript -->
+    <script src="../../js/nahir-ui.js" defer></script>
+    <script src="../js/k3-main.js" defer></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 0;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+        
+        .output {
+            min-height: 300px;
+            margin-bottom: 2rem;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .game-info {
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .game-info h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .game-info p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>K3</h1>
+                <span class="tagline">Fast, Safe, and Expressive</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#features" class="animated-link">Features</a></li>
+                <li><a href="../index.html#performance" class="animated-link">Performance</a></li>
+                <li><a href="../index.html#examples" class="animated-link">Examples</a></li>
+                <li><a href="../index.html#stellar" class="animated-link stellar-link">Stellar UI</a></li>
+                <li><a href="../try.html" class="animated-link">Try Online</a></li>
+                <li><a href="index.html" class="animated-link">Games</a></li>
+                <li><a href="../docs.html" class="animated-link">Documentation</a></li>
+                <li><a href="../forum.html" class="animated-link">Forum</a></li>
+                <li><a href="../index.html#download" class="download-btn">Download</a></li>
+                <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>K3 ASCII Art Generator</h1>
+        
+        <div class="game-info">
+            <h2>About This Demo</h2>
+            <p>This ASCII Art Generator demonstrates K3's capabilities for text manipulation and animation. It showcases how K3 can be used to create visual elements using only ASCII characters.</p>
+            <p>Use the buttons below to display different ASCII art animations.</p>
+        </div>
+        
+        <div class="controls">
+            <button id="logo-btn">Show K3 Logo</button>
+            <button id="rocket-btn">Show Rocket</button>
+            <button id="animate-btn">Show Animation</button>
+        </div>
+        
+        <pre id="output" class="output">Welcome to K3 ASCII Art Generator!
+Select an option above to display ASCII art.</pre>
+        
+        <a href="index.html" class="back-link">← Back to Games</a>
+    </div>
+    
+    <script>
+        // ASCII Art Data
+        const k3Logo = `  _  __  ____  
+ | |/ / |___ \\ 
+ | ' /    __) |
+ | . \\   |__ < 
+ |_|\\_\\  |___/ 
+
+The Fast, Safe, and Expressive Programming Language`;
+
+        const rocket = `       /\\
+      /  \\
+     /    \\
+    /      \\
+   /        \\
+  /          \\
+ /_____________\\
+ |             |
+ |   K3 LANG   |
+ |             |
+ |             |
+ |             |
+ |_____________|
+ |             |
+ |             |
+ |             |
+ |_____________|
+  /|         |\\
+ / |         | \\
+/__|_________|__\\
+    |       |
+    |       |
+    |       |
+   /|\\     /|\\
+  / | \\   / | \\
+ /  |  \\ /  |  \\
+/   |   V   |   \\
+    |       |
+    |       |
+    |       |
+    V       V`;
+
+        // DOM Elements
+        const output = document.getElementById('output');
+        const logoBtn = document.getElementById('logo-btn');
+        const rocketBtn = document.getElementById('rocket-btn');
+        const animateBtn = document.getElementById('animate-btn');
+        
+        // Event Listeners
+        logoBtn.addEventListener('click', () => {
+            output.textContent = k3Logo;
+        });
+        
+        rocketBtn.addEventListener('click', () => {
+            output.textContent = rocket;
+        });
+        
+        animateBtn.addEventListener('click', async () => {
+            output.textContent = "Loading K3 Turbo Engine...";
+            
+            // Animation frames for a spinner
+            const frames = ["|", "/", "-", "\\", "|", "/", "-", "\\"];
+            
+            // Animate loading spinner
+            for (let i = 0; i < 40; i++) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                output.textContent = `[${frames[i % 8]}] Loading... ${i * 2.5}%`;
+            }
+            
+            output.textContent = "[*] Loading complete! 100%\n\nK3 Turbo Engine is ready!\n\nAnimated wave:";
+            
+            // Animate wave
+            const waveFrames = [
+                "~~~~~~~~~",
+                "~~~~~~~-~",
+                "~~~~~-~~~",
+                "~~~-~~~~~",
+                "~-~~~~~~~",
+                "-~~~~~~~~",
+                "~-~~~~~~~",
+                "~~~-~~~~~",
+                "~~~~~-~~~",
+                "~~~~~~~-~"
+            ];
+            
+            for (let i = 0; i < 30; i++) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                output.textContent = `[*] Loading complete! 100%\n\nK3 Turbo Engine is ready!\n\nAnimated wave:\n${waveFrames[i % 10]}  K3 is awesome!  ${waveFrames[(i + 5) % 10]}`;
+            }
+            
+            output.textContent += "\n\nASCII art demonstration complete!";
+        });
+    </script>
+</body>
+</html>
